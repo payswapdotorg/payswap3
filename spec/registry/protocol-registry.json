@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "registry": "payswap3-protocol-registry",
+  "protocol": {
+    "name": "PaySwap protocol",
+    "architecture": "v0.1",
+    "status": "frozen",
+    "specificationRoot": "spec/architecture/v0.1/",
+    "freezeNote": "Protocol architecture v0.1 is frozen. Any protocol semantic change requires the Architecture Change Request process; product-layer version labels do not create a protocol v0.2.",
+    "changeProcess": "spec/architecture-change-requests/",
+    "workOrders": "WORK-001..WORK-033",
+    "globalConstraints": {
+      "G1": "Exact, deterministic financial arithmetic: integer minor units, no floats, no rounding in the protocol core, idempotent computations.",
+      "G2": "External outcomes can be UNKNOWN; UNKNOWN -> reconciliation -> known outcome -> safe recovery; never blind retry.",
+      "G3": "All external effects go behind rail-adapter boundaries with explicit authority; no component outside the protocol authorities may produce financial effects.",
+      "G4": "Single financial authority: the protocol layer owns financial truth; product and deployment layers may not duplicate it.",
+      "G5": "Every consequential operation produces evidence records (what/when/authority/outcome/proof), committed atomically with the state transition.",
+      "G6": "Simulation/replay operates on isolated, environment-tagged state and can never mutate production financial state.",
+      "G7": "Sandbox/demo can never reach production financial effects without separately authorized production configuration, which they do not hold."
+    },
+    "singleFinancialAuthority": {
+      "apex": "Settlement and Finality Authority",
+      "executor": "Rail Authority",
+      "rule": "Only the Settlement and Finality Authority originates instructions for external value movement; only the Rail Authority executes them through adapters; liquidity funding/withdrawal egress is token-scoped to the Liquidity Authority; product and deployment layers hold no signing or execution power."
+    }
+  },
+  "areaCount": 24,
+  "areas": [
+    {
+      "id": "A01",
+      "index": 1,
+      "name": "intent-and-demand",
+      "title": "Intent and Demand",
+      "file": "spec/architecture/v0.1/core.md",
+      "section": "Area 1 — Intent and Demand",
+      "owningAuthority": "Intent Authority",
+      "primaryObjects": ["Intent", "IntentPayload", "DemandSignal"],
+      "crossReferences": ["A02", "A03", "A04", "A08", "A16", "A20", "A24"]
+    },
+    {
+      "id": "A02",
+      "index": 2,
+      "name": "fulfillment-policy",
+      "title": "Fulfillment Policy",
+      "file": "spec/architecture/v0.1/core.md",
+      "section": "Area 2 — Fulfillment Policy",
+      "owningAuthority": "Fulfillment Policy Authority",
+      "primaryObjects": ["FulfillmentPolicy", "PolicyEvaluation"],
+      "crossReferences": ["A01", "A04", "A08", "A16"]
+    },
+    {
+      "id": "A03",
+      "index": 3,
+      "name": "capability-discovery-and-commitments",
+      "title": "Capability Discovery and Commitments",
+      "file": "spec/architecture/v0.1/core.md",
+      "section": "Area 3 — Capability Discovery and Commitments",
+      "owningAuthority": "Capability Authority",
+      "primaryObjects": ["Capability", "CapabilityDirectory", "Commitment"],
+      "crossReferences": ["A01", "A04", "A16", "A18", "A24"]
+    },
+    {
+      "id": "A04",
+      "index": 4,
+      "name": "routing-compiler",
+      "title": "Routing/Compiler",
+      "file": "spec/architecture/v0.1/core.md",
+      "section": "Area 4 — Routing/Compiler",
+      "owningAuthority": "Routing Authority",
+      "primaryObjects": ["RoutingProblem", "FulfillmentPlan", "PlanStep"],
+      "crossReferences": ["A02", "A03", "A05", "A09", "A12", "A16", "A20"]
+    },
+    {
+      "id": "A05",
+      "index": 5,
+      "name": "reservations-and-concurrency",
+      "title": "Reservations and Concurrency",
+      "file": "spec/architecture/v0.1/core.md",
+      "section": "Area 5 — Reservations and Concurrency",
+      "owningAuthority": "Reservation Authority",
+      "primaryObjects": ["Reservation", "FencingToken", "ReservationLedger"],
+      "crossReferences": ["A04", "A06", "A07", "A12"]
+    },
+    {
+      "id": "A06",
+      "index": 6,
+      "name": "liquidity",
+      "title": "Liquidity",
+      "file": "spec/architecture/v0.1/liquidity-credit-queues.md",
+      "section": "Area 6 — Liquidity",
+      "owningAuthority": "Liquidity Authority",
+      "primaryObjects": ["LiquidityPool", "LiquidityPosition", "FundingInstruction"],
+      "crossReferences": ["A05", "A07", "A12", "A13", "A14"]
+    },
+    {
+      "id": "A07",
+      "index": 7,
+      "name": "credit",
+      "title": "Credit",
+      "file": "spec/architecture/v0.1/liquidity-credit-queues.md",
+      "section": "Area 7 — Credit",
+      "owningAuthority": "Credit Authority",
+      "primaryObjects": ["CreditLine", "CreditDraw", "CreditDecision"],
+      "crossReferences": ["A05", "A06", "A09", "A14", "A16"]
+    },
+    {
+      "id": "A08",
+      "index": 8,
+      "name": "queued-delayed-fulfillment",
+      "title": "Queued/Delayed Fulfillment",
+      "file": "spec/architecture/v0.1/liquidity-credit-queues.md",
+      "section": "Area 8 — Queued/Delayed Fulfillment",
+      "owningAuthority": "Queue Authority",
+      "primaryObjects": ["FulfillmentQueue", "QueueEntry", "QueuePolicy"],
+      "crossReferences": ["A02", "A04", "A06", "A07", "A16", "A24"]
+    },
+    {
+      "id": "A09",
+      "index": 9,
+      "name": "clearing",
+      "title": "Clearing",
+      "file": "spec/architecture/v0.1/clearing-netting-settlement.md",
+      "section": "Area 9 — Clearing",
+      "owningAuthority": "Clearing Authority",
+      "primaryObjects": ["ClearingRecord", "ClearingBatch"],
+      "crossReferences": ["A05", "A08", "A10", "A11", "A14"]
+    },
+    {
+      "id": "A10",
+      "index": 10,
+      "name": "obligations",
+      "title": "Obligations",
+      "file": "spec/architecture/v0.1/clearing-netting-settlement.md",
+      "section": "Area 10 — Obligations",
+      "owningAuthority": "Obligation Authority",
+      "primaryObjects": ["Obligation", "ObligationLedger"],
+      "crossReferences": ["A09", "A11", "A12", "A21", "A22"]
+    },
+    {
+      "id": "A11",
+      "index": 11,
+      "name": "bilateral-and-multilateral-netting",
+      "title": "Bilateral and Multilateral Netting",
+      "file": "spec/architecture/v0.1/clearing-netting-settlement.md",
+      "section": "Area 11 — Bilateral and Multilateral Netting",
+      "owningAuthority": "Netting Authority",
+      "primaryObjects": ["NettingSet", "NettingCycle", "NetPosition", "BilateralOffset"],
+      "crossReferences": ["A10", "A12", "A22"]
+    },
+    {
+      "id": "A12",
+      "index": 12,
+      "name": "settlement-and-finality",
+      "title": "Settlement and Finality",
+      "file": "spec/architecture/v0.1/clearing-netting-settlement.md",
+      "section": "Area 12 — Settlement and Finality",
+      "owningAuthority": "Settlement and Finality Authority",
+      "primaryObjects": ["SettlementInstruction", "SettlementTransaction", "FinalityMark", "CompensationTransaction"],
+      "crossReferences": ["A05", "A10", "A11", "A13", "A14", "A20", "A21"]
+    },
+    {
+      "id": "A13",
+      "index": 13,
+      "name": "external-rail-adapters",
+      "title": "External Rail Adapters",
+      "file": "spec/architecture/v0.1/rails-adapters-reconciliation.md",
+      "section": "Area 13 — External Rail Adapters",
+      "owningAuthority": "Rail Authority",
+      "primaryObjects": ["RailAdapter", "RailOperation", "RailReceipt", "AdapterStatusQuery"],
+      "crossReferences": ["A06", "A12", "A14", "A23"]
+    },
+    {
+      "id": "A14",
+      "index": 14,
+      "name": "reconciliation",
+      "title": "Reconciliation",
+      "file": "spec/architecture/v0.1/rails-adapters-reconciliation.md",
+      "section": "Area 14 — Reconciliation",
+      "owningAuthority": "Reconciliation Authority",
+      "primaryObjects": ["ReconciliationRun", "ReconciliationStatement", "ResolutionRecord", "DriftCase"],
+      "crossReferences": ["A06", "A07", "A12", "A13", "A21", "A22", "A23"]
+    },
+    {
+      "id": "A15",
+      "index": 15,
+      "name": "evidence",
+      "title": "Evidence",
+      "file": "spec/architecture/v0.1/evidence-risk-compliance.md",
+      "section": "Area 15 — Evidence",
+      "owningAuthority": "Evidence Authority",
+      "primaryObjects": ["EvidenceRecord", "EvidenceLedger", "ProofArtifact"],
+      "crossCutting": true,
+      "crossReferences": ["A01", "A04", "A12", "A13", "A14", "A17", "A21", "A22"]
+    },
+    {
+      "id": "A16",
+      "index": 16,
+      "name": "risk-compliance",
+      "title": "Risk/Compliance",
+      "file": "spec/architecture/v0.1/evidence-risk-compliance.md",
+      "section": "Area 16 — Risk/Compliance",
+      "owningAuthority": "Risk and Compliance Authority",
+      "primaryObjects": ["RiskRule", "ComplianceScreen", "RiskHold", "ExposureCap"],
+      "crossCutting": true,
+      "crossReferences": ["A02", "A04", "A07", "A08", "A18", "A19", "A20"]
+    },
+    {
+      "id": "A17",
+      "index": 17,
+      "name": "simulation-replay",
+      "title": "Simulation/Replay",
+      "file": "spec/architecture/v0.1/evidence-risk-compliance.md",
+      "section": "Area 17 — Simulation/Replay",
+      "owningAuthority": "Simulation Authority",
+      "primaryObjects": ["SimulationUniverse", "SimulationScenario", "SimulationRun", "ReplayTrace"],
+      "crossCutting": true,
+      "crossReferences": ["A13", "A14", "A15"]
+    },
+    {
+      "id": "A18",
+      "index": 18,
+      "name": "extensions-capability-marketplace",
+      "title": "Extensions/Capability Marketplace",
+      "file": "spec/architecture/v0.1/extensions-agents-merchant.md",
+      "section": "Area 18 — Extensions/Capability Marketplace",
+      "owningAuthority": "Marketplace Authority",
+      "primaryObjects": ["ExtensionManifest", "MarketplaceListing", "ExtensionGrant"],
+      "crossReferences": ["A03", "A13", "A16", "A19", "A24"]
+    },
+    {
+      "id": "A19",
+      "index": 19,
+      "name": "agents-and-mediation",
+      "title": "Agents and Mediation",
+      "file": "spec/architecture/v0.1/extensions-agents-merchant.md",
+      "section": "Area 19 — Agents and Mediation",
+      "owningAuthority": "Agent Authority",
+      "primaryObjects": ["AgentCredential", "Mandate", "MediationCase"],
+      "crossReferences": ["A16", "A20", "A21"]
+    },
+    {
+      "id": "A20",
+      "index": 20,
+      "name": "merchant-checkout-settlement-primitives",
+      "title": "Merchant Checkout/Settlement Primitives",
+      "file": "spec/architecture/v0.1/extensions-agents-merchant.md",
+      "section": "Area 20 — Merchant Checkout/Settlement Primitives",
+      "owningAuthority": "Merchant Authority",
+      "primaryObjects": ["MerchantProfile", "CheckoutSession", "PaymentRequest", "SettlementSchedule", "PayoutInstruction"],
+      "crossReferences": ["A01", "A04", "A12", "A16", "A19", "A21"]
+    },
+    {
+      "id": "A21",
+      "index": 21,
+      "name": "disputes-recourse",
+      "title": "Disputes/Recourse",
+      "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md",
+      "section": "Area 21 — Disputes/Recourse",
+      "owningAuthority": "Recourse Authority",
+      "primaryObjects": ["Dispute", "Chargeback", "Refund", "RecoursePolicy"],
+      "crossReferences": ["A10", "A12", "A13", "A14", "A19", "A20"]
+    },
+    {
+      "id": "A22",
+      "index": 22,
+      "name": "federation",
+      "title": "Federation",
+      "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md",
+      "section": "Area 22 — Federation",
+      "owningAuthority": "Federation Authority",
+      "primaryObjects": ["FederationMember", "FederationAgreement", "CrossDomainIntent", "CrossDomainObligation"],
+      "crossReferences": ["A10", "A11", "A13", "A15", "A16", "A21"]
+    },
+    {
+      "id": "A23",
+      "index": 23,
+      "name": "blockchain-rails",
+      "title": "Blockchain Rails",
+      "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md",
+      "section": "Area 23 — Blockchain Rails",
+      "owningAuthority": "Rail Authority",
+      "primaryObjects": ["BlockchainRailAdapter", "OnChainOperation", "CustodyPolicy", "AddressOwnershipProof"],
+      "crossReferences": ["A13", "A14", "A18"]
+    },
+    {
+      "id": "A24",
+      "index": 24,
+      "name": "capability-emergence",
+      "title": "Capability Emergence from Unsupported Demand",
+      "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md",
+      "section": "Area 24 — Capability Emergence from Unsupported Demand",
+      "owningAuthority": "Emergence Authority",
+      "primaryObjects": ["DemandGap", "EmergenceSignal", "CapabilityProposal"],
+      "crossReferences": ["A01", "A02", "A03", "A08", "A18"]
+    }
+  ],
+  "consistency": {
+    "areasDefined": 24,
+    "specFiles": [
+      "spec/architecture/v0.1/README.md",
+      "spec/architecture/v0.1/core.md",
+      "spec/architecture/v0.1/liquidity-credit-queues.md",
+      "spec/architecture/v0.1/clearing-netting-settlement.md",
+      "spec/architecture/v0.1/rails-adapters-reconciliation.md",
+      "spec/architecture/v0.1/evidence-risk-compliance.md",
+      "spec/architecture/v0.1/extensions-agents-merchant.md",
+      "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md"
+    ],
+    "workOrdersLedger": "spec/work-orders/WORK-ORDERS-LEDGER.md",
+    "programState": "spec/development-state/program-state.json",
+    "dependencyState": "spec/development-state/dependency-state.json",
+    "frontierState": "spec/development-state/frontier-state.json",
+    "precedence": "If any projection disagrees with spec/architecture/v0.1/, that directory prevails; Git history remains authoritative for merge facts."
+  }
+}
