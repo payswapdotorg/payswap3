@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "program": "payswap3-system-completion",
-  "status": "bootstrap",
+  "status": "ready",
   "sourceOfTruth": "repository",
   "protocol": {
     "architecture": "v0.1",
@@ -14,6 +14,7 @@
   },
   "deployment": {
     "workGraph": "spec/system-work-items.md",
+    "workOrders": "spec/system-work-orders/",
     "closureTarget": "DEP-008"
   },
   "system": {
@@ -22,5 +23,6 @@
     "closure": "SYS-003"
   },
   "activeWork": [],
-  "note": "This state file is an initial system-level projection. It never overrides protocol or product authoritative state. Tech Lead must reconcile it to Git and detailed evidence before activation."
+  "mergedGovernanceRevision": "4cb6c34d369e67a3c73f0f68df59addb33819a85",
+  "note": "Ready for Tech Lead activation. This state is a system-level projection and never overrides protocol/product authoritative state or Git merge facts."
 }
