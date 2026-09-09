@@ -14,11 +14,13 @@ UI-001 (product foundation / app shell)  ↓UI-002  ├── UI-003  ├── 
 2	UI-002	UI-003
 3	UI-002	UI-004
 4	UI-002	UI-005
-5	UI-005	UI-006
-6	UI-006	UI-007
-7	UI-007	UI-008
-8	UI-008	UI-009
-9	UI-009	UI-010
+5	UI-003	UI-006
+6	UI-004	UI-006
+7	UI-005	UI-006
+8	UI-006	UI-007
+9	UI-007	UI-008
+10	UI-008	UI-009
+11	UI-009	UI-010
 3. Work-item records
 UI-001 — Product foundation: application shell, navigation grammar, and state display primitives
 Status: PLANNED (machine state: next)
@@ -57,7 +59,7 @@ Work order: spec/product/work-orders/UI-005.md
 Program role: parallel feature surface and the base for waiting/recovery (UI-006)
 UI-006 — Waiting, queued, and delayed fulfillment UX with recovery
 Status: PLANNED (machine state: blocked)
-Depends on: UI-005
+Depends on: UI-003, UI-004, UI-005
 Dependents: UI-007
 Owned surfaces: waiting/queued/delayed presentation on the track/status surface; recovery action flows; reconciliation visibility for unresolved states
 Work order: spec/product/work-orders/UI-006.md

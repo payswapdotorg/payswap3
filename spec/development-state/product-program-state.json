@@ -15,66 +15,88 @@
       "id": "UI-002",
       "title": "Customer payment intent surface",
       "status": "blocked",
-      "dependsOn": ["UI-001"],
+      "dependsOn": [
+        "UI-001"
+      ],
       "workOrder": "spec/product/work-orders/UI-002.md"
     },
     "UI-003": {
       "id": "UI-003",
       "title": "Merchant checkout surface",
       "status": "blocked",
-      "dependsOn": ["UI-002"],
+      "dependsOn": [
+        "UI-002"
+      ],
       "workOrder": "spec/product/work-orders/UI-003.md"
     },
     "UI-004": {
       "id": "UI-004",
       "title": "Provider and capability surface",
       "status": "blocked",
-      "dependsOn": ["UI-002"],
+      "dependsOn": [
+        "UI-002"
+      ],
       "workOrder": "spec/product/work-orders/UI-004.md"
     },
     "UI-005": {
       "id": "UI-005",
       "title": "Track, status, and evidence surface",
       "status": "blocked",
-      "dependsOn": ["UI-002"],
+      "dependsOn": [
+        "UI-002"
+      ],
       "workOrder": "spec/product/work-orders/UI-005.md"
     },
     "UI-006": {
       "id": "UI-006",
       "title": "Waiting, queued, and delayed fulfillment UX with recovery",
       "status": "blocked",
-      "dependsOn": ["UI-005"],
+      "dependsOn": [
+        "UI-003",
+        "UI-004",
+        "UI-005"
+      ],
       "workOrder": "spec/product/work-orders/UI-006.md"
     },
     "UI-007": {
       "id": "UI-007",
       "title": "Liquidity, credit, and queue visibility surfaces",
       "status": "blocked",
-      "dependsOn": ["UI-006"],
+      "dependsOn": [
+        "UI-006"
+      ],
       "workOrder": "spec/product/work-orders/UI-007.md"
     },
     "UI-008": {
       "id": "UI-008",
       "title": "Agent proposal, mediation, and dispute/recourse surfaces",
       "status": "blocked",
-      "dependsOn": ["UI-007"],
+      "dependsOn": [
+        "UI-007"
+      ],
       "workOrder": "spec/product/work-orders/UI-008.md"
     },
     "UI-009": {
       "id": "UI-009",
       "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
       "status": "blocked",
-      "dependsOn": ["UI-008"],
+      "dependsOn": [
+        "UI-008"
+      ],
       "workOrder": "spec/product/work-orders/UI-009.md"
     },
     "UI-010": {
       "id": "UI-010",
       "title": "End-to-end UX closure evidence and Architect closure",
       "status": "blocked",
-      "dependsOn": ["UI-009"],
+      "dependsOn": [
+        "UI-009"
+      ],
       "workOrder": "spec/product/work-orders/UI-010.md"
     }
   },
-  "frontier": ["UI-001"],
+  "frontier": [
+    "UI-001"
+  ],
   "note": "This file is a machine-readable projection of the payswap3-product program state, maintained for dispatch planning. It is a projection only: it never overrides Git merge facts, and where this file disagrees with repository history, Git is authoritative. Work-item statuses change only through the governed Tech Lead merge process; editing this file does not complete work. The dependency graph mirrored here is pinned by spec/product/work-items.md and spec/product/implementation-roadmap.md."
 }

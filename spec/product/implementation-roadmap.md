@@ -19,13 +19,15 @@ UI-001 (product foundation / app shell)  ↓UI-002  ├── UI-003  ├── 
 2	UI-002 → UI-003	Merchant checkout follows the customer intent surface
 3	UI-002 → UI-004	Provider/capability surface follows the customer intent surface
 4	UI-002 → UI-005	Track/status + evidence surface follows the customer intent surface
-5	UI-005 → UI-006	Waiting/recovery UX builds on track/status + evidence
-6	UI-006 → UI-007	Liquidity/credit/queue visibility follows waiting/recovery
-7	UI-007 → UI-008	Mediation/dispute surfaces follow the visibility surfaces
-8	UI-008 → UI-009	Cross-cutting hardening follows the feature surfaces
-9	UI-009 → UI-010	Closure evidence follows hardening
+5	UI-003 → UI-006	Fan convergence: waiting/recovery UX waits for the merchant checkout sibling
+6	UI-004 → UI-006	Fan convergence: waiting/recovery UX waits for the provider/capability sibling
+7	UI-005 → UI-006	Waiting/recovery UX builds on track/status + evidence
+8	UI-006 → UI-007	Liquidity/credit/queue visibility follows waiting/recovery
+9	UI-007 → UI-008	Mediation/dispute surfaces follow the visibility surfaces
+10	UI-008 → UI-009	Cross-cutting hardening follows the feature surfaces
+11	UI-009 → UI-010	Closure evidence follows hardening
 
-Nine edges, exactly as pinned: no extra edges, no missing edges.
+Eleven edges, exactly as pinned: the UI-002 fan (UI-003/UI-004/UI-005) converges into UI-006 (fan-convergence semantics; no sibling may be consumed unmerged). No extra edges, no missing edges.
 
 Note on Phase 4: the pinned graph draws the continuation arrow from UI-005 to UI-006, and the ledger encodes exactly that — UI-006 depends on UI-005, not on UI-003/UI-004.
 
