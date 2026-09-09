@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "program": "payswap3-protocol",
+  "architecture": "v0.1",
+  "status": "frozen",
+  "graphKind": "area-level",
+  "nodeCount": 24,
+  "nodes": [
+    { "id": "A01", "name": "intent-and-demand", "file": "spec/architecture/v0.1/core.md", "dependsOn": [], "role": "root" },
+    { "id": "A02", "name": "fulfillment-policy", "file": "spec/architecture/v0.1/core.md", "dependsOn": ["A01"] },
+    { "id": "A03", "name": "capability-discovery-and-commitments", "file": "spec/architecture/v0.1/core.md", "dependsOn": ["A01"] },
+    { "id": "A04", "name": "routing-compiler", "file": "spec/architecture/v0.1/core.md", "dependsOn": ["A02", "A03"] },
+    { "id": "A05", "name": "reservations-and-concurrency", "file": "spec/architecture/v0.1/core.md", "dependsOn": ["A04"] },
+    { "id": "A06", "name": "liquidity", "file": "spec/architecture/v0.1/liquidity-credit-queues.md", "dependsOn": ["A05", "A13", "A14"] },
+    { "id": "A07", "name": "credit", "file": "spec/architecture/v0.1/liquidity-credit-queues.md", "dependsOn": ["A05", "A14"] },
+    { "id": "A08", "name": "queued-delayed-fulfillment", "file": "spec/architecture/v0.1/liquidity-credit-queues.md", "dependsOn": ["A02", "A04", "A06", "A07"] },
+    { "id": "A09", "name": "clearing", "file": "spec/architecture/v0.1/clearing-netting-settlement.md", "dependsOn": ["A05", "A08", "A14"] },
+    { "id": "A10", "name": "obligations", "file": "spec/architecture/v0.1/clearing-netting-settlement.md", "dependsOn": ["A09"] },
+    { "id": "A11", "name": "bilateral-and-multilateral-netting", "file": "spec/architecture/v0.1/clearing-netting-settlement.md", "dependsOn": ["A10"] },
+    { "id": "A12", "name": "settlement-and-finality", "file": "spec/architecture/v0.1/clearing-netting-settlement.md", "dependsOn": ["A05", "A10", "A11", "A13"] },
+    { "id": "A13", "name": "external-rail-adapters", "file": "spec/architecture/v0.1/rails-adapters-reconciliation.md", "dependsOn": [], "role": "root" },
+    { "id": "A14", "name": "reconciliation", "file": "spec/architecture/v0.1/rails-adapters-reconciliation.md", "dependsOn": ["A13"] },
+    { "id": "A15", "name": "evidence", "file": "spec/architecture/v0.1/evidence-risk-compliance.md", "dependsOn": [], "crossCutting": true, "role": "root" },
+    { "id": "A16", "name": "risk-compliance", "file": "spec/architecture/v0.1/evidence-risk-compliance.md", "dependsOn": [], "crossCutting": true, "role": "root" },
+    { "id": "A17", "name": "simulation-replay", "file": "spec/architecture/v0.1/evidence-risk-compliance.md", "dependsOn": ["A15"], "crossCutting": true, "note": "Mirrors all areas in isolated universes; its structural dependency is the evidence substrate (A15)." },
+    { "id": "A18", "name": "extensions-capability-marketplace", "file": "spec/architecture/v0.1/extensions-agents-merchant.md", "dependsOn": ["A03", "A16"] },
+    { "id": "A19", "name": "agents-and-mediation", "file": "spec/architecture/v0.1/extensions-agents-merchant.md", "dependsOn": ["A16"] },
+    { "id": "A20", "name": "merchant-checkout-settlement-primitives", "file": "spec/architecture/v0.1/extensions-agents-merchant.md", "dependsOn": ["A01", "A04", "A12"] },
+    { "id": "A21", "name": "disputes-recourse", "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md", "dependsOn": ["A12", "A13", "A14"] },
+    { "id": "A22", "name": "federation", "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md", "dependsOn": ["A10", "A11", "A13"] },
+    { "id": "A23", "name": "blockchain-rails", "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md", "dependsOn": ["A13", "A14"] },
+    { "id": "A24", "name": "capability-emergence", "file": "spec/architecture/v0.1/disputes-federation-blockchain-emergence.md", "dependsOn": ["A01", "A03", "A18"] }
+  ],
+  "roots": ["A01", "A13", "A15", "A16"],
+  "crossCutting": {
+    "areas": ["A15", "A16", "A17"],
+    "note": "Evidence (A15), risk/compliance gating (A16), and simulation/replay (A17) apply across all areas; per-area structural edges above omit them to keep the graph minimal."
+  },
+  "acyclic": true,
+  "workOrderLevel": {
+    "summary": "WORK-level dependency history for WORK-001..WORK-033 is summarized in the work-orders ledger; it is historical and closed.",
+    "ledger": "spec/work-orders/WORK-ORDERS-LEDGER.md"
+  },
+  "note": "Projection consistent with spec/architecture/v0.1/; that directory prevails on any disagreement. Git history remains authoritative for merge facts."
+}

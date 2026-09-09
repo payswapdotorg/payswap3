@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "program": "payswap3-protocol",
+  "architecture": "v0.1",
+  "status": "complete",
+  "frontier": {
+    "openItems": [],
+    "blockedItems": [],
+    "note": "Protocol frontier is empty: architecture v0.1 is frozen and WORK-001..WORK-033 are complete. Any protocol semantic change requires the Architecture Change Request process."
+  },
+  "adjacentFrontiers": {
+    "product": {
+      "stateFile": "spec/development-state/product-program-state.json",
+      "ownedBy": "product program",
+      "note": "Tracked by the product program's own state file; referenced here, not duplicated."
+    },
+    "deployment": {
+      "stateFile": "spec/development-state/system-program-state.json",
+      "workGraph": "spec/system-work-items.md",
+      "workOrders": "spec/system-work-orders/",
+      "ownedBy": "system/deployment program",
+      "note": "Deployment and system work is tracked by the system state file and work graph; referenced here, not duplicated."
+    }
+  },
+  "changeProcess": {
+    "path": "spec/architecture-change-requests/",
+    "rule": "Any protocol semantic change requires the Architecture Change Request process. Product-layer version labels do not create a protocol v0.2."
+  },
+  "note": "Projection consistent with repository README; Git history remains authoritative for merge facts."
+}
