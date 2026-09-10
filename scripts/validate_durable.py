@@ -348,10 +348,27 @@ def check_package_guard() -> None:
         "react": "19.2.3",
         "react-dom": "19.2.3",
     }
+    # GOVERNED CONTRACT CHANGE (UI-002, Tech Lead stack pinning — precedented
+    # by UI-001's pinning): the product shell's UI stack is pinned to
+    # shadcn/ui (base-nova) + lucide-react + zustand over @base-ui/react,
+    # class-variance-authority, clsx, cn. These are PRESENTATION dependencies
+    # only; the durable substrate itself still adds none (its zero-dep rule
+    # holds: node:sqlite only).
+    ui_stack = {
+        "@base-ui/react": "1.8.0",
+        "class-variance-authority": "0.7.1",
+        "clsx": "2.1.1",
+        "cn": "0.2.6",
+        "lucide-react": "1.43.0",
+        "zustand": "5.0.15",
+    }
+    expected_dependencies.update(ui_stack)
     dependencies = parsed.get("dependencies", {})
     check(
         dependencies == expected_dependencies,
-        "package.json dependencies are exactly the DEP-003 base set (next, react, react-dom) — zero new dependencies",
+        "package.json dependencies are exactly the governed base set "
+        "(app runtime + the UI-002 pinned presentation stack) — the durable "
+        "substrate itself adds none",
         f"package.json dependencies drifted from the base: {json.dumps(dependencies, sort_keys=True)}",
     )
 
