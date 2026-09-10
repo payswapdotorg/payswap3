@@ -117,6 +117,17 @@ export const NAVIGATION_ENTRIES: readonly NavEntry[] = [
     kind: 'primary',
   },
   {
+    // UI-002: customer payment intent surface — the first available customer entry.
+    id: 'customer.pay.compose',
+    label: 'Send a payment intent',
+    href: '/pay',
+    description:
+      'State the outcome you want, review the full consequences in plain language, and submit a single payment intent explicitly.',
+    audiences: ['customer'],
+    status: 'available',
+    kind: 'primary',
+  },
+  {
     id: 'merchant-checkout',
     label: 'Checkout',
     href: '/merchant/checkout',
@@ -181,7 +192,29 @@ export const NAVIGATION_ENTRIES: readonly NavEntry[] = [
     status: 'planned',
     kind: 'primary',
   },
+  {
+    // UI-002: intent-flow verification harness — available to every audience.
+    id: 'verification.intent-flow',
+    label: 'Intent flow verification',
+    href: '/verification/intent-flow',
+    description:
+      'Verification harness for the customer payment intent surface: full workflow, the intent state matrix including UNKNOWN, the role matrix, and the adapter boundary report.',
+    audiences: EVERY_AUDIENCE,
+    status: 'available',
+    kind: 'footer',
+  },
 ];
+
+/**
+ * Name of the session signal carrying the SIMULATED authoritative audience
+ * used by verification surfaces (UI-002). This is a test/verification
+ * mechanism in the same NON-AUTHORITATIVE class as the mock intent adapter:
+ * it grants no product capability by itself — every guarded surface still
+ * evaluates the audience through guardSurface on entry (P8). Role truth
+ * remains an authoritative input; the identity work item replaces this
+ * simulated signal with its real authoritative source when it ships.
+ */
+export const SHELL_AUDIENCE_COOKIE = 'payswap-shell-audience';
 
 /** Navigation resolved for exactly one audience. */
 export interface ResolvedNavigation {
