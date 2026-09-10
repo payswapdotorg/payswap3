@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+/*
+ * PaySwap product shell stylesheet (UI-001).
+ * Tailwind entry + the shared design tokens and custom treatments for the
+ * state display primitives. This is the single stylesheet of the product
+ * foundation; the state visual grammar documented here is implemented in
+ * src/components/state/state-frame.tsx.
+ *
+ * State primitive visual grammar — state is NEVER signaled by color alone
+ * (P4, P5, P9). Each display state combines its own icon shape, border
+ * style, tint, and label word:
+ *
+ *   SUCCEEDED       solid border   emerald tint   circle-check icon
+ *   FAILED          solid border + thick left accent   rose tint   octagon-X icon
+ *   UNKNOWN         dashed border  amber tint     circle-question icon
+ *   WAITING         dotted border  stone tint     clock icon
+ *   IN_PROGRESS     solid border + animated strip   teal tint   spinning arc icon
+ *   ACTION_REQUIRED double border  orange tint    bell icon
+ *
+ * Shared breakpoint set: sm 640 / md 768 / lg 1024 / xl 1280 / 2xl 1536 —
+ * defined once in src/lib/navigation.ts (P10) and matching the Tailwind
+ * default scale used here.
+ */
+
+/* Visible focus everywhere (P9): 3px offset outline on keyboard focus. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #0f766e; /* teal-700 */
+  outline-offset: 2px;
+}
+
+/* Skip link (P9): visually hidden until keyboard-focused. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border: 2px solid #0f766e;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #0f766e;
+  font-weight: 600;
+  transform: translateY(-300%);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* IN_PROGRESS icon arc rotation — decorative motion, disabled under reduced motion. */
+@keyframes ps-arc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ps-arc {
+  animation: ps-arc-spin 1.6s linear infinite;
+}
+
+/* IN_PROGRESS progress strip — decorative motion, disabled under reduced motion. */
+@keyframes ps-strip-slide {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 32px 0;
+  }
+}
+.ps-strip {
+  height: 4px;
+  border-radius: 9999px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(13, 148, 136, 0.5) 0 8px,
+    rgba(13, 148, 136, 0.12) 8px 16px
+  );
+  animation: ps-strip-slide 0.9s linear infinite;
+}
+
+/* Reduced motion (P9): no decorative animation when the user opts out. */
+@media (prefers-reduced-motion: reduce) {
+  .ps-arc,
+  .ps-strip {
+    animation: none;
+  }
+}
+
+/*
+ * Scrollable dense lists (P10: degrade to readable mobile forms instead of
+ * horizontal scrolling) — slim custom scrollbars for the grammar registry.
+ */
+.ps-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #d6d3d1 #f5f5f4;
+}
+.ps-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.ps-scroll::-webkit-scrollbar-track {
+  background: #f5f5f4;
+}
+.ps-scroll::-webkit-scrollbar-thumb {
+  background: #d6d3d1;
+  border-radius: 9999px;
+}
