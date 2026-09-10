@@ -23,6 +23,16 @@
     "closure": "SYS-003"
   },
   "activeWork": [],
-  "mergedGovernanceRevision": "4cb6c34d369e67a3c73f0f68df59addb33819a85",
-  "note": "Ready for Tech Lead activation. This state is a system-level projection and never overrides protocol/product authoritative state or Git merge facts."
+  "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
+  "note": "Ready for Tech Lead activation. This state is a system-level projection and never overrides protocol/product authoritative state or Git merge facts.",
+  "bootstrap": {
+    "wave": 1,
+    "status": "COMPLETE",
+    "merged": [
+      "ARCH-001: b9737e9 (protocol architecture v0.1 materialized)",
+      "PROD-001: 4bde502 (product/UX program materialized, 11-edge fan-convergence graph)",
+      "GOV-001: 40b20ae (governance/dispatch scaffolding, validator PASS 17/17)"
+    ],
+    "note": "All declared authority paths now exist and validate (scripts/validate_governance.py). Frontier: UI-001 (product foundation) then DEP-001 per dependency truth."
+  }
 }
