@@ -1,0 +1,200 @@
+{
+  "contract": "payswap-deployment-components",
+  "version": 1,
+  "generated_by": "DEP-001",
+  "base_branch": "main",
+  "base_sha": "f934a76f20efbd6e238605d8e7320495974a870e",
+  "spec_documents": {
+    "topology": "spec/deployment/topology.md",
+    "environments": "spec/deployment/environments.md",
+    "configuration": "spec/deployment/configuration.md"
+  },
+  "runtime_environment_variable": "PAYSWAP_ENV",
+  "runtime_env_allowlist": ["sandbox", "production"],
+  "runtime_env_fail_safe": "sandbox",
+  "environments": ["development", "test-ci", "sandbox", "staging", "production"],
+  "field_semantics": {
+    "owner": "Runtime/process owner. Always 'deployment': the deployment layer owns process topology, persistence infrastructure, queues, schedulers, workers, secrets, runtime configuration, CI/CD, observability, scaling, backups, recovery and environment isolation for every deployed component.",
+    "layer": "Architecture layer whose authority the component hosts: 'protocol' (hosts protocol-owned authority), 'product' (hosts product-owned presentation semantics), 'deployment' (pure deployment infrastructure; hosts no protocol or product authority).",
+    "authority_hosted": "The authority the component hosts. Components with layer 'protocol' list the protocol authorities they host; every other component's value must start with 'none' — financial authority exists only in protocol-layer components.",
+    "exists_in_repository_today": "True only if the component's entrypoint paths exist in the repository at the declared base SHA. False means FUTURE-WORK: the component is deployment-owned capacity whose repository entrypoint arrives with the referenced future work.",
+    "repository_entrypoint": "Object with 'status' ('present' or 'future-work'), 'paths' (repository-relative paths; non-empty and on disk when present; empty when future-work) and 'marker' (dependency-graph provenance; required when future-work).",
+    "route_surface": "Optional: HTTP routes served by the component (documentation; not an existence-checked entrypoint).",
+    "environment_reachability": "Canonical environment classes in which the component may run. Reachability is topology only: production reachability additionally requires the production_gate.",
+    "production_gate": "Required whenever 'production' is reachable: the separately authorized production configuration that gates real financial effects. Sandbox/demo can never reach production financial effects without it (environments.md fail-closed rules F1-F8).",
+    "health_signal": "Contract-level health signal the component must expose; bound to observability from DEP-002 onward.",
+    "rollback": "Contract-level rollback mechanism; principles R1-R5 in spec/deployment/topology.md."
+  },
+  "components": [
+    {
+      "id": "web-api-boundary",
+      "name": "Web/API boundary — PaySwap Next.js application",
+      "exists_in_repository_today": true,
+      "owner": "deployment",
+      "layer": "product",
+      "authority_hosted": "none — hosts product-owned navigation, presentation and progressive disclosure (shell home '/', verification surface '/state-primitives') plus the server-side environment signal; hosts no financial authority, never writes authoritative state, never reaches external rails",
+      "repository_entrypoint": {
+        "status": "present",
+        "paths": ["package.json", "src/app/layout.tsx", "src/app/page.tsx", "src/lib/environment.ts"]
+      },
+      "route_surface": ["/", "/state-primitives", "/_not-found"],
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Production traffic is served only from the production environment with its separately authorized production configuration; PAYSWAP_ENV=production is set only there (environments.md fail-closed rules F2/F3).",
+      "health_signal": "Process boot plus HTTP readiness: GET / returns 200 and the shell renders; the environment signal resolves to an allowlisted value (fail-safe 'sandbox' otherwise).",
+      "rollback": "Stateless redeploy of the previous commit/build artifact; the shell holds no authoritative state, so rollback requires no data recovery."
+    },
+    {
+      "id": "protocol-gateway",
+      "name": "Protocol gateway — authoritative protocol API",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "protocol",
+      "authority_hosted": "protocol authorities per the system architecture hard boundaries — identity, authority, values, accounting, intent, demand, capability, market, liquidity, credit, reservations, routing/compiler, execution admission, clearing, obligations, risk/compliance, recourse, federation — enforced inside a deployment-owned process; the sole admission point for protocol commands",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033; infrastructure binding from DEP-002 onward"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Runs in production only with separately authorized production configuration (DEP-002+ secret binding); sandbox/demo configuration can never reach production financial effects (environments.md F1-F8).",
+      "health_signal": "Readiness endpoint; command acceptance rate and latency; durable-queue submit success (contract for the future work item).",
+      "rollback": "Redeploy previous artifact; in-flight commands replay from the durable command queue; rollback never mutates authoritative state directly."
+    },
+    {
+      "id": "transition-runtime",
+      "name": "Transition runtime — single authoritative-state writer",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "protocol",
+      "authority_hosted": "authoritative state transitions — execution, clearing, obligations, netting, settlement, finality (protocol-owned) — applied as the single writer to authoritative-state-store",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Runs in production only with separately authorized production configuration; state recovery paths never bypass protocol transitions.",
+      "health_signal": "Transition backlog depth and age; authoritative-state consistency probes (contract for the future work item).",
+      "rollback": "Redeploy previous artifact plus point-in-time recovery of authoritative state and replay of durable commands; the only authoritative-state writer, so no other rollback path exists."
+    },
+    {
+      "id": "scheduler",
+      "name": "Scheduler — timing-driven command emitter",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "deployment",
+      "authority_hosted": "none — emits timing-driven commands into the durable command queue; owns timing only, never mutates authoritative state and never reaches external rails",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Runs in production only with separately authorized production configuration; it holds no credentials and no financial authority, so it can never unlock production effects by itself.",
+      "health_signal": "Scheduler heartbeat; missed-schedule alarms (contract for the future work item).",
+      "rollback": "Redeploy previous artifact; schedules are configuration, so no data recovery is involved."
+    },
+    {
+      "id": "reconciler-workers",
+      "name": "Reconciler workers — drift detection and corrective commands",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "protocol",
+      "authority_hosted": "protocol-owned reconciliation semantics — compares authoritative state against external evidence and submits corrective commands through the protocol gateway; never mutates authoritative state directly and never reaches rails directly",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Runs in production only with separately authorized production configuration; reconciliation corrections flow only as protocol commands, never as direct state mutation.",
+      "health_signal": "Reconciliation lag; drift metrics (contract for the future work item).",
+      "rollback": "Redeploy previous artifact; idempotent replay from the durable command path."
+    },
+    {
+      "id": "netting-settlement-workers",
+      "name": "Netting and settlement workers — settlement and finality computation",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "protocol",
+      "authority_hosted": "netting, settlement and finality computation (protocol-owned) executed as deployment-owned background processes; corrections after finality flow only through protocol-governed recourse — deployment rollback never un-finalizes",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Runs in production only with separately authorized production configuration; settlement effects additionally require production rail credentials held only in the production secret scope.",
+      "health_signal": "Settlement batch progress; ledger integrity probes (contract for the future work item).",
+      "rollback": "Redeploy previous artifact and replay durable commands; finality is never reversed by deployment action."
+    },
+    {
+      "id": "durable-command-queue",
+      "name": "Durable command queue — the durable command path",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "deployment",
+      "authority_hosted": "none — durable, at-least-once transport for protocol commands (the execution topology's durable command path); ordering and durability only, no financial semantics",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Provisioned for production only as part of the separately authorized production configuration; the queue itself transports commands and authorizes nothing.",
+      "health_signal": "Queue depth and age; dead-letter rate (contract for the future work item).",
+      "rollback": "Message retention and replay; payload semantics belong to producers and consumers, never to the queue."
+    },
+    {
+      "id": "authoritative-state-store",
+      "name": "Authoritative state store — protocol-owned state on deployment-owned persistence",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "protocol",
+      "authority_hosted": "protocol-owned authoritative state (identity, accounting, reservations, obligations, settlement and finality records) on deployment-owned persistence infrastructure; mutated only by transition-runtime through protocol-owned transitions — no other layer may mutate it directly",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Production persistence is provisioned only as part of the separately authorized production configuration; its contents are protocol-owned and deployment holds no financial authority over them.",
+      "health_signal": "Replication and consistency probes; backup verification (contract for the future work item).",
+      "rollback": "Point-in-time recovery plus replay of durable commands; direct external mutation is never permitted (hard boundary)."
+    },
+    {
+      "id": "evidence-object-store",
+      "name": "Evidence object store — append-only evidence records",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "protocol",
+      "authority_hosted": "protocol-owned evidence records — command and decision evidence written by protocol components, plus external evidence ingested through the rail adapters — on deployment-owned object storage; append-only, never edited or deleted within retention",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Production evidence storage is provisioned only as part of the separately authorized production configuration; evidence is append-only and never rewritten by deployment action.",
+      "health_signal": "Write and read success; retention integrity checks (contract for the future work item).",
+      "rollback": "Restore from backup with append-only history preserved; rollback never rewrites evidence."
+    },
+    {
+      "id": "external-rail-adapters",
+      "name": "External rail adapters — banks, PSPs, mobile money, blockchains",
+      "exists_in_repository_today": false,
+      "owner": "deployment",
+      "layer": "deployment",
+      "authority_hosted": "none — the only component that transmits to external rails; transmits exclusively protocol-authorized outputs and cannot originate or alter financial decisions; holds rail credentials and fails closed when they are absent; ingests external evidence into evidence-object-store",
+      "repository_entrypoint": {
+        "status": "future-work",
+        "paths": [],
+        "marker": "FUTURE-WORK: protocol adapter semantics per dependency graph WORK-001..WORK-033; credential binding from DEP-002 onward"
+      },
+      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "production_gate": "Real rails are reachable only with production rail credentials that exist solely in the production secret scope; development, test-ci, sandbox and staging use protocol-owned simulated rails with no external transmission (environments.md F5/F6).",
+      "health_signal": "Adapter circuit state; rail reachability; submission acknowledgment rate (contract for the future work item).",
+      "rollback": "Fail-closed disable or hold, then replay of pending authorized submissions after recovery; financial reversals flow only through protocol-governed recourse."
+    }
+  ]
+}
