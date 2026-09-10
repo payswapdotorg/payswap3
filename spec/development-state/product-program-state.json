@@ -15,16 +15,17 @@
     "UI-002": {
       "id": "UI-002",
       "title": "Customer payment intent surface",
-      "status": "in-flight",
+      "status": "merged",
       "dependsOn": [
         "UI-001"
       ],
-      "workOrder": "spec/product/work-orders/UI-002.md"
+      "workOrder": "spec/product/work-orders/UI-002.md",
+      "merge": "5bff0d6 (PR #10)"
     },
     "UI-003": {
       "id": "UI-003",
       "title": "Merchant checkout surface",
-      "status": "blocked",
+      "status": "ready",
       "dependsOn": [
         "UI-002"
       ],
@@ -33,7 +34,7 @@
     "UI-004": {
       "id": "UI-004",
       "title": "Provider and capability surface",
-      "status": "blocked",
+      "status": "ready",
       "dependsOn": [
         "UI-002"
       ],
@@ -42,7 +43,7 @@
     "UI-005": {
       "id": "UI-005",
       "title": "Track, status, and evidence surface",
-      "status": "blocked",
+      "status": "ready",
       "dependsOn": [
         "UI-002"
       ],
@@ -97,7 +98,9 @@
     }
   },
   "frontier": [
-    "UI-002"
+    "UI-003",
+    "UI-004",
+    "UI-005"
   ],
-  "note": "This file is a machine-readable projection of the payswap3-product program state, maintained for dispatch planning. It is a projection only: it never overrides Git merge facts, and where this file disagrees with repository history, Git is authoritative. Work-item statuses change only through the governed Tech Lead merge process; editing this file does not complete work. The dependency graph mirrored here is pinned by spec/product/work-items.md and spec/product/implementation-roadmap.md."
+  "note": "UI-002 merged 5bff0d6 (worker dispatch + Tech Lead reconciliation: real-API adaptation, navigation splice, stack pinning). Frontier: the UI-003/004/005 fan (parallel antichain \u2014 disjoint surfaces; navigation entries spliced by the Tech Lead at merge)."
 }

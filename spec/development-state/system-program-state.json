@@ -23,7 +23,7 @@
     "closure": "SYS-003"
   },
   "activeWork": [
-    "UI-002 (adaptation round queued server-side; supervisor-owned watcher armed with ADAPTATION REPORT marker)"
+    "UI-003/004/005 fan (parallel dispatch in progress)"
   ],
   "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
   "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
