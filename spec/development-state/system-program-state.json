@@ -23,7 +23,7 @@
     "closure": "SYS-003"
   },
   "activeWork": [
-    "UI-002 (worker session in flight, queue_watch armed)"
+    "UI-002 (worker session in flight, continuation queued; queue_watch armed)"
   ],
   "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
   "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
@@ -39,10 +39,11 @@
   },
   "deploymentProgress": {
     "DEP-001": "merged 50275dc (PR #7): topology + environment contract, validate_deployment.py PASS",
+    "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration \u2014 standalone output, deterministic Dockerfile, fail-closed /api/ready, 534-check validator",
     "frontier": [
-      "DEP-002 (depends DEP-001 only \u2014 dispatchable)",
+      "DEP-003 (depends DEP-001+DEP-002 \u2014 dispatchable)",
       "UI-003/004/005 fan after UI-002"
     ],
-    "note": "Projection only; Git merge facts authoritative. Wave record: UI-001 merged f934a76 (PR #6); DEP-001 merged 50275dc (PR #7); UI-002 in flight (worker session)."
+    "note": "Projection only; Git merge facts authoritative. UI-002 in flight (continuation turn queued server-side). Composio infrastructure binding (Tech Lead-held): GitHub integration ACTIVE; deployment-target connections pending for actual binding."
   }
 }
