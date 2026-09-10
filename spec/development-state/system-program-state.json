@@ -23,7 +23,7 @@
     "closure": "SYS-003"
   },
   "activeWork": [
-    "UI-002 (worker session in flight, continuation queued; queue_watch armed)"
+    "UI-002 (adaptation round queued server-side; supervisor-owned watcher armed with ADAPTATION REPORT marker)"
   ],
   "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
   "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
@@ -38,12 +38,13 @@
     "note": "All declared authority paths now exist and validate (scripts/validate_governance.py). Frontier: UI-001 (product foundation) then DEP-001 per dependency truth."
   },
   "deploymentProgress": {
-    "DEP-001": "merged 50275dc (PR #7): topology + environment contract, validate_deployment.py PASS",
-    "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration \u2014 standalone output, deterministic Dockerfile, fail-closed /api/ready, 534-check validator",
+    "DEP-001": "merged 50275dc (PR #7): topology + environment contract",
+    "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
+    "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
     "frontier": [
-      "DEP-003 (depends DEP-001+DEP-002 \u2014 dispatchable)",
-      "UI-003/004/005 fan after UI-002"
+      "DEP-004 BLOCKED (requires protocol authorities as runtime code \u2014 not yet materialized)",
+      "UI-003/004/005 fan after UI-002 (in reconciliation)"
     ],
-    "note": "Projection only; Git merge facts authoritative. UI-002 in flight (continuation turn queued server-side). Composio infrastructure binding (Tech Lead-held): GitHub integration ACTIVE; deployment-target connections pending for actual binding."
+    "note": "Deployment chain pauses at DEP-004 pending protocol-authority runtime materialization (a future governed wave). Product chain continues: UI-002 reconciliation in flight."
   }
 }
