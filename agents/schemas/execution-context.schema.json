@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://payswap.org/payswap3/agents/schemas/execution-context.schema.json",
+  "title": "Worker execution context",
+  "description": "The dispatch contract for exactly one worker: one work item, one branch, one pull request, one explicit contract. Required by spec/governance/agent-dispatch.md and machine-validated by scripts/validate_governance.py, which validates the embedded examples against this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repository",
+    "base_sha",
+    "work_item_id",
+    "architecture_authority",
+    "hard_dependencies",
+    "contract_dependencies",
+    "owned_surfaces",
+    "forbidden_surfaces",
+    "assurance_profile",
+    "required_proofs",
+    "dogfooding_requirements",
+    "checkpoint_contract",
+    "stop_conditions"
+  ],
+  "properties": {
+    "repository": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Repository identity in owner/name form, for example payswapdotorg/payswap3."
+    },
+    "base_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$",
+      "description": "Exact current main SHA at dispatch time: full 40 lowercase hexadecimal characters. The worker builds on exactly this SHA and records it in every report; base movement arrives only via sibling-wave updates or re-dispatch."
+    },
+    "work_item_id": {
+      "type": "string",
+      "pattern": "^[A-Z]+-[0-9]+$",
+      "description": "Identifier of the single assigned work item, for example GOV-001 or PROD-014."
+    },
+    "architecture_authority": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Path of the authoritative architecture for this work item, for example spec/architecture/v0.1/."
+    },
+    "hard_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "description": "Work item IDs that must be MERGED (a Git fact) before implementation starts; never inferred from projections."
+    },
+    "contract_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "description": "Contracts the work item must conform to: repository paths or work item IDs."
+    },
+    "owned_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "Path prefixes that are the only surfaces the worker may create or modify. At least one is required; a prefix reserves every path beneath it."
+    },
+    "forbidden_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "description": "Path prefixes the worker must not create, modify, or delete under any circumstances."
+    },
+    "assurance_profile": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the evidence standard that applies to this work item, resolved per spec/governance/agent-dispatch.md (required tests, proofs, journey evidence)."
+    },
+    "required_proofs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "Concrete, checkable proofs the worker must deliver. At least one is required."
+    },
+    "dogfooding_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "description": "Journey evidence required by spec/governance/dogfooding-protocol.md; empty only when the assurance profile explicitly contains no dogfooding component."
+    },
+    "checkpoint_contract": {
+      "type": "string",
+      "minLength": 1,
+      "description": "When and how the worker must report: checkpoints, report format, and escalation timing."
+    },
+    "stop_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "Conditions that halt implementation and trigger escalation per spec/governance/drift-control.md. At least one is required."
+    }
+  },
+  "examples": [
+    {
+      "repository": "payswapdotorg/payswap3",
+      "base_sha": "b9737e9b78482f32ea02ff279ea75d82386ee3cd",
+      "work_item_id": "GOV-001",
+      "architecture_authority": "spec/architecture/v0.1/",
+      "hard_dependencies": [],
+      "contract_dependencies": [
+        "README.md",
+        "agents/architect-prompt.md"
+      ],
+      "owned_surfaces": [
+        "spec/governance/",
+        "agents/schemas/",
+        "scripts/"
+      ],
+      "forbidden_surfaces": [
+        "spec/architecture/",
+        "spec/product/",
+        "spec/registry/",
+        "spec/work-orders/",
+        "spec/development-state/"
+      ],
+      "assurance_profile": "governance-scaffolding",
+      "required_proofs": [
+        "python3 scripts/validate_governance.py exits 0 from the repository root with a summary line per check"
+      ],
+      "dogfooding_requirements": [
+        "Run the validator as the governance dogfooding journey and capture its output as evidence"
+      ],
+      "checkpoint_contract": "Report at completion using the work order report format; escalate immediately on any stop condition or any classification other than WITHIN_SCOPE.",
+      "stop_conditions": [
+        "The provided repository facts are internally contradictory (ARCHITECTURE_BLOCKER)"
+      ]
+    },
+    {
+      "repository": "payswapdotorg/payswap3",
+      "base_sha": "0f1e2d3c4b5a697886970615141d2e3f4a5b6c7d",
+      "work_item_id": "PROD-014",
+      "architecture_authority": "spec/architecture/v0.1/",
+      "hard_dependencies": [
+        "WORK-031",
+        "WORK-032"
+      ],
+      "contract_dependencies": [
+        "spec/product/ux-architecture-v0.2.md",
+        "spec/product/work-items.md"
+      ],
+      "owned_surfaces": [
+        "spec/product/journeys/checkout.md"
+      ],
+      "forbidden_surfaces": [
+        "spec/architecture/",
+        "spec/governance/",
+        "spec/development-state/",
+        "scripts/"
+      ],
+      "assurance_profile": "product-ux-journey",
+      "required_proofs": [
+        "Journey transcript for the checkout workflow answering all nine reconciliation questions",
+        "Unit and integration tests green for every changed surface"
+      ],
+      "dogfooding_requirements": [
+        "Exercise the checkout journey on the real composed system in the sandbox; mark every financial execution as sandbox-only"
+      ],
+      "checkpoint_contract": "Report at start with the journey plan, at the mid-point checkpoint with progress, and at completion with the full evidence bundle.",
+      "stop_conditions": [
+        "Any drift classification other than WITHIN_SCOPE",
+        "A missing protocol capability required by the product journey"
+      ]
+    }
+  ]
+}

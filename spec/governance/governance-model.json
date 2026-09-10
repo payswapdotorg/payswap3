@@ -1,0 +1,177 @@
+{
+  "model_version": "1.0.0",
+  "work_item": "GOV-001",
+  "base_sha": "b9737e9b78482f32ea02ff279ea75d82386ee3cd",
+  "title": "PaySwap3 governance model",
+  "description": "Machine-readable summary of the governance contracts under spec/governance/. The markdown contracts are authoritative for detail; this file mirrors them for tooling and must be updated in lockstep with them by the post-merge reconciliation duties.",
+  "authoritative_documents": {
+    "source_of_truth": "spec/governance/source-of-truth.md",
+    "agent_dispatch": "spec/governance/agent-dispatch.md",
+    "implementation_protocol": "spec/governance/implementation-protocol.md",
+    "parallel_execution": "spec/governance/parallel-execution.md",
+    "drift_control": "spec/governance/drift-control.md",
+    "dogfooding_protocol": "spec/governance/dogfooding-protocol.md",
+    "execution_context_schema": "agents/schemas/execution-context.schema.json"
+  },
+  "authority_precedence": [
+    {
+      "rank": 1,
+      "authority": "git_merge_history",
+      "authoritative_for": "what is merged into main"
+    },
+    {
+      "rank": 2,
+      "authority": "spec/architecture/v0.1/",
+      "authoritative_for": "financial semantics: authority, accounting, execution, clearing, netting, settlement, finality"
+    },
+    {
+      "rank": 3,
+      "authority": "spec/development-state/program-state.json",
+      "authoritative_for": "protocol layer development state"
+    },
+    {
+      "rank": 3,
+      "authority": "spec/development-state/product-program-state.json",
+      "authoritative_for": "product layer development state"
+    },
+    {
+      "rank": 3,
+      "authority": "spec/development-state/system-program-state.json",
+      "authoritative_for": "system layer development state"
+    },
+    {
+      "rank": 4,
+      "authority": "layer contracts and work-order surfaces",
+      "authoritative_for": "declared scope of each layer"
+    },
+    {
+      "rank": 5,
+      "authority": "derived projections",
+      "authoritative_for": "nothing; projections never authorize work and lose against Git facts"
+    },
+    {
+      "rank": 6,
+      "authority": "conversation and chat memory",
+      "authoritative_for": "nothing; never authoritative"
+    }
+  ],
+  "same_rank_rule": "Same-rank authorities of different layers govern only their own layer; cross-layer conflicts are reconciliation findings, not precedence wins.",
+  "roles": {
+    "Architect": {
+      "scope": "Architecture, review, and merge authority for the repository.",
+      "permissions": [
+        "own and maintain the frozen protocol architecture under spec/architecture/v0.1/",
+        "run the Architecture Change Request process for any protocol semantic change",
+        "review and approve or reject pull requests at the review gates",
+        "merge verified pull requests (sole merge authority)",
+        "resolve ARCHITECTURE_BLOCKER escalations and reclassify standing red flags",
+        "audit layer state files and derived projections against Git facts",
+        "convene three-layer reconciliation before any declaration of system completion"
+      ],
+      "prohibitions": [
+        "delegate merge authority to the Tech Lead or to workers",
+        "accept green tests without contract review",
+        "alter frozen protocol semantics outside the Architecture Change Request process",
+        "declare system completion before three-layer reconciliation and operational evidence"
+      ]
+    },
+    "Tech Lead": {
+      "scope": "Planning, eligibility computation, dispatch, integration, and evidence enforcement.",
+      "permissions": [
+        "plan work and decompose it into bounded work items",
+        "compute eligible antichains per spec/governance/parallel-execution.md",
+        "dispatch workers with complete, schema-valid execution contexts",
+        "integrate verified changes and prepare them for Architect review",
+        "enforce evidence requirements and dogfooding standards",
+        "drive product and deployment completion work",
+        "escalate architecture questions to the Architect"
+      ],
+      "prohibitions": [
+        "merge pull requests (merge authority rests with the Architect alone)",
+        "expand a worker's assigned scope beyond its contract",
+        "treat chat memory as architecture or project state",
+        "let sibling workers consume unmerged sibling code",
+        "weaken assurance requirements to gain parallelism",
+        "let derived projections authorize work"
+      ]
+    },
+    "Worker": {
+      "scope": "Bounded implementation of exactly one assigned work item under one explicit contract.",
+      "permissions": [
+        "create and work on the single branch for the assigned work item",
+        "create and modify only the owned surfaces listed in the execution context",
+        "fix WITHIN_SCOPE drift findings inside the assigned work item",
+        "report blockers and escalate per the escalation rule",
+        "produce the required proofs and dogfooding evidence"
+      ],
+      "prohibitions": [
+        "merge the worker's own pull request",
+        "touch forbidden surfaces or expand assigned scope",
+        "invent product scope, protocol semantics, or a parallel governance model",
+        "consume unmerged sibling code",
+        "enter secrets into git, work-item text, pull request descriptions, or worker reports",
+        "proceed on any drift classification other than WITHIN_SCOPE"
+      ]
+    }
+  },
+  "merge_rule": {
+    "statement": "A pull request is merged only by the Architect, only after every review gate passes; the worker who authored the change never merges it.",
+    "merge_authority": "Architect",
+    "worker_self_merge": false,
+    "tech_lead_may_merge": false,
+    "review_gates": [
+      "scope verification",
+      "required tests",
+      "evidence inspection",
+      "architecture conformance",
+      "dependency verification",
+      "dogfooding evidence"
+    ],
+    "merge_facts_source": "git merge history",
+    "detail": "spec/governance/implementation-protocol.md"
+  },
+  "drift_control": {
+    "classification_enum": [
+      "WITHIN_SCOPE",
+      "OUT_OF_SCOPE",
+      "CONTRACT_BLOCKER",
+      "ARCHITECTURE_BLOCKER",
+      "ENVIRONMENT_BLOCKER"
+    ],
+    "definitions": {
+      "WITHIN_SCOPE": "Defect fully inside the assigned work item: owned surfaces, contract scope, no authority or semantic implications. The only classification that may be fixed inside the work item.",
+      "OUT_OF_SCOPE": "Real issue outside the work item's owned surfaces or purpose. Do not fix locally; record and escalate.",
+      "CONTRACT_BLOCKER": "The work order contract is ambiguous, internally inconsistent, or impossible as given. Stop and escalate to the Tech Lead.",
+      "ARCHITECTURE_BLOCKER": "Contradiction with frozen architecture, the authority model, or repository facts. Stop and escalate via the Tech Lead to the Architect.",
+      "ENVIRONMENT_BLOCKER": "Tooling, access, or environment failure the worker must not resolve unilaterally. Stop and escalate with diagnostics."
+    },
+    "standing_rule": "Only WITHIN_SCOPE findings may be fixed inside the assigned work item; every other classification is stop-and-escalate.",
+    "detail": "spec/governance/drift-control.md"
+  },
+  "escalation_rule": {
+    "statement": "Stop-and-escalate on any blocker classification other than WITHIN_SCOPE.",
+    "within_scope": "may be fixed inside the assigned work item and reported",
+    "all_other_classifications": "stop work immediately, preserve evidence, escalate; never solve locally",
+    "ladder": ["Worker", "Tech Lead", "Architect"],
+    "routing": {
+      "OUT_OF_SCOPE": "Tech Lead (records a new work item or reassigns)",
+      "CONTRACT_BLOCKER": "Tech Lead (contract owner)",
+      "ARCHITECTURE_BLOCKER": "Tech Lead, then Architect",
+      "ENVIRONMENT_BLOCKER": "Tech Lead (with diagnostics; no secrets)"
+    }
+  },
+  "secrets_policy": {
+    "statement": "Secrets never enter git history, work-item text, pull request descriptions, or worker reports.",
+    "on_discovery": "Report the location only, never the value; classify per spec/governance/drift-control.md and stop if handling the secret would be required."
+  },
+  "sibling_isolation": {
+    "statement": "Sibling workers never consume unmerged sibling code; a worker builds only on merged main at the exact base SHA recorded in the execution context.",
+    "base_movement": "When main moves because a sibling merges, the Tech Lead issues a sibling-wave update with the new base SHA; dependent re-dispatch follows the merge, not the branch."
+  },
+  "validation": {
+    "command": "python3 scripts/validate_governance.py",
+    "green_exit_code": 0,
+    "checked_by": "scripts/validate_governance.py",
+    "scope": "authority path existence (with explicit sibling-wave accounting), governance model classification enum, execution-context schema parse and example validation, GOV-001 surface self-check"
+  }
+}
