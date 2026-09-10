@@ -1,0 +1,63 @@
+# .dockerignore — DEP-002 runtime packaging.
+#
+# The image build context must contain ONLY what the build stages need:
+# manifests, source, and static assets. Everything else (host state, build
+# outputs, dependency trees, docs/contracts, local tooling, logs, and ANY
+# environment/secret material) is excluded so that builds are reproducible
+# and no secret can leak into an image (S1–S5, F7).
+
+# ── Host build state & dependency trees (produced inside the image) ──
+node_modules
+.next
+out
+build
+dist
+
+# ── Version control & repository metadata ──
+.git
+.gitignore
+.gitattributes
+
+# ── Environment / secret material — NEVER source-controlled, NEVER imaged ──
+.env
+.env.*
+*.pem
+*.key
+
+# ── Runtime logs ──
+*.log
+dev.log
+server.log
+dev.out.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Non-runtime repository artifacts (docs, contracts, validation, demos) ──
+spec
+deploy
+scripts
+examples
+mini-services
+tests
+skills
+download
+Caddyfile
+components.json
+README.md
+
+# ── Local databases & generated data ──
+db
+*.sqlite
+*.db
+prisma/*.db
+
+# ── Editor / OS noise ──
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+.claude
+.z-ai-config
+.zscripts

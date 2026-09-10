@@ -51,10 +51,17 @@ COMPONENTS_JSON = REPO_ROOT / "deploy" / "contracts" / "components.json"
 TOPOLOGY_MD = REPO_ROOT / "spec" / "deployment" / "topology.md"
 ENVIRONMENTS_MD = REPO_ROOT / "spec" / "deployment" / "environments.md"
 CONFIGURATION_MD = REPO_ROOT / "spec" / "deployment" / "configuration.md"
+PACKAGING_MD = REPO_ROOT / "spec" / "deployment" / "packaging.md"
 APP_ENVIRONMENT_TS = REPO_ROOT / "src" / "lib" / "environment.ts"
+STARTUP_CONFIG_TS = REPO_ROOT / "src" / "lib" / "startup-config.ts"
+HEALTH_ROUTE_TS = REPO_ROOT / "src" / "app" / "api" / "health" / "route.ts"
+READY_ROUTE_TS = REPO_ROOT / "src" / "app" / "api" / "ready" / "route.ts"
+DOCKERFILE = REPO_ROOT / "Dockerfile"
+DOCKERIGNORE = REPO_ROOT / ".dockerignore"
+NEXT_CONFIG_TS = REPO_ROOT / "next.config.ts"
 
 EXPECTED_BASE_BRANCH = "main"
-EXPECTED_BASE_SHA = "f934a76f20efbd6e238605d8e7320495974a870e"
+EXPECTED_BASE_SHA = "fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73"
 EXPECTED_CONTRACT = "payswap-deployment-components"
 EXPECTED_PRESENT_COMPONENTS = {"web-api-boundary"}
 EXPECTED_ENVIRONMENTS = {"development", "test-ci", "sandbox", "staging", "production"}
@@ -64,6 +71,13 @@ EXPECTED_RUNTIME_FAIL_SAFE = "sandbox"
 ALLOWLIST_DOC_STRING = "sandbox | production"
 MATRIX_HEADING = "## Environment matrix"
 DIAGRAM_ANCHORS = ("Web / API boundary", "Durable command path")
+
+EXPECTED_PRODUCTION_REQUIRED_NAMES = [
+    "PAYSWAP_DATABASE_URL",
+    "PAYSWAP_QUEUE_URL",
+    "PAYSWAP_EVIDENCE_STORE_URL",
+    "PAYSWAP_RAIL_ADAPTERS_URL",
+]
 
 LAYERS = {"protocol", "product", "deployment"}
 ENTRYPOINT_STATUSES = {"present", "future-work"}
@@ -474,9 +488,180 @@ def main():
             "topology.md must carry FUTURE-WORK markers for not-yet-in-repo components",
         )
 
+    # ---- 7. DEP-002 runtime packaging, startup validation, health/ready ----
+    # (delta checks added by the DEP-002 governed contract change; every
+    #  locked DEP-001 value above is unchanged)
+    def read(p):
+        return p.read_text(encoding="utf-8") if p.is_file() else ""
+
+    # 7a. standalone packaging configuration (directive-aware: the literal
+    # directive line, not a comment mention)
+    nc = read(NEXT_CONFIG_TS)
+    check(NEXT_CONFIG_TS.is_file(), "next.config.ts must exist")
+    check(
+        re.search(r'^\s*output:\s*"standalone",?\s*$', nc, re.MULTILINE) is not None,
+        'next.config.ts must set output: "standalone" (reproducible runtime package)',
+    )
+
+    # 7b. Dockerfile: multi-stage, deterministic, non-root, runtime-only env
+    dk = read(DOCKERFILE)
+    check(DOCKERFILE.is_file(), "Dockerfile must exist")
+    if dk:
+        from_lines = [ln for ln in dk.splitlines() if ln.strip().upper().startswith("FROM ")]
+        check(
+            len(from_lines) >= 2,
+            "Dockerfile must be multi-stage (at least 2 FROM directives)",
+        )
+        check(
+            any("node:22-alpine" in ln for ln in from_lines),
+            "Dockerfile must pin a node:22-alpine base image",
+        )
+        check(
+            any(ln.strip().upper().startswith("USER ") for ln in dk.splitlines()),
+            "Dockerfile must run as a non-root user (USER directive)",
+        )
+        # directive-aware F2 check: no ENV/ARG directive may set
+        # PAYSWAP_ENV=production (comments mentioning it are fine)
+        bad_env = [
+            ln
+            for ln in dk.splitlines()
+            if re.match(r"^\s*(ENV|ARG)\s+PAYSWAP_ENV=production", ln, re.IGNORECASE)
+        ]
+        check(
+            not bad_env,
+            "Dockerfile must never set PAYSWAP_ENV=production as a build-time "
+            "default (F2: production is runtime-injected only)",
+        )
+        check(
+            "npm ci" in dk and "npm run build" in dk,
+            "Dockerfile must install from the lockfile (npm ci) and run the "
+            "repository build (npm run build)",
+        )
+
+    # 7c. .dockerignore keeps secrets and host state out of the image
+    di = read(DOCKERIGNORE)
+    check(DOCKERIGNORE.is_file(), ".dockerignore must exist")
+    if di:
+        for pattern in (".env", "node_modules", ".next", ".git"):
+            check(
+                pattern in di,
+                f".dockerignore must exclude {pattern!r} (S1-S5 secret boundary / "
+                "reproducible build context)",
+            )
+
+    # 7d. startup configuration validation module
+    sc = read(STARTUP_CONFIG_TS)
+    check(STARTUP_CONFIG_TS.is_file(), "src/lib/startup-config.ts must exist")
+    if sc:
+        check(
+            "getEnvironment" in sc and "@/lib/environment" in sc,
+            "startup-config.ts must resolve the environment through the frozen "
+            "src/lib/environment.ts module (getEnvironment import)",
+        )
+        check(
+            "resolveRuntimeEnvironment" not in sc
+            and "process.env.PAYSWAP_ENV" not in sc,
+            "startup-config.ts must not re-implement the environment allowlist (F1)",
+        )
+        for name in EXPECTED_PRODUCTION_REQUIRED_NAMES:
+            check(
+                f'"{name}"' in sc,
+                f"startup-config.ts must declare the production required name {name} "
+                "(as a quoted array entry)",
+            )
+
+    # 7e. liveness and readiness endpoints
+    hr = read(HEALTH_ROUTE_TS)
+    check(HEALTH_ROUTE_TS.is_file(), "src/app/api/health/route.ts must exist")
+    if hr:
+        check(
+            "getEnvironment" in hr and "force-dynamic" in hr,
+            "/api/health must report the environment via the frozen module and be "
+            "dynamic (never baked at build time)",
+        )
+    rr = read(READY_ROUTE_TS)
+    check(READY_ROUTE_TS.is_file(), "src/app/api/ready/route.ts must exist")
+    if rr:
+        check(
+            "validateStartupConfig" in rr and "force-dynamic" in rr,
+            "/api/ready must run startup-config validation and be dynamic",
+        )
+        check(
+            "503" in rr,
+            "/api/ready must fail closed with 503 when required configuration "
+            "is missing (F6)",
+        )
+
+    # 7f. components.json records the real packaging + health signal
+    web = next((c for c in registry.get("components", [])
+                if c.get("id") == "web-api-boundary"), {})
+    entry = web.get("repository_entrypoint") or {}
+    entry_paths = entry.get("paths", []) if isinstance(entry, dict) else []
+    for path in ("Dockerfile", "next.config.ts", "src/lib/startup-config.ts",
+                 "src/app/api/health/route.ts", "src/app/api/ready/route.ts"):
+        check(
+            path in entry_paths,
+            f"components.json web-api-boundary entrypoints must include {path}",
+        )
+    hs = str(web.get("health_signal", ""))
+    check(
+        "/api/health" in hs and "/api/ready" in hs,
+        "components.json web-api-boundary health_signal must name /api/health "
+        "and /api/ready",
+    )
+    rc = web.get("required_configuration") or {}
+    prod_names = rc.get("production", []) if isinstance(rc, dict) else []
+    check(
+        sorted(prod_names) == sorted(EXPECTED_PRODUCTION_REQUIRED_NAMES),
+        "components.json web-api-boundary required_configuration.production must "
+        f"equal {sorted(EXPECTED_PRODUCTION_REQUIRED_NAMES)}",
+    )
+    pk = read(PACKAGING_MD)
+    check(PACKAGING_MD.is_file(), "spec/deployment/packaging.md must exist")
+    if pk:
+        check(
+            "/api/health" in pk and "/api/ready" in pk,
+            "packaging.md must document the health/readiness endpoints",
+        )
+        check(
+            "F2" in pk and "F6" in pk,
+            "packaging.md must reference the fail-closed rules F2/F6",
+        )
+        check(
+            "standalone" in pk,
+            "packaging.md must document the standalone runtime package",
+        )
+
+    # 7g. secret-boundary scan across the deployment surfaces (S1-S5)
+    import subprocess as _sp
+    tracked_env = _sp.run(
+        ["git", "ls-files", ".env"], cwd=str(REPO_ROOT),
+        capture_output=True, text=True,
+    ).stdout.strip()
+    check(
+        not tracked_env,
+        ".env must not be git-tracked (S1: no secret material is source-controlled)",
+    )
+    _secret_patterns = (
+        r"ghp_[A-Za-z0-9]{20,}",
+        r"gho_[A-Za-z0-9]{20,}",
+        r"sk-[A-Za-z0-9]{20,}",
+        r"AKIA[0-9A-Z]{16}",
+        r"-----BEGIN [A-Z ]*PRIVATE KEY-----",
+    )
+    for surface in (DOCKERFILE, DOCKERIGNORE, NEXT_CONFIG_TS, PACKAGING_MD,
+                    STARTUP_CONFIG_TS, HEALTH_ROUTE_TS, READY_ROUTE_TS):
+        text_s = read(surface)
+        for pat in _secret_patterns:
+            check(
+                not re.search(pat, text_s),
+                f"secret-value pattern {pat!r} found in "
+                f"{surface.relative_to(REPO_ROOT)} (S1 violation)",
+            )
+
     # ---- summary ---------------------------------------------------------------
     total = present_count + future_count
-    print("DEP-001 deployment contract validation")
+    print("DEP-001/DEP-002 deployment contract validation")
     print(f"  base: {registry.get('base_branch')} @ {registry.get('base_sha')}")
     print(
         f"  components: {total} total, {present_count} present today, "

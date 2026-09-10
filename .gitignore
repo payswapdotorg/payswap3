@@ -1,0 +1,9 @@
+# build artifacts (DEP-002 packaging hygiene)
+.next/
+node_modules/
+next-env.d.ts
+__pycache__/
+*.pyc
+# local environment material — never source-controlled (S1/S4)
+.env
+.env.*

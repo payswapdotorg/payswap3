@@ -3,16 +3,25 @@
   "version": 1,
   "generated_by": "DEP-001",
   "base_branch": "main",
-  "base_sha": "f934a76f20efbd6e238605d8e7320495974a870e",
+  "base_sha": "fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73",
   "spec_documents": {
     "topology": "spec/deployment/topology.md",
     "environments": "spec/deployment/environments.md",
     "configuration": "spec/deployment/configuration.md"
   },
   "runtime_environment_variable": "PAYSWAP_ENV",
-  "runtime_env_allowlist": ["sandbox", "production"],
+  "runtime_env_allowlist": [
+    "sandbox",
+    "production"
+  ],
   "runtime_env_fail_safe": "sandbox",
-  "environments": ["development", "test-ci", "sandbox", "staging", "production"],
+  "environments": [
+    "development",
+    "test-ci",
+    "sandbox",
+    "staging",
+    "production"
+  ],
   "field_semantics": {
     "owner": "Runtime/process owner. Always 'deployment': the deployment layer owns process topology, persistence infrastructure, queues, schedulers, workers, secrets, runtime configuration, CI/CD, observability, scaling, backups, recovery and environment isolation for every deployed component.",
     "layer": "Architecture layer whose authority the component hosts: 'protocol' (hosts protocol-owned authority), 'product' (hosts product-owned presentation semantics), 'deployment' (pure deployment infrastructure; hosts no protocol or product authority).",
@@ -35,13 +44,56 @@
       "authority_hosted": "none — hosts product-owned navigation, presentation and progressive disclosure (shell home '/', verification surface '/state-primitives') plus the server-side environment signal; hosts no financial authority, never writes authoritative state, never reaches external rails",
       "repository_entrypoint": {
         "status": "present",
-        "paths": ["package.json", "src/app/layout.tsx", "src/app/page.tsx", "src/lib/environment.ts"]
+        "paths": [
+          "package.json",
+          "next.config.ts",
+          "Dockerfile",
+          ".dockerignore",
+          "src/app/layout.tsx",
+          "src/app/page.tsx",
+          "src/lib/environment.ts",
+          "src/lib/startup-config.ts",
+          "src/app/api/health/route.ts",
+          "src/app/api/ready/route.ts"
+        ]
       },
-      "route_surface": ["/", "/state-primitives", "/_not-found"],
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "route_surface": [
+        "/",
+        "/state-primitives",
+        "/_not-found",
+        "/api/health",
+        "/api/ready"
+      ],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Production traffic is served only from the production environment with its separately authorized production configuration; PAYSWAP_ENV=production is set only there (environments.md fail-closed rules F2/F3).",
-      "health_signal": "Process boot plus HTTP readiness: GET / returns 200 and the shell renders; the environment signal resolves to an allowlisted value (fail-safe 'sandbox' otherwise).",
-      "rollback": "Stateless redeploy of the previous commit/build artifact; the shell holds no authoritative state, so rollback requires no data recovery."
+      "health_signal": "Liveness GET /api/health (200 while the process serves; no readiness logic, no secrets); readiness GET /api/ready — 200 with the startup-configuration checks summary when valid, 503 with the NAMED failing check ids (never values) when required configuration is missing (fail-closed F6; semantics in spec/deployment/packaging.md).",
+      "rollback": "Stateless redeploy of the previous commit/build artifact; the shell holds no authoritative state, so rollback requires no data recovery.",
+      "runtime_packaging": {
+        "type": "docker-image/standalone-server",
+        "build_configuration": "next.config.ts (output: standalone)",
+        "build_output": ".next/standalone (server.js + .next/static + public, traced node_modules)",
+        "dockerfile": "Dockerfile",
+        "base_image": "node:22-alpine",
+        "runtime_user": "nextjs (non-root)",
+        "port": 3000,
+        "contract": "spec/deployment/packaging.md"
+      },
+      "startup_validation": "src/lib/startup-config.ts (environment via src/lib/environment.ts; presence-only name checks)",
+      "required_configuration": {
+        "sandbox": [],
+        "production": [
+          "PAYSWAP_DATABASE_URL",
+          "PAYSWAP_QUEUE_URL",
+          "PAYSWAP_EVIDENCE_STORE_URL",
+          "PAYSWAP_RAIL_ADAPTERS_URL"
+        ]
+      }
     },
     {
       "id": "protocol-gateway",
@@ -55,7 +107,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033; infrastructure binding from DEP-002 onward"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Runs in production only with separately authorized production configuration (DEP-002+ secret binding); sandbox/demo configuration can never reach production financial effects (environments.md F1-F8).",
       "health_signal": "Readiness endpoint; command acceptance rate and latency; durable-queue submit success (contract for the future work item).",
       "rollback": "Redeploy previous artifact; in-flight commands replay from the durable command queue; rollback never mutates authoritative state directly."
@@ -72,7 +130,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Runs in production only with separately authorized production configuration; state recovery paths never bypass protocol transitions.",
       "health_signal": "Transition backlog depth and age; authoritative-state consistency probes (contract for the future work item).",
       "rollback": "Redeploy previous artifact plus point-in-time recovery of authoritative state and replay of durable commands; the only authoritative-state writer, so no other rollback path exists."
@@ -89,7 +153,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Runs in production only with separately authorized production configuration; it holds no credentials and no financial authority, so it can never unlock production effects by itself.",
       "health_signal": "Scheduler heartbeat; missed-schedule alarms (contract for the future work item).",
       "rollback": "Redeploy previous artifact; schedules are configuration, so no data recovery is involved."
@@ -106,7 +176,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Runs in production only with separately authorized production configuration; reconciliation corrections flow only as protocol commands, never as direct state mutation.",
       "health_signal": "Reconciliation lag; drift metrics (contract for the future work item).",
       "rollback": "Redeploy previous artifact; idempotent replay from the durable command path."
@@ -123,7 +199,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Runs in production only with separately authorized production configuration; settlement effects additionally require production rail credentials held only in the production secret scope.",
       "health_signal": "Settlement batch progress; ledger integrity probes (contract for the future work item).",
       "rollback": "Redeploy previous artifact and replay durable commands; finality is never reversed by deployment action."
@@ -140,7 +222,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Provisioned for production only as part of the separately authorized production configuration; the queue itself transports commands and authorizes nothing.",
       "health_signal": "Queue depth and age; dead-letter rate (contract for the future work item).",
       "rollback": "Message retention and replay; payload semantics belong to producers and consumers, never to the queue."
@@ -157,7 +245,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Production persistence is provisioned only as part of the separately authorized production configuration; its contents are protocol-owned and deployment holds no financial authority over them.",
       "health_signal": "Replication and consistency probes; backup verification (contract for the future work item).",
       "rollback": "Point-in-time recovery plus replay of durable commands; direct external mutation is never permitted (hard boundary)."
@@ -174,7 +268,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Production evidence storage is provisioned only as part of the separately authorized production configuration; evidence is append-only and never rewritten by deployment action.",
       "health_signal": "Write and read success; retention integrity checks (contract for the future work item).",
       "rollback": "Restore from backup with append-only history preserved; rollback never rewrites evidence."
@@ -191,7 +291,13 @@
         "paths": [],
         "marker": "FUTURE-WORK: protocol adapter semantics per dependency graph WORK-001..WORK-033; credential binding from DEP-002 onward"
       },
-      "environment_reachability": ["development", "test-ci", "sandbox", "staging", "production"],
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
       "production_gate": "Real rails are reachable only with production rail credentials that exist solely in the production secret scope; development, test-ci, sandbox and staging use protocol-owned simulated rails with no external transmission (environments.md F5/F6).",
       "health_signal": "Adapter circuit state; rail reachability; submission acknowledgment rate (contract for the future work item).",
       "rollback": "Fail-closed disable or hold, then replay of pending authorized submissions after recovery; financial reversals flow only through protocol-governed recourse."
