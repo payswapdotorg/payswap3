@@ -7,14 +7,15 @@
     "UI-001": {
       "id": "UI-001",
       "title": "Product foundation: application shell, navigation grammar, and state display primitives",
-      "status": "next",
+      "status": "merged",
       "dependsOn": [],
-      "workOrder": "spec/product/work-orders/UI-001.md"
+      "workOrder": "spec/product/work-orders/UI-001.md",
+      "merge": "f934a76 (PR #6)"
     },
     "UI-002": {
       "id": "UI-002",
       "title": "Customer payment intent surface",
-      "status": "blocked",
+      "status": "in-flight",
       "dependsOn": [
         "UI-001"
       ],
@@ -96,7 +97,7 @@
     }
   },
   "frontier": [
-    "UI-001"
+    "UI-002"
   ],
   "note": "This file is a machine-readable projection of the payswap3-product program state, maintained for dispatch planning. It is a projection only: it never overrides Git merge facts, and where this file disagrees with repository history, Git is authoritative. Work-item statuses change only through the governed Tech Lead merge process; editing this file does not complete work. The dependency graph mirrored here is pinned by spec/product/work-items.md and spec/product/implementation-roadmap.md."
 }

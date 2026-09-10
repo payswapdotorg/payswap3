@@ -22,9 +22,11 @@
     "dogfood": "SYS-002",
     "closure": "SYS-003"
   },
-  "activeWork": [],
+  "activeWork": [
+    "UI-002 (worker session in flight, queue_watch armed)"
+  ],
   "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
-  "note": "Ready for Tech Lead activation. This state is a system-level projection and never overrides protocol/product authoritative state or Git merge facts.",
+  "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
   "bootstrap": {
     "wave": 1,
     "status": "COMPLETE",
@@ -34,5 +36,13 @@
       "GOV-001: 40b20ae (governance/dispatch scaffolding, validator PASS 17/17)"
     ],
     "note": "All declared authority paths now exist and validate (scripts/validate_governance.py). Frontier: UI-001 (product foundation) then DEP-001 per dependency truth."
+  },
+  "deploymentProgress": {
+    "DEP-001": "merged 50275dc (PR #7): topology + environment contract, validate_deployment.py PASS",
+    "frontier": [
+      "DEP-002 (depends DEP-001 only \u2014 dispatchable)",
+      "UI-003/004/005 fan after UI-002"
+    ],
+    "note": "Projection only; Git merge facts authoritative. Wave record: UI-001 merged f934a76 (PR #6); DEP-001 merged 50275dc (PR #7); UI-002 in flight (worker session)."
   }
 }
