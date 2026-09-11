@@ -62,32 +62,37 @@ export interface EnvironmentBannerProps {
 export function EnvironmentBanner({ environment }: EnvironmentBannerProps) {
   const sandbox = environment === 'sandbox';
   return (
-    <div
-      role="note"
-      aria-label={`Environment: ${sandbox ? 'sandbox' : 'production'}`}
-      className={`sticky top-0 z-50 border-b ${
-        sandbox
-          ? 'border-amber-300 bg-amber-100 text-amber-950'
-          : 'border-stone-700 bg-stone-900 text-stone-50'
-      }`}
-    >
-      <p className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-2 text-sm">
-        {sandbox ? (
-          <FlaskIcon className="h-4 w-4 shrink-0" />
-        ) : (
-          <ServerIcon className="h-4 w-4 shrink-0" />
-        )}
-        <strong className="font-semibold">
-          {sandbox ? 'Sandbox environment' : 'Production environment'}
-        </strong>
-        <span
-          className={`hidden text-xs sm:inline ${sandbox ? 'text-amber-900' : 'text-stone-300'}`}
-        >
-          {sandbox
-            ? 'Configuration-derived signal. Outcomes in this session are sandbox outcomes — never production effects.'
-            : 'Configuration-derived signal. Unqualified consequential wording appears only because configuration says production.'}
-        </span>
-      </p>
+    // Landmark wrapper (UI-009): the persistent signal is a named region so
+    // its content is contained by a landmark on every route. The note
+    // semantics and all wording are unchanged.
+    <div role="region" aria-label="Environment signal">
+      <div
+        role="note"
+        aria-label={`Environment: ${sandbox ? 'sandbox' : 'production'}`}
+        className={`sticky top-0 z-50 border-b ${
+          sandbox
+            ? 'border-amber-300 bg-amber-100 text-amber-950'
+            : 'border-stone-700 bg-stone-900 text-stone-50'
+        }`}
+      >
+        <p className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-2 text-sm">
+          {sandbox ? (
+            <FlaskIcon className="h-4 w-4 shrink-0" />
+          ) : (
+            <ServerIcon className="h-4 w-4 shrink-0" />
+          )}
+          <strong className="font-semibold">
+            {sandbox ? 'Sandbox environment' : 'Production environment'}
+          </strong>
+          <span
+            className={`hidden text-xs sm:inline ${sandbox ? 'text-amber-900' : 'text-stone-300'}`}
+          >
+            {sandbox
+              ? 'Configuration-derived signal. Outcomes in this session are sandbox outcomes — never production effects.'
+              : 'Configuration-derived signal. Unqualified consequential wording appears only because configuration says production.'}
+          </span>
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,81 @@
+{
+  "surface": "mediation-case",
+  "route": "/mediation/case/M-101",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 2646,
+      "touchTargets": {
+        "measured": 16,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Your statement to the mediation",
+            "visualW": 236.3,
+            "visualH": 14,
+            "w": 236.3,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 2051,
+      "touchTargets": {
+        "measured": 16,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Your statement to the mediation",
+            "visualW": 236.3,
+            "visualH": 14,
+            "w": 236.3,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 1824,
+      "touchTargets": {
+        "measured": 16,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Your statement to the mediation",
+            "visualW": 236.3,
+            "visualH": 14,
+            "w": 236.3,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

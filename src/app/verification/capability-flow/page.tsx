@@ -30,9 +30,9 @@ export default function CapabilityFlowVerificationPage() {
           </span>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
+      <div className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
         <CapabilityFlowHarness />
-      </main>
+      </div>
       <footer className="mt-auto border-t">
         <div className="mx-auto w-full max-w-5xl px-4 py-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] text-xs text-muted-foreground sm:px-6">
           PaySwap — UI-004 verification harness · the live provider surface is

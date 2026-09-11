@@ -1,0 +1,320 @@
+{
+  "statePrimitivesMatrix": {
+    "frameCount": 11,
+    "states": {
+      "Succeeded": {
+        "borderStyle": "solid",
+        "borderWidth": "2px",
+        "borderColor": "lab(75.0771 -60.7313 19.4147)",
+        "chipBackground": "lab(94.9004 -17.0769 5.63836)",
+        "chipText": "lab(28.8637 -26.9249 5.45986)",
+        "hue": null
+      },
+      "Failed": {
+        "borderStyle": "solid",
+        "borderWidth": "2px",
+        "borderColor": "lab(64.4125 63.0291 19.2068)",
+        "chipBackground": "lab(92.8221 9.86832 2.60075)",
+        "chipText": "lab(29.7104 51.514 12.6253)",
+        "hue": null
+      },
+      "Unknown": {
+        "borderStyle": "dashed",
+        "borderWidth": "2px",
+        "borderColor": "lab(80.1641 16.6016 99.2089)",
+        "chipBackground": "lab(95.916 -1.21653 23.111)",
+        "chipText": "lab(31.2288 30.2627 40.0378)",
+        "hue": null,
+        "carriesDisambiguation": true
+      },
+      "Waiting": {
+        "borderStyle": "dotted",
+        "borderWidth": "2px",
+        "borderColor": "lab(66.2166 1.88044 3.20326)",
+        "chipBackground": "lab(91.055 0.663072 0.865579)",
+        "chipText": "lab(9.03835 1.15298 1.92955)",
+        "hue": null
+      },
+      "In progress": {
+        "borderStyle": "solid",
+        "borderWidth": "2px",
+        "borderColor": "lab(76.0109 -53.3483 -2.27906)",
+        "chipBackground": "lab(95.1845 -17.4212 -0.425422)",
+        "chipText": "lab(29.506 -21.4706 -3.59886)",
+        "hue": null
+      },
+      "Action required": {
+        "borderStyle": "double",
+        "borderWidth": "4px",
+        "borderColor": "lab(64.272 57.1788 90.3583)",
+        "chipBackground": "lab(94.7127 3.58394 14.3151)",
+        "chipText": "lab(30.2951 36.0434 37.671)",
+        "hue": null
+      }
+    },
+    "distinctTreatments": 6,
+    "bodyTextHasAmbiguousPending": false,
+    "pendingMatches": []
+  },
+  "trackReferences": {
+    "/track/PWS-9QM2": {
+      "expectedDisplayState": "succeeded",
+      "statesPresented": [
+        {
+          "label": "Succeeded",
+          "borderStyle": "solid",
+          "backgroundColor": "lab(97.8462 -6.94966 1.85487)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        }
+      ],
+      "containsAmbiguousPendingWord": false,
+      "pendingMatches": [],
+      "unknownWordedAsSuccessOrFail": false
+    },
+    "/track/PWS-7F3K": {
+      "expectedDisplayState": "waiting",
+      "statesPresented": [
+        {
+          "label": "Waiting",
+          "borderStyle": "dotted",
+          "backgroundColor": "lab(96.5286 -0.0991821 0.364268)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        }
+      ],
+      "containsAmbiguousPendingWord": false,
+      "pendingMatches": [],
+      "unknownWordedAsSuccessOrFail": false
+    },
+    "/track/PWS-2H8D": {
+      "expectedDisplayState": "failed",
+      "statesPresented": [
+        {
+          "label": "Failed",
+          "borderStyle": "solid",
+          "backgroundColor": "lab(96.2369 4.94155 1.28011)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        }
+      ],
+      "containsAmbiguousPendingWord": false,
+      "pendingMatches": [],
+      "unknownWordedAsSuccessOrFail": false
+    },
+    "/track/PWS-4TNN": {
+      "expectedDisplayState": "in-progress",
+      "statesPresented": [
+        {
+          "label": "In progress",
+          "borderStyle": "solid",
+          "backgroundColor": "lab(98.3189 -4.74921 -0.111711)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        }
+      ],
+      "containsAmbiguousPendingWord": false,
+      "pendingMatches": [],
+      "unknownWordedAsSuccessOrFail": false
+    },
+    "/track/PWS-6KLP": {
+      "expectedDisplayState": "unknown",
+      "statesPresented": [
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        }
+      ],
+      "containsAmbiguousPendingWord": false,
+      "pendingMatches": [],
+      "unknownWordedAsSuccessOrFail": false
+    },
+    "/track/PWS-8XRQ": {
+      "expectedDisplayState": "action-required",
+      "statesPresented": [
+        {
+          "label": "Action required",
+          "borderStyle": "double",
+          "backgroundColor": "lab(97.7008 1.53735 5.90649)"
+        },
+        {
+          "label": "Unknown",
+          "borderStyle": "dashed",
+          "backgroundColor": "lab(98.6252 -0.635922 8.42309)"
+        }
+      ],
+      "containsAmbiguousPendingWord": false,
+      "pendingMatches": [],
+      "unknownWordedAsSuccessOrFail": false
+    }
+  },
+  "payUnknownDeepLink": {
+    "h1": "Payment intent state",
+    "rendersUnknownPresentation": true,
+    "carriesDisambiguation": true,
+    "bodyText": "Compose→Review & submit→3Intent statePayment intent stateReference INTENT-2041. This page shows exactly what the Intent Authority reports — acknowledged, failed, or explicitly unknown — and nothing else.Sandbox environment — sandbox intent records onlySubmitting here creates a sandbox intent record in a non-authoritative mock of the Intent Authority. It has no production financial effect, and noth"
+  },
+  "wordingScan": {
+    "home": {
+      "ambiguousPending": [
+        "ly one explicit display state (P4) — no ambiguous pending"
+      ],
+      "unknownAsOutcome": false
+    },
+    "state-primitives": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "pay-compose": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "pay-review": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "pay-intent-state": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "checkout-list": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "checkout-decision": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "capabilities": {
+      "ambiguousPending": [
+        "ne step awayIssuing refunds for accepted intents, pending the authority re-evaluation in progress"
+      ],
+      "unknownAsOutcome": false
+    },
+    "capability-detail": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "liquidity": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "oversight": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "track": {
+      "ambiguousPending": [
+        "y tracked state is explicitThere is no ambiguous “pending” anywhere on this surface"
+      ],
+      "unknownAsOutcome": false
+    },
+    "track-status-intent": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "track-status-settlement": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "waiting-recovery": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "mediation-hub": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "mediation-case": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "dispute-initiation": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "dispute-detail": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "proposal-review": {
+      "ambiguousPending": [
+        "ange the swap's current state while the review is pending"
+      ],
+      "unknownAsOutcome": false
+    },
+    "verification-intent-flow": {
+      "ambiguousPending": [
+        "The authority reported this intent is held pending the recipient"
+      ],
+      "unknownAsOutcome": false
+    },
+    "verification-checkout-flow": {
+      "ambiguousPending": [
+        " Explicit non-states (page load, client-side pending flags, adapter reachability conditions) are liste"
+      ],
+      "unknownAsOutcome": false
+    },
+    "verification-capability-flow": {
+      "ambiguousPending": [
+        "mdRefund issuanceAuthority state: pending · source: Capability Registry (reachable)In progr"
+      ],
+      "unknownAsOutcome": false
+    },
+    "verification-liquidity-flow": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "verification-tracking-flow": {
+      "ambiguousPending": [
+        " There is no ambiguous “pending” anywhere: waiting conditions carry reason, expec"
+      ],
+      "unknownAsOutcome": false
+    },
+    "verification-waiting-flow": {
+      "ambiguousPending": [
+        "vider backoffUNKNOWN with reconciliationUnknown — pending reconciliationUnknown — after wait timeoutEndings",
+        "sition is being reconciledWaiting detailUnknown — pending reconciliationWQ-06unknownmock ARRIVINGReference ",
+        "entThe authority's queue report for this entry is pending reconciliation; no authoritative outcome exists y",
+        "uthoritative outcome; the entry is marked unknown pending reconciliation"
+      ],
+      "unknownAsOutcome": false
+    },
+    "verification-mediation-flow": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    },
+    "not-found": {
+      "ambiguousPending": [],
+      "unknownAsOutcome": false
+    }
+  }
+}

@@ -371,7 +371,7 @@ export default function StatePrimitivesPage() {
                     className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
                       entry.status === 'available'
                         ? 'border-emerald-400 bg-emerald-100 text-emerald-900'
-                        : 'border-stone-300 bg-stone-100 text-stone-500'
+                        : 'border-stone-300 bg-stone-100 text-stone-600'
                     }`}
                   >
                     {entry.status === 'available' ? 'Available' : 'Planned'}

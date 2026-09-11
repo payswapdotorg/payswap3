@@ -225,9 +225,13 @@ export function ProposalReviewView({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl leading-snug" id="proposal-review-heading">
+          <h2
+            data-slot="card-title"
+            id="proposal-review-heading"
+            className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm text-xl leading-snug"
+          >
             {proposal.title}
-          </CardTitle>
+          </h2>
           <CardDescription className="leading-relaxed">{proposal.summary}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -253,7 +257,7 @@ export function ProposalReviewView({
               <dd className="mt-0.5">
                 <Link
                   href={`/track/${proposal.intentReference.replace("INTENT-", "SW-")}`}
-                  className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                  className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                 >
                   Tracking record {proposal.intentReference.replace("INTENT-", "SW-")}
                   <ArrowUpRight className="size-3" aria-hidden="true" />
@@ -354,7 +358,7 @@ export function ProposalReviewView({
               <li key={`${entry.href}-${entry.label}`}>
                 <Link
                   href={entry.href}
-                  className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                  className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                 >
                   {entry.label}
                   <ArrowUpRight className="size-3" aria-hidden="true" />

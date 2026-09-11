@@ -1,0 +1,45 @@
+{
+  "surface": "track-status-settlement",
+  "route": "/track/STL-4419",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 3401,
+      "touchTargets": {
+        "measured": 8,
+        "under44": [],
+        "under24": []
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 2471,
+      "touchTargets": {
+        "measured": 8,
+        "under44": [],
+        "under24": []
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 2435,
+      "touchTargets": {
+        "measured": 8,
+        "under44": [],
+        "under24": []
+      }
+    }
+  }
+}

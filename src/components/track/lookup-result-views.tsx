@@ -1,7 +1,7 @@
 import { AlertCircle, Lock, SearchX } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import type { TrackingLookupResult } from "@/lib/protocol/tracking-port";
 import {
   LOOKUP_NOT_AUTHORIZED_MAPPING_RECORD_ID,
@@ -24,7 +24,9 @@ export function TrackNotFoundView({ result }: { result: Extract<TrackingLookupRe
     <Card>
       <CardHeader>
         <div className="flex flex-wrap items-center gap-2">
-          <CardTitle className="text-base">No tracked reference matches this lookup</CardTitle>
+          <h2 data-slot="card-title" className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm">
+            No tracked reference matches this lookup
+          </h2>
           <Badge variant="secondary">NOT FOUND</Badge>
         </div>
         <CardDescription>
@@ -63,7 +65,9 @@ export function TrackNotAuthorizedView({
     <Card>
       <CardHeader>
         <div className="flex flex-wrap items-center gap-2">
-          <CardTitle className="text-base">This reference is not viewable in your current role</CardTitle>
+          <h2 data-slot="card-title" className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm">
+            This reference is not viewable in your current role
+          </h2>
           <Badge variant="secondary">NOT AUTHORIZED</Badge>
         </div>
         <CardDescription>

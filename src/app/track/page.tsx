@@ -55,7 +55,7 @@ export default async function TrackPage() {
   const boundary = getTrackingPort().describeBoundary();
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Track a payment</h1>
         <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -150,6 +150,6 @@ export default async function TrackPage() {
           </AlertDescription>
         </Alert>
       </div>
-    </main>
+    </div>
   );
 }

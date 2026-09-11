@@ -26,6 +26,7 @@ export default async function DisputeDetailPage({
 
   return (
     <section aria-label="Dispute record and recourse tracking">
+      <h1 className="sr-only">Dispute record and recourse tracking</h1>
       <FetchedRecordFrame fetch={fetched} recordLabel="Dispute record">
         {(dispute) => (
           <RecourseTracker

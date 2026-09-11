@@ -1,0 +1,147 @@
+{
+  "surface": "verification-capability-flow",
+  "route": "/verification/capability-flow",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 10458,
+      "touchTargets": {
+        "measured": 17,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Capability Registry",
+            "visualW": 136,
+            "visualH": 14,
+            "w": 136,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Routing Table",
+            "visualW": 100.5,
+            "visualH": 14,
+            "w": 100.5,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Corridor Directory",
+            "visualW": 143,
+            "visualH": 14,
+            "w": 143,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 7064,
+      "touchTargets": {
+        "measured": 17,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Capability Registry",
+            "visualW": 136,
+            "visualH": 14,
+            "w": 136,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Routing Table",
+            "visualW": 100.5,
+            "visualH": 14,
+            "w": 100.5,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Corridor Directory",
+            "visualW": 143,
+            "visualH": 14,
+            "w": 143,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 5847,
+      "touchTargets": {
+        "measured": 17,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Capability Registry",
+            "visualW": 136,
+            "visualH": 14,
+            "w": 136,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Routing Table",
+            "visualW": 100.5,
+            "visualH": 14,
+            "w": 100.5,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Corridor Directory",
+            "visualW": 143,
+            "visualH": 14,
+            "w": 143,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

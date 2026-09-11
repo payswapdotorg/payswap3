@@ -1,0 +1,81 @@
+{
+  "surface": "dispute-detail",
+  "route": "/mediation/dispute/D-201",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 4017,
+      "touchTargets": {
+        "measured": 15,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "Swap tracking record SW-2038",
+            "visualW": 185.1,
+            "visualH": 14,
+            "w": 185.1,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 2956,
+      "touchTargets": {
+        "measured": 15,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "Swap tracking record SW-2038",
+            "visualW": 185.1,
+            "visualH": 14,
+            "w": 185.1,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 2497,
+      "touchTargets": {
+        "measured": 15,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "Swap tracking record SW-2038",
+            "visualW": 185.1,
+            "visualH": 14,
+            "w": 185.1,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

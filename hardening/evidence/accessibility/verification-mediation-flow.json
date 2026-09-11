@@ -1,0 +1,170 @@
+{
+  "surface": "verification-mediation-flow",
+  "route": "/verification/mediation-flow",
+  "tool": "axe-core 4.13.0 via Playwright 1.62 (Chromium 1234), runOnly tags [wcag2aa, wcag22aa, best-practice]",
+  "preFixViolations": [
+    {
+      "id": "region",
+      "impact": "moderate",
+      "help": "All page content should be contained by landmarks",
+      "nodes": 1
+    }
+  ],
+  "postFix": {
+    "violations": [],
+    "passes": [
+      "aria-allowed-role",
+      "color-contrast",
+      "empty-heading",
+      "empty-table-header",
+      "heading-order",
+      "label-title-only",
+      "landmark-banner-is-top-level",
+      "landmark-contentinfo-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-contentinfo",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "meta-viewport-large",
+      "meta-viewport",
+      "page-has-heading-one",
+      "region",
+      "skip-link",
+      "tabindex",
+      "table-duplicate-name",
+      "target-size"
+    ],
+    "incomplete": [],
+    "inapplicable": [
+      "accesskeys",
+      "aria-dialog-name",
+      "aria-text",
+      "aria-treeitem-name",
+      "frame-tested",
+      "image-redundant-alt",
+      "presentation-role-conflict",
+      "scope-attr-valid",
+      "valid-lang"
+    ]
+  },
+  "semantics": {
+    "lang": "en",
+    "title": "PaySwap — product shell",
+    "landmarks": [
+      {
+        "tag": "div",
+        "role": "region",
+        "label": "Environment signal"
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary"
+      },
+      {
+        "tag": "main",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "footer",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer"
+      }
+    ],
+    "mains": 1,
+    "h1Count": 1,
+    "headings": [
+      {
+        "level": 1,
+        "text": "Verification — mediation & dispute flow (UI-008)"
+      },
+      {
+        "level": 2,
+        "text": "Proposal decision workflow — live evidence"
+      },
+      {
+        "level": 2,
+        "text": "Mediation participation — live evidence"
+      },
+      {
+        "level": 2,
+        "text": "Dispute initiation + recourse tracking — live evidence"
+      },
+      {
+        "level": 2,
+        "text": "Initiate a dispute"
+      },
+      {
+        "level": 2,
+        "text": "Accessibility evidence — announcements, live regions, keyboard operability"
+      },
+      {
+        "level": 2,
+        "text": "Decision-authorization matrix (per decision, per role)"
+      },
+      {
+        "level": 2,
+        "text": "Mediation/dispute state matrix (one-to-one mapping incl. UNKNOWN)"
+      },
+      {
+        "level": 2,
+        "text": "Adapter boundary report"
+      }
+    ],
+    "headingSkips": [],
+    "hasSkipLink": true,
+    "skipLinkTargetExists": true,
+    "focusableCount": 48,
+    "nonNativeInteractive": [
+      {
+        "role": "checkbox",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "checkbox",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "checkbox",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "checkbox",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "checkbox",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      }
+    ],
+    "unlabeledInteractive": []
+  }
+}

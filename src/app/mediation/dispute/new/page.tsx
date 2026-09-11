@@ -43,6 +43,7 @@ export default async function DisputeInitiationPage({
 
   return (
     <section aria-label="Dispute initiation">
+      <h1 className="sr-only">Initiate a dispute</h1>
       <DisputeInitiationForm
         viewer={viewer}
         viewerLabel={docket.record.viewerLabel}

@@ -82,7 +82,7 @@ function EvidenceCell({ evidence }: { evidence: readonly { label: string; href: 
         <li key={ref.href}>
           <a
             href={ref.href}
-            className="inline-flex items-start gap-1 text-xs font-medium underline underline-offset-4"
+            className="inline-flex min-h-11 items-start gap-1 py-2 text-xs font-medium underline underline-offset-4"
           >
             <FileClock aria-hidden className="mt-0.5 size-3.5 shrink-0" />
             {ref.label}
@@ -253,25 +253,34 @@ export interface PositionsCompositionProps {
   credit: readonly ProviderCreditPosition[];
   /** Harness support: start expanded (the live surfaces keep it collapsed). */
   defaultOpen?: boolean;
+  /** UI-009: instance-unique landmark ids when rendered more than once per page. */
+  idSuffix?: string;
 }
 
 export function PositionsComposition({
   liquidity,
   credit,
   defaultOpen = false,
+  idSuffix = "",
 }: PositionsCompositionProps) {
   const [open, setOpen] = useState(defaultOpen);
   const mappedLiquidity = liquidity.map(mapLiquidityPosition);
   const mappedCredit = credit.map(mapCreditPosition);
 
   return (
-    <section aria-labelledby="positions-composition-heading" className="space-y-3">
+    <section
+      aria-label={`Position composition${idSuffix ? ` (${idSuffix})` : ""}`}
+      className="space-y-3"
+    >
       <Collapsible open={open} onOpenChange={setOpen}>
         <Card className="gap-4">
           <CardHeader>
             <div className="flex w-full flex-wrap items-center justify-between gap-3">
               <div className="space-y-1">
-                <CardTitle id="positions-composition-heading" className="text-base">
+                <CardTitle
+                  id={`positions-composition-heading${idSuffix}`}
+                  className="text-base"
+                >
                   Position composition
                 </CardTitle>
                 <CardDescription>

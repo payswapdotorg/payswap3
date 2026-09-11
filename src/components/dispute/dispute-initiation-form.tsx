@@ -183,9 +183,13 @@ export function DisputeInitiationForm({
         </div>
         <Card>
           <CardHeader>
-            <CardTitle id="dispute-initiated-heading" className="text-xl">
+            <h2
+              data-slot="card-title"
+              id="dispute-initiated-heading"
+              className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm text-xl"
+            >
               Dispute {result.record.reference} opened
-            </CardTitle>
+            </h2>
             <CardDescription>
               Your initiation was accepted by the authority. Track every consequential outcome on
               the dispute&apos;s recourse trail.
@@ -234,9 +238,13 @@ export function DisputeInitiationForm({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl" id="dispute-initiation-heading">
+          <h2
+            data-slot="card-title"
+            id="dispute-initiation-heading"
+            className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm text-xl"
+          >
             Initiate a dispute
-          </CardTitle>
+          </h2>
           <CardDescription>
             You are initiating as <span className="font-medium text-foreground">{viewerLabel}</span>
             . Grounds, your account, and your evidence references go to the
@@ -362,7 +370,7 @@ export function DisputeInitiationForm({
                 type="button"
                 variant="outline"
                 size="sm"
-                className="min-h-9"
+                className="min-h-11"
                 onClick={() =>
                   setEvidenceRows((rows) => [
                     ...rows,
@@ -531,7 +539,7 @@ function InputLike({
       value={value}
       placeholder={placeholder}
       onChange={(event) => onChange(event.target.value)}
-      className="flex h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] dark:bg-input/30"
+      className="flex min-h-11 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] dark:bg-input/30"
     />
   );
 }

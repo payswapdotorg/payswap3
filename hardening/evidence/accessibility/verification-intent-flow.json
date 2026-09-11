@@ -1,0 +1,174 @@
+{
+  "surface": "verification-intent-flow",
+  "route": "/verification/intent-flow",
+  "tool": "axe-core 4.13.0 via Playwright 1.62 (Chromium 1234), runOnly tags [wcag2aa, wcag22aa, best-practice]",
+  "preFixViolations": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 1
+    },
+    {
+      "id": "heading-order",
+      "impact": "moderate",
+      "help": "Heading levels should only increase by one",
+      "nodes": 1
+    },
+    {
+      "id": "region",
+      "impact": "moderate",
+      "help": "All page content should be contained by landmarks",
+      "nodes": 1
+    }
+  ],
+  "postFix": {
+    "violations": [],
+    "passes": [
+      "aria-allowed-role",
+      "color-contrast",
+      "empty-heading",
+      "empty-table-header",
+      "heading-order",
+      "landmark-banner-is-top-level",
+      "landmark-contentinfo-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-contentinfo",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "meta-viewport-large",
+      "meta-viewport",
+      "page-has-heading-one",
+      "region",
+      "skip-link",
+      "tabindex",
+      "table-duplicate-name",
+      "target-size"
+    ],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": [
+          {
+            "target": [
+              "section[aria-label=\"Authority state acknowledged\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+            ],
+            "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "section[aria-label=\"Authority state rejected\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+            ],
+            "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "section[aria-label=\"Authority state unresolved\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+            ],
+            "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "section:nth-child(4) > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+            ],
+            "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "section[aria-label=\"Authority state processing\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+            ],
+            "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+          },
+          {
+            "target": [
+              "section:nth-child(6) > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+            ],
+            "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+          }
+        ]
+      }
+    ],
+    "inapplicable": [
+      "accesskeys",
+      "aria-dialog-name",
+      "aria-text",
+      "aria-treeitem-name",
+      "frame-tested",
+      "image-redundant-alt",
+      "label-title-only",
+      "presentation-role-conflict",
+      "scope-attr-valid",
+      "valid-lang"
+    ]
+  },
+  "semantics": {
+    "lang": "en",
+    "title": "Intent flow verification · PaySwap",
+    "landmarks": [
+      {
+        "tag": "div",
+        "role": "region",
+        "label": "Environment signal"
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary"
+      },
+      {
+        "tag": "main",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "footer",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer"
+      }
+    ],
+    "mains": 1,
+    "h1Count": 1,
+    "headings": [
+      {
+        "level": 1,
+        "text": "Customer payment intent flow — verification"
+      },
+      {
+        "level": 2,
+        "text": "Boundary conditions → UNKNOWN (P5)"
+      }
+    ],
+    "headingSkips": [],
+    "hasSkipLink": true,
+    "skipLinkTargetExists": true,
+    "focusableCount": 21,
+    "nonNativeInteractive": [
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Mock authority reachable",
+        "native": false
+      }
+    ],
+    "unlabeledInteractive": []
+  }
+}

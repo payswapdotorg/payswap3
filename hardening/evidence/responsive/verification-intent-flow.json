@@ -1,0 +1,114 @@
+{
+  "surface": "verification-intent-flow",
+  "route": "/verification/intent-flow",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 10442,
+      "touchTargets": {
+        "measured": 37,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Next submit outcome (mock script)",
+            "visualW": 326,
+            "visualH": 14,
+            "w": 326,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Authority reachable",
+            "visualW": 118.7,
+            "visualH": 16,
+            "w": 118.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 6707,
+      "touchTargets": {
+        "measured": 37,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Next submit outcome (mock script)",
+            "visualW": 392.3,
+            "visualH": 14,
+            "w": 392.3,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Authority reachable",
+            "visualW": 118.7,
+            "visualH": 16,
+            "w": 118.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 6203,
+      "touchTargets": {
+        "measured": 37,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Next submit outcome (mock script)",
+            "visualW": 648.3,
+            "visualH": 14,
+            "w": 648.3,
+            "h": 14,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "label",
+            "role": "",
+            "name": "Authority reachable",
+            "visualW": 118.7,
+            "visualH": 16,
+            "w": 118.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

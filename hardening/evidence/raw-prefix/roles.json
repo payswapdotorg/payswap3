@@ -1,0 +1,2288 @@
+{
+  "navigation": {
+    "unauthenticated": {
+      "primary": [
+        {
+          "text": "Home",
+          "href": "/"
+        }
+      ],
+      "footer": [
+        {
+          "text": "State primitives (verification)",
+          "href": "/state-primitives"
+        },
+        {
+          "text": "Intent flow verification",
+          "href": "/verification/intent-flow"
+        },
+        {
+          "text": "Track a payment",
+          "href": "/track"
+        }
+      ]
+    },
+    "customer": {
+      "primary": [
+        {
+          "text": "Home",
+          "href": "/"
+        }
+      ],
+      "footer": [
+        {
+          "text": "State primitives (verification)",
+          "href": "/state-primitives"
+        },
+        {
+          "text": "Intent flow verification",
+          "href": "/verification/intent-flow"
+        },
+        {
+          "text": "Track a payment",
+          "href": "/track"
+        }
+      ]
+    },
+    "merchant": {
+      "primary": [
+        {
+          "text": "Home",
+          "href": "/"
+        }
+      ],
+      "footer": [
+        {
+          "text": "State primitives (verification)",
+          "href": "/state-primitives"
+        },
+        {
+          "text": "Intent flow verification",
+          "href": "/verification/intent-flow"
+        },
+        {
+          "text": "Track a payment",
+          "href": "/track"
+        }
+      ]
+    },
+    "provider": {
+      "primary": [
+        {
+          "text": "Home",
+          "href": "/"
+        }
+      ],
+      "footer": [
+        {
+          "text": "State primitives (verification)",
+          "href": "/state-primitives"
+        },
+        {
+          "text": "Intent flow verification",
+          "href": "/verification/intent-flow"
+        },
+        {
+          "text": "Track a payment",
+          "href": "/track"
+        }
+      ]
+    },
+    "operator": {
+      "primary": [
+        {
+          "text": "Home",
+          "href": "/"
+        }
+      ],
+      "footer": [
+        {
+          "text": "State primitives (verification)",
+          "href": "/state-primitives"
+        },
+        {
+          "text": "Intent flow verification",
+          "href": "/verification/intent-flow"
+        },
+        {
+          "text": "Track a payment",
+          "href": "/track"
+        }
+      ]
+    },
+    "administrator": {
+      "primary": [
+        {
+          "text": "Home",
+          "href": "/"
+        }
+      ],
+      "footer": [
+        {
+          "text": "State primitives (verification)",
+          "href": "/state-primitives"
+        },
+        {
+          "text": "Intent flow verification",
+          "href": "/verification/intent-flow"
+        },
+        {
+          "text": "Track a payment",
+          "href": "/track"
+        }
+      ]
+    }
+  },
+  "deepLinks": {
+    "home": {
+      "route": "/",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "state-primitives": {
+      "route": "/state-primitives",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/state-primitives",
+          "content": {
+            "mainTextHead": "UI-001 · Verification evidenceState display primitives & shell proofThis surface renders the full state-primitive matrix, the environment-signal derivation chain with an anti-spoof probe, the role-routing matrix for all ",
+            "h1": "State display primitives & shell proof",
+            "title": "State primitives (verification) · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/state-primitives",
+          "content": {
+            "mainTextHead": "UI-001 · Verification evidenceState display primitives & shell proofThis surface renders the full state-primitive matrix, the environment-signal derivation chain with an anti-spoof probe, the role-routing matrix for all ",
+            "h1": "State display primitives & shell proof",
+            "title": "State primitives (verification) · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/state-primitives",
+          "content": {
+            "mainTextHead": "UI-001 · Verification evidenceState display primitives & shell proofThis surface renders the full state-primitive matrix, the environment-signal derivation chain with an anti-spoof probe, the role-routing matrix for all ",
+            "h1": "State display primitives & shell proof",
+            "title": "State primitives (verification) · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/state-primitives",
+          "content": {
+            "mainTextHead": "UI-001 · Verification evidenceState display primitives & shell proofThis surface renders the full state-primitive matrix, the environment-signal derivation chain with an anti-spoof probe, the role-routing matrix for all ",
+            "h1": "State display primitives & shell proof",
+            "title": "State primitives (verification) · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/state-primitives",
+          "content": {
+            "mainTextHead": "UI-001 · Verification evidenceState display primitives & shell proofThis surface renders the full state-primitive matrix, the environment-signal derivation chain with an anti-spoof probe, the role-routing matrix for all ",
+            "h1": "State display primitives & shell proof",
+            "title": "State primitives (verification) · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/state-primitives",
+          "content": {
+            "mainTextHead": "UI-001 · Verification evidenceState display primitives & shell proofThis surface renders the full state-primitive matrix, the environment-signal derivation chain with an anti-spoof probe, the role-routing matrix for all ",
+            "h1": "State display primitives & shell proof",
+            "title": "State primitives (verification) · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "pay-compose": {
+      "route": "/pay",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "home",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/pay",
+          "content": {
+            "mainTextHead": "1Compose→2Review & submit→3Intent stateSend a payment intentOutcome first: state what you want to happen. The details the intent needs come after, and nothing is submitted until you have reviewed the full consequences an",
+            "h1": "Send a payment intent",
+            "title": "Send a payment intent · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "pay-review": {
+      "route": "/pay/review",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "home",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/pay/review",
+          "content": {
+            "mainTextHead": "1Compose→2Review & submit→3Intent stateNo intent in reviewThere is no draft in progress in this session, so there is nothing to review — this page never invents an intent to show.Compose a payment intent",
+            "h1": "No intent in review",
+            "title": "Review the full consequences · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "pay-intent-state": {
+      "route": "/pay/INTENT-2041",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "home",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/pay/INTENT-2041",
+          "content": {
+            "mainTextHead": "Compose→Review & submit→3Intent statePayment intent stateReference INTENT-2041. This page shows exactly what the Intent Authority reports — acknowledged, failed, or explicitly unknown — and nothing else.Sandbox environme",
+            "h1": "Payment intent state",
+            "title": "Payment intent state · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "checkout-list": {
+      "route": "/checkout",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/checkout",
+          "content": {
+            "mainTextHead": "Merchant surfaceRole-checked: merchant onlyCurrent audience: merchantRuntime: ARRIVINGMock backing — NON-AUTHORITATIVE (presentation-only)Merchant checkoutOpen offers and quotes addressed to your merchant identity. Each ",
+            "h1": "Merchant checkout",
+            "title": "Merchant checkout — payswap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "checkout-decision": {
+      "route": "/checkout/cko_live_offer_001",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/checkout/cko_live_offer_001",
+          "content": {
+            "mainTextHead": "Merchant surfaceRole-checked: merchant onlyCurrent audience: merchantRuntime: ARRIVINGMock backing — NON-AUTHORITATIVE (presentation-only)Checkout stateThe authority-recorded state of one merchant checkout. This page onl",
+            "h1": "Checkout state",
+            "title": "Checkout state — payswap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "capabilities": {
+      "route": "/capabilities",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "home",
+        "provider": "render",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/capabilities",
+          "content": {
+            "mainTextHead": "Skip to contentPaySwapProvider surfaceAudience: providerHomeCapabilitiesProvider positions & trackingPlannedLiquidity positionsRead-only surfaceCapabilities presents capability and routing truth owned by protocol authori",
+            "h1": "Capabilities",
+            "title": "Capabilities — PaySwap provider surface · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "capability-detail": {
+      "route": "/capabilities/intent-acceptance",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "home",
+        "provider": "render",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/capabilities/intent-acceptance",
+          "content": {
+            "mainTextHead": "Skip to contentPaySwapProvider surfaceAudience: providerHomeCapabilitiesProvider positions & trackingPlannedLiquidity positionsRead-only surfaceCapability detail presents capability and routing truth owned by protocol au",
+            "h1": "Intent acceptance",
+            "title": "Intent acceptance — PaySwap provider surface · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "liquidity": {
+      "route": "/liquidity",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "home",
+        "provider": "render",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/liquidity",
+          "content": {
+            "mainTextHead": "Payswap · provider surfaceViewing as providerHomeLiquidity positionsRead-only visibility of your own liquidity, credit, and queued positions. Truth on this surface is owned by its protocol authorities: the Liquidity Auth",
+            "h1": "Liquidity positions",
+            "title": "Liquidity positions — Payswap · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "oversight": {
+      "route": "/oversight",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "home",
+        "provider": "home",
+        "operator": "render",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/oversight",
+          "content": {
+            "mainTextHead": "Payswap · operator surfaceViewing as operatorHomeOversightRead-only visibility of the aggregates the owning authorities permit to oversight. Truth on this surface is owned by its protocol authorities: the Liquidity Autho",
+            "h1": "Oversight",
+            "title": "Oversight — Payswap · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "track": {
+      "route": "/track",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track",
+          "content": {
+            "mainTextHead": "Track a paymentEnter the reference you were given — from the payer, the merchant, or support. The current state, the plain-language history, and the complete proof trail for that reference are then shown, for viewers aut",
+            "h1": "Track a payment",
+            "title": "Track a payment — PaySwap · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track",
+          "content": {
+            "mainTextHead": "Track a paymentEnter the reference you were given — from the payer, the merchant, or support. The current state, the plain-language history, and the complete proof trail for that reference are then shown, for viewers aut",
+            "h1": "Track a payment",
+            "title": "Track a payment — PaySwap · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track",
+          "content": {
+            "mainTextHead": "Track a paymentEnter the reference you were given — from the payer, the merchant, or support. The current state, the plain-language history, and the complete proof trail for that reference are then shown, for viewers aut",
+            "h1": "Track a payment",
+            "title": "Track a payment — PaySwap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track",
+          "content": {
+            "mainTextHead": "Track a paymentEnter the reference you were given — from the payer, the merchant, or support. The current state, the plain-language history, and the complete proof trail for that reference are then shown, for viewers aut",
+            "h1": "Track a payment",
+            "title": "Track a payment — PaySwap · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track",
+          "content": {
+            "mainTextHead": "Track a paymentEnter the reference you were given — from the payer, the merchant, or support. The current state, the plain-language history, and the complete proof trail for that reference are then shown, for viewers aut",
+            "h1": "Track a payment",
+            "title": "Track a payment — PaySwap · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track",
+          "content": {
+            "mainTextHead": "Track a paymentEnter the reference you were given — from the payer, the merchant, or support. The current state, the plain-language history, and the complete proof trail for that reference are then shown, for viewers aut",
+            "h1": "Track a payment",
+            "title": "Track a payment — PaySwap · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "track-status-intent": {
+      "route": "/track/PWS-2H8D",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/PWS-2H8D",
+          "content": {
+            "mainTextHead": "This reference is not viewable in your current roleNOT AUTHORIZEDReference PWS-2H8D · You are viewing as unauthenticatedNot authorized to view this referenceThis reference is tracked, but the current viewer role is not a",
+            "h1": null,
+            "title": "Tracking PWS-2H8D — PaySwap · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/PWS-2H8D",
+          "content": {
+            "mainTextHead": "Payment of 64.00 EUR to Atlas BookbinderyPWS-2H8DTracked payment intent · You are viewing as customerProtocol object: payment-intent INT-2H8D-3320 · Owning authority: Intent AuthorityNon-authoritative presentationThis vi",
+            "h1": null,
+            "title": "Tracking PWS-2H8D — PaySwap · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/PWS-2H8D",
+          "content": {
+            "mainTextHead": "Payment of 64.00 EUR to Atlas BookbinderyPWS-2H8DTracked payment intent · You are viewing as merchantProtocol object: payment-intent INT-2H8D-3320 · Owning authority: Intent AuthorityNon-authoritative presentationThis vi",
+            "h1": null,
+            "title": "Tracking PWS-2H8D — PaySwap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/PWS-2H8D",
+          "content": {
+            "mainTextHead": "This reference is not viewable in your current roleNOT AUTHORIZEDReference PWS-2H8D · You are viewing as providerNot authorized to view this referenceThis reference is tracked, but the current viewer role is not authoriz",
+            "h1": null,
+            "title": "Tracking PWS-2H8D — PaySwap · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/PWS-2H8D",
+          "content": {
+            "mainTextHead": "Payment of 64.00 EUR to Atlas BookbinderyPWS-2H8DTracked payment intent · You are viewing as operatorProtocol object: payment-intent INT-2H8D-3320 · Owning authority: Intent AuthorityNon-authoritative presentationThis vi",
+            "h1": null,
+            "title": "Tracking PWS-2H8D — PaySwap · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/PWS-2H8D",
+          "content": {
+            "mainTextHead": "Payment of 64.00 EUR to Atlas BookbinderyPWS-2H8DTracked payment intent · You are viewing as administratorProtocol object: payment-intent INT-2H8D-3320 · Owning authority: Intent AuthorityNon-authoritative presentationTh",
+            "h1": null,
+            "title": "Tracking PWS-2H8D — PaySwap · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "track-status-settlement": {
+      "route": "/track/STL-4419",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/STL-4419",
+          "content": {
+            "mainTextHead": "This reference is not viewable in your current roleNOT AUTHORIZEDReference STL-4419 · You are viewing as unauthenticatedNot authorized to view this referenceThis reference is tracked, but the current viewer role is not a",
+            "h1": null,
+            "title": "Tracking STL-4419 — PaySwap · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/STL-4419",
+          "content": {
+            "mainTextHead": "This reference is not viewable in your current roleNOT AUTHORIZEDReference STL-4419 · You are viewing as customerNot authorized to view this referenceThis reference is tracked, but the current viewer role is not authoriz",
+            "h1": null,
+            "title": "Tracking STL-4419 — PaySwap · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/STL-4419",
+          "content": {
+            "mainTextHead": "Settlement of the day's captured payments to Harbor Print Studio (402.50 EUR total)STL-4419Tracked settlement · You are viewing as merchantProtocol object: settlement STL-4419 · Owning authority: Evidence AuthorityNon-au",
+            "h1": null,
+            "title": "Tracking STL-4419 — PaySwap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/STL-4419",
+          "content": {
+            "mainTextHead": "Settlement of the day's captured payments to Harbor Print Studio (402.50 EUR total)STL-4419Tracked settlement · You are viewing as providerProtocol object: settlement STL-4419 · Owning authority: Evidence AuthorityNon-au",
+            "h1": null,
+            "title": "Tracking STL-4419 — PaySwap · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/STL-4419",
+          "content": {
+            "mainTextHead": "Settlement of the day's captured payments to Harbor Print Studio (402.50 EUR total)STL-4419Tracked settlement · You are viewing as operatorProtocol object: settlement STL-4419 · Owning authority: Evidence AuthorityNon-au",
+            "h1": null,
+            "title": "Tracking STL-4419 — PaySwap · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/STL-4419",
+          "content": {
+            "mainTextHead": "Settlement of the day's captured payments to Harbor Print Studio (402.50 EUR total)STL-4419Tracked settlement · You are viewing as administratorProtocol object: settlement STL-4419 · Owning authority: Evidence AuthorityN",
+            "h1": null,
+            "title": "Tracking STL-4419 — PaySwap · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "waiting-recovery": {
+      "route": "/track/TRK-4410-QUEUED-LIQ/waiting",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/TRK-4410-QUEUED-LIQ/waiting",
+          "content": {
+            "mainTextHead": "Back to track detailWaiting detail — TRK-4410-QUEUED-LIQARRIVINGWaiting, queued, and delayed fulfillment states for this reference, with the reason reported by the owning authority, the expectation of what happens next, ",
+            "h1": "Waiting detail — TRK-4410-QUEUED-LIQ",
+            "title": "Waiting — TRK-4410-QUEUED-LIQ — payswap3 · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/TRK-4410-QUEUED-LIQ/waiting",
+          "content": {
+            "mainTextHead": "Back to track detailWaiting detail — TRK-4410-QUEUED-LIQARRIVINGWaiting, queued, and delayed fulfillment states for this reference, with the reason reported by the owning authority, the expectation of what happens next, ",
+            "h1": "Waiting detail — TRK-4410-QUEUED-LIQ",
+            "title": "Waiting — TRK-4410-QUEUED-LIQ — payswap3 · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/TRK-4410-QUEUED-LIQ/waiting",
+          "content": {
+            "mainTextHead": "Back to track detailWaiting detail — TRK-4410-QUEUED-LIQARRIVINGWaiting, queued, and delayed fulfillment states for this reference, with the reason reported by the owning authority, the expectation of what happens next, ",
+            "h1": "Waiting detail — TRK-4410-QUEUED-LIQ",
+            "title": "Waiting — TRK-4410-QUEUED-LIQ — payswap3 · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/TRK-4410-QUEUED-LIQ/waiting",
+          "content": {
+            "mainTextHead": "Back to track detailWaiting detail — TRK-4410-QUEUED-LIQARRIVINGWaiting, queued, and delayed fulfillment states for this reference, with the reason reported by the owning authority, the expectation of what happens next, ",
+            "h1": "Waiting detail — TRK-4410-QUEUED-LIQ",
+            "title": "Waiting — TRK-4410-QUEUED-LIQ — payswap3 · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/track/TRK-4410-QUEUED-LIQ/waiting",
+          "content": {
+            "mainTextHead": "Back to track detailWaiting detail — TRK-4410-QUEUED-LIQARRIVINGWaiting, queued, and delayed fulfillment states for this reference, with the reason reported by the owning authority, the expectation of what happens next, ",
+            "h1": "Waiting detail — TRK-4410-QUEUED-LIQ",
+            "title": "Waiting — TRK-4410-QUEUED-LIQ — payswap3 · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "mediation-hub": {
+      "route": "/mediation",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation",
+          "content": {
+            "mainTextHead": "Mediation, proposals & disputesYour customer surface for consequential human-in-the-loop moments: agent proposals awaiting your decision, mediations you are party to, disputes you are party to, and their recourse trails.",
+            "h1": "Mediation, proposals & disputes",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation",
+          "content": {
+            "mainTextHead": "Mediation, proposals & disputesYour merchant surface for consequential human-in-the-loop moments: agent proposals awaiting your decision, mediations you are party to, disputes you are party to, and their recourse trails.",
+            "h1": "Mediation, proposals & disputes",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "mediation-case": {
+      "route": "/mediation/case/M-101",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/case/M-101",
+          "content": {
+            "mainTextHead": "Back to docketIn progressMED-2038-01Dispute over delivery of swap SW-2038Mediation between the parties, reported by the Agents/Mediation Authority. You are viewing as Priya N. (customer).You (party)Priya N. (customer)Res",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/case/M-101",
+          "content": {
+            "mainTextHead": "Back to docketIn progressMED-2038-01Dispute over delivery of swap SW-2038Mediation between the parties, reported by the Agents/Mediation Authority. You are viewing as Arbor Press Coffee (merchant).Party — customerPriya N",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "dispute-initiation": {
+      "route": "/mediation/dispute/new",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/dispute/new",
+          "content": {
+            "mainTextHead": "Back to docketDisputes/Recourse AuthorityInitiate a disputeYou are initiating as Priya N. (customer). Grounds, your account, and your evidence references go to the Disputes/Recourse Authority and the other party.Action r",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/dispute/new",
+          "content": {
+            "mainTextHead": "Back to docketDisputes/Recourse AuthorityInitiate a disputeYou are initiating as Arbor Press Coffee (merchant). Grounds, your account, and your evidence references go to the Disputes/Recourse Authority and the other part",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "dispute-detail": {
+      "route": "/mediation/dispute/D-201",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/dispute/D-201",
+          "content": {
+            "mainTextHead": "Back to docketIn progressDIS-2038-01Dispute D-201 — recourse trackingOpened by Priya N. (customer) against Arbor Press Coffee (merchant). You are viewing as Priya N. (customer).Referenced swapTracking record SW-2038Linke",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/dispute/D-201",
+          "content": {
+            "mainTextHead": "Back to docketIn progressDIS-2038-01Dispute D-201 — recourse trackingOpened by Priya N. (customer) against Arbor Press Coffee (merchant). You are viewing as Arbor Press Coffee (merchant).Referenced swapTracking record SW",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "proposal-review": {
+      "route": "/mediation/proposal/P-001",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "home",
+        "administrator": "home"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/proposal/P-001",
+          "content": {
+            "mainTextHead": "Back to docketAction requiredPROPOSAL-SW2041-AAccept the customer's revised completion window on swap SW-2041The customer asked for a 5-day completion window instead of the quoted 2 days. The agent proposes accepting the",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/mediation/proposal/P-001",
+          "content": {
+            "mainTextHead": "Back to docketAction requiredPROPOSAL-SW2041-AAccept the customer's revised completion window on swap SW-2041The customer asked for a 5-day completion window instead of the quoted 2 days. The agent proposes accepting the",
+            "h1": null,
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "verification-intent-flow": {
+      "route": "/verification/intent-flow",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/intent-flow",
+          "content": {
+            "mainTextHead": "Verification surface · UI-002Customer payment intent flow — verificationEverything on this page renders through the same port, the same navigation grammar, and the same shared state primitives as the customer surface its",
+            "h1": "Customer payment intent flow — verification",
+            "title": "Intent flow verification · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/intent-flow",
+          "content": {
+            "mainTextHead": "Verification surface · UI-002Customer payment intent flow — verificationEverything on this page renders through the same port, the same navigation grammar, and the same shared state primitives as the customer surface its",
+            "h1": "Customer payment intent flow — verification",
+            "title": "Intent flow verification · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/intent-flow",
+          "content": {
+            "mainTextHead": "Verification surface · UI-002Customer payment intent flow — verificationEverything on this page renders through the same port, the same navigation grammar, and the same shared state primitives as the customer surface its",
+            "h1": "Customer payment intent flow — verification",
+            "title": "Intent flow verification · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/intent-flow",
+          "content": {
+            "mainTextHead": "Verification surface · UI-002Customer payment intent flow — verificationEverything on this page renders through the same port, the same navigation grammar, and the same shared state primitives as the customer surface its",
+            "h1": "Customer payment intent flow — verification",
+            "title": "Intent flow verification · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/intent-flow",
+          "content": {
+            "mainTextHead": "Verification surface · UI-002Customer payment intent flow — verificationEverything on this page renders through the same port, the same navigation grammar, and the same shared state primitives as the customer surface its",
+            "h1": "Customer payment intent flow — verification",
+            "title": "Intent flow verification · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/intent-flow",
+          "content": {
+            "mainTextHead": "Verification surface · UI-002Customer payment intent flow — verificationEverything on this page renders through the same port, the same navigation grammar, and the same shared state primitives as the customer surface its",
+            "h1": "Customer payment intent flow — verification",
+            "title": "Intent flow verification · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "verification-checkout-flow": {
+      "route": "/verification/checkout-flow",
+      "expected": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "render",
+        "provider": "home",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/checkout-flow",
+          "content": {
+            "mainTextHead": "Verification harnessUI-003 · merchant checkout surfaceRuntime: ARRIVINGMock data — NON-AUTHORITATIVECheckout flow verificationExercises the real merchant checkout components and the adapter boundary: the decision surface",
+            "h1": "Checkout flow verification",
+            "title": "Checkout flow verification — payswap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "home",
+          "httpStatus": 200,
+          "finalUrl": "/",
+          "content": {
+            "mainTextHead": "UI-001 · Product foundationPaySwap application shellEvery product surface mounts into this shell. It provides one navigation grammar, six explicit display states, a persistent environment signal, and role-scoped navigati",
+            "h1": "PaySwap application shell",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/checkout-flow",
+          "content": {
+            "mainTextHead": "Verification harnessUI-003 · merchant checkout surfaceRuntime: ARRIVINGMock data — NON-AUTHORITATIVECheckout flow verificationExercises the real merchant checkout components and the adapter boundary: the decision surface",
+            "h1": "Checkout flow verification",
+            "title": "Checkout flow verification — payswap · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/checkout-flow",
+          "content": {
+            "mainTextHead": "Verification harnessUI-003 · merchant checkout surfaceRuntime: ARRIVINGMock data — NON-AUTHORITATIVECheckout flow verificationExercises the real merchant checkout components and the adapter boundary: the decision surface",
+            "h1": "Checkout flow verification",
+            "title": "Checkout flow verification — payswap · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "verification-capability-flow": {
+      "route": "/verification/capability-flow",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/capability-flow",
+          "content": {
+            "mainTextHead": "Capability flow verificationUI-004 · verification surface (not role-gated)What this harness verifiesThe capability state matrix (including UNKNOWN-versus-failure), the role matrix for the provider surfaces, and the adapt",
+            "h1": "Capability flow verification",
+            "title": "Capability flow verification — PaySwap · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/capability-flow",
+          "content": {
+            "mainTextHead": "Capability flow verificationUI-004 · verification surface (not role-gated)What this harness verifiesThe capability state matrix (including UNKNOWN-versus-failure), the role matrix for the provider surfaces, and the adapt",
+            "h1": "Capability flow verification",
+            "title": "Capability flow verification — PaySwap · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/capability-flow",
+          "content": {
+            "mainTextHead": "Capability flow verificationUI-004 · verification surface (not role-gated)What this harness verifiesThe capability state matrix (including UNKNOWN-versus-failure), the role matrix for the provider surfaces, and the adapt",
+            "h1": "Capability flow verification",
+            "title": "Capability flow verification — PaySwap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/capability-flow",
+          "content": {
+            "mainTextHead": "Capability flow verificationUI-004 · verification surface (not role-gated)What this harness verifiesThe capability state matrix (including UNKNOWN-versus-failure), the role matrix for the provider surfaces, and the adapt",
+            "h1": "Capability flow verification",
+            "title": "Capability flow verification — PaySwap · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/capability-flow",
+          "content": {
+            "mainTextHead": "Capability flow verificationUI-004 · verification surface (not role-gated)What this harness verifiesThe capability state matrix (including UNKNOWN-versus-failure), the role matrix for the provider surfaces, and the adapt",
+            "h1": "Capability flow verification",
+            "title": "Capability flow verification — PaySwap · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/capability-flow",
+          "content": {
+            "mainTextHead": "Capability flow verificationUI-004 · verification surface (not role-gated)What this harness verifiesThe capability state matrix (including UNKNOWN-versus-failure), the role matrix for the provider surfaces, and the adapt",
+            "h1": "Capability flow verification",
+            "title": "Capability flow verification — PaySwap · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "verification-liquidity-flow": {
+      "route": "/verification/liquidity-flow",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/liquidity-flow",
+          "content": {
+            "mainTextHead": "Payswap · UI-007 verificationViewing as unauthenticatedHomeLiquidity, credit & queue visibility — verification harnessVerification of the read-only liquidity, credit, and queued-position surfaces: adapter boundary, role-",
+            "h1": "Liquidity, credit & queue visibility — verification harness",
+            "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/liquidity-flow",
+          "content": {
+            "mainTextHead": "Payswap · UI-007 verificationViewing as customerHomeLiquidity, credit & queue visibility — verification harnessVerification of the read-only liquidity, credit, and queued-position surfaces: adapter boundary, role-visibil",
+            "h1": "Liquidity, credit & queue visibility — verification harness",
+            "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/liquidity-flow",
+          "content": {
+            "mainTextHead": "Payswap · UI-007 verificationViewing as merchantHomeLiquidity, credit & queue visibility — verification harnessVerification of the read-only liquidity, credit, and queued-position surfaces: adapter boundary, role-visibil",
+            "h1": "Liquidity, credit & queue visibility — verification harness",
+            "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/liquidity-flow",
+          "content": {
+            "mainTextHead": "Payswap · UI-007 verificationViewing as providerHomeLiquidity, credit & queue visibility — verification harnessVerification of the read-only liquidity, credit, and queued-position surfaces: adapter boundary, role-visibil",
+            "h1": "Liquidity, credit & queue visibility — verification harness",
+            "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/liquidity-flow",
+          "content": {
+            "mainTextHead": "Payswap · UI-007 verificationViewing as operatorHomeLiquidity, credit & queue visibility — verification harnessVerification of the read-only liquidity, credit, and queued-position surfaces: adapter boundary, role-visibil",
+            "h1": "Liquidity, credit & queue visibility — verification harness",
+            "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/liquidity-flow",
+          "content": {
+            "mainTextHead": "Payswap · UI-007 verificationViewing as administratorHomeLiquidity, credit & queue visibility — verification harnessVerification of the read-only liquidity, credit, and queued-position surfaces: adapter boundary, role-vi",
+            "h1": "Liquidity, credit & queue visibility — verification harness",
+            "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "verification-tracking-flow": {
+      "route": "/verification/tracking-flow",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/tracking-flow",
+          "content": {
+            "mainTextHead": "UI-005 verification harnessTracking flow — states, evidence, roles, adapter boundaryThis harness drives the real adapter boundary (the tracking port and its presentation-only mock backing) and renders the results through",
+            "h1": "Tracking flow — states, evidence, roles, adapter boundary",
+            "title": "UI-005 verification — tracking flow — PaySwap · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/tracking-flow",
+          "content": {
+            "mainTextHead": "UI-005 verification harnessTracking flow — states, evidence, roles, adapter boundaryThis harness drives the real adapter boundary (the tracking port and its presentation-only mock backing) and renders the results through",
+            "h1": "Tracking flow — states, evidence, roles, adapter boundary",
+            "title": "UI-005 verification — tracking flow — PaySwap · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/tracking-flow",
+          "content": {
+            "mainTextHead": "UI-005 verification harnessTracking flow — states, evidence, roles, adapter boundaryThis harness drives the real adapter boundary (the tracking port and its presentation-only mock backing) and renders the results through",
+            "h1": "Tracking flow — states, evidence, roles, adapter boundary",
+            "title": "UI-005 verification — tracking flow — PaySwap · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/tracking-flow",
+          "content": {
+            "mainTextHead": "UI-005 verification harnessTracking flow — states, evidence, roles, adapter boundaryThis harness drives the real adapter boundary (the tracking port and its presentation-only mock backing) and renders the results through",
+            "h1": "Tracking flow — states, evidence, roles, adapter boundary",
+            "title": "UI-005 verification — tracking flow — PaySwap · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/tracking-flow",
+          "content": {
+            "mainTextHead": "UI-005 verification harnessTracking flow — states, evidence, roles, adapter boundaryThis harness drives the real adapter boundary (the tracking port and its presentation-only mock backing) and renders the results through",
+            "h1": "Tracking flow — states, evidence, roles, adapter boundary",
+            "title": "UI-005 verification — tracking flow — PaySwap · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/tracking-flow",
+          "content": {
+            "mainTextHead": "UI-005 verification harnessTracking flow — states, evidence, roles, adapter boundaryThis harness drives the real adapter boundary (the tracking port and its presentation-only mock backing) and renders the results through",
+            "h1": "Tracking flow — states, evidence, roles, adapter boundary",
+            "title": "UI-005 verification — tracking flow — PaySwap · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "verification-waiting-flow": {
+      "route": "/verification/waiting-flow",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/waiting-flow",
+          "content": {
+            "mainTextHead": "Waiting flow verificationARRIVINGUI-006Verifies the waiting, queued, and delayed fulfillment UX on the track surface: reason, expectation, and available actions (or the explicit none-yet) on every state; UNKNOWN with its",
+            "h1": "Waiting flow verification",
+            "title": "Waiting flow verification — payswap3 · PaySwap"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/waiting-flow",
+          "content": {
+            "mainTextHead": "Waiting flow verificationARRIVINGUI-006Verifies the waiting, queued, and delayed fulfillment UX on the track surface: reason, expectation, and available actions (or the explicit none-yet) on every state; UNKNOWN with its",
+            "h1": "Waiting flow verification",
+            "title": "Waiting flow verification — payswap3 · PaySwap"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/waiting-flow",
+          "content": {
+            "mainTextHead": "Waiting flow verificationARRIVINGUI-006Verifies the waiting, queued, and delayed fulfillment UX on the track surface: reason, expectation, and available actions (or the explicit none-yet) on every state; UNKNOWN with its",
+            "h1": "Waiting flow verification",
+            "title": "Waiting flow verification — payswap3 · PaySwap"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/waiting-flow",
+          "content": {
+            "mainTextHead": "Waiting flow verificationARRIVINGUI-006Verifies the waiting, queued, and delayed fulfillment UX on the track surface: reason, expectation, and available actions (or the explicit none-yet) on every state; UNKNOWN with its",
+            "h1": "Waiting flow verification",
+            "title": "Waiting flow verification — payswap3 · PaySwap"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/waiting-flow",
+          "content": {
+            "mainTextHead": "Waiting flow verificationARRIVINGUI-006Verifies the waiting, queued, and delayed fulfillment UX on the track surface: reason, expectation, and available actions (or the explicit none-yet) on every state; UNKNOWN with its",
+            "h1": "Waiting flow verification",
+            "title": "Waiting flow verification — payswap3 · PaySwap"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/waiting-flow",
+          "content": {
+            "mainTextHead": "Waiting flow verificationARRIVINGUI-006Verifies the waiting, queued, and delayed fulfillment UX on the track surface: reason, expectation, and available actions (or the explicit none-yet) on every state; UNKNOWN with its",
+            "h1": "Waiting flow verification",
+            "title": "Waiting flow verification — payswap3 · PaySwap"
+          }
+        }
+      },
+      "content": {}
+    },
+    "verification-mediation-flow": {
+      "route": "/verification/mediation-flow",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "declared": {
+        "unauthenticated": "home",
+        "customer": "home",
+        "merchant": "home",
+        "provider": "home",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/mediation-flow",
+          "content": {
+            "mainTextHead": "Verification — mediation & dispute flow (UI-008)Harness evidence for the agent-proposal review/decision workflow, the per-role decision-authorization matrix, the mediation/dispute state matrix including UNKNOWN, and the ",
+            "h1": "Verification — mediation & dispute flow (UI-008)",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/mediation-flow",
+          "content": {
+            "mainTextHead": "Verification — mediation & dispute flow (UI-008)Harness evidence for the agent-proposal review/decision workflow, the per-role decision-authorization matrix, the mediation/dispute state matrix including UNKNOWN, and the ",
+            "h1": "Verification — mediation & dispute flow (UI-008)",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/mediation-flow",
+          "content": {
+            "mainTextHead": "Verification — mediation & dispute flow (UI-008)Harness evidence for the agent-proposal review/decision workflow, the per-role decision-authorization matrix, the mediation/dispute state matrix including UNKNOWN, and the ",
+            "h1": "Verification — mediation & dispute flow (UI-008)",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/mediation-flow",
+          "content": {
+            "mainTextHead": "Verification — mediation & dispute flow (UI-008)Harness evidence for the agent-proposal review/decision workflow, the per-role decision-authorization matrix, the mediation/dispute state matrix including UNKNOWN, and the ",
+            "h1": "Verification — mediation & dispute flow (UI-008)",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/mediation-flow",
+          "content": {
+            "mainTextHead": "Verification — mediation & dispute flow (UI-008)Harness evidence for the agent-proposal review/decision workflow, the per-role decision-authorization matrix, the mediation/dispute state matrix including UNKNOWN, and the ",
+            "h1": "Verification — mediation & dispute flow (UI-008)",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 200,
+          "finalUrl": "/verification/mediation-flow",
+          "content": {
+            "mainTextHead": "Verification — mediation & dispute flow (UI-008)Harness evidence for the agent-proposal review/decision workflow, the per-role decision-authorization matrix, the mediation/dispute state matrix including UNKNOWN, and the ",
+            "h1": "Verification — mediation & dispute flow (UI-008)",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    },
+    "not-found": {
+      "route": "/no-such-route-ui009",
+      "expected": {
+        "unauthenticated": "render",
+        "customer": "render",
+        "merchant": "render",
+        "provider": "render",
+        "operator": "render",
+        "administrator": "render"
+      },
+      "observed": {
+        "unauthenticated": {
+          "observed": "render",
+          "httpStatus": 404,
+          "finalUrl": "/no-such-route-ui009",
+          "content": {
+            "mainTextHead": "Route not foundThis route is not part of the navigation grammar. Reserved routes for planned surfaces stay inert until their owning work items ship them, so no undocumented entry point exists (P1). The environment signal",
+            "h1": "Route not found",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "customer": {
+          "observed": "render",
+          "httpStatus": 404,
+          "finalUrl": "/no-such-route-ui009",
+          "content": {
+            "mainTextHead": "Route not foundThis route is not part of the navigation grammar. Reserved routes for planned surfaces stay inert until their owning work items ship them, so no undocumented entry point exists (P1). The environment signal",
+            "h1": "Route not found",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "merchant": {
+          "observed": "render",
+          "httpStatus": 404,
+          "finalUrl": "/no-such-route-ui009",
+          "content": {
+            "mainTextHead": "Route not foundThis route is not part of the navigation grammar. Reserved routes for planned surfaces stay inert until their owning work items ship them, so no undocumented entry point exists (P1). The environment signal",
+            "h1": "Route not found",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "provider": {
+          "observed": "render",
+          "httpStatus": 404,
+          "finalUrl": "/no-such-route-ui009",
+          "content": {
+            "mainTextHead": "Route not foundThis route is not part of the navigation grammar. Reserved routes for planned surfaces stay inert until their owning work items ship them, so no undocumented entry point exists (P1). The environment signal",
+            "h1": "Route not found",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "operator": {
+          "observed": "render",
+          "httpStatus": 404,
+          "finalUrl": "/no-such-route-ui009",
+          "content": {
+            "mainTextHead": "Route not foundThis route is not part of the navigation grammar. Reserved routes for planned surfaces stay inert until their owning work items ship them, so no undocumented entry point exists (P1). The environment signal",
+            "h1": "Route not found",
+            "title": "PaySwap — product shell"
+          }
+        },
+        "administrator": {
+          "observed": "render",
+          "httpStatus": 404,
+          "finalUrl": "/no-such-route-ui009",
+          "content": {
+            "mainTextHead": "Route not foundThis route is not part of the navigation grammar. Reserved routes for planned surfaces stay inert until their owning work items ship them, so no undocumented entry point exists (P1). The environment signal",
+            "h1": "Route not found",
+            "title": "PaySwap — product shell"
+          }
+        }
+      },
+      "content": {}
+    }
+  },
+  "contentGates": {
+    "track-status-intent:unauthenticated": {
+      "expected": "not-authorized presentation",
+      "deniedPresentation": true
+    },
+    "track-status-intent:customer": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "track-status-intent:merchant": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "track-status-intent:provider": {
+      "expected": "not-authorized presentation",
+      "deniedPresentation": true
+    },
+    "track-status-intent:operator": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "track-status-intent:administrator": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "track-status-settlement:unauthenticated": {
+      "expected": "not-authorized presentation",
+      "deniedPresentation": true
+    },
+    "track-status-settlement:customer": {
+      "expected": "not-authorized presentation",
+      "deniedPresentation": true
+    },
+    "track-status-settlement:merchant": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "track-status-settlement:provider": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "track-status-settlement:operator": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "track-status-settlement:administrator": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "waiting-recovery:customer": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "waiting-recovery:merchant": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "waiting-recovery:provider": {
+      "expected": "not-authorized presentation",
+      "deniedPresentation": false
+    },
+    "waiting-recovery:operator": {
+      "expected": "record",
+      "deniedPresentation": false
+    },
+    "waiting-recovery:administrator": {
+      "expected": "record",
+      "deniedPresentation": false
+    }
+  }
+}

@@ -150,7 +150,7 @@ function PermissionBadge({ state }: { state: 'permitted' | 'redirected' }) {
     );
   }
   return (
-    <Badge className="bg-amber-600 text-white uppercase tracking-wide">Redirected home</Badge>
+    <Badge className="bg-amber-700 text-white uppercase tracking-wide">Redirected home</Badge>
   );
 }
 
@@ -277,7 +277,7 @@ export function LiquidityFlowHarness({
               <a
                 key={href}
                 href={href}
-                className="rounded-md border bg-muted/40 px-2.5 py-1 font-medium hover:bg-muted"
+                className="inline-flex min-h-11 items-center rounded-md border bg-muted/40 px-2.5 py-1 font-medium hover:bg-muted"
               >
                 {label}
               </a>
@@ -286,7 +286,7 @@ export function LiquidityFlowHarness({
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-12">
+      <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-12">
         {/* ---------------------------------------------------------------- 1 */}
         <SectionHeading
           id="adapter-boundary"
@@ -378,7 +378,7 @@ export function LiquidityFlowHarness({
                       <RadioGroupItem id={`audience-${audience}`} value={audience} />
                       <Label
                         htmlFor={`audience-${audience}`}
-                        className="font-normal cursor-pointer"
+                        className="flex min-h-11 items-center font-normal cursor-pointer"
                       >
                         {audience}
                         {audience === currentAudience ? (
@@ -624,6 +624,7 @@ export function LiquidityFlowHarness({
               <PositionsComposition
                 liquidity={providerView.liquidity}
                 credit={providerView.credit}
+                idSuffix="provider"
               />
               <QueuePositionsView queues={providerView.queues} />
               <Separator />
@@ -730,6 +731,7 @@ export function LiquidityFlowHarness({
                   liquidity={providerView.liquidity}
                   credit={providerView.credit}
                   defaultOpen
+                  idSuffix="mobile demo"
                 />
               </div>
             </div>
@@ -793,7 +795,7 @@ export function LiquidityFlowHarness({
             </li>
           </ol>
         </SectionHeading>
-      </main>
+      </div>
 
       <footer className="mt-auto border-t">
         <div className="w-full max-w-6xl mx-auto px-4 py-5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">

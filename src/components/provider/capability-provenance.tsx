@@ -109,7 +109,7 @@ export function CapabilityProvenance({
               href={evidence.href}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 font-medium underline underline-offset-2 hover:opacity-80"
+              className="inline-flex min-h-11 items-center gap-1 font-medium underline underline-offset-2 hover:opacity-80"
             >
               {evidence.label}
               <ExternalLink className="size-3.5" aria-hidden="true" />

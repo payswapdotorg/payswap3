@@ -1,0 +1,229 @@
+{
+  "surface": "verification-checkout-flow",
+  "route": "/verification/checkout-flow",
+  "tool": "axe-core 4.13.0 via Playwright 1.62 (Chromium 1234), runOnly tags [wcag2aa, wcag22aa, best-practice]",
+  "preFixViolations": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 1
+    },
+    {
+      "id": "landmark-main-is-top-level",
+      "impact": "moderate",
+      "help": "Main landmark should not be contained in another landmark",
+      "nodes": 1
+    },
+    {
+      "id": "landmark-no-duplicate-main",
+      "impact": "moderate",
+      "help": "Document should not have more than one main landmark",
+      "nodes": 1
+    },
+    {
+      "id": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": 1
+    },
+    {
+      "id": "region",
+      "impact": "moderate",
+      "help": "All page content should be contained by landmarks",
+      "nodes": 1
+    }
+  ],
+  "postFix": {
+    "violations": [],
+    "passes": [
+      "aria-allowed-role",
+      "color-contrast",
+      "empty-heading",
+      "empty-table-header",
+      "heading-order",
+      "landmark-banner-is-top-level",
+      "landmark-contentinfo-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-contentinfo",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "meta-viewport-large",
+      "meta-viewport",
+      "page-has-heading-one",
+      "region",
+      "skip-link",
+      "tabindex",
+      "table-duplicate-name",
+      "target-size"
+    ],
+    "incomplete": [],
+    "inapplicable": [
+      "accesskeys",
+      "aria-dialog-name",
+      "aria-text",
+      "aria-treeitem-name",
+      "frame-tested",
+      "image-redundant-alt",
+      "label-title-only",
+      "presentation-role-conflict",
+      "scope-attr-valid",
+      "valid-lang"
+    ]
+  },
+  "semantics": {
+    "lang": "en",
+    "title": "Checkout flow verification — payswap · PaySwap",
+    "landmarks": [
+      {
+        "tag": "div",
+        "role": "region",
+        "label": "Environment signal"
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary"
+      },
+      {
+        "tag": "main",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Harness sections"
+      },
+      {
+        "tag": "footer",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "footer",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer"
+      }
+    ],
+    "mains": 1,
+    "h1Count": 1,
+    "headings": [
+      {
+        "level": 1,
+        "text": "Checkout flow verification"
+      },
+      {
+        "level": 2,
+        "text": "Quoted amounts"
+      },
+      {
+        "level": 2,
+        "text": "Terms of this quote — fully expanded"
+      },
+      {
+        "level": 3,
+        "text": "Conditions — what constrains or changes this deal"
+      },
+      {
+        "level": 3,
+        "text": "What you commit to if you accept"
+      },
+      {
+        "level": 2,
+        "text": "Your decision"
+      },
+      {
+        "level": 3,
+        "text": "Accept flow (full trace)"
+      },
+      {
+        "level": 3,
+        "text": "Decline flow (full trace)"
+      },
+      {
+        "level": 3,
+        "text": "Explicitness checks (verified on the live surface above)"
+      },
+      {
+        "level": 3,
+        "text": "cko_live_offer_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_high_band_offer_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_live_accept_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_payment_pending_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_live_decline_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_high_band_decline_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_fail_authorization_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_unknown_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_inflight_accept_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_inflight_decline_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_missing_001"
+      },
+      {
+        "level": 3,
+        "text": "cko_unreachable_001"
+      },
+      {
+        "level": 3,
+        "text": "Authority state → display state (one-to-one; record ids)"
+      },
+      {
+        "level": 3,
+        "text": "Boundary declarations (verified by this harness)"
+      }
+    ],
+    "headingSkips": [],
+    "hasSkipLink": true,
+    "skipLinkTargetExists": true,
+    "focusableCount": 68,
+    "nonNativeInteractive": [],
+    "unlabeledInteractive": []
+  }
+}

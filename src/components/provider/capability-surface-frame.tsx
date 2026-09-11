@@ -61,14 +61,14 @@ export function ProviderSurfaceFrame({
             </Badge>
           </div>
           {primaryEntries.length > 0 ? (
-            <nav aria-label="Primary" className="flex flex-wrap items-center gap-1 pb-3">
+            <nav aria-label="Primary — provider surface" className="flex flex-wrap items-center gap-1 pb-3">
               {primaryEntries.map((entry) =>
                 entry.status === "available" ? (
                   <Link
                     key={entry.id}
                     href={entry.href}
                     aria-current={entry.id === activeId ? "page" : undefined}
-                    className="rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground aria-[current=page]:bg-accent aria-[current=page]:text-foreground"
+                    className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground aria-[current=page]:bg-accent aria-[current=page]:text-foreground"
                   >
                     {entry.label}
                   </Link>
@@ -103,23 +103,23 @@ export function ProviderSurfaceFrame({
         </Alert>
       </div>
 
-      <main
+      <div
         id="provider-main"
         className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6 sm:py-8"
       >
         {children}
-      </main>
+      </div>
 
       <footer className="mt-auto border-t">
         <div className="mx-auto w-full max-w-5xl px-4 py-6 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] sm:px-6">
           {footerEntries.length > 0 ? (
-            <nav aria-label="Footer" className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <nav aria-label="Footer — provider surface" className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
               {footerEntries.map((entry) =>
                 entry.status === "available" ? (
                   <Link
                     key={entry.id}
                     href={entry.href}
-                    className="text-xs text-muted-foreground underline-offset-4 hover:underline"
+                    className="inline-flex min-h-11 items-center text-xs text-muted-foreground underline-offset-4 hover:underline"
                   >
                     {entry.label}
                   </Link>

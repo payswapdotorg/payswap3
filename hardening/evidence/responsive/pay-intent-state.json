@@ -1,0 +1,81 @@
+{
+  "surface": "pay-intent-state",
+  "route": "/pay/INTENT-2041",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 1681,
+      "touchTargets": {
+        "measured": 8,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "button",
+            "role": "",
+            "name": "Re-check now",
+            "visualW": 83.2,
+            "visualH": 16,
+            "w": 83.2,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 1181,
+      "touchTargets": {
+        "measured": 8,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "button",
+            "role": "",
+            "name": "Re-check now",
+            "visualW": 83.2,
+            "visualH": 16,
+            "w": 83.2,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 1145,
+      "touchTargets": {
+        "measured": 8,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "button",
+            "role": "",
+            "name": "Re-check now",
+            "visualW": 83.2,
+            "visualH": 16,
+            "w": 83.2,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

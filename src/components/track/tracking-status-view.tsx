@@ -8,7 +8,6 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Collapsible,
@@ -50,7 +49,9 @@ export function TrackingStatusView({
       <Card>
         <CardHeader>
           <div className="flex flex-wrap items-center gap-2">
-            <CardTitle className="text-xl leading-snug tracking-tight">{view.subjectWording}</CardTitle>
+            <h2 data-slot="card-title" className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm text-xl leading-snug tracking-tight">
+              {view.subjectWording}
+            </h2>
             <Badge variant="outline" className="font-mono">
               {view.referenceId}
             </Badge>

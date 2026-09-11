@@ -1,0 +1,2252 @@
+{
+  "home": {
+    "route": "/",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 2799,
+        "touchTargets": {
+          "measured": 14,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1791,
+        "touchTargets": {
+          "measured": 14,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1563,
+        "touchTargets": {
+          "measured": 14,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "state-primitives": {
+    "route": "/state-primitives",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 13129,
+        "touchTargets": {
+          "measured": 49,
+          "under44": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/state-primitives?env=production",
+              "visualW": 227,
+              "visualH": 36,
+              "w": 227,
+              "h": 36,
+              "under44": true,
+              "under24": false
+            }
+          ],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 8643,
+        "touchTargets": {
+          "measured": 49,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/state-primitives?env=production",
+              "visualW": 235,
+              "visualH": 16,
+              "w": 235,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 7367,
+        "touchTargets": {
+          "measured": 49,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/state-primitives?env=production",
+              "visualW": 235,
+              "visualH": 16,
+              "w": 235,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "pay-compose": {
+    "route": "/pay",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 2127,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1551,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1515,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "pay-review": {
+    "route": "/pay/review",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 844,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1024,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 900,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "pay-intent-state": {
+    "route": "/pay/INTENT-2041",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 1681,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "button",
+              "role": "",
+              "name": "Re-check now",
+              "visualW": 83.2,
+              "visualH": 16,
+              "w": 83.2,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1181,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "button",
+              "role": "",
+              "name": "Re-check now",
+              "visualW": 83.2,
+              "visualH": 16,
+              "w": 83.2,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1145,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "button",
+              "role": "",
+              "name": "Re-check now",
+              "visualW": 83.2,
+              "visualH": 16,
+              "w": 83.2,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "checkout-list": {
+    "route": "/checkout",
+    "audience": "merchant",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 4946,
+        "touchTargets": {
+          "measured": 11,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 3137,
+        "touchTargets": {
+          "measured": 11,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 2834,
+        "touchTargets": {
+          "measured": 11,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "checkout-decision": {
+    "route": "/checkout/cko_live_offer_001",
+    "audience": "merchant",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 1664,
+        "touchTargets": {
+          "measured": 9,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1307,
+        "touchTargets": {
+          "measured": 9,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1147,
+        "touchTargets": {
+          "measured": 9,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "capabilities": {
+    "route": "/capabilities",
+    "audience": "provider",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 4839,
+        "touchTargets": {
+          "measured": 36,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 3809,
+        "touchTargets": {
+          "measured": 36,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 3647,
+        "touchTargets": {
+          "measured": 36,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "capability-detail": {
+    "route": "/capabilities/intent-acceptance",
+    "audience": "provider",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 2911,
+        "touchTargets": {
+          "measured": 16,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2128,
+        "touchTargets": {
+          "measured": 16,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1984,
+        "touchTargets": {
+          "measured": 16,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "liquidity": {
+    "route": "/liquidity",
+    "audience": "provider",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 3658,
+        "touchTargets": {
+          "measured": 12,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2481,
+        "touchTargets": {
+          "measured": 12,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1872,
+        "touchTargets": {
+          "measured": 12,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "oversight": {
+    "route": "/oversight",
+    "audience": "operator",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 2332,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1595,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1178,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "track": {
+    "route": "/track",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 2884,
+        "touchTargets": {
+          "measured": 9,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Payment or settlement reference",
+              "visualW": 326,
+              "visualH": 20,
+              "w": 326,
+              "h": 20,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1856,
+        "touchTargets": {
+          "measured": 9,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Payment or settlement reference",
+              "visualW": 688,
+              "visualH": 20,
+              "w": 688,
+              "h": 20,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1820,
+        "touchTargets": {
+          "measured": 9,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Payment or settlement reference",
+              "visualW": 672,
+              "visualH": 20,
+              "w": 672,
+              "h": 20,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "track-status-intent": {
+    "route": "/track/PWS-2H8D",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 3208,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2290,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 2294,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "track-status-settlement": {
+    "route": "/track/STL-4419",
+    "audience": "merchant",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 3401,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2471,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 2435,
+        "touchTargets": {
+          "measured": 8,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "waiting-recovery": {
+    "route": "/track/TRK-4410-QUEUED-LIQ/waiting",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 3041,
+        "touchTargets": {
+          "measured": 11,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2089,
+        "touchTargets": {
+          "measured": 11,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1761,
+        "touchTargets": {
+          "measured": 11,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "mediation-hub": {
+    "route": "/mediation",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 2848,
+        "touchTargets": {
+          "measured": 15,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2372,
+        "touchTargets": {
+          "measured": 15,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1750,
+        "touchTargets": {
+          "measured": 15,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "mediation-case": {
+    "route": "/mediation/case/M-101",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 2646,
+        "touchTargets": {
+          "measured": 16,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your statement to the mediation",
+              "visualW": 236.3,
+              "visualH": 14,
+              "w": 236.3,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2051,
+        "touchTargets": {
+          "measured": 16,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your statement to the mediation",
+              "visualW": 236.3,
+              "visualH": 14,
+              "w": 236.3,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 1824,
+        "touchTargets": {
+          "measured": 16,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your statement to the mediation",
+              "visualW": 236.3,
+              "visualH": 14,
+              "w": 236.3,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "dispute-initiation": {
+    "route": "/mediation/dispute/new",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 3138,
+        "touchTargets": {
+          "measured": 24,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "visualW": 358,
+              "visualH": 14,
+              "w": 358,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not received",
+              "visualW": 304,
+              "visualH": 14,
+              "w": 304,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not as described",
+              "visualW": 304,
+              "visualH": 14,
+              "w": 304,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement mismatch",
+              "visualW": 304,
+              "visualH": 14,
+              "w": 304,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "visualW": 304,
+              "visualH": 14,
+              "w": 304,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "visualW": 304,
+              "visualH": 14,
+              "w": 304,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "visualW": 358,
+              "visualH": 14,
+              "w": 358,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2329,
+        "touchTargets": {
+          "measured": 24,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "visualW": 736,
+              "visualH": 14,
+              "w": 736,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not received",
+              "visualW": 630.4,
+              "visualH": 14,
+              "w": 630.4,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not as described",
+              "visualW": 460.1,
+              "visualH": 14,
+              "w": 460.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement mismatch",
+              "visualW": 490.6,
+              "visualH": 14,
+              "w": 490.6,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "visualW": 542.9,
+              "visualH": 14,
+              "w": 542.9,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "visualW": 555.1,
+              "visualH": 14,
+              "w": 555.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "visualW": 736,
+              "visualH": 14,
+              "w": 736,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 2064,
+        "touchTargets": {
+          "measured": 24,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "visualW": 1408,
+              "visualH": 14,
+              "w": 1408,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not received",
+              "visualW": 630.4,
+              "visualH": 14,
+              "w": 630.4,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not as described",
+              "visualW": 460.1,
+              "visualH": 14,
+              "w": 460.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement mismatch",
+              "visualW": 490.6,
+              "visualH": 14,
+              "w": 490.6,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "visualW": 542.9,
+              "visualH": 14,
+              "w": 542.9,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "visualW": 555.1,
+              "visualH": 14,
+              "w": 555.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "visualW": 1408,
+              "visualH": 14,
+              "w": 1408,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "dispute-detail": {
+    "route": "/mediation/dispute/D-201",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 4017,
+        "touchTargets": {
+          "measured": 15,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "Swap tracking record SW-2038",
+              "visualW": 185.1,
+              "visualH": 14,
+              "w": 185.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2956,
+        "touchTargets": {
+          "measured": 15,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "Swap tracking record SW-2038",
+              "visualW": 185.1,
+              "visualH": 14,
+              "w": 185.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 2497,
+        "touchTargets": {
+          "measured": 15,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "Swap tracking record SW-2038",
+              "visualW": 185.1,
+              "visualH": 14,
+              "w": 185.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "proposal-review": {
+    "route": "/mediation/proposal/P-001",
+    "audience": "customer",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 3824,
+        "touchTargets": {
+          "measured": 12,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 2530,
+        "touchTargets": {
+          "measured": 12,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 2219,
+        "touchTargets": {
+          "measured": 12,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "verification-intent-flow": {
+    "route": "/verification/intent-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 10442,
+        "touchTargets": {
+          "measured": 37,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Next submit outcome (mock script)",
+              "visualW": 326,
+              "visualH": 14,
+              "w": 326,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authority reachable",
+              "visualW": 118.7,
+              "visualH": 16,
+              "w": 118.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 6707,
+        "touchTargets": {
+          "measured": 37,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Next submit outcome (mock script)",
+              "visualW": 392.3,
+              "visualH": 14,
+              "w": 392.3,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authority reachable",
+              "visualW": 118.7,
+              "visualH": 16,
+              "w": 118.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 6203,
+        "touchTargets": {
+          "measured": 37,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Next submit outcome (mock script)",
+              "visualW": 648.3,
+              "visualH": 14,
+              "w": 648.3,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authority reachable",
+              "visualW": 118.7,
+              "visualH": 16,
+              "w": 118.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "verification-checkout-flow": {
+    "route": "/verification/checkout-flow",
+    "audience": "merchant",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 22261,
+        "touchTargets": {
+          "measured": 68,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 14638,
+        "touchTargets": {
+          "measured": 68,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 13007,
+        "touchTargets": {
+          "measured": 68,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "verification-capability-flow": {
+    "route": "/verification/capability-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 10458,
+        "touchTargets": {
+          "measured": 17,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Capability Registry",
+              "visualW": 136,
+              "visualH": 14,
+              "w": 136,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Routing Table",
+              "visualW": 100.5,
+              "visualH": 14,
+              "w": 100.5,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Corridor Directory",
+              "visualW": 143,
+              "visualH": 14,
+              "w": 143,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 7064,
+        "touchTargets": {
+          "measured": 17,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Capability Registry",
+              "visualW": 136,
+              "visualH": 14,
+              "w": 136,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Routing Table",
+              "visualW": 100.5,
+              "visualH": 14,
+              "w": 100.5,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Corridor Directory",
+              "visualW": 143,
+              "visualH": 14,
+              "w": 143,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 5847,
+        "touchTargets": {
+          "measured": 17,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Capability Registry",
+              "visualW": 136,
+              "visualH": 14,
+              "w": 136,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Routing Table",
+              "visualW": 100.5,
+              "visualH": 14,
+              "w": 100.5,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Corridor Directory",
+              "visualW": 143,
+              "visualH": 14,
+              "w": 143,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "verification-liquidity-flow": {
+    "route": "/verification/liquidity-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 16017,
+        "touchTargets": {
+          "measured": 72,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/liquidity",
+              "visualW": 60.7,
+              "visualH": 16,
+              "w": 60.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/oversight",
+              "visualW": 70.4,
+              "visualH": 16,
+              "w": 70.4,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/oversight",
+              "visualW": 70.4,
+              "visualH": 16,
+              "w": 70.4,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/liquidity",
+              "visualW": 60.7,
+              "visualH": 16,
+              "w": 60.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 10366,
+        "touchTargets": {
+          "measured": 72,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/liquidity",
+              "visualW": 60.7,
+              "visualH": 16,
+              "w": 60.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/oversight",
+              "visualW": 70.4,
+              "visualH": 16,
+              "w": 70.4,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/oversight",
+              "visualW": 70.4,
+              "visualH": 16,
+              "w": 70.4,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/liquidity",
+              "visualW": 60.7,
+              "visualH": 16,
+              "w": 60.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 8403,
+        "touchTargets": {
+          "measured": 72,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/liquidity",
+              "visualW": 60.7,
+              "visualH": 16,
+              "w": 60.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/oversight",
+              "visualW": 70.4,
+              "visualH": 16,
+              "w": 70.4,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/oversight",
+              "visualW": 70.4,
+              "visualH": 16,
+              "w": 70.4,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/liquidity",
+              "visualW": 60.7,
+              "visualH": 16,
+              "w": 60.7,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "verification-tracking-flow": {
+    "route": "/verification/tracking-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 10859,
+        "touchTargets": {
+          "measured": 19,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/track/PWS-9QM2",
+              "visualW": 122.2,
+              "visualH": 16,
+              "w": 122.2,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 7805,
+        "touchTargets": {
+          "measured": 19,
+          "under44": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/track/PWS-9QM2",
+              "visualW": 658.7,
+              "visualH": 36,
+              "w": 658.7,
+              "h": 36,
+              "under44": true,
+              "under24": false
+            }
+          ],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 7374,
+        "touchTargets": {
+          "measured": 19,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/track/PWS-9QM2",
+              "visualW": 122.2,
+              "visualH": 16,
+              "w": 122.2,
+              "h": 16,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "verification-waiting-flow": {
+    "route": "/verification/waiting-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 20931,
+        "touchTargets": {
+          "measured": 33,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 14401,
+        "touchTargets": {
+          "measured": 33,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 10685,
+        "touchTargets": {
+          "measured": 33,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  },
+  "verification-mediation-flow": {
+    "route": "/verification/mediation-flow",
+    "audience": "operator",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 12003,
+        "touchTargets": {
+          "measured": 55,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "visualW": 326,
+              "visualH": 14,
+              "w": 326,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not received",
+              "visualW": 272,
+              "visualH": 14,
+              "w": 272,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not as described",
+              "visualW": 272,
+              "visualH": 14,
+              "w": 272,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement mismatch",
+              "visualW": 272,
+              "visualH": 14,
+              "w": 272,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "visualW": 272,
+              "visualH": 14,
+              "w": 272,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "visualW": 272,
+              "visualH": 14,
+              "w": 272,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "visualW": 326,
+              "visualH": 14,
+              "w": 326,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 8801,
+        "touchTargets": {
+          "measured": 55,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "visualW": 704,
+              "visualH": 14,
+              "w": 704,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not received",
+              "visualW": 630.4,
+              "visualH": 14,
+              "w": 630.4,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not as described",
+              "visualW": 460.1,
+              "visualH": 14,
+              "w": 460.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement mismatch",
+              "visualW": 490.6,
+              "visualH": 14,
+              "w": 490.6,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "visualW": 542.9,
+              "visualH": 14,
+              "w": 542.9,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "visualW": 555.1,
+              "visualH": 14,
+              "w": 555.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "visualW": 704,
+              "visualH": 14,
+              "w": 704,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 8060,
+        "touchTargets": {
+          "measured": 55,
+          "under44": [],
+          "under24": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "visualW": 644,
+              "visualH": 14,
+              "w": 644,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not received",
+              "visualW": 590,
+              "visualH": 14,
+              "w": 590,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods not as described",
+              "visualW": 460.1,
+              "visualH": 14,
+              "w": 460.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement mismatch",
+              "visualW": 490.6,
+              "visualH": 14,
+              "w": 490.6,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "visualW": 542.9,
+              "visualH": 14,
+              "w": 542.9,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "visualW": 555.1,
+              "visualH": 14,
+              "w": 555.1,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "visualW": 644,
+              "visualH": 14,
+              "w": 644,
+              "h": 14,
+              "under44": true,
+              "under24": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "not-found": {
+    "route": "/no-such-route-ui009",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "mobile-390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "docHeight": 844,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "tablet-768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "docHeight": 1024,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      },
+      "desktop-1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "docHeight": 900,
+        "touchTargets": {
+          "measured": 7,
+          "under44": [],
+          "under24": []
+        }
+      }
+    }
+  }
+}

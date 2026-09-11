@@ -91,7 +91,7 @@ function CapabilityListItem({ item }: { item: CapabilityItem }) {
             <h3 className="text-base font-semibold tracking-tight">
               <Link
                 href={`/capabilities/${item.descriptor.id}`}
-                className="underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
               >
                 {item.descriptor.name}
               </Link>
@@ -107,7 +107,7 @@ function CapabilityListItem({ item }: { item: CapabilityItem }) {
           </p>
           {/* Full state presentation: one deliberate disclosure step away */}
           <Collapsible defaultOpen={false}>
-            <CollapsibleTrigger className="inline-flex w-fit items-center gap-1.5 rounded-md text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&[data-state=open]>svg]:rotate-180">
+            <CollapsibleTrigger className="inline-flex min-h-11 w-fit items-center gap-1.5 rounded-md px-1 text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&[data-state=open]>svg]:rotate-180">
               State presentation
               <ChevronDown
                 className="size-4 transition-transform duration-200"

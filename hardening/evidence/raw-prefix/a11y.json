@@ -1,0 +1,5421 @@
+{
+  "home": {
+    "route": "/",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "PaySwap application shell"
+        },
+        {
+          "level": 2,
+          "text": "Display state vocabulary"
+        },
+        {
+          "level": 2,
+          "text": "What the shell provides"
+        },
+        {
+          "level": 3,
+          "text": "One navigation grammar"
+        },
+        {
+          "level": 3,
+          "text": "Six explicit display states"
+        },
+        {
+          "level": 3,
+          "text": "Environment signal"
+        },
+        {
+          "level": 3,
+          "text": "Role-scoped navigation"
+        },
+        {
+          "level": 2,
+          "text": "Current view"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 14,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "state-primitives": {
+    "route": "/state-primitives",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#state-waiting > .border-dotted.border-stone-400[role=\"status\"] > .space-y-2.mt-3.text-stone-800 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Demonstration authority<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "#state-waiting-none > .border-dotted.border-stone-400[role=\"status\"] > .space-y-2.mt-3.text-stone-800 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Demonstration authority<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "div:nth-child(2) > .border-dotted.border-stone-400[role=\"status\"] > .space-y-2.mt-3.text-stone-800 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Demonstration authority<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(3) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(4) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(5) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(6) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(9) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(10) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(12) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(13) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".sm\\:p-4.p-3:nth-child(14) > .gap-2.flex-wrap.flex > .border-stone-300.px-2.text-\\[10px\\]"
+              ],
+              "html": "<span class=\"rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide border-stone-300 bg-stone-100 text-stone-500\">Planned</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 7.5pt (10px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "State primitives (verification) · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Unauthenticated"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Unauthenticated"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Customer"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Customer"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Merchant"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Merchant"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Provider"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Provider"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Operator"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Operator"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Administrator"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Administrator"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "State display primitives & shell proof"
+        },
+        {
+          "level": 2,
+          "text": "1 · Environment signal — derivation and anti-spoofing"
+        },
+        {
+          "level": 3,
+          "text": "Anti-spoof probe — no attempt detected"
+        },
+        {
+          "level": 2,
+          "text": "2 · State primitive matrix"
+        },
+        {
+          "level": 3,
+          "text": "SUCCEEDED — authority-reported success"
+        },
+        {
+          "level": 3,
+          "text": "FAILED — authority-reported failure"
+        },
+        {
+          "level": 3,
+          "text": "UNKNOWN — no authoritative answer"
+        },
+        {
+          "level": 3,
+          "text": "WAITING — with available actions"
+        },
+        {
+          "level": 3,
+          "text": "WAITING — no actions yet (explicit)"
+        },
+        {
+          "level": 3,
+          "text": "IN_PROGRESS — actively processing"
+        },
+        {
+          "level": 3,
+          "text": "ACTION_REQUIRED — user action needed"
+        },
+        {
+          "level": 3,
+          "text": "Fetch failure — renders UNKNOWN"
+        },
+        {
+          "level": 3,
+          "text": "Side-by-side: outcome failure vs availability unknown"
+        },
+        {
+          "level": 2,
+          "text": "3 · State transitions announce accessibly"
+        },
+        {
+          "level": 2,
+          "text": "4 · Role-routing matrix (P8)"
+        },
+        {
+          "level": 3,
+          "text": "Unauthenticated"
+        },
+        {
+          "level": 3,
+          "text": "Customer"
+        },
+        {
+          "level": 3,
+          "text": "Merchant"
+        },
+        {
+          "level": 3,
+          "text": "Provider"
+        },
+        {
+          "level": 3,
+          "text": "Operator"
+        },
+        {
+          "level": 3,
+          "text": "Administrator"
+        },
+        {
+          "level": 3,
+          "text": "Deep-link role check (guardSurface)"
+        },
+        {
+          "level": 2,
+          "text": "5 · Navigation grammar — rules and registry"
+        },
+        {
+          "level": 2,
+          "text": "6 · Shared breakpoint set (P10)"
+        },
+        {
+          "level": 2,
+          "text": "7 · Accessibility baseline (P9)"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 49,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "pay-compose": {
+    "route": "/pay",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".bg-emerald-600"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                "li:nth-child(1) > .text-muted-foreground\\/60[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "li:nth-child(2) > .text-muted-foreground\\/60[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Send a payment intent · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "aside",
+          "role": "",
+          "label": "Environment framing"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Send a payment intent"
+        },
+        {
+          "level": 2,
+          "text": "Intents submitted in this session"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 7,
+      "nonNativeInteractive": [
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        }
+      ],
+      "unlabeledInteractive": []
+    }
+  },
+  "pay-review": {
+    "route": "/pay/review",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".bg-emerald-600"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".gap-2:nth-child(1) > .text-muted-foreground\\/60"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".gap-2:nth-child(2) > .text-muted-foreground\\/60"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Review the full consequences · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "No intent in review"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 7,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "pay-intent-state": {
+    "route": "/pay/INTENT-2041",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".gap-2:nth-child(1) > .text-muted-foreground\\/60"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".gap-2:nth-child(2) > .text-muted-foreground\\/60"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                ".bg-emerald-600"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            }
+          ]
+        }
+      ],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Payment intent state · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "aside",
+          "role": "",
+          "label": "Environment framing"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Payment intent state"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 8,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "checkout-list": {
+    "route": "/checkout",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".py-8"
+              ],
+              "html": "<main class=\"flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Merchant checkout — payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Merchant checkout"
+        },
+        {
+          "level": 2,
+          "text": "Open offers awaiting your explicit decision (2)"
+        },
+        {
+          "level": 2,
+          "text": "Quoted amounts"
+        },
+        {
+          "level": 2,
+          "text": "Terms of this quote — fully expanded"
+        },
+        {
+          "level": 3,
+          "text": "Conditions — what constrains or changes this deal"
+        },
+        {
+          "level": 3,
+          "text": "What you commit to if you accept"
+        },
+        {
+          "level": 2,
+          "text": "Your decision"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 11,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "checkout-decision": {
+    "route": "/checkout/cko_live_offer_001",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".py-8"
+              ],
+              "html": "<main class=\"flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Checkout state — payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Checkout state"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 9,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "capabilities": {
+    "route": "/capabilities",
+    "audience": "provider",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#provider-main"
+              ],
+              "html": "<main id=\"provider-main\" class=\"mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6 sm:py-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sm\\:flex-row > nav[aria-label=\"Primary\"]"
+              ],
+              "html": "<nav aria-label=\"Primary\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            },
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            },
+            {
+              "target": [
+                ".gap-y-2"
+              ],
+              "html": "<nav aria-label=\"Footer\" class=\"mb-3 flex flex-wrap items-center gap-x-4 gap-y-2\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".z-50"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Capabilities — PaySwap provider surface · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Capabilities"
+        },
+        {
+          "level": 2,
+          "text": "Headline status — authority-reported"
+        },
+        {
+          "level": 2,
+          "text": "Payments"
+        },
+        {
+          "level": 3,
+          "text": "Intent acceptance"
+        },
+        {
+          "level": 3,
+          "text": "FX conversion"
+        },
+        {
+          "level": 2,
+          "text": "Settlement"
+        },
+        {
+          "level": 3,
+          "text": "Batch settlement"
+        },
+        {
+          "level": 3,
+          "text": "Instant payout"
+        },
+        {
+          "level": 3,
+          "text": "Cross-border settlement"
+        },
+        {
+          "level": 2,
+          "text": "Routing"
+        },
+        {
+          "level": 3,
+          "text": "Routing participation"
+        },
+        {
+          "level": 2,
+          "text": "Operations"
+        },
+        {
+          "level": 3,
+          "text": "Refund issuance"
+        },
+        {
+          "level": 3,
+          "text": "Dispute handling"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 37,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "capability-detail": {
+    "route": "/capabilities/intent-acceptance",
+    "audience": "provider",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#provider-main"
+              ],
+              "html": "<main id=\"provider-main\" class=\"mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6 sm:py-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sm\\:flex-row > nav[aria-label=\"Primary\"]"
+              ],
+              "html": "<nav aria-label=\"Primary\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            },
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            },
+            {
+              "target": [
+                ".gap-y-2"
+              ],
+              "html": "<nav aria-label=\"Footer\" class=\"mb-3 flex flex-wrap items-center gap-x-4 gap-y-2\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".z-50"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Intent acceptance — PaySwap provider surface · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Intent acceptance"
+        },
+        {
+          "level": 2,
+          "text": "Authoritative state"
+        },
+        {
+          "level": 2,
+          "text": "Composition"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 17,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "liquidity": {
+    "route": "/liquidity",
+    "audience": "provider",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".py-8"
+              ],
+              "html": "<main class=\"flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Liquidity positions — Payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Liquidity positions"
+        },
+        {
+          "level": 2,
+          "text": "Headline positions"
+        },
+        {
+          "level": 2,
+          "text": "Queued positions"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 12,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "oversight": {
+    "route": "/oversight",
+    "audience": "operator",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".py-8"
+              ],
+              "html": "<main class=\"flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Oversight — Payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Oversight"
+        },
+        {
+          "level": 2,
+          "text": "Permitted aggregates"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 7,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "track": {
+    "route": "/track",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".max-w-3xl"
+              ],
+              "html": "<main class=\"mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "label-title-only",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Track a payment — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Track a payment"
+        },
+        {
+          "level": 2,
+          "text": "Every tracked state is explicit"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 8,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "track-status-intent": {
+    "route": "/track/PWS-2H8D",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".max-w-3xl"
+              ],
+              "html": "<main class=\"mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Tracking PWS-2H8D — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 0,
+      "headings": [
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Plain-language history"
+        },
+        {
+          "level": 2,
+          "text": "Proof trail"
+        },
+        {
+          "level": 2,
+          "text": "About this view"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 8,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "track-status-settlement": {
+    "route": "/track/STL-4419",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Evidence Authority<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".max-w-3xl"
+              ],
+              "html": "<main class=\"mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Tracking STL-4419 — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 0,
+      "headings": [
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Plain-language history"
+        },
+        {
+          "level": 2,
+          "text": "Proof trail"
+        },
+        {
+          "level": 2,
+          "text": "About this view"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 8,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "waiting-recovery": {
+    "route": "/track/TRK-4410-QUEUED-LIQ/waiting",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Fulfillment/Queue Authority — reported 2025-09-08T09:15:00Z<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Waiting — TRK-4410-QUEUED-LIQ — payswap3 · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Waiting detail — TRK-4410-QUEUED-LIQ"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 11,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "mediation-hub": {
+    "route": "/mediation",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Mediation, proposals & disputes"
+        },
+        {
+          "level": 2,
+          "text": "Agent proposals addressed to you"
+        },
+        {
+          "level": 2,
+          "text": "Mediations you are party to"
+        },
+        {
+          "level": 2,
+          "text": "Disputes you are party to"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 15,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "mediation-case": {
+    "route": "/mediation/case/M-101",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "label-title-only",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-heading",
+        "empty-table-header",
+        "frame-tested",
+        "heading-order",
+        "image-redundant-alt",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 0,
+      "headings": [],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 15,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "dispute-initiation": {
+    "route": "/mediation/dispute/new",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "label-title-only",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-heading",
+        "empty-table-header",
+        "frame-tested",
+        "heading-order",
+        "image-redundant-alt",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 0,
+      "headings": [],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 17,
+      "nonNativeInteractive": [
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        }
+      ],
+      "unlabeledInteractive": []
+    }
+  },
+  "dispute-detail": {
+    "route": "/mediation/dispute/D-201",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "li:nth-child(4) > .ml-8.space-y-1 > .border-dotted.border-stone-400.bg-stone-100 > .text-stone-800.mt-3.space-y-2 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Disputes/Recourse Authority (mock backing; runtime ARRIVING; presentation-only, never authoritative)<!-- -",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "li:nth-child(5) > .ml-8.space-y-1 > .border-dotted.border-stone-400.bg-stone-100 > .text-stone-800.mt-3.space-y-2 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Disputes/Recourse Authority (mock backing; runtime ARRIVING; presentation-only, never authoritative)<!-- -",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-heading",
+        "empty-table-header",
+        "frame-tested",
+        "heading-order",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 0,
+      "headings": [],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 15,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "proposal-review": {
+    "route": "/mediation/proposal/P-001",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "html"
+              ],
+              "html": "<html lang=\"en\">",
+              "failureSummary": "Fix all of the following:\n  Page must have a level-one heading"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 0,
+      "headings": [
+        {
+          "level": 3,
+          "text": "If you accept this proposal"
+        },
+        {
+          "level": 3,
+          "text": "If you reject this proposal"
+        },
+        {
+          "level": 3,
+          "text": "If you counter this proposal"
+        },
+        {
+          "level": 3,
+          "text": "If you escalate this proposal"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 12,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-intent-flow": {
+    "route": "/verification/intent-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by Intent Authority — mock, non-authoritative (runtime ARRIVING))</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "heading-order",
+          "impact": "moderate",
+          "help": "Heading levels should only increase by one",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "h3"
+              ],
+              "html": "<h3 class=\"text-sm font-semibold\">Boundary conditions → UNKNOWN (P5)</h3>",
+              "failureSummary": "Fix any of the following:\n  Heading order invalid"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                "section[aria-label=\"Authority state acknowledged\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "section[aria-label=\"Authority state rejected\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "section[aria-label=\"Authority state unresolved\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "section:nth-child(4) > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "section[aria-label=\"Authority state processing\"] > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            },
+            {
+              "target": [
+                "section:nth-child(6) > .flex-wrap.gap-2.items-center > .text-muted-foreground[aria-hidden=\"true\"]"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+            }
+          ]
+        }
+      ],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Intent flow verification · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Customer payment intent flow — verification"
+        },
+        {
+          "level": 3,
+          "text": "Boundary conditions → UNKNOWN (P5)"
+        }
+      ],
+      "headingSkips": [
+        "1->3 at \"Boundary conditions → UNKNOWN (P5)\""
+      ],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 21,
+      "nonNativeInteractive": [
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Mock authority reachable",
+          "native": false
+        }
+      ],
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-checkout-flow": {
+    "route": "/verification/checkout-flow",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Checkout/Intent Authority — checkout ledger (mock stand-in)<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".py-8"
+              ],
+              "html": "<main class=\"flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Checkout flow verification — payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Harness sections"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Checkout flow verification"
+        },
+        {
+          "level": 2,
+          "text": "Quoted amounts"
+        },
+        {
+          "level": 2,
+          "text": "Terms of this quote — fully expanded"
+        },
+        {
+          "level": 3,
+          "text": "Conditions — what constrains or changes this deal"
+        },
+        {
+          "level": 3,
+          "text": "What you commit to if you accept"
+        },
+        {
+          "level": 2,
+          "text": "Your decision"
+        },
+        {
+          "level": 3,
+          "text": "Accept flow (full trace)"
+        },
+        {
+          "level": 3,
+          "text": "Decline flow (full trace)"
+        },
+        {
+          "level": 3,
+          "text": "Explicitness checks (verified on the live surface above)"
+        },
+        {
+          "level": 3,
+          "text": "cko_live_offer_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_high_band_offer_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_live_accept_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_payment_pending_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_live_decline_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_high_band_decline_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_fail_authorization_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_unknown_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_inflight_accept_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_inflight_decline_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_missing_001"
+        },
+        {
+          "level": 3,
+          "text": "cko_unreachable_001"
+        },
+        {
+          "level": 3,
+          "text": "Authority state → display state (one-to-one; record ids)"
+        },
+        {
+          "level": 3,
+          "text": "Boundary declarations (verified by this harness)"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 68,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-capability-flow": {
+    "route": "/verification/capability-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sm\\:py-8"
+              ],
+              "html": "<main class=\"mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6 sm:py-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Capability flow verification — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Capability flow verification"
+        },
+        {
+          "level": 2,
+          "text": "Adapter boundary report"
+        },
+        {
+          "level": 3,
+          "text": "Authority state → display state (one-to-one)"
+        },
+        {
+          "level": 2,
+          "text": "Scriptable availability"
+        },
+        {
+          "level": 2,
+          "text": "Capability state matrix"
+        },
+        {
+          "level": 2,
+          "text": "UNKNOWN versus failure"
+        },
+        {
+          "level": 2,
+          "text": "Role matrix"
+        },
+        {
+          "level": 2,
+          "text": "Read-only nature"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 14,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-liquidity-flow": {
+    "route": "/verification/liquidity-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(2) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(3) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(2) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(3) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(2) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(3) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(3) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(2) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(2) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(3) > .bg-amber-600.\\[a\\]\\:hover\\:bg-primary\\/80.text-white"
+              ],
+              "html": "<span data-slot=\"badge\" data-variant=\"default\" class=\"group/badge inline-f...\">",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 3.19 (foreground color: #ffffff, background color: #e17100, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".py-8"
+              ],
+              "html": "<main class=\"flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-12\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            },
+            {
+              "target": [
+                ".bg-muted\\/20 > .space-y-3[aria-labelledby=\"positions-composition-heading\"]"
+              ],
+              "html": "<section aria-labelledby=\"positions-composition-heading\" class=\"space-y-3\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Harness sections"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Liquidity, credit & queue visibility — verification harness"
+        },
+        {
+          "level": 2,
+          "text": "1 · Adapter boundary report"
+        },
+        {
+          "level": 2,
+          "text": "2 · Role-visibility matrix (P8)"
+        },
+        {
+          "level": 2,
+          "text": "3 · Scriptable authority-UNKNOWN sources"
+        },
+        {
+          "level": 2,
+          "text": "4 · Position matrix across states"
+        },
+        {
+          "level": 2,
+          "text": "Headline positions"
+        },
+        {
+          "level": 2,
+          "text": "Queued positions"
+        },
+        {
+          "level": 2,
+          "text": "5 · Provenance-wording evidence (P11)"
+        },
+        {
+          "level": 2,
+          "text": "6 · Responsive-degradation evidence (P10, 390px)"
+        },
+        {
+          "level": 3,
+          "text": "Liquidity positions"
+        },
+        {
+          "level": 3,
+          "text": "Credit positions"
+        },
+        {
+          "level": 2,
+          "text": "7 · Live-surface verification checklist"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 50,
+      "nonNativeInteractive": [
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "radio",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Provider position — balance to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Provider position — reserved to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Provider position — available to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Credit line — limit to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Credit line — utilized to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Credit line — remaining to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Queued entry — position to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Queue snapshot — depth to authority-UNKNOWN",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Oversight — total reserved across providers (USD) to a",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Oversight — queued entries across providers to authori",
+          "native": false
+        },
+        {
+          "role": "switch",
+          "tag": "SPAN",
+          "name": "Force Oversight — credit utilized across providers (USD) to ",
+          "native": false
+        }
+      ],
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-tracking-flow": {
+    "route": "/verification/tracking-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "article:nth-child(3) > section[aria-labelledby=\"track-current-state-heading\"] > .border-dotted.border-stone-400.bg-stone-100 > .text-stone-800.mt-3.space-y-2 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Intent Authority<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                "article:nth-child(4) > section[aria-labelledby=\"track-current-state-heading\"] > .border-dotted.border-stone-400.bg-stone-100 > .text-stone-800.mt-3.space-y-2 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Evidence Authority<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "landmark-main-is-top-level",
+          "impact": "moderate",
+          "help": "Main landmark should not be contained in another landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".max-w-4xl"
+              ],
+              "html": "<main class=\"mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8\">",
+              "failureSummary": "Fix any of the following:\n  The main landmark is contained in another landmark."
+            }
+          ]
+        },
+        {
+          "id": "landmark-no-duplicate-main",
+          "impact": "moderate",
+          "help": "Document should not have more than one main landmark",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  Document has more than one main landmark"
+            }
+          ]
+        },
+        {
+          "id": "landmark-unique",
+          "impact": "moderate",
+          "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "#main-content"
+              ],
+              "html": "<main id=\"main-content\" class=\"flex-1\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            },
+            {
+              "target": [
+                "article:nth-child(1) > section[aria-labelledby=\"track-current-state-heading\"]"
+              ],
+              "html": "<section aria-labelledby=\"track-current-state-heading\" class=\"space-y-3\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            },
+            {
+              "target": [
+                ".group\\/card.gap-\\(--card-spacing\\).bg-card:nth-child(2) > .px-\\(--card-spacing\\)[data-slot=\"card-content\"] > section[aria-labelledby=\"track-evidence-heading\"]"
+              ],
+              "html": "<section id=\"evidence\" aria-labelledby=\"track-evidence-heading\" class=\"space-y-3\">",
+              "failureSummary": "Fix any of the following:\n  The landmark must have a unique aria-label, aria-labelledby, or title to make landmarks distinguishable"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodes": [
+            {
+              "target": [
+                ".min-w-40:nth-child(4) > .block.font-normal.text-muted-foreground"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".min-w-40:nth-child(5) > .font-mono"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".min-w-40:nth-child(5) > .block.font-normal.text-muted-foreground"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".min-w-40:nth-child(6) > .font-mono"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".min-w-40:nth-child(6) > .block.font-normal.text-muted-foreground"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(5) > .border-zinc-300.text-zinc-600.dark\\:text-zinc-400"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(6) > .text-muted-foreground.font-medium.text-xs"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(5) > .border-zinc-300.text-zinc-600.dark\\:text-zinc-400"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(6) > .text-muted-foreground.font-medium.text-xs"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(6) > .text-muted-foreground.font-medium.text-xs"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(6) > .text-muted-foreground.font-medium.text-xs"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(6) > .text-muted-foreground.font-medium.text-xs"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(6) > .text-muted-foreground.font-medium.text-xs"
+              ],
+              "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "UI-005 verification — tracking flow — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 2,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Tracking flow — states, evidence, roles, adapter boundary"
+        },
+        {
+          "level": 2,
+          "text": "1. Tracked-state matrix — all six display states"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "Current state"
+        },
+        {
+          "level": 2,
+          "text": "2. Evidence-trail presentation — including the UNKNOWN-record case"
+        },
+        {
+          "level": 2,
+          "text": "Proof trail"
+        },
+        {
+          "level": 2,
+          "text": "Proof trail"
+        },
+        {
+          "level": 2,
+          "text": "3. Role matrix — direct-entry lookup by viewer audience"
+        },
+        {
+          "level": 2,
+          "text": "4. Adapter boundary report"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 19,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-waiting-flow": {
+    "route": "/verification/waiting-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "wcag2aa",
+            "wcag143"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".gap-0.group\\/card.bg-card:nth-child(1) > .gap-4.px-\\(--card-spacing\\)[data-slot=\"card-content\"] > .border-dotted.border-stone-400.bg-stone-100 > .space-y-2.text-stone-800.mt-3 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Fulfillment/Queue Authority — reported 2025-09-09T12:00:00Z<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".content-start.gap-1\\.5.grid:nth-child(1) > .gap-0.group\\/card.bg-card > .gap-4.px-\\(--card-spacing\\)[data-slot=\"card-content\"] > .border-dotted.border-stone-400.bg-stone-100 > .space-y-2.text-stone-800.mt-3 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Fulfillment/Queue Authority — reported 2025-09-08T09:15:00Z<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".content-start.gap-1\\.5.grid:nth-child(3) > .gap-0.group\\/card.bg-card > .gap-4.px-\\(--card-spacing\\)[data-slot=\"card-content\"] > .border-dotted.border-stone-400.bg-stone-100 > .space-y-2.text-stone-800.mt-3 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Fulfillment/Queue Authority — reported 2025-09-08T11:40:00Z<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".content-start.gap-1\\.5.grid:nth-child(4) > .gap-0.group\\/card.bg-card > .gap-4.px-\\(--card-spacing\\)[data-slot=\"card-content\"] > .border-dotted.border-stone-400.bg-stone-100 > .space-y-2.text-stone-800.mt-3 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Fulfillment/Queue Authority — reported 2025-09-08T13:05:00Z<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "target": [
+                ".content-start.gap-1\\.5.grid:nth-child(11) > .gap-0.group\\/card.bg-card > .gap-4.px-\\(--card-spacing\\)[data-slot=\"card-content\"] > .border-dotted.border-stone-400.bg-stone-100 > .space-y-2.text-stone-800.mt-3 > p:nth-child(2) > .text-stone-500"
+              ],
+              "html": "<span class=\"text-stone-500\"> (as reported by <!-- -->Fulfillment/Queue Authority — reported 2025-09-09T11:20:00Z<!-- -->)</span>",
+              "failureSummary": "Fix any of the following:\n  Element has insufficient color contrast of 4.38 (foreground color: #79716b, background color: #f5f5f4, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Waiting flow verification — payswap3 · PaySwap",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Waiting flow verification"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 33,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-mediation-flow": {
+    "route": "/verification/mediation-flow",
+    "audience": "operator",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "label-title-only",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "frame-tested",
+        "image-redundant-alt",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Verification — mediation & dispute flow (UI-008)"
+        },
+        {
+          "level": 2,
+          "text": "Proposal decision workflow — live evidence"
+        },
+        {
+          "level": 2,
+          "text": "Mediation participation — live evidence"
+        },
+        {
+          "level": 2,
+          "text": "Dispute initiation + recourse tracking — live evidence"
+        },
+        {
+          "level": 2,
+          "text": "Accessibility evidence — announcements, live regions, keyboard operability"
+        },
+        {
+          "level": 2,
+          "text": "Decision-authorization matrix (per decision, per role)"
+        },
+        {
+          "level": 2,
+          "text": "Mediation/dispute state matrix (one-to-one mapping incl. UNKNOWN)"
+        },
+        {
+          "level": 2,
+          "text": "Adapter boundary report"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 48,
+      "nonNativeInteractive": [
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        },
+        {
+          "role": "checkbox",
+          "tag": "SPAN",
+          "name": "",
+          "native": false
+        }
+      ],
+      "unlabeledInteractive": []
+    }
+  },
+  "not-found": {
+    "route": "/no-such-route-ui009",
+    "audience": "unauthenticated",
+    "httpStatus": 404,
+    "axe": {
+      "violations": [
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "tags": [
+            "best-practice"
+          ],
+          "nodes": [
+            {
+              "target": [
+                ".sticky"
+              ],
+              "html": "<div role=\"note\" aria-label=\"Environment: sandbox\" class=\"sticky top-0 z-50 border-b border-amber-300 bg-amber-100 text-amber-950\">",
+              "failureSummary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+            }
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [],
+      "inapplicable": [
+        "accesskeys",
+        "aria-dialog-name",
+        "aria-text",
+        "aria-treeitem-name",
+        "empty-table-header",
+        "frame-tested",
+        "image-redundant-alt",
+        "label-title-only",
+        "presentation-role-conflict",
+        "scope-attr-valid",
+        "tabindex",
+        "table-duplicate-name",
+        "valid-lang"
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Route not found"
+        }
+      ],
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "focusableCount": 7,
+      "nonNativeInteractive": [],
+      "unlabeledInteractive": []
+    }
+  },
+  "__reducedMotion": {
+    "state-primitives": {
+      "route": "/state-primitives",
+      "runningAnimationsUnderReducedMotion": [],
+      "runningAnimationsUnderNormalMotion": [
+        {
+          "animationName": "ps-arc-spin",
+          "iteration": "infinite",
+          "duration": "1.6s",
+          "element": "svg"
+        },
+        {
+          "animationName": "ps-strip-slide",
+          "iteration": "infinite",
+          "duration": "0.9s",
+          "element": "div.ps-strip.mt-3"
+        }
+      ],
+      "arcProbe": {
+        "arcAnimation": "none",
+        "stripAnimation": "none"
+      }
+    },
+    "verification-intent-flow": {
+      "route": "/verification/intent-flow",
+      "runningAnimationsUnderReducedMotion": [],
+      "runningAnimationsUnderNormalMotion": [
+        {
+          "animationName": "ps-arc-spin",
+          "iteration": "infinite",
+          "duration": "1.6s",
+          "element": "svg"
+        },
+        {
+          "animationName": "ps-strip-slide",
+          "iteration": "infinite",
+          "duration": "0.9s",
+          "element": "div.ps-strip.mt-3"
+        }
+      ],
+      "arcProbe": {
+        "arcAnimation": "none",
+        "stripAnimation": "none"
+      }
+    },
+    "verification-tracking-flow": {
+      "route": "/verification/tracking-flow",
+      "runningAnimationsUnderReducedMotion": [],
+      "runningAnimationsUnderNormalMotion": [
+        {
+          "animationName": "ps-arc-spin",
+          "iteration": "infinite",
+          "duration": "1.6s",
+          "element": "svg"
+        },
+        {
+          "animationName": "ps-strip-slide",
+          "iteration": "infinite",
+          "duration": "0.9s",
+          "element": "div.ps-strip.mt-3"
+        }
+      ],
+      "arcProbe": {
+        "arcAnimation": "none",
+        "stripAnimation": "none"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+# UI-009 — Waiver records
+
+Each entry is a violation-class finding whose remediation would require changing authorization logic or access semantics — both forbidden by UI-009 ("NEVER touch: … authorization logic"; "semantic changes to any surface beyond presentation"). Recorded for the Tech Lead's decision; there are **no silent waivers**.
+
+## WAIVER-1 — /verification/mediation-flow deep-link role gate
+
+- **Finding (verified by tooling):** the grammar entry `verification.mediation-flow` (spliced from `spec/product/mediation-nav-entries.json`, UI-008) declares audiences `[operator, administrator]`, and `src/app/verification/mediation-flow/page.tsx` renders for **every** audience on deep link, including unauthenticated visitors, customers, merchants, and providers (168-cell deep-link matrix in `role-matrix.md`; observed "render" in all six cells for this surface).
+- **Why it was not fixed:** closing the gap means adding `requireRoleSurface("operator", ["administrator"])` to the page — an authorization-logic change (who may access the surface), which is explicitly out of UI-009 scope. The inconsistency is against the *declared* gate, not a leak of another role's content: the harness renders verification fixtures only.
+- **Context that argues this is an integration slip, not a design choice:** the sibling harness `/verification/checkout-flow` (same declaration pattern: grammar audiences `[merchant, operator, administrator]`, `merchant-nav-entries.json`) **is** guarded with `requireRoleSurface("merchant", ["operator", "administrator"])`. UI-008's own nav-entries JSON and the grammar agree on the operator/administrator audience set for mediation-flow; only the page guard is missing.
+- **Suggested disposition for the Tech Lead (UI-008 owner):** add the guard in the owning work order's semantics (one line in `src/app/verification/mediation-flow/page.tsx`), then re-run the UI-009 role matrix (a one-command re-run of `hardening/tools/audit.mjs roles` with the surfaces registry updated).
+- **Risk if waived long-term:** verification fixtures (mediation records, decision-authorization matrices) are reachable deep-link-wise by any audience in a deployed environment; content is non-authoritative presentation-only fixtures, so exposure is bounded, but the declared gate and the implemented gate disagree.
+
+## WAIVER-2 (observation, not a violation) — Root shell renders least-visibility navigation for every audience
+
+- **Finding:** the root shell header/footer resolve navigation from `getShellAudience()`, a constant `'unauthenticated'`, for every viewer — even when the simulated authoritative audience cookie is set. Role-scoped entries (Send a payment intent, Checkout, Capabilities, Liquidity, Oversight, Mediation & disputes) appear only inside the per-surface frames (`ProviderSurfaceFrame`, checkout/liquidity/oversight headers, party docket), rendered from `resolveNavigation(resolveShellAudience())` after the page guard passes.
+- **Why it is not fixed:** this is documented, intentional UI-001 design — `spec/product/shell-mapping-records.md` Q3: "The live shell resolves a constant audience (`getShellAudience()` → `unauthenticated`) in the server root layout … least visibility", with the identity work item owning the change. Feeding the simulated cookie into the root shell would change what the shell *reveals* per audience (access-adjacent semantics) and would override an owning work order's documented decision.
+- **Role-matrix impact:** none for leakage — the error direction is *under*-exposure (least visibility), never cross-role exposure. Zero cross-role leakage verified.
+
+## WAIVER-3 (observation, not a violation) — Ungated verification harnesses other than mediation-flow
+
+- **Finding:** `/verification/capability-flow`, `/verification/liquidity-flow`, `/verification/tracking-flow`, `/verification/waiting-flow` render for every audience and are not grammar entries.
+- **Why it is not fixed / not a violation:** each is documented verification tooling following the `intent-flow` pattern — `provider-nav-entries.json` explicitly documents capability-flow as "Verification tooling, not a provider surface; left ungated to mirror /verification/intent-flow"; the liquidity/tracking/waiting harnesses follow the same pattern per their mapping records. They are deep-link-only tooling routes with no nav exposure for any product audience. No cross-role content exists on them (fixtures only). Recorded so UI-010 can see the full picture; no action requested.

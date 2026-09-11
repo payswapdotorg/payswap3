@@ -158,7 +158,7 @@ export function CheckoutOfferView({
         <span>Evidence:</span>
         <a
           href={offer.evidence.href}
-          className="underline underline-offset-4 hover:text-foreground"
+          className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-foreground"
         >
           {offer.evidence.label}
         </a>

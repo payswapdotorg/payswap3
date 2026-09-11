@@ -312,7 +312,7 @@ export function IntentFlowHarness() {
           )}
           <Separator />
           <div className="flex flex-col gap-2">
-            <h3 className="text-sm font-semibold">Boundary conditions → UNKNOWN (P5)</h3>
+            <h2 className="text-sm font-semibold">Boundary conditions → UNKNOWN (P5)</h2>
             <p className="text-xs leading-relaxed text-muted-foreground">
               Two boundary conditions render as UNKNOWN (records{' '}
               {BOUNDARY_MAPPING_RECORD_IDS.submitNotTransported} and{' '}
