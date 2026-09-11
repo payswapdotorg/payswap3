@@ -128,12 +128,14 @@ export const NAVIGATION_ENTRIES: readonly NavEntry[] = [
     kind: 'primary',
   },
   {
+    // UI-003: merchant checkout surface (splice from spec/product/merchant-nav-entries.json).
     id: 'merchant-checkout',
     label: 'Checkout',
-    href: '/merchant/checkout',
-    description: 'Merchant surface — planned; ships in a later work item.',
+    href: '/checkout',
+    description:
+      'Review open offers and quotes with their full consequences before any commitment; accept or decline explicitly.',
     audiences: ['merchant'],
-    status: 'planned',
+    status: 'available',
     kind: 'primary',
   },
   {
@@ -155,12 +157,14 @@ export const NAVIGATION_ENTRIES: readonly NavEntry[] = [
     kind: 'primary',
   },
   {
+    // UI-004: provider capability surface (splice from spec/product/provider-nav-entries.json).
     id: 'provider-capabilities',
-    label: 'Capability presentation',
-    href: '/provider/capabilities',
-    description: 'Provider surface — planned; ships in a later work item.',
+    label: 'Capabilities',
+    href: '/capabilities',
+    description:
+      'Read-only presentation of protocol capability and routing truth, exactly as the authority reports it.',
     audiences: ['provider'],
-    status: 'planned',
+    status: 'available',
     kind: 'primary',
   },
   {
@@ -200,6 +204,29 @@ export const NAVIGATION_ENTRIES: readonly NavEntry[] = [
     description:
       'Verification harness for the customer payment intent surface: full workflow, the intent state matrix including UNKNOWN, the role matrix, and the adapter boundary report.',
     audiences: EVERY_AUDIENCE,
+    status: 'available',
+    kind: 'footer',
+  },
+  {
+    // UI-005: universal track/status surface — one entry for every audience
+    // (splice from spec/product/track-nav-entries.json).
+    id: 'track',
+    label: 'Track a payment',
+    href: '/track',
+    description:
+      'Look up the current state, plain-language history, and proof trail of a tracked payment or settlement reference.',
+    audiences: EVERY_AUDIENCE,
+    status: 'available',
+    kind: 'footer',
+  },
+  {
+    // UI-003: checkout-flow verification harness (verification tooling).
+    id: 'verification.checkout-flow',
+    label: 'Checkout flow verification',
+    href: '/verification/checkout-flow',
+    description:
+      'Merchant checkout verification harness: accept/decline flows, state matrix, role matrix, adapter boundary report.',
+    audiences: ['merchant', 'operator', 'administrator'],
     status: 'available',
     kind: 'footer',
   },
