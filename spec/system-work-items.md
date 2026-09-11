@@ -25,6 +25,14 @@ PROTOCOL WORK-001..WORK-033 ✅
                     SYS-003 Closure
 ```
 
+## Protocol runtime materialization (RTN wave)
+
+The RTN wave materializes the frozen v0.1 protocol authorities (A01–A16) as executable runtime code — the "protocol authorities" dependency of DEP-004. Governed by spec/protocol-runtime-work-orders/ (work orders RTN-001..RTN-012), activated per the Architect's rulings (spec/development-state/rtn-plan-rulings.md, merged fb8df22; verdict APPROVE-WITH-MODIFICATIONS, seven deltas applied). A17–A24 are deferred to the named follow-on RTN wave 2 (rulings delta 2). The product port-re-anchoring item (spec/product/work-items.md UI-011) rides this wave (rulings delta 6) and does not gate DEP-004.
+
+RTN antichain schedule (max width 3): 1 RTN-001 · 2 RTN-002 ∥ RTN-003 ∥ RTN-004 · 3 RTN-005 · 4 RTN-006 · 5 RTN-007 · 6 RTN-008 · 7 RTN-009 · 8 RTN-010 ∥ RTN-011 · 9 RTN-012.
+
+**DEP-004 dispatch gate:** RTN-001..RTN-011 merged (hard); RTN-012 merged (recommended assurance floor — the dispatchability memo rides RTN-012 and cites the rulings' Q2 interpretation of "protocol authorities" as the operational A01–A16 spine).
+
 ## Deployment items
 
 ### DEP-001 — Deployment topology and environment contract
@@ -45,7 +53,7 @@ Depends on: DEP-001, DEP-002.
 ### DEP-004 — Reconciliation/clearing/netting operations
 Durable background execution for queued work, reconciliation, clearing, netting and settlement-supporting operations.
 
-Depends on: DEP-003 + protocol authorities.
+Depends on: DEP-003 + protocol authorities (materialized by the RTN wave; dispatch gate: RTN-001..RTN-011 hard + RTN-012 recommended — spec/protocol-runtime-work-orders/README.md, rtn-plan-rulings.md Q2).
 
 ### DEP-005 — External rail connectivity boundary
 Production-safe adapter connectivity, credentials, timeouts, isolation, observability, UNKNOWN handling and safe retry/reconciliation.

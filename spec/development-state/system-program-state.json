@@ -24,7 +24,7 @@
  },
  "activeWork": [
   "UI-009 in flight (responsive/accessibility/role hardening across all surfaces)",
-  "RTN wave APPROVED-WITH-MODIFICATIONS \u2014 rulings landed (spec/development-state/rtn-plan-rulings.md); Tech Lead materializing RTN-001..012 with the seven deltas applied"
+  "RTN wave MATERIALIZED with the seven deltas applied (spec/protocol-runtime-work-orders/RTN-001..012 + README activation record); frontier = RTN-001 dispatchable at antichain 1"
  ],
  "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
  "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
@@ -43,9 +43,18 @@
   "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
   "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
   "frontier": [
-   "DEP-004 BLOCKED (RTN wave approved with modifications; dispatch gate RTN-001..011 hard + RTN-012 recommended)",
-   "Product chain: UI-001..008 merged; UI-009 in flight (hardening)"
+   "DEP-004 BLOCKED (RTN wave materialized; dispatch gate RTN-001..011 hard + RTN-012 recommended)",
+   "Product chain: UI-001..008 merged; UI-009 in flight (hardening); UI-011 opened (cross-program dep on RTN-012)"
   ],
   "note": "Architect rulings delivered 2026-09-11: verdict APPROVE-WITH-MODIFICATIONS (spec/development-state/rtn-plan-rulings.md) \u2014 all five questions ruled, no ACR required, seven ordered deltas; delta 6 directs opening the product port-re-anchoring work item (additive, product ledger). DEP-004 unblocked after RTN-001..011 + gate RTN-012. Infrastructure discovery (Composio): ONLY GitHub connected \u2014 Vercel/Cloudflare/database/queue/observability providers unconnected; DEP-005/006/007 infrastructure bindings await operator connections."
+ },
+ "rtnWave": {
+  "status": "materialized",
+  "workOrders": "spec/protocol-runtime-work-orders/",
+  "rulings": "spec/development-state/rtn-plan-rulings.md (merged fb8df22, PR #18)",
+  "verdict": "APPROVE-WITH-MODIFICATIONS \u2014 seven deltas applied",
+  "scope": "A01\u2013A16 operational spine; A17\u2013A24 deferred to named follow-on RTN wave 2 (delta 2)",
+  "dep004Gate": "RTN-001..RTN-011 hard + RTN-012 recommended",
+  "productCoupling": "UI-011 port re-anchoring item opened additively (delta 6); RTN-012 question-9 deferral recorded (delta 7)"
  }
 }
