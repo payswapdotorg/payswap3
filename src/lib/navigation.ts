@@ -254,6 +254,43 @@ export const NAVIGATION_ENTRIES: readonly NavEntry[] = [
     status: 'available',
     kind: 'primary',
   },
+  {
+    // UI-008: party mediation surface (splice from
+    // spec/product/mediation-nav-entries.json). One dual-party page at
+    // /mediation admitting customer and merchant; every other audience is
+    // redirected home (P8).
+    id: 'mediation',
+    label: 'Mediation & disputes',
+    href: '/mediation',
+    description:
+      'Agent proposals awaiting your decision, mediations you are party to, disputes you are party to, and their recourse trails — every decision explicitly protocol-authorized.',
+    audiences: ['customer', 'merchant'],
+    status: 'available',
+    kind: 'primary',
+  },
+  {
+    // UI-008: dispute initiation (splice from
+    // spec/product/mediation-nav-entries.json).
+    id: 'dispute-initiation',
+    label: 'Initiate a dispute',
+    href: '/mediation/dispute/new',
+    description:
+      'Open a dispute with the Disputes/Recourse Authority: explicit grounds, evidence references, and the authority\u2019s consequence wording before any submission.',
+    audiences: ['customer', 'merchant'],
+    status: 'available',
+    kind: 'footer',
+  },
+  {
+    // UI-008: mediation-flow verification harness (verification tooling).
+    id: 'verification.mediation-flow',
+    label: 'Verification: mediation & dispute flow',
+    href: '/verification/mediation-flow',
+    description:
+      'UI-008 harness: proposal/decision workflow evidence across outcomes including UNKNOWN, per-role decision authorization matrix, mediation/dispute state matrix, and recourse proof-trail evidence.',
+    audiences: ['operator', 'administrator'],
+    status: 'available',
+    kind: 'footer',
+  },
 ];
 
 /**
