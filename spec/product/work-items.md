@@ -7,7 +7,7 @@ Roadmap (frozen): spec/product/implementation-roadmap.md
 Machine state (projection): spec/development-state/product-program-state.json — Git merge facts are authoritative
 
 1. Pinned dependency graph
-UI-001 (product foundation / app shell)  ↓UI-002  ├── UI-003  ├── UI-004  └── UI-005          ↓       UI-006          ↓       UI-007          ↓       UI-008          ↓       UI-009          ↓       UI-010 (end-to-end UX closure evidence)
+UI-001 (product foundation / app shell)  ↓UI-002  ├── UI-003  ├── UI-004  └── UI-005          ↓       UI-006          ↓       UI-007          ↓       UI-008          ↓       UI-009 (hardening)          ↓                        UI-011 (port re-anchoring; hard cross-program dep on the composed RTN runtime, RTN-012 minimum)          ↓       UI-010 (end-to-end UX closure evidence; depends on UI-009 + UI-011 — additive per rtn-plan-rulings.md delta 6)
 2. Edge list (exact)
 #	From	To
 1	UI-001	UI-002
@@ -21,6 +21,7 @@ UI-001 (product foundation / app shell)  ↓UI-002  ├── UI-003  ├── 
 9	UI-007	UI-008
 10	UI-008	UI-009
 11	UI-009	UI-010
+12	UI-011	UI-010 (additive per rtn-plan-rulings.md delta 6; UI-011's other dependency is cross-program: RTN-012)
 3. Work-item records
 UI-001 — Product foundation: application shell, navigation grammar, and state display primitives
 Status: PLANNED (machine state: next)
@@ -85,15 +86,22 @@ Dependents: UI-010
 Owned surfaces: cross-cutting hardening pass over every surface materialized by UI-001..UI-008 at execution time; the hardening evidence bundle
 Work order: spec/product/work-orders/UI-009.md
 Program role: objective-quality gate before closure
+UI-011 — Protocol port re-anchoring to the composed runtime
+Status: PLANNED (machine state: blocked — cross-program dependency)
+Depends on: RTN-012 (cross-program hard dependency: the merged composed protocol runtime; none in the product graph)
+Dependents: UI-010
+Owned surfaces: src/lib/protocol/ port backings (every *-port.ts as it exists at execution time); stand-in authority mock retirement; spec/product/*-mapping-records.md re-anchoring to runtime truth
+Work order: to be materialized at dispatch readiness (post RTN-012 merge); scope pinned by rtn-plan-rulings.md delta 6
+Program role: replaces product-layer stand-in authority mocks with the composed protocol runtime through the gateway command surface (RTN-010); every mapping record answers the nine reconciliation questions against runtime truth; RTN-012's composed-journey evidence question 9 defers here
 UI-010 — End-to-end UX closure evidence and Architect closure
 Status: PLANNED (machine state: blocked)
-Depends on: UI-009
+Depends on: UI-009, UI-011 (additive per rtn-plan-rulings.md delta 6)
 Dependents: none (closure target)
 Owned surfaces: end-to-end closure evidence bundle; Architect closure submission
 Work order: spec/product/work-orders/UI-010.md
 Program role: closure gate; completion of UI-010 closes the program
 4. Invariants
-The graph above is pinned: nine edges, no extra, no missing. This ledger is the source of record; the roadmap and the machine state mirror it.
+The graph above is pinned: twelve edges (eleven original + the additive UI-011→UI-010 edge opened per rtn-plan-rulings.md delta 6 together with the RTN wave materialization), no extra, no missing. This ledger is the source of record; the roadmap and the machine state mirror it.
 Statuses live in the machine state (a projection); Git merge facts are authoritative.
 UI-003 and UI-004 are leaves: nothing depends on them in the graph, but program closure requires them COMPLETE, and UI-009's hardening scope includes their surfaces.
 Changes to this ledger are additive and go through the governed Tech Lead process.
