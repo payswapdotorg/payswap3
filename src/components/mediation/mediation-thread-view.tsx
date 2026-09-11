@@ -202,9 +202,13 @@ export function MediationThreadView({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl leading-snug" id="mediation-thread-heading">
+          <h2
+            data-slot="card-title"
+            id="mediation-thread-heading"
+            className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm text-xl leading-snug"
+          >
             {mediationCase.subject}
-          </CardTitle>
+          </h2>
           <CardDescription>
             Mediation between the parties, reported by the Agents/Mediation Authority. You are
             viewing as <span className="font-medium text-foreground">{viewerLabel}</span>.
@@ -237,7 +241,7 @@ export function MediationThreadView({
               <dd className="mt-0.5">
                 <Link
                   href={`/track/${mediationCase.intentReference.replace("INTENT-", "SW-")}`}
-                  className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                  className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                 >
                   Tracking record {mediationCase.intentReference.replace("INTENT-", "SW-")}
                   <ArrowUpRight className="size-3" aria-hidden="true" />
@@ -250,7 +254,7 @@ export function MediationThreadView({
                 <dd className="mt-0.5">
                   <Link
                     href={`/mediation/dispute/${mediationCase.linkedDisputeId}`}
-                    className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                    className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                   >
                     Dispute {mediationCase.linkedDisputeId} — recourse trail
                     <ArrowUpRight className="size-3" aria-hidden="true" />
@@ -440,7 +444,7 @@ export function MediationThreadView({
                         <li key={`${entry.href}-${entry.label}`} className="text-xs">
                           <Link
                             href={entry.href}
-                            className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                            className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                           >
                             {entry.label}
                             <ArrowUpRight className="size-3" aria-hidden="true" />

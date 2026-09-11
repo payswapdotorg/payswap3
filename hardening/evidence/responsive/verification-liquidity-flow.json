@@ -1,0 +1,180 @@
+{
+  "surface": "verification-liquidity-flow",
+  "route": "/verification/liquidity-flow",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 16017,
+      "touchTargets": {
+        "measured": 72,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/liquidity",
+            "visualW": 60.7,
+            "visualH": 16,
+            "w": 60.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/oversight",
+            "visualW": 70.4,
+            "visualH": 16,
+            "w": 70.4,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/oversight",
+            "visualW": 70.4,
+            "visualH": 16,
+            "w": 70.4,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/liquidity",
+            "visualW": 60.7,
+            "visualH": 16,
+            "w": 60.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 10366,
+      "touchTargets": {
+        "measured": 72,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/liquidity",
+            "visualW": 60.7,
+            "visualH": 16,
+            "w": 60.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/oversight",
+            "visualW": 70.4,
+            "visualH": 16,
+            "w": 70.4,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/oversight",
+            "visualW": 70.4,
+            "visualH": 16,
+            "w": 70.4,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/liquidity",
+            "visualW": 60.7,
+            "visualH": 16,
+            "w": 60.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 8403,
+      "touchTargets": {
+        "measured": 72,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/liquidity",
+            "visualW": 60.7,
+            "visualH": 16,
+            "w": 60.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/oversight",
+            "visualW": 70.4,
+            "visualH": 16,
+            "w": 70.4,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/oversight",
+            "visualW": 70.4,
+            "visualH": 16,
+            "w": 70.4,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          },
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/liquidity",
+            "visualW": 60.7,
+            "visualH": 16,
+            "w": 60.7,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

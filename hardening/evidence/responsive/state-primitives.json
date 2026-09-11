@@ -1,0 +1,81 @@
+{
+  "surface": "state-primitives",
+  "route": "/state-primitives",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 13129,
+      "touchTargets": {
+        "measured": 49,
+        "under44": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/state-primitives?env=production",
+            "visualW": 227,
+            "visualH": 36,
+            "w": 227,
+            "h": 36,
+            "under44": true,
+            "under24": false
+          }
+        ],
+        "under24": []
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 8643,
+      "touchTargets": {
+        "measured": 49,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/state-primitives?env=production",
+            "visualW": 235,
+            "visualH": 16,
+            "w": 235,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 7367,
+      "touchTargets": {
+        "measured": 49,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/state-primitives?env=production",
+            "visualW": 235,
+            "visualH": 16,
+            "w": 235,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

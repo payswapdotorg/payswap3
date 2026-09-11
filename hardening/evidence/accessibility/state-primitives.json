@@ -1,0 +1,269 @@
+{
+  "surface": "state-primitives",
+  "route": "/state-primitives",
+  "tool": "axe-core 4.13.0 via Playwright 1.62 (Chromium 1234), runOnly tags [wcag2aa, wcag22aa, best-practice]",
+  "preFixViolations": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 12
+    },
+    {
+      "id": "region",
+      "impact": "moderate",
+      "help": "All page content should be contained by landmarks",
+      "nodes": 1
+    }
+  ],
+  "postFix": {
+    "violations": [],
+    "passes": [
+      "aria-allowed-role",
+      "color-contrast",
+      "empty-heading",
+      "heading-order",
+      "landmark-banner-is-top-level",
+      "landmark-contentinfo-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-contentinfo",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "meta-viewport-large",
+      "meta-viewport",
+      "page-has-heading-one",
+      "region",
+      "skip-link",
+      "target-size"
+    ],
+    "incomplete": [],
+    "inapplicable": [
+      "accesskeys",
+      "aria-dialog-name",
+      "aria-text",
+      "aria-treeitem-name",
+      "empty-table-header",
+      "frame-tested",
+      "image-redundant-alt",
+      "label-title-only",
+      "presentation-role-conflict",
+      "scope-attr-valid",
+      "tabindex",
+      "table-duplicate-name",
+      "valid-lang"
+    ]
+  },
+  "semantics": {
+    "lang": "en",
+    "title": "State primitives (verification) · PaySwap",
+    "landmarks": [
+      {
+        "tag": "div",
+        "role": "region",
+        "label": "Environment signal"
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary"
+      },
+      {
+        "tag": "main",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary navigation — Unauthenticated"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer navigation — Unauthenticated"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary navigation — Customer"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer navigation — Customer"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary navigation — Merchant"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer navigation — Merchant"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary navigation — Provider"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer navigation — Provider"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary navigation — Operator"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer navigation — Operator"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary navigation — Administrator"
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer navigation — Administrator"
+      },
+      {
+        "tag": "footer",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer"
+      }
+    ],
+    "mains": 1,
+    "h1Count": 1,
+    "headings": [
+      {
+        "level": 1,
+        "text": "State display primitives & shell proof"
+      },
+      {
+        "level": 2,
+        "text": "1 · Environment signal — derivation and anti-spoofing"
+      },
+      {
+        "level": 3,
+        "text": "Anti-spoof probe — no attempt detected"
+      },
+      {
+        "level": 2,
+        "text": "2 · State primitive matrix"
+      },
+      {
+        "level": 3,
+        "text": "SUCCEEDED — authority-reported success"
+      },
+      {
+        "level": 3,
+        "text": "FAILED — authority-reported failure"
+      },
+      {
+        "level": 3,
+        "text": "UNKNOWN — no authoritative answer"
+      },
+      {
+        "level": 3,
+        "text": "WAITING — with available actions"
+      },
+      {
+        "level": 3,
+        "text": "WAITING — no actions yet (explicit)"
+      },
+      {
+        "level": 3,
+        "text": "IN_PROGRESS — actively processing"
+      },
+      {
+        "level": 3,
+        "text": "ACTION_REQUIRED — user action needed"
+      },
+      {
+        "level": 3,
+        "text": "Fetch failure — renders UNKNOWN"
+      },
+      {
+        "level": 3,
+        "text": "Side-by-side: outcome failure vs availability unknown"
+      },
+      {
+        "level": 2,
+        "text": "3 · State transitions announce accessibly"
+      },
+      {
+        "level": 2,
+        "text": "4 · Role-routing matrix (P8)"
+      },
+      {
+        "level": 3,
+        "text": "Unauthenticated"
+      },
+      {
+        "level": 3,
+        "text": "Customer"
+      },
+      {
+        "level": 3,
+        "text": "Merchant"
+      },
+      {
+        "level": 3,
+        "text": "Provider"
+      },
+      {
+        "level": 3,
+        "text": "Operator"
+      },
+      {
+        "level": 3,
+        "text": "Administrator"
+      },
+      {
+        "level": 3,
+        "text": "Deep-link role check (guardSurface)"
+      },
+      {
+        "level": 2,
+        "text": "5 · Navigation grammar — rules and registry"
+      },
+      {
+        "level": 2,
+        "text": "6 · Shared breakpoint set (P10)"
+      },
+      {
+        "level": 2,
+        "text": "7 · Accessibility baseline (P9)"
+      }
+    ],
+    "headingSkips": [],
+    "hasSkipLink": true,
+    "skipLinkTargetExists": true,
+    "focusableCount": 49,
+    "nonNativeInteractive": [],
+    "unlabeledInteractive": []
+  }
+}

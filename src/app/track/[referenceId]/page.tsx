@@ -57,7 +57,8 @@ export default async function TrackReferencePage({ params }: TrackReferencePageP
   const result = await port.lookupReference(decodedReference, audience);
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+      <h1 className="sr-only">Tracking {decodedReference}</h1>
       {result.kind === "tracked" ? (
         <TrackingStatusView view={result.view} boundary={port.describeBoundary()} />
       ) : result.kind === "not-found" ? (
@@ -65,6 +66,6 @@ export default async function TrackReferencePage({ params }: TrackReferencePageP
       ) : (
         <TrackNotAuthorizedView result={result} />
       )}
-    </main>
+    </div>
   );
 }

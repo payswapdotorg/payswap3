@@ -26,6 +26,7 @@ export default async function MediationCasePage({
 
   return (
     <section aria-label="Mediation thread">
+      <h1 className="sr-only">Mediation thread</h1>
       <FetchedRecordFrame fetch={fetched} recordLabel="Mediation">
         {(mediationCase) => (
           <MediationThreadView

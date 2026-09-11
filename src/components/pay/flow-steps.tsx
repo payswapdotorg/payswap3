@@ -36,7 +36,7 @@ export function FlowSteps({ current }: { current: FlowStepKey }) {
                 aria-hidden="true"
                 className={cn(
                   'flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-semibold',
-                  active ? 'bg-emerald-600 text-white' : done ? 'bg-emerald-100 text-emerald-700' : 'bg-muted text-muted-foreground'
+                  active ? 'bg-emerald-700 text-white' : done ? 'bg-emerald-100 text-emerald-700' : 'bg-muted text-muted-foreground'
                 )}
               >
                 {done ? <Check className="h-3 w-3" /> : index + 1}

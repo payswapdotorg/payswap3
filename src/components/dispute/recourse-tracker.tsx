@@ -111,9 +111,13 @@ export function RecourseTracker({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl leading-snug" id="recourse-tracker-heading">
+          <h2
+            data-slot="card-title"
+            id="recourse-tracker-heading"
+            className="font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm text-xl leading-snug"
+          >
             Dispute {dispute.id} — recourse tracking
-          </CardTitle>
+          </h2>
           <CardDescription>
             Opened by {dispute.openedBy.label} against {dispute.against.label}. You are viewing as{" "}
             <span className="font-medium text-foreground">{viewerLabel}</span>.
@@ -126,7 +130,7 @@ export function RecourseTracker({
               <dd className="mt-0.5">
                 <Link
                   href={`/track/${dispute.intentReference.replace("INTENT-", "SW-")}`}
-                  className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                  className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                 >
                   Tracking record {dispute.intentReference.replace("INTENT-", "SW-")}
                   <ArrowUpRight className="size-3" aria-hidden="true" />
@@ -139,7 +143,7 @@ export function RecourseTracker({
                 <dd className="mt-0.5">
                   <Link
                     href={`/mediation/case/${dispute.linkedMediationId}`}
-                    className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                    className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                   >
                     Mediation thread {dispute.linkedMediationId}
                     <ArrowUpRight className="size-3" aria-hidden="true" />
@@ -174,7 +178,7 @@ export function RecourseTracker({
                   <li key={`${entry.href}-${entry.label}`}>
                     <Link
                       href={entry.href}
-                      className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-foreground"
+                      className="inline-flex min-h-11 items-center gap-1 underline underline-offset-4 hover:text-foreground"
                     >
                       {entry.label}
                       <ArrowUpRight className="size-3" aria-hidden="true" />

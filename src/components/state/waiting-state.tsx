@@ -48,7 +48,7 @@ export function WaitingState({
       <p>
         <span className="text-stone-600">Why: </span>
         {why}
-        <span className="text-stone-500"> (as reported by {reportedBy})</span>
+        <span className="text-stone-600"> (as reported by {reportedBy})</span>
       </p>
       <p>
         <span className="text-stone-600">What happens next: </span>

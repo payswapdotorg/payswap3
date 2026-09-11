@@ -7,3 +7,4 @@ __pycache__/
 # local environment material — never source-controlled (S1/S4)
 .env
 .env.*
+tsconfig.tsbuildinfo

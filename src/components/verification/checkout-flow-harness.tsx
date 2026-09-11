@@ -222,7 +222,7 @@ function LiveDecisionSurface({
                   <dd>
                     <Link
                       href={lastSubmission.followUpHref}
-                      className="underline underline-offset-4"
+                      className="inline-flex min-h-11 items-center underline underline-offset-4"
                     >
                       {lastSubmission.followUpCheckoutId}
                     </Link>
@@ -332,19 +332,19 @@ export function CheckoutFlowHarness({
           checkout truth is owned by the {authorityOwner}.
         </p>
         <nav aria-label="Harness sections" className="flex flex-wrap gap-2 text-sm">
-          <Link href="#decision-surface" className="underline underline-offset-4">
+          <Link href="#decision-surface" className="inline-flex min-h-11 items-center underline underline-offset-4">
             1 · Decision surface
           </Link>
-          <Link href="#flow-traces" className="underline underline-offset-4">
+          <Link href="#flow-traces" className="inline-flex min-h-11 items-center underline underline-offset-4">
             2 · Flow traces
           </Link>
-          <Link href="#matrix" className="underline underline-offset-4">
+          <Link href="#matrix" className="inline-flex min-h-11 items-center underline underline-offset-4">
             3 · State matrix
           </Link>
-          <Link href="#role-matrix" className="underline underline-offset-4">
+          <Link href="#role-matrix" className="inline-flex min-h-11 items-center underline underline-offset-4">
             4 · Role matrix
           </Link>
-          <Link href="#adapter-report" className="underline underline-offset-4">
+          <Link href="#adapter-report" className="inline-flex min-h-11 items-center underline underline-offset-4">
             5 · Adapter boundary report
           </Link>
         </nav>
@@ -446,7 +446,7 @@ export function CheckoutFlowHarness({
             {matrixRows.map(({ scenario, statusResult, display }) => (
               <TableRow key={scenario.checkoutId}>
                 <TableCell className="font-mono text-xs">
-                  <Link href={`#scenario-${scenario.checkoutId}`} className="underline underline-offset-4">
+                  <Link href={`#scenario-${scenario.checkoutId}`} className="inline-flex min-h-11 items-center underline underline-offset-4">
                     {scenario.checkoutId}
                   </Link>
                   <span className="block text-muted-foreground font-sans text-xs max-w-56">
@@ -473,7 +473,7 @@ export function CheckoutFlowHarness({
                   {display ? (
                     <Link
                       href="/verification/checkout-flow#adapter-report"
-                      className="underline underline-offset-4"
+                      className="inline-flex min-h-11 items-center underline underline-offset-4"
                     >
                       {display.recordId}
                     </Link>
@@ -600,11 +600,11 @@ export function CheckoutFlowHarness({
         <p className="text-xs text-muted-foreground leading-relaxed">
           To verify the gate live: switch the simulated audience via the shell
           audience endpoint (/api/shell/audience), then deep-link{" "}
-          <Link href="/checkout" className="underline underline-offset-4">
+          <Link href="/checkout" className="inline-flex min-h-11 items-center underline underline-offset-4">
             /checkout
           </Link>{" "}
           or{" "}
-          <Link href="/checkout/cko_live_accept_001" className="underline underline-offset-4">
+          <Link href="/checkout/cko_live_accept_001" className="inline-flex min-h-11 items-center underline underline-offset-4">
             /checkout/cko_live_accept_001
           </Link>
           . As any audience other than merchant, the shared guard redirects to
@@ -666,7 +666,7 @@ export function CheckoutFlowHarness({
                   <TableCell className="text-xs">
                     <Link
                       href="#adapter-report"
-                      className="underline underline-offset-4"
+                      className="inline-flex min-h-11 items-center underline underline-offset-4"
                       aria-label={`Mapping record ${row.recordId} — see spec/product/checkout-mapping-records.md`}
                     >
                       {row.recordId}

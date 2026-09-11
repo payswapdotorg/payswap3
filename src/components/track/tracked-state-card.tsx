@@ -71,10 +71,17 @@ export function TrackedStateCard({ currentState }: { currentState: TrackedCurren
   const descriptor = resolveDisplayState(currentState);
   const recordId = mappingRecordId(currentState.state);
 
+  // UI-009: instance-unique landmark ids and accessible names — the
+  // verification harness renders this card per reference; repeated identical
+  // landmark names break landmark uniqueness there. The visible heading text
+  // is unchanged.
+  const objectId = currentState.protocolObject.objectId;
+  const headingId = `track-current-state-heading-${objectId}`;
+
   return (
-    <section aria-labelledby="track-current-state-heading" className="space-y-3">
+    <section aria-label={`Current state — ${objectId}`} className="space-y-3">
       <div className="flex flex-wrap items-center gap-2">
-        <h2 id="track-current-state-heading" className="text-lg font-semibold tracking-tight">
+        <h2 id={headingId} className="text-lg font-semibold tracking-tight">
           Current state
         </h2>
         <Badge

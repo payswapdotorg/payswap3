@@ -131,7 +131,7 @@ export function TrackingFlowHarness({
   boundary,
 }: TrackingFlowHarnessProps) {
   return (
-    <main className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <header className="space-y-3">
         <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
           UI-005 verification harness
@@ -423,6 +423,6 @@ export function TrackingFlowHarness({
           </CardContent>
         </Card>
       </section>
-    </main>
+    </div>
   );
 }

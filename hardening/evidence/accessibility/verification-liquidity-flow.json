@@ -1,0 +1,288 @@
+{
+  "surface": "verification-liquidity-flow",
+  "route": "/verification/liquidity-flow",
+  "tool": "axe-core 4.13.0 via Playwright 1.62 (Chromium 1234), runOnly tags [wcag2aa, wcag22aa, best-practice]",
+  "preFixViolations": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 10
+    },
+    {
+      "id": "landmark-main-is-top-level",
+      "impact": "moderate",
+      "help": "Main landmark should not be contained in another landmark",
+      "nodes": 1
+    },
+    {
+      "id": "landmark-no-duplicate-main",
+      "impact": "moderate",
+      "help": "Document should not have more than one main landmark",
+      "nodes": 1
+    },
+    {
+      "id": "landmark-unique",
+      "impact": "moderate",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "nodes": 2
+    },
+    {
+      "id": "region",
+      "impact": "moderate",
+      "help": "All page content should be contained by landmarks",
+      "nodes": 1
+    }
+  ],
+  "postFix": {
+    "violations": [],
+    "passes": [
+      "aria-allowed-role",
+      "color-contrast",
+      "empty-heading",
+      "empty-table-header",
+      "heading-order",
+      "landmark-banner-is-top-level",
+      "landmark-contentinfo-is-top-level",
+      "landmark-main-is-top-level",
+      "landmark-no-duplicate-banner",
+      "landmark-no-duplicate-contentinfo",
+      "landmark-no-duplicate-main",
+      "landmark-one-main",
+      "landmark-unique",
+      "meta-viewport-large",
+      "meta-viewport",
+      "page-has-heading-one",
+      "region",
+      "skip-link",
+      "tabindex",
+      "table-duplicate-name",
+      "target-size"
+    ],
+    "incomplete": [],
+    "inapplicable": [
+      "accesskeys",
+      "aria-dialog-name",
+      "aria-text",
+      "aria-treeitem-name",
+      "frame-tested",
+      "image-redundant-alt",
+      "label-title-only",
+      "presentation-role-conflict",
+      "scope-attr-valid",
+      "valid-lang"
+    ]
+  },
+  "semantics": {
+    "lang": "en",
+    "title": "UI-007 verification — liquidity, credit & queue visibility · PaySwap",
+    "landmarks": [
+      {
+        "tag": "div",
+        "role": "region",
+        "label": "Environment signal"
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Primary"
+      },
+      {
+        "tag": "main",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "header",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Harness sections"
+      },
+      {
+        "tag": "footer",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "footer",
+        "role": "",
+        "label": ""
+      },
+      {
+        "tag": "nav",
+        "role": "",
+        "label": "Footer"
+      }
+    ],
+    "mains": 1,
+    "h1Count": 1,
+    "headings": [
+      {
+        "level": 1,
+        "text": "Liquidity, credit & queue visibility — verification harness"
+      },
+      {
+        "level": 2,
+        "text": "1 · Adapter boundary report"
+      },
+      {
+        "level": 2,
+        "text": "2 · Role-visibility matrix (P8)"
+      },
+      {
+        "level": 2,
+        "text": "3 · Scriptable authority-UNKNOWN sources"
+      },
+      {
+        "level": 2,
+        "text": "4 · Position matrix across states"
+      },
+      {
+        "level": 2,
+        "text": "Headline positions"
+      },
+      {
+        "level": 2,
+        "text": "Queued positions"
+      },
+      {
+        "level": 2,
+        "text": "5 · Provenance-wording evidence (P11)"
+      },
+      {
+        "level": 2,
+        "text": "6 · Responsive-degradation evidence (P10, 390px)"
+      },
+      {
+        "level": 3,
+        "text": "Liquidity positions"
+      },
+      {
+        "level": 3,
+        "text": "Credit positions"
+      },
+      {
+        "level": 2,
+        "text": "7 · Live-surface verification checklist"
+      }
+    ],
+    "headingSkips": [],
+    "hasSkipLink": true,
+    "skipLinkTargetExists": true,
+    "focusableCount": 50,
+    "nonNativeInteractive": [
+      {
+        "role": "radio",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "radio",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "radio",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "radio",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "radio",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "radio",
+        "tag": "SPAN",
+        "name": "",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Provider position — balance to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Provider position — reserved to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Provider position — available to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Credit line — limit to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Credit line — utilized to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Credit line — remaining to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Queued entry — position to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Queue snapshot — depth to authority-UNKNOWN",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Oversight — total reserved across providers (USD) to a",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Oversight — queued entries across providers to authori",
+        "native": false
+      },
+      {
+        "role": "switch",
+        "tag": "SPAN",
+        "name": "Force Oversight — credit utilized across providers (USD) to ",
+        "native": false
+      }
+    ],
+    "unlabeledInteractive": []
+  }
+}

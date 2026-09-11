@@ -105,7 +105,7 @@ export function CapabilityDetailView({
                     Depends on:{" "}
                     <Link
                       href={`/capabilities/${part.dependsOnCapabilityId}`}
-                      className="font-medium underline underline-offset-2 hover:opacity-80"
+                      className="inline-flex min-h-11 items-center font-medium underline underline-offset-2 hover:opacity-80"
                     >
                       {nameById.get(part.dependsOnCapabilityId) ??
                         part.dependsOnCapabilityId}

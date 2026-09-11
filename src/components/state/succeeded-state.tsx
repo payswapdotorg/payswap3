@@ -53,7 +53,7 @@ export function SucceededState({
       <p>
         <a
           href={evidence.href}
-          className="font-medium text-emerald-800 underline decoration-emerald-600 underline-offset-2 hover:bg-emerald-100"
+          className="inline-flex min-h-11 items-center font-medium text-emerald-800 underline decoration-emerald-600 underline-offset-2 hover:bg-emerald-100"
         >
           {evidence.label}
         </a>

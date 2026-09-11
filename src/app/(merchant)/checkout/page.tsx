@@ -71,7 +71,7 @@ export default async function MerchantCheckoutPage({
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6">
+      <div className="flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6">
         <MerchantSurfaceBanner
           title="Merchant checkout"
           description="Open offers and quotes addressed to your merchant identity. Each offer shows the full consequences before any commitment; accepting and declining are separate explicit actions."
@@ -189,7 +189,7 @@ export default async function MerchantCheckoutPage({
             </p>
           </section>
         )}
-      </main>
+      </div>
 
       <footer className="mt-auto border-t bg-background">
         <div className="mx-auto w-full max-w-5xl px-4 py-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
@@ -199,7 +199,7 @@ export default async function MerchantCheckoutPage({
           </span>
           <Link
             href="/verification/checkout-flow"
-            className="underline underline-offset-4 hover:text-foreground"
+            className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-foreground"
           >
             Checkout flow verification harness
           </Link>

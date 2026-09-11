@@ -1,0 +1,81 @@
+{
+  "surface": "verification-tracking-flow",
+  "route": "/verification/tracking-flow",
+  "breakpoints": {
+    "mobile-390": {
+      "width": 390,
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "innerWidth": 390,
+      "noHorizontalScroll": true,
+      "docHeight": 10859,
+      "touchTargets": {
+        "measured": 19,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/track/PWS-9QM2",
+            "visualW": 122.2,
+            "visualH": 16,
+            "w": 122.2,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    },
+    "tablet-768": {
+      "width": 768,
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "innerWidth": 768,
+      "noHorizontalScroll": true,
+      "docHeight": 7805,
+      "touchTargets": {
+        "measured": 19,
+        "under44": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/track/PWS-9QM2",
+            "visualW": 658.7,
+            "visualH": 36,
+            "w": 658.7,
+            "h": 36,
+            "under44": true,
+            "under24": false
+          }
+        ],
+        "under24": []
+      }
+    },
+    "desktop-1440": {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "innerWidth": 1440,
+      "noHorizontalScroll": true,
+      "docHeight": 7374,
+      "touchTargets": {
+        "measured": 19,
+        "under44": [],
+        "under24": [
+          {
+            "tag": "a",
+            "role": "",
+            "name": "/track/PWS-9QM2",
+            "visualW": 122.2,
+            "visualH": 16,
+            "w": 122.2,
+            "h": 16,
+            "under44": true,
+            "under24": true
+          }
+        ]
+      }
+    }
+  }
+}

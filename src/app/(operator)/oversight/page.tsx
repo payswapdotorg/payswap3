@@ -84,7 +84,7 @@ export default async function OperatorOversightPage() {
         </div>
       </header>
 
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-8">
+      <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-8 space-y-8">
         <Alert>
           <Clock aria-hidden />
           <AlertTitle>Authority binding: ARRIVING (record {binding.recordId})</AlertTitle>
@@ -182,7 +182,7 @@ export default async function OperatorOversightPage() {
             </CardFooter>
           </Card>
         )}
-      </main>
+      </div>
 
       <footer className="mt-auto border-t">
         <div className="w-full max-w-6xl mx-auto px-4 py-5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">

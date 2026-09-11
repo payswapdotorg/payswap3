@@ -27,6 +27,7 @@ export default async function ProposalReviewPage({
 
   return (
     <section aria-label="Agent proposal review and decision">
+      <h1 className="sr-only">Agent proposal review and decision</h1>
       <FetchedRecordFrame fetch={fetched} recordLabel="Agent proposal">
         {(proposal) => (
           <ProposalReviewView

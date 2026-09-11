@@ -25,9 +25,21 @@ export function EvidenceTrail({
 }: {
   evidenceTrail: readonly EvidenceRecordView[];
 }) {
+  // UI-009: instance-unique landmark ids and accessible names — the
+  // verification harness renders this section per view; repeated identical
+  // landmark names break landmark uniqueness there. The visible heading text
+  // is unchanged, and record-level anchors (evidence-<recordId>) are untouched.
+  const firstRecordId = evidenceTrail[0]?.recordId ?? "empty";
+  const sectionId = `evidence-trail-${firstRecordId}`;
+  const headingId = `track-evidence-heading-${firstRecordId}`;
+
   return (
-    <section id="evidence" aria-labelledby="track-evidence-heading" className="space-y-3">
-      <h2 id="track-evidence-heading" className="text-lg font-semibold tracking-tight">
+    <section
+      id={sectionId}
+      aria-label={`Proof trail — ${firstRecordId}`}
+      className="space-y-3"
+    >
+      <h2 id={headingId} className="text-lg font-semibold tracking-tight">
         Proof trail
       </h2>
       <p className="text-sm text-muted-foreground">

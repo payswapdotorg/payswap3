@@ -46,7 +46,7 @@ export default async function MerchantCheckoutStatePage({
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6">
+      <div className="flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6">
         <MerchantSurfaceBanner
           title="Checkout state"
           description="The authority-recorded state of one merchant checkout. This page only restates what the authority reported — it never derives, predicts, or mutates a state."
@@ -102,7 +102,7 @@ export default async function MerchantCheckoutStatePage({
             </Link>
           </section>
         )}
-      </main>
+      </div>
 
       <footer className="mt-auto border-t bg-background">
         <div className="mx-auto w-full max-w-5xl px-4 py-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
@@ -112,7 +112,7 @@ export default async function MerchantCheckoutStatePage({
           </span>
           <Link
             href="/verification/checkout-flow#matrix"
-            className="underline underline-offset-4 hover:text-foreground"
+            className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-foreground"
           >
             Checkout state matrix (verification harness)
           </Link>

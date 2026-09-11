@@ -57,7 +57,7 @@ export default async function CheckoutFlowVerificationPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6">
+      <div className="flex-1 mx-auto w-full max-w-5xl px-4 py-8 grid gap-6">
         {offerResult.ok ? (
           <CheckoutFlowHarness
             currentAudience={audience}
@@ -80,7 +80,7 @@ export default async function CheckoutFlowVerificationPage() {
             </p>
           </section>
         )}
-      </main>
+      </div>
       <footer className="mt-auto border-t bg-background">
         <div className="mx-auto w-full max-w-5xl px-4 py-4 text-xs text-muted-foreground">
           Verification harness (UI-003) · runtime ARRIVING · mock backing is

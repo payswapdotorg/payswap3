@@ -53,7 +53,7 @@ function EvidenceLink({
   return (
     <Link
       href={evidence.href}
-      className="text-sm font-medium underline underline-offset-4 hover:text-foreground w-fit"
+      className="inline-flex min-h-11 items-center text-sm font-medium underline underline-offset-4 hover:text-foreground w-fit"
     >
       {evidence.label}
     </Link>

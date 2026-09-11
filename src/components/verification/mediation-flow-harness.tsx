@@ -242,7 +242,7 @@ export function MediationFlowHarness({
                   type="button"
                   size="sm"
                   variant={entry === audience ? "default" : "outline"}
-                  className="min-h-9"
+                  className="min-h-11"
                   aria-current={entry === audience ? "true" : undefined}
                   disabled={busy}
                   onClick={() => void switchAudience(entry)}
@@ -254,7 +254,7 @@ export function MediationFlowHarness({
                 type="button"
                 size="sm"
                 variant="ghost"
-                className="min-h-9"
+                className="min-h-11"
                 disabled={busy}
                 onClick={() => void refreshAll()}
               >
@@ -285,7 +285,7 @@ export function MediationFlowHarness({
                     type="button"
                     size="sm"
                     variant="secondary"
-                    className="min-h-9"
+                    className="min-h-11"
                     disabled={busy}
                     onClick={() => void runScript(entry.script)}
                   >
