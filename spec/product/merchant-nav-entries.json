@@ -1,0 +1,23 @@
+{
+  "comment": "UI-003 — merchant navigation entries declared by the merchant checkout surface. The Tech Lead splices these into NAVIGATION_ENTRIES in src/lib/navigation.ts at merge. Shapes follow the NavEntry grammar exactly: { id, label, href, description, audiences, status, kind }. src/lib/navigation.ts was NOT modified by UI-003 (read-only).",
+  "entries": [
+    {
+      "id": "merchant-checkout",
+      "label": "Merchant checkout",
+      "href": "/checkout",
+      "description": "Review open offers and quotes with complete consequences, then explicitly accept or decline.",
+      "audiences": ["merchant"],
+      "status": "available",
+      "kind": "primary"
+    },
+    {
+      "id": "merchant-checkout-verification",
+      "label": "Checkout flow verification",
+      "href": "/verification/checkout-flow",
+      "description": "Verification harness for the merchant checkout surface: accept/decline flows, checkout state matrix, role matrix, adapter boundary report.",
+      "audiences": ["merchant", "operator", "administrator"],
+      "status": "available",
+      "kind": "footer"
+    }
+  ]
+}
