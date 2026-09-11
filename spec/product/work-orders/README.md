@@ -27,11 +27,11 @@ Every work order in this directory mirrors the system work-order format (exempla
 ## Stop conditions — the conditions under which the item stops and reports upward
 3. Index
 ID	Title	Depends on	Status	Path
-UI-001	Product foundation: application shell, navigation grammar, and state display primitives	—	PLANNED	spec/product/work-orders/UI-001.md
-UI-002	Customer payment intent surface	UI-001	PLANNED	spec/product/work-orders/UI-002.md
+UI-001	Product foundation: application shell, navigation grammar, and state display primitives	—	MERGED — f934a76 (PR #6)	spec/product/work-orders/UI-001.md
+UI-002	Customer payment intent surface	UI-001	MERGED — 5bff0d6 (PR #10)	spec/product/work-orders/UI-002.md
 UI-003	Merchant checkout surface	UI-002	PLANNED	spec/product/work-orders/UI-003.md
-UI-004	Provider and capability surface	UI-002	PLANNED	spec/product/work-orders/UI-004.md
-UI-005	Track, status, and evidence surface	UI-002	PLANNED	spec/product/work-orders/UI-005.md
+UI-004	Provider and capability surface	UI-002	MERGED — 35ef9fe (PR #12)	spec/product/work-orders/UI-004.md
+UI-005	Track, status, and evidence surface	UI-002	MERGED — 4ce0e74 (PR #11)	spec/product/work-orders/UI-005.md
 UI-006	Waiting, queued, and delayed fulfillment UX with recovery	UI-005	PLANNED	spec/product/work-orders/UI-006.md
 UI-007	Liquidity, credit, and queue visibility surfaces	UI-006	PLANNED	spec/product/work-orders/UI-007.md
 UI-008	Agent proposal, mediation, and dispute/recourse surfaces	UI-007	PLANNED	spec/product/work-orders/UI-008.md

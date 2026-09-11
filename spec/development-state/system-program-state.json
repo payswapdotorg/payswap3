@@ -1,50 +1,50 @@
 {
-  "schemaVersion": 1,
-  "program": "payswap3-system-completion",
-  "status": "ready",
-  "sourceOfTruth": "repository",
-  "protocol": {
-    "architecture": "v0.1",
-    "status": "complete",
-    "workOrders": "WORK-001..WORK-033"
-  },
-  "product": {
-    "programState": "spec/development-state/product-program-state.json",
-    "closureTarget": "UI-010"
-  },
-  "deployment": {
-    "workGraph": "spec/system-work-items.md",
-    "workOrders": "spec/system-work-orders/",
-    "closureTarget": "DEP-008"
-  },
-  "system": {
-    "reconciliation": "SYS-001",
-    "dogfood": "SYS-002",
-    "closure": "SYS-003"
-  },
-  "activeWork": [
-    "UI-003/004/005 fan (parallel dispatch in progress)"
+ "schemaVersion": 1,
+ "program": "payswap3-system-completion",
+ "status": "ready",
+ "sourceOfTruth": "repository",
+ "protocol": {
+  "architecture": "v0.1",
+  "status": "complete",
+  "workOrders": "WORK-001..WORK-033"
+ },
+ "product": {
+  "programState": "spec/development-state/product-program-state.json",
+  "closureTarget": "UI-010"
+ },
+ "deployment": {
+  "workGraph": "spec/system-work-items.md",
+  "workOrders": "spec/system-work-orders/",
+  "closureTarget": "DEP-008"
+ },
+ "system": {
+  "reconciliation": "SYS-001",
+  "dogfood": "SYS-002",
+  "closure": "SYS-003"
+ },
+ "activeWork": [
+  "UI-003 re-dispatched in flight (worker session live)"
+ ],
+ "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
+ "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
+ "bootstrap": {
+  "wave": 1,
+  "status": "COMPLETE",
+  "merged": [
+   "ARCH-001: b9737e9 (protocol architecture v0.1 materialized)",
+   "PROD-001: 4bde502 (product/UX program materialized, 11-edge fan-convergence graph)",
+   "GOV-001: 40b20ae (governance/dispatch scaffolding, validator PASS 17/17)"
   ],
-  "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
-  "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
-  "bootstrap": {
-    "wave": 1,
-    "status": "COMPLETE",
-    "merged": [
-      "ARCH-001: b9737e9 (protocol architecture v0.1 materialized)",
-      "PROD-001: 4bde502 (product/UX program materialized, 11-edge fan-convergence graph)",
-      "GOV-001: 40b20ae (governance/dispatch scaffolding, validator PASS 17/17)"
-    ],
-    "note": "All declared authority paths now exist and validate (scripts/validate_governance.py). Frontier: UI-001 (product foundation) then DEP-001 per dependency truth."
-  },
-  "deploymentProgress": {
-    "DEP-001": "merged 50275dc (PR #7): topology + environment contract",
-    "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
-    "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
-    "frontier": [
-      "DEP-004 BLOCKED (requires protocol authorities as runtime code \u2014 not yet materialized)",
-      "UI-003/004/005 fan after UI-002 (in reconciliation)"
-    ],
-    "note": "Deployment chain pauses at DEP-004 pending protocol-authority runtime materialization (a future governed wave). Product chain continues: UI-002 reconciliation in flight."
-  }
+  "note": "All declared authority paths now exist and validate (scripts/validate_governance.py). Frontier: UI-001 (product foundation) then DEP-001 per dependency truth."
+ },
+ "deploymentProgress": {
+  "DEP-001": "merged 50275dc (PR #7): topology + environment contract",
+  "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
+  "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
+  "frontier": [
+   "DEP-004 BLOCKED (requires protocol authorities as runtime code \u2014 not yet materialized)",
+   "UI-003 in flight; UI-004 + UI-005 merged (35ef9fe, 4ce0e74)"
+  ],
+  "note": "Deployment chain pauses at DEP-004 pending protocol-authority runtime materialization (a future governed wave; runtime-materialization investigation dispatched under governance). Product chain: UI-004/UI-005 merged from sandbox recoveries; UI-003 in flight. State reconciliation applied: DEP-001/002/003 work-order headers now match merged Git facts."
+ }
 }

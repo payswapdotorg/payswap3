@@ -1,106 +1,106 @@
 {
-  "schemaVersion": 1,
-  "program": "payswap3-product",
-  "status": "active",
-  "closureTarget": "UI-010",
-  "workItems": {
-    "UI-001": {
-      "id": "UI-001",
-      "title": "Product foundation: application shell, navigation grammar, and state display primitives",
-      "status": "merged",
-      "dependsOn": [],
-      "workOrder": "spec/product/work-orders/UI-001.md",
-      "merge": "f934a76 (PR #6)"
-    },
-    "UI-002": {
-      "id": "UI-002",
-      "title": "Customer payment intent surface",
-      "status": "merged",
-      "dependsOn": [
-        "UI-001"
-      ],
-      "workOrder": "spec/product/work-orders/UI-002.md",
-      "merge": "5bff0d6 (PR #10)"
-    },
-    "UI-003": {
-      "id": "UI-003",
-      "title": "Merchant checkout surface",
-      "status": "ready",
-      "dependsOn": [
-        "UI-002"
-      ],
-      "workOrder": "spec/product/work-orders/UI-003.md"
-    },
-    "UI-004": {
-      "id": "UI-004",
-      "title": "Provider and capability surface",
-      "status": "ready",
-      "dependsOn": [
-        "UI-002"
-      ],
-      "workOrder": "spec/product/work-orders/UI-004.md"
-    },
-    "UI-005": {
-      "id": "UI-005",
-      "title": "Track, status, and evidence surface",
-      "status": "ready",
-      "dependsOn": [
-        "UI-002"
-      ],
-      "workOrder": "spec/product/work-orders/UI-005.md"
-    },
-    "UI-006": {
-      "id": "UI-006",
-      "title": "Waiting, queued, and delayed fulfillment UX with recovery",
-      "status": "blocked",
-      "dependsOn": [
-        "UI-003",
-        "UI-004",
-        "UI-005"
-      ],
-      "workOrder": "spec/product/work-orders/UI-006.md"
-    },
-    "UI-007": {
-      "id": "UI-007",
-      "title": "Liquidity, credit, and queue visibility surfaces",
-      "status": "blocked",
-      "dependsOn": [
-        "UI-006"
-      ],
-      "workOrder": "spec/product/work-orders/UI-007.md"
-    },
-    "UI-008": {
-      "id": "UI-008",
-      "title": "Agent proposal, mediation, and dispute/recourse surfaces",
-      "status": "blocked",
-      "dependsOn": [
-        "UI-007"
-      ],
-      "workOrder": "spec/product/work-orders/UI-008.md"
-    },
-    "UI-009": {
-      "id": "UI-009",
-      "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
-      "status": "blocked",
-      "dependsOn": [
-        "UI-008"
-      ],
-      "workOrder": "spec/product/work-orders/UI-009.md"
-    },
-    "UI-010": {
-      "id": "UI-010",
-      "title": "End-to-end UX closure evidence and Architect closure",
-      "status": "blocked",
-      "dependsOn": [
-        "UI-009"
-      ],
-      "workOrder": "spec/product/work-orders/UI-010.md"
-    }
+ "schemaVersion": 1,
+ "program": "payswap3-product",
+ "status": "active",
+ "closureTarget": "UI-010",
+ "workItems": {
+  "UI-001": {
+   "id": "UI-001",
+   "title": "Product foundation: application shell, navigation grammar, and state display primitives",
+   "status": "merged",
+   "dependsOn": [],
+   "workOrder": "spec/product/work-orders/UI-001.md",
+   "merge": "f934a76 (PR #6)"
   },
-  "frontier": [
+  "UI-002": {
+   "id": "UI-002",
+   "title": "Customer payment intent surface",
+   "status": "merged",
+   "dependsOn": [
+    "UI-001"
+   ],
+   "workOrder": "spec/product/work-orders/UI-002.md",
+   "merge": "5bff0d6 (PR #10)"
+  },
+  "UI-003": {
+   "id": "UI-003",
+   "title": "Merchant checkout surface",
+   "status": "ready",
+   "dependsOn": [
+    "UI-002"
+   ],
+   "workOrder": "spec/product/work-orders/UI-003.md"
+  },
+  "UI-004": {
+   "id": "UI-004",
+   "title": "Provider and capability surface",
+   "status": "merged",
+   "dependsOn": [
+    "UI-002"
+   ],
+   "workOrder": "spec/product/work-orders/UI-004.md",
+   "merge": "35ef9fe (PR #12)"
+  },
+  "UI-005": {
+   "id": "UI-005",
+   "title": "Track, status, and evidence surface",
+   "status": "merged",
+   "dependsOn": [
+    "UI-002"
+   ],
+   "workOrder": "spec/product/work-orders/UI-005.md",
+   "merge": "4ce0e74 (PR #11)"
+  },
+  "UI-006": {
+   "id": "UI-006",
+   "title": "Waiting, queued, and delayed fulfillment UX with recovery",
+   "status": "blocked",
+   "dependsOn": [
     "UI-003",
     "UI-004",
     "UI-005"
-  ],
-  "note": "UI-002 merged 5bff0d6 (worker dispatch + Tech Lead reconciliation: real-API adaptation, navigation splice, stack pinning). Frontier: the UI-003/004/005 fan (parallel antichain \u2014 disjoint surfaces; navigation entries spliced by the Tech Lead at merge)."
+   ],
+   "workOrder": "spec/product/work-orders/UI-006.md"
+  },
+  "UI-007": {
+   "id": "UI-007",
+   "title": "Liquidity, credit, and queue visibility surfaces",
+   "status": "blocked",
+   "dependsOn": [
+    "UI-006"
+   ],
+   "workOrder": "spec/product/work-orders/UI-007.md"
+  },
+  "UI-008": {
+   "id": "UI-008",
+   "title": "Agent proposal, mediation, and dispute/recourse surfaces",
+   "status": "blocked",
+   "dependsOn": [
+    "UI-007"
+   ],
+   "workOrder": "spec/product/work-orders/UI-008.md"
+  },
+  "UI-009": {
+   "id": "UI-009",
+   "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
+   "status": "blocked",
+   "dependsOn": [
+    "UI-008"
+   ],
+   "workOrder": "spec/product/work-orders/UI-009.md"
+  },
+  "UI-010": {
+   "id": "UI-010",
+   "title": "End-to-end UX closure evidence and Architect closure",
+   "status": "blocked",
+   "dependsOn": [
+    "UI-009"
+   ],
+   "workOrder": "spec/product/work-orders/UI-010.md"
+  }
+ },
+ "frontier": [
+  "UI-003"
+ ],
+ "note": "UI-004 merged 35ef9fe (PR #12) and UI-005 merged 4ce0e74 (PR #11) \u2014 both recovered from worker sandboxes via the workspaces files API after the platform incident destroyed the chat transcripts (integration-station verification: typecheck 0 errors, build green, browser E2E, VLM QA). UI-003 re-dispatched (original session + sandbox lost). Git history authoritative."
 }
