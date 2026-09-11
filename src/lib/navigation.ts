@@ -230,6 +230,30 @@ export const NAVIGATION_ENTRIES: readonly NavEntry[] = [
     status: 'available',
     kind: 'footer',
   },
+  {
+    // UI-007: provider liquidity surface (splice from
+    // spec/product/liquidity-nav-entries.json).
+    id: 'provider-liquidity',
+    label: 'Liquidity positions',
+    href: '/liquidity',
+    description:
+      'Read-only liquidity, credit, and queued positions quoted by the Liquidity Authority and the Credit Authority (runtime ARRIVING; presentation-only mock backing).',
+    audiences: ['provider'],
+    status: 'available',
+    kind: 'primary',
+  },
+  {
+    // UI-007: operator oversight surface (splice from
+    // spec/product/liquidity-nav-entries.json).
+    id: 'operator-oversight',
+    label: 'Oversight',
+    href: '/oversight',
+    description:
+      'Authority-quoted oversight aggregates permitted to operators by the Liquidity Authority and the Credit Authority (runtime ARRIVING; presentation-only mock backing).',
+    audiences: ['operator'],
+    status: 'available',
+    kind: 'primary',
+  },
 ];
 
 /**

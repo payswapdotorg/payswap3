@@ -1,0 +1,27 @@
+{
+  "workOrder": "UI-007",
+  "note": "Declared navigation entries for the UI-007 liquidity and oversight visibility surfaces. The Tech Lead splices these into NAVIGATION_ENTRIES in src/lib/navigation.ts; UI-007 never modifies navigation.ts itself.",
+  "authorityOwners": ["Liquidity Authority", "Credit Authority"],
+  "authorityReference": "spec/architecture/v0.1 liquidity-credit-queues.md",
+  "runtime": "ARRIVING",
+  "entries": [
+    {
+      "id": "provider-liquidity",
+      "label": "Liquidity positions",
+      "href": "/liquidity",
+      "description": "Read-only liquidity, credit, and queued positions quoted by the Liquidity Authority and the Credit Authority (runtime ARRIVING; presentation-only mock backing).",
+      "audiences": ["provider"],
+      "status": "available",
+      "kind": "primary"
+    },
+    {
+      "id": "operator-oversight",
+      "label": "Oversight",
+      "href": "/oversight",
+      "description": "Authority-quoted oversight aggregates permitted to operators by the Liquidity Authority and the Credit Authority (runtime ARRIVING; presentation-only mock backing).",
+      "audiences": ["operator"],
+      "status": "available",
+      "kind": "primary"
+    }
+  ]
+}
