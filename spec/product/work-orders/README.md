@@ -29,7 +29,7 @@ Every work order in this directory mirrors the system work-order format (exempla
 ID	Title	Depends on	Status	Path
 UI-001	Product foundation: application shell, navigation grammar, and state display primitives	—	MERGED — f934a76 (PR #6)	spec/product/work-orders/UI-001.md
 UI-002	Customer payment intent surface	UI-001	MERGED — 5bff0d6 (PR #10)	spec/product/work-orders/UI-002.md
-UI-003	Merchant checkout surface	UI-002	PLANNED	spec/product/work-orders/UI-003.md
+UI-003	Merchant checkout surface	UI-002	MERGED — ccf43dd (PR #13)	spec/product/work-orders/UI-003.md
 UI-004	Provider and capability surface	UI-002	MERGED — 35ef9fe (PR #12)	spec/product/work-orders/UI-004.md
 UI-005	Track, status, and evidence surface	UI-002	MERGED — 4ce0e74 (PR #11)	spec/product/work-orders/UI-005.md
 UI-006	Waiting, queued, and delayed fulfillment UX with recovery	UI-005	PLANNED	spec/product/work-orders/UI-006.md

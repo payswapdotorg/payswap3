@@ -25,11 +25,12 @@
   "UI-003": {
    "id": "UI-003",
    "title": "Merchant checkout surface",
-   "status": "ready",
+   "status": "merged",
    "dependsOn": [
     "UI-002"
    ],
-   "workOrder": "spec/product/work-orders/UI-003.md"
+   "workOrder": "spec/product/work-orders/UI-003.md",
+   "merge": "ccf43dd (PR #13)"
   },
   "UI-004": {
    "id": "UI-004",
@@ -100,7 +101,7 @@
   }
  },
  "frontier": [
-  "UI-003"
+  "UI-006"
  ],
- "note": "UI-004 merged 35ef9fe (PR #12) and UI-005 merged 4ce0e74 (PR #11) \u2014 both recovered from worker sandboxes via the workspaces files API after the platform incident destroyed the chat transcripts (integration-station verification: typecheck 0 errors, build green, browser E2E, VLM QA). UI-003 re-dispatched (original session + sandbox lost). Git history authoritative."
+ "note": "UI-003 merged ccf43dd (PR #13) \u2014 the UI-003/004/005 parallel fan is COMPLETE. UI-006 dispatched (waiting/queued/delayed UX with recovery; session live at base ccf43dd). Git history authoritative."
 }
