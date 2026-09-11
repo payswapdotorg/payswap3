@@ -23,8 +23,8 @@
   "closure": "SYS-003"
  },
  "activeWork": [
-  "UI-006 in flight (waiting/queued/delayed fulfillment UX with recovery)",
-  "RTN materialization plan PROPOSAL delivered (spec/development-state/rtn-materialization-plan-proposal.md) \u2014 awaiting Architect review; 5 open questions recorded"
+  "UI-007 in flight (liquidity, credit, and queue visibility surfaces)",
+  "RTN materialization plan PROPOSAL awaiting Architect review (spec/development-state/rtn-materialization-plan-proposal.md)"
  ],
  "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
  "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
@@ -43,8 +43,8 @@
   "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
   "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
   "frontier": [
-   "DEP-004 BLOCKED (requires protocol authorities as runtime code \u2014 RTN wave proposed, awaiting Architect approval)",
-   "Product chain: UI-003/004/005 fan complete (ccf43dd); UI-006 in flight"
+   "DEP-004 BLOCKED (RTN wave proposed, awaiting Architect approval)",
+   "Product chain: UI-001..006 merged; UI-007 in flight"
   ],
   "note": "Runtime materialization investigation complete: Answer B (new governed work program required). RTN-001..012 wave proposed (DEP-004 unblocked after RTN-001..011 + integration gate RTN-012); proposal + 5 Architect questions in spec/development-state/rtn-materialization-plan-proposal.md. Infrastructure discovery (Composio): ONLY GitHub connected \u2014 Vercel/Cloudflare/database/queue/observability providers unconnected; DEP-005/006/007 infrastructure bindings await operator connections. Product chain: fan complete, UI-006 in flight."
  }

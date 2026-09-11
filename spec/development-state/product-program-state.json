@@ -55,13 +55,14 @@
   "UI-006": {
    "id": "UI-006",
    "title": "Waiting, queued, and delayed fulfillment UX with recovery",
-   "status": "blocked",
+   "status": "merged",
    "dependsOn": [
     "UI-003",
     "UI-004",
     "UI-005"
    ],
-   "workOrder": "spec/product/work-orders/UI-006.md"
+   "workOrder": "spec/product/work-orders/UI-006.md",
+   "merge": "87b9672 (PR #15)"
   },
   "UI-007": {
    "id": "UI-007",
@@ -101,7 +102,7 @@
   }
  },
  "frontier": [
-  "UI-006"
+  "UI-007"
  ],
- "note": "UI-003 merged ccf43dd (PR #13) \u2014 the UI-003/004/005 parallel fan is COMPLETE. UI-006 dispatched (waiting/queued/delayed UX with recovery; session live at base ccf43dd). Git history authoritative."
+ "note": "UI-006 merged 87b9672 (PR #15) \u2014 waiting/queued/delayed UX with recovery. UI-007 dispatched (liquidity/credit/queue visibility; session live at base 87b9672). Git history authoritative."
 }
