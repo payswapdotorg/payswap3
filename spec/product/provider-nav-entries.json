@@ -1,0 +1,33 @@
+{
+  "workOrder": "UI-004",
+  "surface": "provider",
+  "declaredBy": "UI-004 worker",
+  "baseBranch": "main",
+  "baseSha": "678b5800cb5e175fd6fd6d365851755a77d08322",
+  "merge": "The Tech Lead splices the entries below into NAVIGATION_ENTRIES in src/lib/navigation.ts at merge. UI-004 did not modify src/lib/navigation.ts; the navigation grammar and its semantics remain owned by the Tech Lead.",
+  "entries": [
+    {
+      "id": "provider-capabilities",
+      "label": "Capabilities",
+      "href": "/capabilities",
+      "description": "Read-only presentation of protocol capability and routing truth for providers, with explicit UNKNOWN states and provenance.",
+      "audiences": ["provider"],
+      "status": "available",
+      "kind": "primary"
+    }
+  ],
+  "deepLinks": [
+    {
+      "href": "/capabilities/{capabilityId}",
+      "description": "Capability detail (read-only). Role-checked on direct entry: only the provider audience renders; every other audience is redirected home by requireRoleSurface('provider'). Not a navigation entry."
+    }
+  ],
+  "relatedSurfaces": [
+    {
+      "href": "/verification/capability-flow",
+      "description": "UI-004 verification harness (capability state matrix incl. UNKNOWN-vs-failure, role matrix, adapter boundary report). Verification tooling, not a provider surface; left ungated to mirror /verification/intent-flow.",
+      "audiences": ["operator", "administrator"]
+    }
+  ],
+  "notes": "The provider audience sees only provider surfaces: this is the only primary navigation entry declared for the provider audience by UI-004, and it is role-scoped to provider. No planned provider entries are declared; planned-entry rendering is exercised by the shared shell, not by this surface."
+}
