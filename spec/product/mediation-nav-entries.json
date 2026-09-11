@@ -1,0 +1,39 @@
+{
+  "workOrder": "UI-008",
+  "surface": "Agent proposal, mediation, and dispute/recourse surfaces",
+  "comment": "Navigation entries declared by UI-008 for the Tech Lead to splice into NAVIGATION_ENTRIES in src/lib/navigation.ts. src/lib/navigation.ts is untouched by this work order (READ-ONLY). Note: Next.js forbids two route-group pages at the same URL, so (customer)/mediation/page.tsx and (merchant)/mediation/page.tsx cannot both own /mediation in one build; the /mediation href below serves whichever party page the repo hosts there, with the other party page hosted at the repo's chosen distinct URL.",
+  "authorityOwners": [
+    "Agents/Mediation Authority (spec/architecture/v0.1/extensions-agents-merchant.md)",
+    "Disputes/Recourse Authority (spec/architecture/v0.1/disputes-federation-blockchain-emergence.md)"
+  ],
+  "runtime": "ARRIVING (mock backing; presentation-only, never authoritative)",
+  "entries": [
+    {
+      "id": "mediation",
+      "label": "Mediation & disputes",
+      "href": "/mediation",
+      "description": "Agent proposals awaiting your decision, mediations you are party to, disputes you are party to, and their recourse trails — every decision explicitly protocol-authorized.",
+      "audiences": ["customer", "merchant"],
+      "status": "available",
+      "kind": "primary"
+    },
+    {
+      "id": "dispute-initiation",
+      "label": "Initiate a dispute",
+      "href": "/mediation/dispute/new",
+      "description": "Open a dispute with the Disputes/Recourse Authority: explicit grounds, evidence references, and the authority's consequence wording before any submission.",
+      "audiences": ["customer", "merchant"],
+      "status": "available",
+      "kind": "footer"
+    },
+    {
+      "id": "verification-mediation-flow",
+      "label": "Verification: mediation & dispute flow",
+      "href": "/verification/mediation-flow",
+      "description": "UI-008 harness: proposal/decision workflow evidence across outcomes including UNKNOWN, per-role decision authorization matrix, mediation/dispute state matrix, and recourse proof-trail evidence.",
+      "audiences": ["operator", "administrator"],
+      "status": "available",
+      "kind": "footer"
+    }
+  ]
+}
