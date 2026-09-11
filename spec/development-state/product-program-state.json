@@ -1,108 +1,112 @@
 {
- "schemaVersion": 1,
- "program": "payswap3-product",
- "status": "active",
- "closureTarget": "UI-010",
- "workItems": {
-  "UI-001": {
-   "id": "UI-001",
-   "title": "Product foundation: application shell, navigation grammar, and state display primitives",
-   "status": "merged",
-   "dependsOn": [],
-   "workOrder": "spec/product/work-orders/UI-001.md",
-   "merge": "f934a76 (PR #6)"
+  "schemaVersion": 1,
+  "program": "payswap3-product",
+  "status": "active",
+  "closureTarget": "UI-010",
+  "workItems": {
+    "UI-001": {
+      "id": "UI-001",
+      "title": "Product foundation: application shell, navigation grammar, and state display primitives",
+      "status": "merged",
+      "dependsOn": [],
+      "workOrder": "spec/product/work-orders/UI-001.md",
+      "merge": "f934a76 (PR #6)"
+    },
+    "UI-002": {
+      "id": "UI-002",
+      "title": "Customer payment intent surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-001"
+      ],
+      "workOrder": "spec/product/work-orders/UI-002.md",
+      "merge": "5bff0d6 (PR #10)"
+    },
+    "UI-003": {
+      "id": "UI-003",
+      "title": "Merchant checkout surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-002"
+      ],
+      "workOrder": "spec/product/work-orders/UI-003.md",
+      "merge": "ccf43dd (PR #13)"
+    },
+    "UI-004": {
+      "id": "UI-004",
+      "title": "Provider and capability surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-002"
+      ],
+      "workOrder": "spec/product/work-orders/UI-004.md",
+      "merge": "35ef9fe (PR #12)"
+    },
+    "UI-005": {
+      "id": "UI-005",
+      "title": "Track, status, and evidence surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-002"
+      ],
+      "workOrder": "spec/product/work-orders/UI-005.md",
+      "merge": "4ce0e74 (PR #11)"
+    },
+    "UI-006": {
+      "id": "UI-006",
+      "title": "Waiting, queued, and delayed fulfillment UX with recovery",
+      "status": "merged",
+      "dependsOn": [
+        "UI-003",
+        "UI-004",
+        "UI-005"
+      ],
+      "workOrder": "spec/product/work-orders/UI-006.md",
+      "merge": "87b9672 (PR #15)"
+    },
+    "UI-007": {
+      "id": "UI-007",
+      "title": "Liquidity, credit, and queue visibility surfaces",
+      "status": "merged",
+      "dependsOn": [
+        "UI-006"
+      ],
+      "workOrder": "spec/product/work-orders/UI-007.md",
+      "merge": "dd1399d (PR #16)"
+    },
+    "UI-008": {
+      "id": "UI-008",
+      "title": "Agent proposal, mediation, and dispute/recourse surfaces",
+      "status": "blocked",
+      "dependsOn": [
+        "UI-007"
+      ],
+      "workOrder": "spec/product/work-orders/UI-008.md"
+    },
+    "UI-009": {
+      "id": "UI-009",
+      "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
+      "status": "blocked",
+      "dependsOn": [
+        "UI-008"
+      ],
+      "workOrder": "spec/product/work-orders/UI-009.md"
+    },
+    "UI-010": {
+      "id": "UI-010",
+      "title": "End-to-end UX closure evidence and Architect closure",
+      "status": "blocked",
+      "dependsOn": [
+        "UI-009"
+      ],
+      "workOrder": "spec/product/work-orders/UI-010.md"
+    }
   },
-  "UI-002": {
-   "id": "UI-002",
-   "title": "Customer payment intent surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-001"
-   ],
-   "workOrder": "spec/product/work-orders/UI-002.md",
-   "merge": "5bff0d6 (PR #10)"
+  "frontier": {
+    "openItems": [
+      "UI-008"
+    ],
+    "note": "UI-007 merged; frontier = UI-008 (agent proposal, mediation, and dispute/recourse surfaces), dispatch next. Product chain UI-001..007 merged."
   },
-  "UI-003": {
-   "id": "UI-003",
-   "title": "Merchant checkout surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-002"
-   ],
-   "workOrder": "spec/product/work-orders/UI-003.md",
-   "merge": "ccf43dd (PR #13)"
-  },
-  "UI-004": {
-   "id": "UI-004",
-   "title": "Provider and capability surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-002"
-   ],
-   "workOrder": "spec/product/work-orders/UI-004.md",
-   "merge": "35ef9fe (PR #12)"
-  },
-  "UI-005": {
-   "id": "UI-005",
-   "title": "Track, status, and evidence surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-002"
-   ],
-   "workOrder": "spec/product/work-orders/UI-005.md",
-   "merge": "4ce0e74 (PR #11)"
-  },
-  "UI-006": {
-   "id": "UI-006",
-   "title": "Waiting, queued, and delayed fulfillment UX with recovery",
-   "status": "merged",
-   "dependsOn": [
-    "UI-003",
-    "UI-004",
-    "UI-005"
-   ],
-   "workOrder": "spec/product/work-orders/UI-006.md",
-   "merge": "87b9672 (PR #15)"
-  },
-  "UI-007": {
-   "id": "UI-007",
-   "title": "Liquidity, credit, and queue visibility surfaces",
-   "status": "blocked",
-   "dependsOn": [
-    "UI-006"
-   ],
-   "workOrder": "spec/product/work-orders/UI-007.md"
-  },
-  "UI-008": {
-   "id": "UI-008",
-   "title": "Agent proposal, mediation, and dispute/recourse surfaces",
-   "status": "blocked",
-   "dependsOn": [
-    "UI-007"
-   ],
-   "workOrder": "spec/product/work-orders/UI-008.md"
-  },
-  "UI-009": {
-   "id": "UI-009",
-   "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
-   "status": "blocked",
-   "dependsOn": [
-    "UI-008"
-   ],
-   "workOrder": "spec/product/work-orders/UI-009.md"
-  },
-  "UI-010": {
-   "id": "UI-010",
-   "title": "End-to-end UX closure evidence and Architect closure",
-   "status": "blocked",
-   "dependsOn": [
-    "UI-009"
-   ],
-   "workOrder": "spec/product/work-orders/UI-010.md"
-  }
- },
- "frontier": [
-  "UI-007"
- ],
- "note": "UI-006 merged 87b9672 (PR #15) \u2014 waiting/queued/delayed UX with recovery. UI-007 dispatched (liquidity/credit/queue visibility; session live at base 87b9672). Git history authoritative."
+  "note": "UI-006 merged 87b9672 (PR #15) \u2014 waiting/queued/delayed UX with recovery. UI-007 dispatched (liquidity/credit/queue visibility; session live at base 87b9672). Git history authoritative."
 }
