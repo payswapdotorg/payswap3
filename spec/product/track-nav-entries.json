@@ -1,0 +1,18 @@
+[
+  {
+    "id": "track",
+    "label": "Track a payment",
+    "href": "/track",
+    "description": "Look up the current state, plain-language history, and proof trail of a tracked payment or settlement reference.",
+    "audiences": [
+      "unauthenticated",
+      "customer",
+      "merchant",
+      "provider",
+      "operator",
+      "administrator"
+    ],
+    "status": "available",
+    "kind": "footer"
+  }
+]
