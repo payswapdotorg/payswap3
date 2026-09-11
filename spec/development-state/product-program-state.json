@@ -77,11 +77,12 @@
     "UI-008": {
       "id": "UI-008",
       "title": "Agent proposal, mediation, and dispute/recourse surfaces",
-      "status": "blocked",
+      "status": "merged",
       "dependsOn": [
         "UI-007"
       ],
-      "workOrder": "spec/product/work-orders/UI-008.md"
+      "workOrder": "spec/product/work-orders/UI-008.md",
+      "merge": "daeced3 (PR #17)"
     },
     "UI-009": {
       "id": "UI-009",
@@ -104,9 +105,9 @@
   },
   "frontier": {
     "openItems": [
-      "UI-008"
+      "UI-009"
     ],
-    "note": "UI-007 merged; frontier = UI-008 (agent proposal, mediation, and dispute/recourse surfaces), dispatch next. Product chain UI-001..007 merged."
+    "note": "UI-008 merged; frontier = UI-009 (responsive, accessibility, and role-correctness hardening across all surfaces UI-001..008), dispatch next. Product chain UI-001..008 merged."
   },
   "note": "UI-006 merged 87b9672 (PR #15) \u2014 waiting/queued/delayed UX with recovery. UI-007 dispatched (liquidity/credit/queue visibility; session live at base 87b9672). Git history authoritative."
 }
