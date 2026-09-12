@@ -24,7 +24,7 @@
   },
   "activeWork": [
     "UI-010 MERGED (b378f6d, PR #35) \u2014 payswap3-product program CLOSED by Tech Lead approval (closure submission spec/product/closure/)",
-    "DEP-005 IN FLIGHT (external rail connectivity boundary; session re-admitted after usage-limit window cleared)"
+    "DEP-005 MERGED (bd85a83, PR #36) \u2014 rail-connectivity family recovered from suspension casualty sandbox ws-610fb729 (transcript dead, sandbox durable); frontier now DEP-006"
   ],
   "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
   "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001). Product program CLOSED (UI-010, PR #35): the deferral ledger (spec/product/closure/deferral-ledger.md) is the product layer's honest handoff \u2014 D-2 (UI-011 splice unreachable by routes) and D-3 (drain() halts worker) ELEVATE SYS-001's transport-binding urgency; fold both into the SYS-001 HTTP binding remediation. Remaining frontier: DEP-005 (in flight) -> DEP-006..008 -> SYS-001/002 -> SYS-003 closure.",
@@ -43,11 +43,13 @@
     "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
     "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
     "frontier": [
-      "DEP-005 DISPATCHABLE (depends DEP-003+DEP-004 both merged); DEP-006/007 follow (DEP-006 needs DEP-005; DEP-007 needs DEP-003+DEP-004+DEP-005)",
-      "Product chain: UI-001..UI-009 merged; UI-011 IN FLIGHT (port re-anchoring; base c0b593e \u2014 will re-target onto current main at merge); then UI-010 closure"
+      "DEP-006 DISPATCHABLE (depends DEP-005 merged + DEP-002 merged); DEP-007 follows (needs DEP-003+DEP-004+DEP-005 \u2014 all merged)",
+      "Product program CLOSED (UI-010, PR #35); deferral ledger D-2/D-3 fold into SYS-001 HTTP binding remediation",
+      "Composio infrastructure truth: ONLY GitHub connected \u2014 DEP-006/007 infrastructure bindings (CI/CD, observability) await operator provider connections"
     ],
     "note": "RTN wave complete (all 12 work orders merged; merge SHAs in rtnWave.mergeRecord). DEP-004 unblocked per the RTN-012 dispatchability memo. Infrastructure discovery (Composio): ONLY GitHub connected \u2014 Vercel/Cloudflare/database/queue/observability providers unconnected; DEP-005/006/007 infrastructure bindings await operator connections.",
-    "DEP-004": "merged 3126426 (PR #33): reconciliation/clearing/netting/settlement-support operational jobs (src/lib/operations/ + harness; contract trio updated; deployment validator PASS 695 checks)"
+    "DEP-004": "merged 3126426 (PR #33): reconciliation/clearing/netting/settlement-support operational jobs (src/lib/operations/ + harness; contract trio updated; deployment validator PASS 695 checks)",
+    "DEP-005": "merged bd85a83 (PR #36): external rail connectivity boundary (src/lib/rail-connectivity/ + harness + deployment contract trio; validator PASS 778 checks)"
   },
   "rtnWave": {
     "status": "complete",
