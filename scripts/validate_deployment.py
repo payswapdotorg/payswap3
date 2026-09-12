@@ -29,6 +29,17 @@ repository root:
   6. spec/deployment/topology.md agrees with the registry (all component ids
      and the normative execution-topology nodes are present) and records the
      RTN-012 governed contract change.
+  7. DEP-002 runtime packaging, startup validation and health/readiness
+     (Dockerfile, next.config.ts, .dockerignore, startup-config, the health
+     and ready routes, packaging.md) — every locked DEP-001 value unchanged.
+  8. DEP-005 external rail connectivity boundary: the external-rail-adapters
+     component's entrypoints include the rail-connectivity family (each
+     exists on disk); the component's required_configuration pattern names
+     agree with spec/deployment/configuration.md's current-values table and
+     the resolver's variable templates (src/lib/rail-connectivity/
+     configuration.ts); topology.md records the DEP-005 governed contract
+     change; the secret-boundary patterns (S1-S5) are scanned over the
+     family's source too.
 
 Usage (from the repository root):
 
@@ -58,7 +69,7 @@ Governed change history:
     'deployment' for every component, authority only in protocol-layer
     entries, and external-rail-adapters stays authority_hosted 'none'
     (transmission-and-reporting only).
-  - DEP-004 (this form) added the 'operational-jobs' component (the durable
+  - DEP-004 added the 'operational-jobs' component (the durable
     operational-jobs family — reconciliation sweeps, clearing batch
     progression, netting-settlement progression, queue-draining support;
     layer deployment, authority none — orchestration only, commands
@@ -68,6 +79,25 @@ Governed change history:
     arrive with the DEP-004 work item's tree and the on-disk honesty check
     runs against it). All three surfaces updated together in the one work
     item; every locked value otherwise unchanged.
+
+  - DEP-005 (this form) landed the external rail connectivity boundary as
+    an owned in-process surface of the existing 'external-rail-adapters'
+    component (no present-set change): the src/lib/rail-connectivity/
+    family (typed transport port with the explicit result quadruple,
+    environment-scoped per-rail configuration resolution with credential
+    REFERENCES only + scope isolation, same-key/bounded/backoff/
+    deadline-aware retry engine, structured adapter-activity observability,
+    the composition into the frozen A13 RailAdapterConnection interface)
+    plus the scripts/test_rail_connectivity.mjs evidence harness. The
+    component's entrypoints, required_configuration pattern names and
+    health_signal were updated; the future_work note now records exactly
+    what remains (the real network transport primitive + real adapters and
+    the production credential binding - secret-store dereference, both at
+    the externalized binding). The declared base moved to the DEP-005
+    dispatch base (main @ 5bda6c0 - DEP-003 + DEP-004 merged). All four
+    surfaces - components.json, topology.md, configuration.md and this
+    validator - were updated together in the one work item; every locked
+    value otherwise unchanged.
 
 Dependency-free: Python 3 standard library only.
 """
@@ -91,18 +121,22 @@ READY_ROUTE_TS = REPO_ROOT / "src" / "app" / "api" / "ready" / "route.ts"
 DOCKERFILE = REPO_ROOT / "Dockerfile"
 DOCKERIGNORE = REPO_ROOT / ".dockerignore"
 NEXT_CONFIG_TS = REPO_ROOT / "next.config.ts"
+RAIL_CONNECTIVITY_DIR = REPO_ROOT / "src" / "lib" / "rail-connectivity"
+RAIL_CONNECTIVITY_CONFIGURATION_TS = RAIL_CONNECTIVITY_DIR / "configuration.ts"
+RAIL_CONNECTIVITY_HARNESS = REPO_ROOT / "scripts" / "test_rail_connectivity.mjs"
 
 EXPECTED_BASE_BRANCH = "main"
-# The DEP-004 governed contract change moved the declared base to the
-# DEP-004 dispatch base (main @ 2c3f9cf — the composed protocol runtime
-# RTN-001..012 merged, the runtime the operational-jobs family orchestrates
-# over). The operational-jobs entrypoints arrive with the DEP-004 work
-# item's tree; the on-disk entrypoint honesty check below runs against the
-# working tree of that item. Precedents: the DEP-001 base
-# fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73; the RTN-012 base
-# 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02.
-EXPECTED_BASE_SHA = "2c3f9cf0efb7bae808662d4dd1adaf604d69de0e"
-EXPECTED_UPDATED_BY = "DEP-004"
+# The DEP-005 governed contract change moved the declared base to the
+# DEP-005 dispatch base (main @ 5bda6c0 — DEP-003 + DEP-004 merged; the
+# composed protocol runtime + the operational-jobs layer the connectivity
+# boundary composes over). The rail-connectivity family entrypoints arrive
+# with the DEP-005 work item's tree; the on-disk entrypoint honesty check
+# below runs against the working tree of that item. Precedents: the
+# DEP-001 base fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73; the RTN-012 base
+# 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02; the DEP-004 base
+# 2c3f9cf0efb7bae808662d4dd1adaf604d69de0e.
+EXPECTED_BASE_SHA = "5bda6c02a6302461908a5601da5b49f655a489c1"
+EXPECTED_UPDATED_BY = "DEP-005"
 EXPECTED_CONTRACT = "payswap-deployment-components"
 # The DEP-004 present-set: the RTN-012 ten-component set plus the
 # 'operational-jobs' component (the durable operational-jobs family —
@@ -134,6 +168,32 @@ EXPECTED_PRODUCTION_REQUIRED_NAMES = [
     "PAYSWAP_QUEUE_URL",
     "PAYSWAP_EVIDENCE_STORE_URL",
     "PAYSWAP_RAIL_ADAPTERS_URL",
+]
+
+# The DEP-005 rail-connectivity required-configuration pattern names (per
+# rail; {RAIL} is the declared rail id upper-cased with '-' → '_'). Names
+# and patterns only — never values (S1-S5).
+EXPECTED_RAIL_CONNECTIVITY_PRODUCTION_NAMES = [
+    "PAYSWAP_RAIL_PRODUCTION_{RAIL}_HOST",
+    "PAYSWAP_RAIL_PRODUCTION_{RAIL}_CREDENTIAL_REF",
+    "PAYSWAP_RAIL_PRODUCTION_{RAIL}_TIMEOUT_MS",
+]
+EXPECTED_RAIL_CONNECTIVITY_SANDBOX_NAMES = [
+    "PAYSWAP_RAIL_SANDBOX_{RAIL}_HOST",
+    "PAYSWAP_RAIL_SANDBOX_{RAIL}_TIMEOUT_MS",
+]
+# The rail-connectivity family entrypoints the external-rail-adapters
+# component claims since DEP-005 (the on-disk honesty check runs against
+# this working tree).
+EXPECTED_RAIL_CONNECTIVITY_ENTRYPOINTS = [
+    "src/lib/rail-connectivity/index.ts",
+    "src/lib/rail-connectivity/transport.ts",
+    "src/lib/rail-connectivity/configuration.ts",
+    "src/lib/rail-connectivity/retry.ts",
+    "src/lib/rail-connectivity/activity.ts",
+    "src/lib/rail-connectivity/boundary.ts",
+    "src/lib/rail-connectivity/RAIL-CONNECTIVITY-EVIDENCE.md",
+    "scripts/test_rail_connectivity.mjs",
 ]
 
 LAYERS = {"protocol", "product", "deployment"}
@@ -754,9 +814,149 @@ def main():
                 f"{surface.relative_to(REPO_ROOT)} (S1 violation)",
             )
 
+    # ---- 8. DEP-005 external rail connectivity boundary ----------------------
+    # (delta checks added by the DEP-005 governed contract change; every
+    #  locked value above is unchanged. The boundary is an owned in-process
+    #  surface of the existing external-rail-adapters component — the
+    #  present-set itself does not change.)
+    rails_component = next(
+        (c for c in registry.get("components", []) if c.get("id") == "external-rail-adapters"),
+        {},
+    )
+    rails_entry = rails_component.get("repository_entrypoint") or {}
+    rails_paths = rails_entry.get("paths", []) if isinstance(rails_entry, dict) else []
+
+    # 8a. the rail-connectivity family entrypoints are claimed and exist
+    #     on disk (the honesty rule: claimed-today entrypoints are real).
+    for rel in EXPECTED_RAIL_CONNECTIVITY_ENTRYPOINTS:
+        check(
+            rel in rails_paths,
+            f"components.json external-rail-adapters entrypoints must include {rel} "
+            "(the DEP-005 rail-connectivity family)",
+        )
+        check(
+            (REPO_ROOT / rel).exists(),
+            f"claimed rail-connectivity entrypoint missing on disk: {rel}",
+        )
+
+    # 8b. the required-configuration pattern names agree with the
+    #     configuration doc and the resolver's variable templates (names
+    #     only — never values; S1-S5).
+    rails_required = rails_component.get("required_configuration") or {}
+    if check(
+        isinstance(rails_required, dict),
+        "components.json external-rail-adapters must carry required_configuration "
+        "(the DEP-005 per-rail pattern names)",
+    ):
+        prod_names = rails_required.get("production", [])
+        sandbox_names = rails_required.get("sandbox", [])
+        check(
+            sorted(prod_names) == sorted(EXPECTED_RAIL_CONNECTIVITY_PRODUCTION_NAMES),
+            "components.json external-rail-adapters required_configuration.production "
+            f"must equal {sorted(EXPECTED_RAIL_CONNECTIVITY_PRODUCTION_NAMES)} "
+            f"(found {sorted(prod_names)})",
+        )
+        check(
+            sorted(sandbox_names) == sorted(EXPECTED_RAIL_CONNECTIVITY_SANDBOX_NAMES),
+            "components.json external-rail-adapters required_configuration.sandbox "
+            f"must equal {sorted(EXPECTED_RAIL_CONNECTIVITY_SANDBOX_NAMES)} "
+            f"(found {sorted(sandbox_names)})",
+        )
+
+    # 8c. spec/deployment/configuration.md documents the rail-connectivity
+    #     variables in its current-values table (the closed list).
+    if CONFIGURATION_MD.is_file():
+        config_text_s = CONFIGURATION_MD.read_text(encoding="utf-8")
+        for name in (EXPECTED_RAIL_CONNECTIVITY_PRODUCTION_NAMES
+                     + EXPECTED_RAIL_CONNECTIVITY_SANDBOX_NAMES):
+            check(
+                name in config_text_s,
+                f"spec/deployment/configuration.md must document the rail-connectivity "
+                f"variable pattern {name} (the DEP-005 current-values entry)",
+            )
+        check(
+            "CREDENTIAL_REF" in config_text_s,
+            "spec/deployment/configuration.md must document the credential "
+            "REFERENCE variable (names only, never values — S1-S5)",
+        )
+
+    # 8d. the resolver's variable templates agree with the registry's
+    #     required-configuration pattern names (the resolver derives the
+    #     concrete names from the {SCOPE}/{RAIL} templates + the scope
+    #     segments SANDBOX/PRODUCTION).
+    if check(
+        RAIL_CONNECTIVITY_CONFIGURATION_TS.is_file(),
+        "src/lib/rail-connectivity/configuration.ts (the rail connectivity "
+        "configuration resolver) is missing on disk",
+    ):
+        resolver_text = RAIL_CONNECTIVITY_CONFIGURATION_TS.read_text(encoding="utf-8")
+        for template in (
+            "PAYSWAP_RAIL_{SCOPE}_{RAIL}_HOST",
+            "PAYSWAP_RAIL_{SCOPE}_{RAIL}_CREDENTIAL_REF",
+            "PAYSWAP_RAIL_{SCOPE}_{RAIL}_TIMEOUT_MS",
+        ):
+            check(
+                template in resolver_text,
+                f"src/lib/rail-connectivity/configuration.ts must carry the "
+                f"variable-name template {template} (agreement with the "
+                "registry's required_configuration)",
+            )
+        for segment in ("PRODUCTION", "SANDBOX"):
+            check(
+                f"'{segment}'" in resolver_text,
+                f"src/lib/rail-connectivity/configuration.ts must derive the "
+                f"{segment} scope segment (the scope-isolated name forms)",
+            )
+        check(
+            "scopeTag" in resolver_text,
+            "the resolver must scope-tag every resolved rail (the isolation proof)",
+        )
+        check(
+            "SCOPE_MISMATCH" in resolver_text and "SCOPE_CONTAMINATION" in resolver_text,
+            "the resolver must refuse cross-scope resolution and both-scope "
+            "contamination (the sandbox/production isolation acceptance)",
+        )
+        check(
+            "CREDENTIAL_REF_REQUIRED_FOR_PRODUCTION" in resolver_text,
+            "the resolver must fail closed for production rails without a "
+            "credential reference (F6)",
+        )
+
+    # 8e. topology.md records the DEP-005 governed contract change and the
+    #     connectivity boundary as the component's owned surface.
+    if TOPOLOGY_MD.is_file():
+        topology_text_s = TOPOLOGY_MD.read_text(encoding="utf-8")
+        check(
+            "DEP-005" in topology_text_s,
+            "topology.md must record the DEP-005 governed contract change "
+            "(the contract-evolution change record)",
+        )
+        check(
+            "src/lib/rail-connectivity/" in topology_text_s,
+            "topology.md must document the rail-connectivity family as the "
+            "external-rail-adapters component's owned surface",
+        )
+
+    # 8f. the S1 secret-boundary scan covers the rail-connectivity family
+    #     source too (credential VALUES never appear in the boundary).
+    if RAIL_CONNECTIVITY_DIR.is_dir():
+        for source in sorted(RAIL_CONNECTIVITY_DIR.glob("*.ts")):
+            text_s = source.read_text(encoding="utf-8")
+            for pat in _secret_patterns:
+                check(
+                    not re.search(pat, text_s),
+                    f"secret-value pattern {pat!r} found in "
+                    f"{source.relative_to(REPO_ROOT)} (S1 violation)",
+                )
+    check(
+        RAIL_CONNECTIVITY_HARNESS.is_file(),
+        "scripts/test_rail_connectivity.mjs (the DEP-005 evidence harness) is "
+        "missing on disk",
+    )
+
     # ---- summary ---------------------------------------------------------------
     total = present_count + future_count
-    print("DEP-001/DEP-002/RTN-012 deployment contract validation")
+    print("DEP-001/DEP-002/RTN-012/DEP-004/DEP-005 deployment contract validation")
     print(f"  base: {registry.get('base_branch')} @ {registry.get('base_sha')}")
     print(f"  last governed change: {registry.get('updated_by')}")
     print(

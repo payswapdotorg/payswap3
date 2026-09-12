@@ -2,10 +2,10 @@
   "contract": "payswap-deployment-components",
   "version": 1,
   "generated_by": "DEP-001",
-  "updated_by": "DEP-004",
-  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"): DEP-004 materialized the durable operational-jobs family as an in-process module surface inside the web-api-boundary application (the DEP-003/RTN-012 precedent; no externalized process binding — recorded future work per component). The new component 'operational-jobs' (layer deployment, authority none — orchestration only) hosts the background operational jobs for reconciliation sweeps, clearing batch progression, netting-settlement progression and queue-draining support: durable job kinds on the DEP-003 substrate that derive work from the authorities' public read surfaces and emit protocol commands exclusively through the protocol gateway with deterministic idempotency keys (zero authority semantics, zero direct state mutation, never asserts settlement finality). The declared base records the DEP-004 dispatch base (main @ 2c3f9cf — the composed protocol runtime RTN-001..012 merged, which the jobs orchestrate over); the operational-jobs entrypoints arrive with the DEP-004 work item's tree and exist on disk there (the validator's honesty check). Owner stays \"deployment\" for every component; authority only in protocol-layer entries; the present-set gains exactly one component. All three surfaces — components.json, spec/deployment/topology.md and scripts/validate_deployment.py — were updated together in that one work item.",
+  "updated_by": "DEP-005",
+  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"): DEP-005 materialized the external rail connectivity boundary as an in-process module surface inside the web-api-boundary application (the DEP-003/RTN-012/DEP-004 precedent; no externalized process binding — recorded future work per component). The external-rail-adapters component gains the connectivity/configuration/transport-safeguard family (src/lib/rail-connectivity/: the typed adapter-transport port with the explicit result quadruple delivered-with-report | timeout | transport-failure(typed reasons) | UNKNOWN; the environment-scoped per-rail configuration resolver — credential REFERENCES only, scope-tagged, fail-closed, sandbox/production cross-contamination refused; the same-key/bounded/backoff/deadline-aware retry engine — explicitly-retryable pre-effect failures only, UNKNOWN never retried; the structured adapter-activity observability/audit surface — queryable, dual-written to durable_events under owner 'rail-connectivity'; the boundary composition wrapping it all into the FROZEN A13 RailAdapterConnection interface) plus the scripts/test_rail_connectivity.mjs evidence harness. The declared base records the DEP-005 dispatch base (main @ 5bda6c0 — DEP-003 + DEP-004 merged). What remains future work: the real network transport primitive + real adapter implementations, the production credential binding (secret-store dereference of the recorded reference names — production secret scope only), and the externalized adapter-fleet process binding (DEP-002+). Owner stays \"deployment\" for every component; authority only in protocol-layer entries (unchanged); the present-set is unchanged (the connectivity boundary is an owned surface of the existing external-rail-adapters component). All four surfaces — components.json, spec/deployment/topology.md, spec/deployment/configuration.md and scripts/validate_deployment.py — were updated together in that one work item.",
   "base_branch": "main",
-  "base_sha": "2c3f9cf0efb7bae808662d4dd1adaf604d69de0e",
+  "base_sha": "5bda6c02a6302461908a5601da5b49f655a489c1",
   "spec_documents": {
     "topology": "spec/deployment/topology.md",
     "environments": "spec/deployment/environments.md",
@@ -374,14 +374,33 @@
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
-      "authority_hosted": "none — the only component that transmits to external rails; transmits exclusively protocol-authorized outputs and cannot originate or alter financial decisions; holds rail credentials and fails closed when they are absent; ingests external evidence into evidence-object-store",
+      "authority_hosted": "none — the only component that transmits to external rails; transmits exclusively protocol-authorized outputs and cannot originate or alter financial decisions; holds rail credentials and fails closed when they are absent; ingests external evidence into evidence-object-store. The DEP-005 connectivity boundary (src/lib/rail-connectivity/) is this component's deployment-owned safeguard surface: transport port, configuration resolution, retry/deadline safeguards and adapter-activity observability wrapped into the frozen A13 adapter interface — hosting no protocol authority, admitting no protocol commands, writing no authoritative state",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
-          "src/lib/protocol-runtime/rails/adapters.ts"
+          "src/lib/protocol-runtime/rails/adapters.ts",
+          "src/lib/rail-connectivity/index.ts",
+          "src/lib/rail-connectivity/transport.ts",
+          "src/lib/rail-connectivity/configuration.ts",
+          "src/lib/rail-connectivity/retry.ts",
+          "src/lib/rail-connectivity/activity.ts",
+          "src/lib/rail-connectivity/boundary.ts",
+          "src/lib/rail-connectivity/RAIL-CONNECTIVITY-EVIDENCE.md",
+          "scripts/test_rail_connectivity.mjs"
         ]
       },
-      "future_work": "FUTURE-WORK: real-rail credential binding under DEP-005 — production rail credentials exist solely in the production secret scope, and real adapters replace the simulated rails; externalized process binding (DEP-002+) for the adapter fleet with circuit-state and rail-reachability observability. The in-process module surface is the PROTOCOL-OWNED SIMULATED RAILS: same interface, no external transmission, no real credentials, no signing capability (spec/deployment/topology.md simulation rule)",
+      "required_configuration": {
+        "sandbox": [
+          "PAYSWAP_RAIL_SANDBOX_{RAIL}_HOST",
+          "PAYSWAP_RAIL_SANDBOX_{RAIL}_TIMEOUT_MS"
+        ],
+        "production": [
+          "PAYSWAP_RAIL_PRODUCTION_{RAIL}_HOST",
+          "PAYSWAP_RAIL_PRODUCTION_{RAIL}_CREDENTIAL_REF",
+          "PAYSWAP_RAIL_PRODUCTION_{RAIL}_TIMEOUT_MS"
+        ]
+      },
+      "future_work": "FUTURE-WORK: real transport primitive + real-rail credential binding — the real network transport client (HTTP/TLS, provider protocols, signing) and the real adapters that replace the protocol-owned simulated rails, bound in the externalized adapter-fleet process (DEP-002+); production rail credentials exist solely in the production secret scope and are dereferenced from the recorded reference names at the externalized binding — never in the repository. LANDED with DEP-005 (in-process): the connectivity/configuration/transport-safeguard family (src/lib/rail-connectivity/) — the typed transport port (explicit result quadruple), the environment-scoped per-rail configuration resolver (credential REFERENCES only, scope-tagged, fail-closed, sandbox/production cross-contamination refused), the same-key/bounded/backoff/deadline-aware retry engine (explicitly-retryable pre-effect failures only; UNKNOWN never retried, never translated), and the structured adapter-activity observability surface (queryable; durable_events under owner 'rail-connectivity'), composed into the frozen A13 RailAdapterConnection interface. The in-process repository form performs ZERO network egress: the transport primitive is an injected port, bound to deterministic doubles in the evidence harness (scripts/test_rail_connectivity.mjs)",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -389,8 +408,8 @@
         "staging",
         "production"
       ],
-      "production_gate": "Real rails are reachable only with production rail credentials that exist solely in the production secret scope; development, test-ci, sandbox and staging use protocol-owned simulated rails with no external transmission (environments.md F5/F6).",
-      "health_signal": "Adapter circuit state; rail reachability; submission acknowledgment rate (contract for the future work item).",
+      "production_gate": "Real rails are reachable only with production rail credentials that exist solely in the production secret scope; development, test-ci, sandbox and staging use protocol-owned simulated rails with no external transmission (environments.md F5/F6). The DEP-005 configuration resolver enforces this structurally: production rails fail closed without the credential REFERENCE name (F6); sandbox/production scope tags cannot cross-contaminate (opposite-scope and both-scope configurations are refused at resolution and again at binding).",
+      "health_signal": "The adapter-activity query surface (src/lib/rail-connectivity/activity.ts — one structured record per consequential connectivity event: rail, idempotency key, outcome, latency, correlation, typed failure reason, deadline, attempt ordinal; queryable by rail/key/outcome/window; dual-written to durable_events under owner 'rail-connectivity'). Adapter circuit state, rail reachability and submission acknowledgment rate derive from these records; the DEP-002+ observability binding (metrics endpoints) is future work.",
       "rollback": "Fail-closed disable or hold, then replay of pending authorized submissions after recovery; financial reversals flow only through protocol-governed recourse."
     }
   ]
