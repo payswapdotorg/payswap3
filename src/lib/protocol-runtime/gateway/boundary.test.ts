@@ -96,13 +96,22 @@ function stripCommentsAndStrings(content: string): string {
 }
 
 describe('RTN-010 boundary review — no second admission path exists', () => {
-  test('no non-gateway, non-substrate source calls the durable enqueue API or references DurableQueue', () => {
+  test('no non-gateway, non-substrate, non-transition-runtime source calls the durable enqueue API or references DurableQueue', () => {
+    // Tech-Lead integration amendment (RTN-011 parallel-sibling merge): the
+    // transition runtime (src/lib/protocol-runtime/transition/ + hosting/) is
+    // the DOCUMENTED dequeue-side execution path over the durable substrate
+    // (RTN-011 work order; rtn-plan-rulings.md delta 5) — it is the substrate's
+    // consumer, not a second ADMISSION path. Admission (external command entry
+    // via enqueue) remains gateway-only; this whitelist addition changes
+    // nothing about that invariant.
     const offenders: string[] = [];
     for (const file of sourceFilesUnder('src')) {
       const relative = file.slice(REPO_ROOT.length + 1).replaceAll('\\', '/');
       const isGateway = relative.startsWith('src/lib/protocol-runtime/gateway/');
       const isSubstrate = relative.startsWith('src/lib/durable/');
-      if (isGateway || isSubstrate) {
+      const isTransitionRuntime = relative.startsWith('src/lib/protocol-runtime/transition/')
+        || relative.startsWith('src/lib/protocol-runtime/hosting/');
+      if (isGateway || isSubstrate || isTransitionRuntime) {
         continue;
       }
       const content = read(file);
