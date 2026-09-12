@@ -2,10 +2,10 @@
   "contract": "payswap-deployment-components",
   "version": 1,
   "generated_by": "DEP-001",
-  "updated_by": "RTN-012",
-  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"; rtn-plan-rulings.md Q3/delta 3): the RTN wave (RTN-001..RTN-011 merged at the declared base) materialized the nine protocol/deployment components as in-process module surfaces inside the web-api-boundary application (the DEP-003 precedent; no externalized process binding, no real-rail credential binding — those remain future work per component). Owner stays \"deployment\" for every component; authority only in protocol-layer entries; external-rail-adapters hosts no authority (transmission-and-reporting only). Claimed-today entrypoints exist on disk at the declared base SHA.",
+  "updated_by": "DEP-004",
+  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"): DEP-004 materialized the durable operational-jobs family as an in-process module surface inside the web-api-boundary application (the DEP-003/RTN-012 precedent; no externalized process binding — recorded future work per component). The new component 'operational-jobs' (layer deployment, authority none — orchestration only) hosts the background operational jobs for reconciliation sweeps, clearing batch progression, netting-settlement progression and queue-draining support: durable job kinds on the DEP-003 substrate that derive work from the authorities' public read surfaces and emit protocol commands exclusively through the protocol gateway with deterministic idempotency keys (zero authority semantics, zero direct state mutation, never asserts settlement finality). The declared base records the DEP-004 dispatch base (main @ 2c3f9cf — the composed protocol runtime RTN-001..012 merged, which the jobs orchestrate over); the operational-jobs entrypoints arrive with the DEP-004 work item's tree and exist on disk there (the validator's honesty check). Owner stays \"deployment\" for every component; authority only in protocol-layer entries; the present-set gains exactly one component. All three surfaces — components.json, spec/deployment/topology.md and scripts/validate_deployment.py — were updated together in that one work item.",
   "base_branch": "main",
-  "base_sha": "14b6ca56c07de585df6d1a3a97edcc36ad2e4c02",
+  "base_sha": "2c3f9cf0efb7bae808662d4dd1adaf604d69de0e",
   "spec_documents": {
     "topology": "spec/deployment/topology.md",
     "environments": "spec/deployment/environments.md",
@@ -36,7 +36,7 @@
     "health_signal": "Contract-level health signal the component must expose; bound to observability from DEP-002 onward.",
     "rollback": "Contract-level rollback mechanism; principles R1-R5 in spec/deployment/topology.md.",
     "future_work": "The future work that remains for a component whose in-process repository entrypoints exist today (rtn-plan-rulings.md Q3/delta 3): externalized process binding (DEP-002+), and for rail-touching components real-rail credential binding under DEP-005. Required and non-empty for every component; carries the FUTURE-WORK tag. The in-process form is the RTN wave's composed realization inside the web-api-boundary application — never a claim of externalized deployment, and no protocol semantic change.",
-    "updated_by": "The work item that last performed a governed contract change on this registry (topology.md 'Contract evolution'). DEP-001 generated the contract; DEP-002 added the packaging delta checks; RTN-012 updated the present-set with the RTN wave's in-process entrypoints."
+    "updated_by": "The work item that last performed a governed contract change on this registry (topology.md 'Contract evolution'). DEP-001 generated the contract; DEP-002 added the packaging delta checks; RTN-012 updated the present-set with the RTN wave's in-process entrypoints; DEP-004 added the operational-jobs family entrypoints."
   },
   "components": [
     {
@@ -239,6 +239,40 @@
       "production_gate": "Runs in production only with separately authorized production configuration; settlement effects additionally require production rail credentials held only in the production secret scope.",
       "health_signal": "Settlement batch progress; ledger integrity probes (contract for the future work item).",
       "rollback": "Redeploy previous artifact and replay durable commands; finality is never reversed by deployment action."
+    },
+    {
+      "id": "operational-jobs",
+      "name": "Operational jobs — reconciliation, clearing, netting and settlement-support orchestration",
+      "exists_in_repository_today": true,
+      "owner": "deployment",
+      "layer": "deployment",
+      "authority_hosted": "none — background operational jobs and orchestration only (the DEP-004 owned surface): the durable job kinds for reconciliation sweeps (A14 cycle/case orchestration), clearing batch progression (A09 window-batch lifecycle), netting-settlement progression (A11 set progression + A12 settlement support: instruction/attempt progression only, finality NEVER — finality is the Settlement Authority's own command) and queue-draining support (A08 eligibility/expiry sweeps). The jobs derive work ONLY from the authorities' public read surfaces and emit protocol commands EXCLUSIVELY through the protocol gateway (the one admission point) with deterministic idempotency keys per (job, cycle, subject); zero authority semantics, zero direct state mutation, never serves internet traffic, never holds rail credentials, never blind-retries an UNKNOWN outcome (reconciliation is the A14 path's job)",
+      "repository_entrypoint": {
+        "status": "present",
+        "paths": [
+          "src/lib/operations/index.ts",
+          "src/lib/operations/jobs.ts",
+          "src/lib/operations/reconciliation-sweep.ts",
+          "src/lib/operations/clearing-progression.ts",
+          "src/lib/operations/netting-settlement-progression.ts",
+          "src/lib/operations/queue-drain-support.ts",
+          "src/lib/operations/orchestration.ts",
+          "src/lib/operations/progress-reader.ts",
+          "src/lib/operations/OPERATIONS-EVIDENCE.md",
+          "scripts/test_operations.mjs"
+        ]
+      },
+      "future_work": "FUTURE-WORK: externalized process binding — the operational jobs as separately deployed background worker processes with job-lag, reconciliation-lag and batch-progression observability (DEP-002+); the in-process form (the durable operations.* job kinds on the DEP-003 substrate inside the web-api-boundary application) is the composed realization. Real-rail settlement support additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only). The recorded D-2 vocabulary gap (INTEGRATION-EVIDENCE.md) leaves a subset of the jobs' gateway submissions queued pending the vocabulary-alignment follow-up — a composed-runtime property recorded in src/lib/operations/OPERATIONS-EVIDENCE.md, not a deployment-contract change.",
+      "environment_reachability": [
+        "development",
+        "test-ci",
+        "sandbox",
+        "staging",
+        "production"
+      ],
+      "production_gate": "Runs in production only with separately authorized production configuration; the jobs hold no credentials and no financial authority (commands only, through the gateway), so they can never unlock production effects by themselves; real-rail settlement transmission additionally requires the DEP-005 production rail credentials held only by the adapters.",
+      "health_signal": "The job-progress audit reader (src/lib/operations/progress-reader.ts — the durable_events journal under the operational-jobs owner joined with the command execution observations); job lag, reconciliation lag and batch progression metrics bind to observability from DEP-002+ (the reader is the programmatic contract today).",
+      "rollback": "Redeploy the previous artifact; the durable jobs replay from the DEP-003 queue with deterministic idempotency keys — re-execution re-derives pending work from authoritative state and re-submits the SAME keys (recorded receipts, never a second effect). Rollback never asserts or reverses finality (R3)."
     },
     {
       "id": "durable-command-queue",
