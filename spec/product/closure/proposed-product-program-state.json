@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "program": "payswap3-product",
+  "record": "UI-010 PROPOSED product-program closure state update — A PROPOSAL ONLY. The Tech Lead governs the actual state flip through the governed merge process; spec/development-state/product-program-state.json is NOT modified by the UI-010 branch.",
+  "proposal": {
+    "status": "closed-proposed",
+    "closureTarget": "UI-010",
+    "workItems": {
+      "UI-001": { "status": "merged", "merge": "f934a76 (PR #6)" },
+      "UI-002": { "status": "merged", "merge": "5bff0d6 (PR #10)" },
+      "UI-003": { "status": "merged", "merge": "ccf43dd (PR #13)" },
+      "UI-004": { "status": "merged", "merge": "35ef9fe (PR #12)" },
+      "UI-005": { "status": "merged", "merge": "4ce0e74 (PR #11)" },
+      "UI-006": { "status": "merged", "merge": "87b9672 (PR #15)" },
+      "UI-007": { "status": "merged", "merge": "dd1399d (PR #16)" },
+      "UI-008": { "status": "merged", "merge": "daeced3 (PR #17)" },
+      "UI-009": { "status": "merged", "merge": "fd996c3 (PR #21)" },
+      "UI-011": { "status": "merged", "merge": "0022405 (PR #34)" },
+      "UI-010": {
+        "status": "merged-proposed",
+        "merge": "<the Tech Lead's merge commit for the UI-010 branch>",
+        "note": "End-to-end UX closure evidence bundle + Architect closure submission (spec/product/closure/): port-level workflow journeys (WF-1..WF-6, 62/62 assertions, A15 chain VERIFIED); built-app audit (WF-7..WF-8, 31/31 checks; role matrix 168/168; zero leakage); responsive + accessibility re-verification on the composed system (keyboard/hscroll/touch-target failures 0; 2 axe violations = the FINDING 5 h1 gaps); mapping roll-up (66 consequential states, 91/91 nine-answer records, 0 unmapped); environment-signal proof (config-derived, anti-spoofed, FINDING 4 recorded); five objectively-evidenced integration findings with the deferral ledger (spec/product/closure/deferral-ledger.md) — including FINDING 2 (the UI-011 splice does not reach the routes: every running-app port call resolves the transport-unavailable backing) and FINDING 1 (drain() halts the worker), both with requested dispositions folded into the SYS-001/D-2 remediation."
+      }
+    },
+    "frontier": null,
+    "note": "Proposed closure of the payswap3-product program per UI-010's completion constituting program closure (work-order acceptance). SYSTEM closure remains governed by spec/governance/SYSTEM-CLOSURE.md and is NOT proposed here. The honest companion to this flip is spec/product/closure/deferral-ledger.md."
+  }
+}

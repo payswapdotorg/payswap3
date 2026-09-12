@@ -8,3 +8,7 @@ __pycache__/
 .env
 .env.*
 tsconfig.tsbuildinfo
+
+# runtime-artifact directories (server-runtime.ts: "the repo's runtime-artifact
+# directory, gitignored" — the documented intent; the entry was missing)
+var/

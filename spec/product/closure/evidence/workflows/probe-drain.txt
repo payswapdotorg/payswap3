@@ -1,0 +1,24 @@
+[1] gateway.submitCommand(intent.submit) — the sole admission point
+    admission.ok = true (receipt pid.v1.e74779c7bcb29acf58db9657a2fd6732ad7b1559501d8594dfebd206d5436633, outcome ADMITTED)
+[2] handle.drain() exactly as server-runtime.ts implements it: worker.stop()
+    after drain(): INTENT_CREATED in A15 = false
+    after drain(): intent record in A01 = ABSENT (command not executed)
+    worker.running = false
+[3] control — tick-based drain (the composed-journey harness pattern)
+(node:3787) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/z/payswap3/src/lib/protocol-runtime/hosting/durable-binding.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/z/payswap3/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+    tick dispatched = 1
+    after tick(): intent record in A01 = present (DRAFT)
+    A15 chain ops: EVIDENCE_LOG_GENESIS, INTENT_CREATED
+
+VERDICT: server-runtime.ts drain() (= worker.stop()) does not execute the
+just-admitted command; the worker halts permanently. Over the app composition,
+port-level gateway submits are admitted but never executed (honest
+admitted-but-not-executed UNKNOWN presentations; workflows do not complete
+server-side). The tick-based drain executes the same command on the same
+composition. Recorded as a composition-root defect finding in the UI-010
+deferral ledger; the adapters themselves are proven correct over an executing
+composition by the port-journey harness.
+

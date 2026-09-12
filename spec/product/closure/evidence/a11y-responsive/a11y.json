@@ -1,0 +1,2244 @@
+{
+  "home": {
+    "route": "/",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "state-primitives": {
+    "route": "/state-primitives",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "State primitives (verification) · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Unauthenticated"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Unauthenticated"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Customer"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Customer"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Merchant"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Merchant"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Provider"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Provider"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Operator"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Operator"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary navigation — Administrator"
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer navigation — Administrator"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "pay-compose": {
+    "route": "/pay",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds"
+        }
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Send a payment intent · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "aside",
+          "role": "",
+          "label": "Environment framing"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "pay-review": {
+    "route": "/pay/review",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds"
+        }
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Review the full consequences · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "pay-intent-state": {
+    "route": "/pay/INTENT-UI010-UNKNOWN",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds"
+        }
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Payment intent state · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "aside",
+          "role": "",
+          "label": "Environment framing"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "checkout-list": {
+    "route": "/checkout",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Merchant checkout — payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "checkout-decision": {
+    "route": "/checkout/cko_live_offer_001",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Checkout state — payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "capabilities": {
+    "route": "/capabilities",
+    "audience": "provider",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Capabilities — PaySwap provider surface · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary — provider surface"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer — provider surface"
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "capability-detail": {
+    "route": "/capabilities/intent-acceptance",
+    "audience": "provider",
+    "httpStatus": 404,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Capability not found — PaySwap provider surface · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "liquidity": {
+    "route": "/liquidity",
+    "audience": "provider",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Liquidity positions — Payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "oversight": {
+    "route": "/oversight",
+    "audience": "operator",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Oversight — Payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "track": {
+    "route": "/track",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "label-title-only",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Track a payment — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "track-status-intent": {
+    "route": "/track/PWS-2H8D",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Tracking PWS-2H8D — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "track-status-settlement": {
+    "route": "/track/STL-4419",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Tracking STL-4419 — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "waiting-recovery": {
+    "route": "/track/TRK-4410-QUEUED-LIQ/waiting",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Waiting — TRK-4410-QUEUED-LIQ — payswap3 · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "mediation-hub": {
+    "route": "/mediation",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "nodes": [
+            [
+              "html"
+            ]
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 0,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "mediation-case": {
+    "route": "/mediation/case/M-101",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "dispute-initiation": {
+    "route": "/mediation/dispute/new",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "nodes": [
+            [
+              "html"
+            ]
+          ]
+        }
+      ],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 0,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "dispute-detail": {
+    "route": "/mediation/dispute/D-201",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "proposal-review": {
+    "route": "/mediation/proposal/P-001",
+    "audience": "customer",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-intent-flow": {
+    "route": "/verification/intent-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds"
+        }
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Intent flow verification · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-checkout-flow": {
+    "route": "/verification/checkout-flow",
+    "audience": "merchant",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Checkout flow verification — payswap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-capability-flow": {
+    "route": "/verification/capability-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Capability flow verification — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-liquidity-flow": {
+    "route": "/verification/liquidity-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 500,
+    "axe": {
+      "violations": [
+        {
+          "id": "landmark-one-main",
+          "impact": "moderate",
+          "help": "Document should have one main landmark",
+          "nodes": [
+            [
+              "#__next_error__"
+            ]
+          ]
+        },
+        {
+          "id": "page-has-heading-one",
+          "impact": "moderate",
+          "help": "Page should contain a level-one heading",
+          "nodes": [
+            [
+              "#__next_error__"
+            ]
+          ]
+        },
+        {
+          "id": "region",
+          "impact": "moderate",
+          "help": "All page content should be contained by landmarks",
+          "nodes": [
+            [
+              "body > div"
+            ]
+          ]
+        }
+      ],
+      "passes": [
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "region"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": null,
+      "title": "",
+      "landmarks": [],
+      "mains": 0,
+      "h1Count": 0,
+      "headingSkips": [],
+      "hasSkipLink": false,
+      "skipLinkTargetExists": false,
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-tracking-flow": {
+    "route": "/verification/tracking-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds"
+        }
+      ]
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "UI-005 verification — tracking flow — PaySwap · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-waiting-flow": {
+    "route": "/verification/waiting-flow",
+    "audience": "unauthenticated",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "Waiting flow verification — payswap3 · PaySwap",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "verification-mediation-flow": {
+    "route": "/verification/mediation-flow",
+    "audience": "operator",
+    "httpStatus": 200,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "empty-table-header",
+        "heading-order",
+        "label-title-only",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "tabindex",
+        "table-duplicate-name",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "not-found": {
+    "route": "/no-such-route-ui010",
+    "audience": "unauthenticated",
+    "httpStatus": 404,
+    "axe": {
+      "violations": [],
+      "passes": [
+        "aria-allowed-role",
+        "color-contrast",
+        "empty-heading",
+        "heading-order",
+        "landmark-banner-is-top-level",
+        "landmark-contentinfo-is-top-level",
+        "landmark-main-is-top-level",
+        "landmark-no-duplicate-banner",
+        "landmark-no-duplicate-contentinfo",
+        "landmark-no-duplicate-main",
+        "landmark-one-main",
+        "landmark-unique",
+        "meta-viewport-large",
+        "meta-viewport",
+        "page-has-heading-one",
+        "region",
+        "skip-link",
+        "target-size"
+      ],
+      "incomplete": []
+    },
+    "semantics": {
+      "lang": "en",
+      "title": "PaySwap — product shell",
+      "landmarks": [
+        {
+          "tag": "div",
+          "role": "region",
+          "label": "Environment signal"
+        },
+        {
+          "tag": "header",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Primary"
+        },
+        {
+          "tag": "main",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "footer",
+          "role": "",
+          "label": ""
+        },
+        {
+          "tag": "nav",
+          "role": "",
+          "label": "Footer"
+        }
+      ],
+      "mains": 1,
+      "h1Count": 1,
+      "headingSkips": [],
+      "hasSkipLink": true,
+      "skipLinkTargetExists": true,
+      "unlabeledInteractive": []
+    }
+  },
+  "__reducedMotion": {
+    "state-primitives": {
+      "runningAnimationsUnderReducedMotion": [],
+      "runningAnimationsUnderNormalMotion": [
+        {
+          "animationName": "ps-arc-spin"
+        },
+        {
+          "animationName": "ps-strip-slide"
+        }
+      ],
+      "stripAnimationUnderReduced": "none"
+    },
+    "verification-intent-flow": {
+      "runningAnimationsUnderReducedMotion": [],
+      "runningAnimationsUnderNormalMotion": [],
+      "stripAnimationUnderReduced": "absent"
+    },
+    "verification-tracking-flow": {
+      "runningAnimationsUnderReducedMotion": [],
+      "runningAnimationsUnderNormalMotion": [],
+      "stripAnimationUnderReduced": "absent"
+    }
+  }
+}

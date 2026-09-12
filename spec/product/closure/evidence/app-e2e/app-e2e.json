@@ -1,0 +1,1449 @@
+{
+  "baseUrl": "http://localhost:3210",
+  "startedAt": "2026-09-12T14:14:43.709Z",
+  "sections": {
+    "findings": {
+      "finding2": {
+        "oversightTransportWording": true,
+        "disputeProbe": {
+          "kind": "denied",
+          "reason": "The dispute was not initiated: the runtime adapter could not be reached from this context, so no obligations.dispute.open command was admitted — nothing was recorded and nothing was mutated. The composed protocol runtime is in-process on the server and no browser transport binding exists in this work item (the gateway’s HTTP binding is recorded future work). It is UNKNOWN whether the owning authority can answer from this context — presented as UNKNOWN with its reconciliation path, never as failure or success. The reconciliation path: re-check from a server-rendered surface or an API route (the runtime-backed reads); no value here is authoritative and none is invented. [requested for intent reference activity-none]"
+        }
+      },
+      "finding3": {
+        "liquidityFlowStatus": 500
+      },
+      "note": "FINDING 1 (drain semantics) is evidenced by workflows/probe-drain.txt; FINDINGS 2–3 are live-app evidence above; the full analysis is in findings.md."
+    },
+    "health": {
+      "status": "ok",
+      "component": "web-api-boundary",
+      "env": "sandbox"
+    },
+    "banner": [
+      {
+        "surface": "home",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "state-primitives",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "track",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "track-status-intent",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "track-status-settlement",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "verification-intent-flow",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "verification-capability-flow",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "verification-liquidity-flow",
+        "httpStatus": 500,
+        "banner": null,
+        "ok": true
+      },
+      {
+        "surface": "verification-tracking-flow",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "verification-waiting-flow",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "verification-mediation-flow",
+        "httpStatus": 200,
+        "banner": "Sandbox environment",
+        "ok": true
+      },
+      {
+        "surface": "not-found",
+        "httpStatus": 404,
+        "banner": "Sandbox environment",
+        "ok": true
+      }
+    ],
+    "roleMatrix": {
+      "cells": 168,
+      "mismatches": 0,
+      "declaredDisagreements": [
+        {
+          "surface": "verification-mediation-flow",
+          "disagreements": [
+            {
+              "audience": "unauthenticated",
+              "declared": "home",
+              "observed": "render"
+            },
+            {
+              "audience": "customer",
+              "declared": "home",
+              "observed": "render"
+            },
+            {
+              "audience": "merchant",
+              "declared": "home",
+              "observed": "render"
+            },
+            {
+              "audience": "provider",
+              "declared": "home",
+              "observed": "render"
+            }
+          ]
+        }
+      ],
+      "matrix": [
+        {
+          "surface": "home",
+          "route": "/",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "state-primitives",
+          "route": "/state-primitives",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "pay-compose",
+          "route": "/pay",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "pay-review",
+          "route": "/pay/review",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "pay-intent-state",
+          "route": "/pay/INTENT-UI010-UNKNOWN",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "checkout-list",
+          "route": "/checkout",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "checkout-decision",
+          "route": "/checkout/cko_live_offer_001",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "capabilities",
+          "route": "/capabilities",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "merchant": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "capability-detail",
+          "route": "/capabilities/intent-acceptance",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "merchant": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "liquidity",
+          "route": "/liquidity",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "merchant": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "oversight",
+          "route": "/oversight",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "merchant": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "track",
+          "route": "/track",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "track-status-intent",
+          "route": "/track/PWS-2H8D",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "track-status-settlement",
+          "route": "/track/STL-4419",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "waiting-recovery",
+          "route": "/track/TRK-4410-QUEUED-LIQ/waiting",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "mediation-hub",
+          "route": "/mediation",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "mediation-case",
+          "route": "/mediation/case/M-101",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "dispute-initiation",
+          "route": "/mediation/dispute/new",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "dispute-detail",
+          "route": "/mediation/dispute/D-201",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "proposal-review",
+          "route": "/mediation/proposal/P-001",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "administrator": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "verification-intent-flow",
+          "route": "/verification/intent-flow",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "verification-checkout-flow",
+          "route": "/verification/checkout-flow",
+          "cells": {
+            "unauthenticated": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "customer": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "home",
+              "expected": "home",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "verification-capability-flow",
+          "route": "/verification/capability-flow",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "verification-liquidity-flow",
+          "route": "/verification/liquidity-flow",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "verification-tracking-flow",
+          "route": "/verification/tracking-flow",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "verification-waiting-flow",
+          "route": "/verification/waiting-flow",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        },
+        {
+          "surface": "verification-mediation-flow",
+          "route": "/verification/mediation-flow",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          },
+          "declaredDisagreements": [
+            {
+              "audience": "unauthenticated",
+              "declared": "home",
+              "observed": "render"
+            },
+            {
+              "audience": "customer",
+              "declared": "home",
+              "observed": "render"
+            },
+            {
+              "audience": "merchant",
+              "declared": "home",
+              "observed": "render"
+            },
+            {
+              "audience": "provider",
+              "declared": "home",
+              "observed": "render"
+            }
+          ]
+        },
+        {
+          "surface": "not-found",
+          "route": "/no-such-route-ui010",
+          "cells": {
+            "unauthenticated": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "customer": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "merchant": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "provider": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "operator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            },
+            "administrator": {
+              "observed": "render",
+              "expected": "render",
+              "match": true
+            }
+          }
+        }
+      ]
+    },
+    "contentLeakage": {
+      "checks": 36,
+      "leakageCount": 0,
+      "unauthRecord": {
+        "kind": "not-visible",
+        "reason": "No party role is active for this session. Switch to a party audience (customer or merchant) to view mediation and dispute records."
+      },
+      "customerRecord": {
+        "kind": "unavailable",
+        "target": "dispute D-1",
+        "detail": "The runtime adapter could not be reached from this context (and the area-19/area-21 authorities are RTN wave 2 where noted), so the owning authority cannot currently report this record. The composed protocol runtime is in-process on the server and no browser transport binding exists in this work item (the gateway’s HTTP binding is recorded future work). It is UNKNOWN whether the owning authority can answer from this context — presented as UNKNOWN with its reconciliation path, never as failure or success. The reconciliation path: re-check from a server-rendered surface or an API route (the runtime-backed reads); no value here is authoritative and none is invented."
+      }
+    },
+    "wf7": {
+      "url": "/pay/review",
+      "unknownQuote": true,
+      "reconciliationShown": true,
+      "noSubmit": true,
+      "screenshot": "wf7-pay-review-unknown.png",
+      "note": "The browser-context port call resolves the transport-unavailable backing (UI-011): the runtime adapter is in-process on the server and the gateway HTTP binding is deferred to SYS-001 — compounded by FINDING 2 (the registration does not reach the routes in the first place). The presentation is the P5-correct UNKNOWN either way.",
+      "unknownReferenceState": {
+        "stateUnknown": true,
+        "unknownChipCount": 1
+      }
+    },
+    "serverReads": {
+      "results": {
+        "track": {
+          "honestNoRecord": true,
+          "transportHonest": true
+        },
+        "checkout": {
+          "honest": true,
+          "noFabricatedOffer": true
+        },
+        "capabilities": {
+          "boundary": true,
+          "honestReachability": true
+        },
+        "oversight": {
+          "deniedHonest": true,
+          "failClosed": true
+        },
+        "liquidity": {
+          "honest": true
+        },
+        "mediation": {
+          "honest": true,
+          "wave2": true
+        }
+      },
+      "note": "The app as it is (FINDING 2): every port surface renders the transport-unavailable backing presentations — honest UNKNOWN/denied, never fabricated. The runtime-backed presentations for the same surfaces are evidenced on Leg A (product-port-journeys.mjs), where the seven runtime adapters execute over the same composed runtime classes."
+    },
+    "disputeFlow": {
+      "denied": {
+        "kind": "denied",
+        "reason": "The dispute was not initiated: the runtime adapter could not be reached from this context, so no obligations.dispute.open command was admitted — nothing was recorded and nothing was mutated. The composed protocol runtime is in-process on the server and no browser transport binding exists in this work item (the gateway’s HTTP binding is recorded future work). It is UNKNOWN whether the owning authority can answer from this context — presented as UNKNOWN with its reconciliation path, never as failure or success. The reconciliation path: re-check from a server-rendered surface or an API route (the runtime-backed reads); no value here is authoritative and none is invented. [requested for intent reference activity-ui010-none]"
+      },
+      "unauthDenied": {
+        "kind": "denied",
+        "reason": "No party role is active for this session. Switch to a party audience (customer or merchant) before initiating a dispute."
+      }
+    },
+    "navigation": {
+      "rootShell": [
+        {
+          "audience": "unauthenticated",
+          "leakage": false
+        },
+        {
+          "audience": "customer",
+          "leakage": false
+        },
+        {
+          "audience": "merchant",
+          "leakage": false
+        },
+        {
+          "audience": "provider",
+          "leakage": false
+        },
+        {
+          "audience": "operator",
+          "leakage": false
+        },
+        {
+          "audience": "administrator",
+          "leakage": false
+        }
+      ],
+      "providerFrame": {
+        "providerSeesOwn": true,
+        "providerLeak": false
+      }
+    }
+  },
+  "checks": [
+    {
+      "section": "B-0",
+      "label": "FINDING 2 live evidence: /oversight (operator) renders the transport-unavailable presentation — the UI-011 splice does not reach the routes (full analysis in findings.md)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-0",
+      "label": "FINDING 3 live evidence: /verification/liquidity-flow responds HTTP 500 (the mock-era invariant trips on the honest fail-closed backing)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-0",
+      "label": "FINDING 2 live evidence: the dispute API (the one browser-reachable consequential write) resolves the transport-unavailable backing — no command is admitted",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-1",
+      "label": "/api/health reports env=sandbox (the fail-safe: PAYSWAP_ENV unset)",
+      "pass": true,
+      "evidence": "{\"status\":\"ok\",\"component\":\"web-api-boundary\",\"env\":\"sandbox\"}"
+    },
+    {
+      "section": "B-1",
+      "label": "/api/ready responds 200",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-1",
+      "label": "the sandbox environment banner renders on all 11 non-500 unauthenticated-reachable surfaces incl. the 404 page (the one 500 is the FINDING 3 route)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-1",
+      "label": "URL parameters cannot spoof the environment signal (still Sandbox)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-1",
+      "label": "client storage cannot spoof the environment signal (still Sandbox)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-2",
+      "label": "deep-link matrix: 28 surfaces × 6 audiences = 168 cells; 0 mismatches vs the implemented guards",
+      "pass": true,
+      "evidence": "0 mismatches"
+    },
+    {
+      "section": "B-2",
+      "label": "declared-gate vs implemented-gate disagreements re-verified: verification-mediation-flow (the recorded UI-009 WAIVER-1, unchanged)",
+      "pass": true,
+      "evidence": "[{\"surface\":\"verification-mediation-flow\",\"disagreements\":[{\"audience\":\"unauthenticated\",\"declared\":\"home\",\"observed\":\"render\"},{\"audience\":\"customer\",\"declared\":\"home\",\"observed\":\"render\"},{\"audience\":\"merchant\",\"declared\":\"home\",\"observed\":\"render\"},{\"audience\":\"provider\",\"declared\":\"home\",\"observed\":\"render\"}]}]"
+    },
+    {
+      "section": "B-2",
+      "label": "record-content leakage: 36 route × audience reads, 0 instances of cross-role record content",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-2",
+      "label": "the mediation record API resolves the viewer server-side (unauthenticated → not-visible, never the record)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-2",
+      "label": "a party viewer querying an unknown record receives the honest unavailable/not-visible answer (never fabricated content)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-3",
+      "label": "the browser-context consequence quote renders UNKNOWN (\"not quotable right now\")",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-3",
+      "label": "the UNKNOWN carries its reconciliation path (Resolved by / Re-check)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-3",
+      "label": "the submit is honestly unavailable (no submit control; the review stays closed)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-3",
+      "label": "the pay flow carries the sandbox signal (the N4 framing for consequential wording)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-3",
+      "label": "the unknown-reference intent state renders UNKNOWN (never 404, never failure)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-3",
+      "label": "the UNKNOWN state frame carries the standing disambiguation (never success or failure)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-4",
+      "label": "/track/<reference> renders the honest no-record presentation with the transport note (never a fabricated record, never a 404 failure)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-4",
+      "label": "/checkout renders the honest unavailable presentation (no fabricated offers)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-4",
+      "label": "/capabilities states the honest reachability boundary (the adapter-boundary constants render)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-4",
+      "label": "/oversight renders the honest fail-closed presentation (UNKNOWN-class, never fabricated aggregates)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-4",
+      "label": "/liquidity renders the honest transport-unavailable presentation",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-4",
+      "label": "/mediation renders the honest unavailable docket with the wave-2 gap stated",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-5",
+      "label": "the dispute initiation is DENIED with the honest not-transported reason — nothing was recorded, nothing was mutated (P5: not a failure verdict)",
+      "pass": true,
+      "evidence": "{\"kind\":\"denied\",\"reason\":\"The dispute was not initiated: the runtime adapter could not be reached from this context, so no obligations.disp"
+    },
+    {
+      "section": "B-5",
+      "label": "the unauthenticated actor is denied before any authority call (server-side audience resolution)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-5",
+      "label": "the dispute-initiation surface fail-closes when the party docket is unreachable (the honest availability-unknown presentation — the initiation form is never offered without the docket's disputable references)",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-5",
+      "label": "the surface renders the explicit dispute-initiation unavailable section (aria-label present) rather than any fabricated initiation flow",
+      "pass": true,
+      "evidence": null
+    },
+    {
+      "section": "B-6",
+      "label": "the root shell renders least-visibility navigation for all six audiences (zero cross-role entries)",
+      "pass": true,
+      "evidence": "[{\"audience\":\"unauthenticated\",\"leakage\":false},{\"audience\":\"customer\",\"leakage\":false},{\"audience\":\"merchant\",\"leakage\":false},{\"audience\":\"provider\",\"leakage\":false},{\"audience\":\"operator\",\"leakage\":false},{\"audience\":\"administrator\",\"leakage\":false}]"
+    },
+    {
+      "section": "B-6",
+      "label": "the provider surface frame renders the provider navigation (own entries present, zero foreign entries)",
+      "pass": true,
+      "evidence": "Home | Home | Capabilities | Provider positions & tracking | Planned | Liquidity positions | State primitives (verification) | Intent flow verification | Track "
+    }
+  ],
+  "finishedAt": "2026-09-12T14:16:37.794Z",
+  "verdict": {
+    "total": 31,
+    "failed": 0
+  }
+}
