@@ -91,7 +91,7 @@ Status: PLANNED (machine state: blocked — cross-program dependency)
 Depends on: RTN-012 (cross-program hard dependency: the merged composed protocol runtime; none in the product graph)
 Dependents: UI-010
 Owned surfaces: src/lib/protocol/ port backings (every *-port.ts as it exists at execution time); stand-in authority mock retirement; spec/product/*-mapping-records.md re-anchoring to runtime truth
-Work order: to be materialized at dispatch readiness (post RTN-012 merge); scope pinned by rtn-plan-rulings.md delta 6
+Work order: spec/product/work-orders/UI-011.md (materialized at dispatch readiness post RTN-012 merge; scope pinned by rtn-plan-rulings.md delta 6)
 Program role: replaces product-layer stand-in authority mocks with the composed protocol runtime through the gateway command surface (RTN-010); every mapping record answers the nine reconciliation questions against runtime truth; RTN-012's composed-journey evidence question 9 defers here
 UI-010 — End-to-end UX closure evidence and Architect closure
 Status: PLANNED (machine state: blocked)
