@@ -2,8 +2,10 @@
   "contract": "payswap-deployment-components",
   "version": 1,
   "generated_by": "DEP-001",
+  "updated_by": "RTN-012",
+  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"; rtn-plan-rulings.md Q3/delta 3): the RTN wave (RTN-001..RTN-011 merged at the declared base) materialized the nine protocol/deployment components as in-process module surfaces inside the web-api-boundary application (the DEP-003 precedent; no externalized process binding, no real-rail credential binding — those remain future work per component). Owner stays \"deployment\" for every component; authority only in protocol-layer entries; external-rail-adapters hosts no authority (transmission-and-reporting only). Claimed-today entrypoints exist on disk at the declared base SHA.",
   "base_branch": "main",
-  "base_sha": "fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73",
+  "base_sha": "14b6ca56c07de585df6d1a3a97edcc36ad2e4c02",
   "spec_documents": {
     "topology": "spec/deployment/topology.md",
     "environments": "spec/deployment/environments.md",
@@ -32,7 +34,9 @@
     "environment_reachability": "Canonical environment classes in which the component may run. Reachability is topology only: production reachability additionally requires the production_gate.",
     "production_gate": "Required whenever 'production' is reachable: the separately authorized production configuration that gates real financial effects. Sandbox/demo can never reach production financial effects without it (environments.md fail-closed rules F1-F8).",
     "health_signal": "Contract-level health signal the component must expose; bound to observability from DEP-002 onward.",
-    "rollback": "Contract-level rollback mechanism; principles R1-R5 in spec/deployment/topology.md."
+    "rollback": "Contract-level rollback mechanism; principles R1-R5 in spec/deployment/topology.md.",
+    "future_work": "The future work that remains for a component whose in-process repository entrypoints exist today (rtn-plan-rulings.md Q3/delta 3): externalized process binding (DEP-002+), and for rail-touching components real-rail credential binding under DEP-005. Required and non-empty for every component; carries the FUTURE-WORK tag. The in-process form is the RTN wave's composed realization inside the web-api-boundary application — never a claim of externalized deployment, and no protocol semantic change.",
+    "updated_by": "The work item that last performed a governed contract change on this registry (topology.md 'Contract evolution'). DEP-001 generated the contract; DEP-002 added the packaging delta checks; RTN-012 updated the present-set with the RTN wave's in-process entrypoints."
   },
   "components": [
     {
@@ -57,6 +61,7 @@
           "src/app/api/ready/route.ts"
         ]
       },
+      "future_work": "FUTURE-WORK: the UI-011 product-port re-anchoring (rtn-plan-rulings.md Q5/delta 6) — the boundary's protocol operations forward through the protocol gateway once the product ports are re-anchored to the runtime (today the boundary hosts no protocol splice: the RTN wave's forbidden-surface rule keeps src/lib/protocol/ product-owned); target infrastructure binding from DEP-002 onward",
       "route_surface": [
         "/",
         "/state-primitives",
@@ -98,15 +103,22 @@
     {
       "id": "protocol-gateway",
       "name": "Protocol gateway — authoritative protocol API",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "protocol authorities per the system architecture hard boundaries — identity, authority, values, accounting, intent, demand, capability, market, liquidity, credit, reservations, routing/compiler, execution admission, clearing, obligations, risk/compliance, recourse, federation — enforced inside a deployment-owned process; the sole admission point for protocol commands",
+      "authority_hosted": "the sole admission point for protocol commands — per-command validation against the owning authorities' registered schemas (the registry A01–A14 and A16 command authorities: Intent, Fulfillment Policy, Capability, Routing, Reservation, Liquidity, Credit, Queue, Clearing, Obligation, Netting, Settlement and Finality, Rail, Reconciliation, and Risk and Compliance Authorities), idempotent admission receipts, typed rejection evidence, and durable submission; hosts no authority of its own and implements no identity or market authority (rtn-plan-rulings.md Q4 — subject validation is per-command per owning authority)",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033; infrastructure binding from DEP-002 onward"
+        "status": "present",
+        "paths": [
+          "src/lib/protocol-runtime/gateway/index.ts",
+          "src/lib/protocol-runtime/gateway/admission.ts",
+          "src/lib/protocol-runtime/gateway/registry.ts",
+          "src/lib/protocol-runtime/gateway/receipts.ts",
+          "src/lib/protocol-runtime/gateway/persistence.ts",
+          "src/lib/protocol-runtime/gateway/COMMAND-SURFACE.md"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — the gateway as a separately deployed process with an HTTP readiness endpoint and observability binding (DEP-002+); the in-process module surface (RTN-010, inside the web-api-boundary application) is the composed realization, not an externalized deployment",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -121,15 +133,21 @@
     {
       "id": "transition-runtime",
       "name": "Transition runtime — single authoritative-state writer",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "authoritative state transitions — execution, clearing, obligations, netting, settlement, finality (protocol-owned) — applied as the single writer to authoritative-state-store",
+      "authority_hosted": "the single authoritative-state writer — the merged authorities' command surfaces (registry A01–A14 and A16) executed as hosted bindings through the dequeue → resolve-owning-authority → apply-transition → A15-evidence → atomic-commit path on the DEP-003 substrate; no other layer mutates authoritative state (the hard boundary)",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
+        "status": "present",
+        "paths": [
+          "src/lib/protocol-runtime/transition/execution.ts",
+          "src/lib/protocol-runtime/transition/substrate-port.ts",
+          "src/lib/protocol-runtime/hosting/bindings.ts",
+          "src/lib/protocol-runtime/hosting/durable-binding.ts",
+          "src/lib/durable/worker.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — the transition runtime as a separately deployed worker process fleet with observability binding (DEP-002+); the in-process module surface (RTN-011, hosted on the DEP-003 substrate inside the web-api-boundary application) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -144,15 +162,18 @@
     {
       "id": "scheduler",
       "name": "Scheduler — timing-driven command emitter",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
       "authority_hosted": "none — emits timing-driven commands into the durable command queue; owns timing only, never mutates authoritative state and never reaches external rails",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+        "status": "present",
+        "paths": [
+          "src/lib/durable/scheduler.ts",
+          "src/lib/protocol-runtime/hosting/scheduler-wiring.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — the scheduler as a separately deployed timing process with heartbeat/missed-schedule alarms bound to observability (DEP-002+); the in-process module surface (the DEP-003 scheduler + RTN-011's recurring command emitters) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -167,15 +188,19 @@
     {
       "id": "reconciler-workers",
       "name": "Reconciler workers — drift detection and corrective commands",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "protocol-owned reconciliation semantics — compares authoritative state against external evidence and submits corrective commands through the protocol gateway; never mutates authoritative state directly and never reaches rails directly",
+      "authority_hosted": "Reconciliation Authority semantics (registry A14) — cases, cycles, sources, and adjustments: the only exit from UNKNOWN (GC-2), with exactly-once resolution and history-never-mutated adjustments; executed as the recurring reconciliation-cycle commands through the transition path and as corrective commands through the protocol gateway — never direct state mutation, never direct rail access",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
+        "status": "present",
+        "paths": [
+          "src/lib/protocol-runtime/rails/reconciliation.ts",
+          "src/lib/protocol-runtime/rails/matching.ts",
+          "src/lib/protocol-runtime/rails/persistence.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — reconciler workers as separately deployed background processes with reconciliation-lag and drift observability (DEP-002+); the in-process module surface (RTN-004's A14 authority, hosted on the transition path) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -190,15 +215,20 @@
     {
       "id": "netting-settlement-workers",
       "name": "Netting and settlement workers — settlement and finality computation",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "netting, settlement and finality computation (protocol-owned) executed as deployment-owned background processes; corrections after finality flow only through protocol-governed recourse — deployment rollback never un-finalizes",
+      "authority_hosted": "Netting Authority and Settlement and Finality Authority semantics (registry A11/A12) — conservation-proofed netting sets and net positions, settlement instructions/attempts over the rail adapter authority, and finality records; corrections after finality flow only through protocol-governed recourse — deployment rollback never un-finalizes",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033"
+        "status": "present",
+        "paths": [
+          "src/lib/protocol-runtime/netting/authority.ts",
+          "src/lib/protocol-runtime/settlement/authority.ts",
+          "src/lib/protocol-runtime/netting/persistence.ts",
+          "src/lib/protocol-runtime/settlement/persistence.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — netting/settlement workers as separately deployed background processes with batch-progress and ledger-integrity observability (DEP-002+); real-rail settlement transmission additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only)",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -213,15 +243,17 @@
     {
       "id": "durable-command-queue",
       "name": "Durable command queue — the durable command path",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
       "authority_hosted": "none — durable, at-least-once transport for protocol commands (the execution topology's durable command path); ordering and durability only, no financial semantics",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+        "status": "present",
+        "paths": [
+          "src/lib/durable/queue.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — the durable command queue as separately provisioned queue infrastructure with depth/age and dead-letter observability (DEP-002+); the in-process module surface (the DEP-003 SQLite-backed queue inside the web-api-boundary application) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -236,15 +268,32 @@
     {
       "id": "authoritative-state-store",
       "name": "Authoritative state store — protocol-owned state on deployment-owned persistence",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "protocol-owned authoritative state (identity, accounting, reservations, obligations, settlement and finality records) on deployment-owned persistence infrastructure; mutated only by transition-runtime through protocol-owned transitions — no other layer may mutate it directly",
+      "authority_hosted": "protocol-owned authoritative state — intent, fulfillment-policy, capability, route-plan, reservation, liquidity, credit, queue, clearing, obligation, netting, settlement-and-finality, rail-operation, and risk/compliance records (registry A01–A14 and A16; rail-operation records included per rtn-plan-rulings.md Q1) — on the per-domain persistence convention over the DEP-003 database layer; mutated only by transition-runtime through protocol-owned transitions — no other layer may mutate it directly",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+        "status": "present",
+        "paths": [
+          "src/lib/protocol-runtime/kernel/persistence.ts",
+          "src/lib/durable/db.ts",
+          "src/lib/protocol-runtime/intent/persistence.ts",
+          "src/lib/protocol-runtime/policy/persistence.ts",
+          "src/lib/protocol-runtime/capability/persistence.ts",
+          "src/lib/protocol-runtime/routing/persistence.ts",
+          "src/lib/protocol-runtime/reservations/persistence.ts",
+          "src/lib/protocol-runtime/liquidity/persistence.ts",
+          "src/lib/protocol-runtime/credit/persistence.ts",
+          "src/lib/protocol-runtime/queues/persistence.ts",
+          "src/lib/protocol-runtime/clearing/persistence.ts",
+          "src/lib/protocol-runtime/obligations/persistence.ts",
+          "src/lib/protocol-runtime/netting/persistence.ts",
+          "src/lib/protocol-runtime/settlement/persistence.ts",
+          "src/lib/protocol-runtime/rails/persistence.ts",
+          "src/lib/protocol-runtime/risk/store.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — production persistence infrastructure with replication, point-in-time recovery, and backup verification (DEP-002+); the in-process module surface (the per-domain SQLite stores on the DEP-003 database layer inside the web-api-boundary application) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -259,15 +308,21 @@
     {
       "id": "evidence-object-store",
       "name": "Evidence object store — append-only evidence records",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "protocol-owned evidence records — command and decision evidence written by protocol components, plus external evidence ingested through the rail adapters — on deployment-owned object storage; append-only, never edited or deleted within retention",
+      "authority_hosted": "Evidence Authority records (registry A15) — append-only, hash-chained evidence over every consequential operation of every authority, plus external evidence ingested through the rail adapters; never edited or deleted within retention (GC-5)",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward"
+        "status": "present",
+        "paths": [
+          "src/lib/protocol-runtime/evidence/log.ts",
+          "src/lib/protocol-runtime/evidence/record.ts",
+          "src/lib/protocol-runtime/evidence/chain.ts",
+          "src/lib/protocol-runtime/evidence/canonical.ts",
+          "src/lib/protocol-runtime/evidence/persistence.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: externalized process binding — evidence object storage as separately provisioned infrastructure with retention-integrity observability (DEP-002+); the in-process module surface (RTN-002's A15 log + per-domain evidence store) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -282,15 +337,17 @@
     {
       "id": "external-rail-adapters",
       "name": "External rail adapters — banks, PSPs, mobile money, blockchains",
-      "exists_in_repository_today": false,
+      "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
       "authority_hosted": "none — the only component that transmits to external rails; transmits exclusively protocol-authorized outputs and cannot originate or alter financial decisions; holds rail credentials and fails closed when they are absent; ingests external evidence into evidence-object-store",
       "repository_entrypoint": {
-        "status": "future-work",
-        "paths": [],
-        "marker": "FUTURE-WORK: protocol adapter semantics per dependency graph WORK-001..WORK-033; credential binding from DEP-002 onward"
+        "status": "present",
+        "paths": [
+          "src/lib/protocol-runtime/rails/adapters.ts"
+        ]
       },
+      "future_work": "FUTURE-WORK: real-rail credential binding under DEP-005 — production rail credentials exist solely in the production secret scope, and real adapters replace the simulated rails; externalized process binding (DEP-002+) for the adapter fleet with circuit-state and rail-reachability observability. The in-process module surface is the PROTOCOL-OWNED SIMULATED RAILS: same interface, no external transmission, no real credentials, no signing capability (spec/deployment/topology.md simulation rule)",
       "environment_reachability": [
         "development",
         "test-ci",

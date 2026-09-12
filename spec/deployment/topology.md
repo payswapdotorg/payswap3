@@ -7,25 +7,50 @@
 **Forbidden:** protocol semantic changes; product financial authority; external-effect bypass
 **Companions:** `spec/deployment/environments.md` (environment contract), `spec/deployment/configuration.md` (configuration and secret boundary contract), `deploy/contracts/components.json` (machine-readable component registry), `scripts/validate_deployment.py` (static/configuration verification gate)
 
+> **Governed contract change — RTN-012** (spec/deployment/topology.md "Contract
+> evolution"): the RTN wave (RTN-001..RTN-011, merged at base
+> 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02) materialized the nine
+> protocol/deployment components as **in-process module surfaces** inside the
+> web-api-boundary application — the DEP-003 precedent under the Q3 ruling
+> (spec/development-state/rtn-plan-rulings.md). This document's as-of-today
+> overlay, the registry summary, and the per-component contracts below were
+> updated together with `deploy/contracts/components.json` and
+> `scripts/validate_deployment.py` in that one work item. The future work that
+> remains is recorded per component (externalized process binding — DEP-002+;
+> real-rail credential binding — DEP-005); the in-process forms claim no
+> externalized deployment and reach no production financial effect
+> (fail-closed; simulated rails only).
+
 ## Purpose and method
 
 This document defines the actual PaySwap runtime topology FROM THE REPOSITORY'S REAL ENTRYPOINTS — not from aspiration. For every component it records: repository entrypoint (an actual repository path that exists today, or the FUTURE-WORK marker of the governed work that will bring it), owner layer, the authority it hosts, its health signal, and its rollback mechanism.
 
 DEP-001 defines contracts only. It performs no cloud deployments, no runtime packaging and invents no credentials — none are needed for a contract. Actual target binding (Vercel, Cloudflare, database/queue providers, observability) is held by the Tech Lead and is used from DEP-002 onward.
 
-Honesty rule: a component that does not exist as repository code at the declared base is marked **FUTURE-WORK** with its dependency-graph provenance. It is never silently presented as existing, and no entrypoint is invented for it. The machine-readable registry (`deploy/contracts/components.json`) and the validator (`scripts/validate_deployment.py`) enforce this: claimed-today entrypoints must exist on disk, and the set of components claiming repository presence today is locked to `web-api-boundary` until a governed change updates the contract.
+Honesty rule: a component that does not exist as repository code at the declared base is marked **FUTURE-WORK** with its dependency-graph provenance. It is never silently presented as existing, and no entrypoint is invented for it. The machine-readable registry (`deploy/contracts/components.json`) and the validator (`scripts/validate_deployment.py`) enforce this: claimed-today entrypoints must exist on disk, and the present-set is locked to the governed set — `web-api-boundary` alone from DEP-001 until the RTN-012 governed change updated the contract to the ten-component in-process set (each claimed entrypoint exists on disk at the declared base; each component records its remaining future work). A further present-set change is again a governed change that updates all three surfaces together.
 
-## Repository source of truth (base SHA f934a76f20efbd6e238605d8e7320495974a870e)
+## Repository source of truth (RTN-012 governed base 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02)
 
-The repository's real entrypoints today:
+The repository's real entrypoints today (the honesty rule: claimed-today
+entrypoints must exist on disk at the declared base):
 
 - **Application:** a Next.js (App Router) + TypeScript + Tailwind web application at the repository root.
   - `package.json`: name `payswap3`; scripts: `dev` = `next dev`, `build` = `next build`, `start` = `next start`, `typecheck` = `tsc --noEmit`.
   - Runtime dependencies: `next` 16.1.3, `react` 19.2.3, `react-dom` 19.2.3.
 - **Route surface:** `/` (shell home), `/state-primitives` (verification surface), `/_not-found`.
 - **Environment contract already in the app:** `src/lib/environment.ts` reads the server-side `PAYSWAP_ENV` variable with an exact allowlist (`sandbox | production`) and fail-safe to `sandbox`. This topology aligns with and extends that contract; it never contradicts it (see "Environment signal wiring" below).
+- **The composed protocol runtime (the RTN wave, in-process):** `src/lib/protocol-runtime/` — the kernel, evidence, risk, intent, policy, capability, routing, reservations, liquidity, credit, queues, clearing, obligations, netting, settlement, rails, gateway, transition, and hosting module families (the registry A01–A16 operational spine; `src/lib/protocol-runtime/index.ts` is the wave barrel documenting the module map and the composition order) — plus the DEP-003 durable execution substrate (`src/lib/durable/`: db, queue, worker, scheduler, events) the runtime hosts on.
 
-Everything behind the web/API boundary in the target topology — protocol gateway, durable command queue, transition runtime, background workers, scheduler, database, evidence storage, external rail adapters — does **not** exist as repository code at this base. Those components are **deployment-owned capacity** whose repository entrypoints arrive as future work items per the dependency graph (protocol WORK-001..WORK-033; infrastructure binding from DEP-002 onward).
+The in-process form is the FIRST REALIZATION of the component contract, not
+an externalized deployment (rtn-plan-rulings.md Q3): the logical execution
+topology is realized exactly as enforced module boundaries — one admission
+point (`protocol-runtime/gateway/`), one authoritative-state writer
+(`protocol-runtime/transition/` + `hosting/` on the substrate), adapters
+behind protocol control (`protocol-runtime/rails/adapters.ts`,
+transmission-and-reporting only) — while the externalized process binding
+remains recorded future work per component. No production financial effect
+is reachable from the in-process form: simulated rails, no credentials,
+fail-closed.
 
 ## Execution topology (target shape — normative)
 
@@ -78,47 +103,81 @@ Quoted verbatim from the system architecture. The deployment topology must reali
 
 ## As-of-today overlay
 
-Of the nodes above, exactly one exists as repository code today: the **Web/API boundary application**, which currently hosts the Product/API branch (the shell home `/` and the verification surface `/state-primitives`). It is the only internet-facing surface today, and it hosts **no financial authority**.
+Of the nodes above, the **Web/API boundary application** exists as repository
+code today and hosts the Product/API branch (the shell home `/` and the
+verification surface `/state-primitives`). It is the only internet-facing
+surface today, and it hosts **no financial authority**.
 
-All nodes behind the boundary are specified-but-not-yet-in-repo. Until their governed work items land, the durable command path, workers, scheduler, persistence, queue, evidence storage and adapters exist only as this contract's requirements. The web/API boundary must not accumulate their responsibilities locally in the meantime: no authoritative state, no queue semantics, no rail access, and no protocol-authority enforcement in the application tier.
+Every node behind the boundary now ALSO exists as repository code in its
+**in-process form** (the RTN wave, merged at the RTN-012 governed base):
+
+| Execution-topology node | In-process repository surface |
+| --- | --- |
+| Protocol gateway | `src/lib/protocol-runtime/gateway/` (the sole admission point: command validation per owning authority, idempotent receipts, durable submission) |
+| Durable command path | `src/lib/durable/queue.ts` (+ `worker.ts` as the dequeue engine of the transition path) |
+| Transition/runtime | `src/lib/protocol-runtime/transition/` + `hosting/` (the single authoritative-state writer on the substrate) |
+| scheduler | `src/lib/durable/scheduler.ts` + `src/lib/protocol-runtime/hosting/scheduler-wiring.ts` (timing-driven command emitters) |
+| reconcilers | `src/lib/protocol-runtime/rails/reconciliation.ts` (the A14 authority; recurring cycle commands through the transition path) |
+| netting/settlement | `src/lib/protocol-runtime/netting/` + `settlement/` (the A11/A12 authorities; recurring tick commands) |
+| Authoritative state / database | the per-domain persistence modules over `src/lib/durable/db.ts` (the kernel persistence convention) |
+| object/evidence storage | `src/lib/protocol-runtime/evidence/` (the A15 log + chain + per-domain store) |
+| External rail adapters | `src/lib/protocol-runtime/rails/adapters.ts` (the PROTOCOL-OWNED SIMULATED RAILS — same interface, no external transmission, no credentials) |
+
+The web/API boundary still accumulates none of their responsibilities
+locally: no authoritative state, no queue semantics, no rail access, and no
+protocol-authority enforcement in the application tier — the in-process
+modules under `src/lib/protocol-runtime/` are protocol-owned surfaces
+composed by the server runtime and the evidence harnesses, not product-tier
+absorption. The externalized process binding (separately deployed processes,
+real queue/persistence/adapter infrastructure, production rail credentials)
+remains recorded future work per component (DEP-002+; DEP-005 for real
+rails).
 
 ## Architecture-to-component mapping
 
-| Execution-topology node | Component id (components.json) | Repository status at base |
+| Execution-topology node | Component id (components.json) | Repository status at the RTN-012 governed base |
 | --- | --- | --- |
 | Users / Integrators | not a deployed component (clients; see environments.md "who/what may reach it") | n/a |
 | Web / API boundary | `web-api-boundary` | present today |
 | Product/API | `web-api-boundary` (product-owned surface within the boundary application) | present today |
-| Protocol gateway | `protocol-gateway` | FUTURE-WORK |
-| Durable command path | `durable-command-queue` | FUTURE-WORK |
-| Transition/runtime | `transition-runtime` | FUTURE-WORK |
-| Background workers | worker family: `reconciler-workers`, `netting-settlement-workers` (further subtypes arrive as governed work adds them) | FUTURE-WORK |
-| scheduler | `scheduler` | FUTURE-WORK |
-| reconcilers | `reconciler-workers` | FUTURE-WORK |
-| netting/settlement | `netting-settlement-workers` | FUTURE-WORK |
-| Authoritative state / database | `authoritative-state-store` | FUTURE-WORK |
-| queue | `durable-command-queue` | FUTURE-WORK |
-| object/evidence storage | `evidence-object-store` | FUTURE-WORK |
-| External rail adapters | `external-rail-adapters` | FUTURE-WORK |
+| Protocol gateway | `protocol-gateway` | present today (in-process: `protocol-runtime/gateway/`; externalized binding FUTURE-WORK) |
+| Durable command path | `durable-command-queue` | present today (in-process: `durable/queue.ts`; externalized binding FUTURE-WORK) |
+| Transition/runtime | `transition-runtime` | present today (in-process: `protocol-runtime/transition/` + `hosting/`; externalized binding FUTURE-WORK) |
+| Background workers | worker family: `reconciler-workers`, `netting-settlement-workers` (further subtypes arrive as governed work adds them) | present today (in-process: the A14 / A11/A12 authorities hosted on the transition path; externalized binding FUTURE-WORK) |
+| scheduler | `scheduler` | present today (in-process: `durable/scheduler.ts` + `hosting/scheduler-wiring.ts`; externalized binding FUTURE-WORK) |
+| reconcilers | `reconciler-workers` | present today (in-process: `protocol-runtime/rails/reconciliation.ts`) |
+| netting/settlement | `netting-settlement-workers` | present today (in-process: `protocol-runtime/netting/` + `settlement/`) |
+| Authoritative state / database | `authoritative-state-store` | present today (in-process: the per-domain persistence modules on `durable/db.ts`; externalized binding FUTURE-WORK) |
+| queue | `durable-command-queue` | present today (in-process: `durable/queue.ts`) |
+| object/evidence storage | `evidence-object-store` | present today (in-process: `protocol-runtime/evidence/`; externalized binding FUTURE-WORK) |
+| External rail adapters | `external-rail-adapters` | present today (in-process: `protocol-runtime/rails/adapters.ts` — the PROTOCOL-OWNED SIMULATED RAILS; real-rail credential binding FUTURE-WORK under DEP-005) |
 | banks / PSPs / mobile money / blockchains | external parties — reachable only through `external-rail-adapters` | external |
 | external evidence | ingested only through `external-rail-adapters` into `evidence-object-store` | external |
 
 ## Component registry summary
 
-Machine-readable source of record: `deploy/contracts/components.json`. Human summary (full per-component contracts follow):
+Machine-readable source of record: `deploy/contracts/components.json` (updated by the RTN-012 governed change: all ten components present with in-process entrypoints; every component carries its future_work note). Human summary (full per-component contracts follow):
 
-| id | status | repository entrypoint | owner (runtime) | layer (authority hosted) | health signal (contract) | rollback (contract) |
+| id | status | repository entrypoint (in-process form) | owner (runtime) | layer (authority hosted) | health signal (contract) | rollback (contract) |
 | --- | --- | --- | --- | --- | --- | --- |
 | `web-api-boundary` | present | `package.json`, `src/app/layout.tsx`, `src/app/page.tsx`, `src/lib/environment.ts` | deployment | product | HTTP readiness on `/` | stateless redeploy |
-| `protocol-gateway` | FUTURE-WORK | protocol WORK-001..WORK-033; binding DEP-002+ | deployment | protocol | readiness + command acceptance | redeploy + queue replay |
-| `transition-runtime` | FUTURE-WORK | protocol WORK-001..WORK-033 | deployment | protocol | transition backlog + consistency probes | redeploy + PITR + replay |
-| `scheduler` | FUTURE-WORK | deployment capacity; binding DEP-002+ | deployment | deployment | heartbeat + missed-schedule alarms | redeploy (config only) |
-| `reconciler-workers` | FUTURE-WORK | protocol WORK-001..WORK-033 | deployment | protocol | drift metrics + reconciliation lag | redeploy + idempotent replay |
-| `netting-settlement-workers` | FUTURE-WORK | protocol WORK-001..WORK-033 | deployment | protocol | batch progress + ledger integrity | redeploy + replay; never un-finalize |
-| `durable-command-queue` | FUTURE-WORK | deployment capacity; binding DEP-002+ | deployment | deployment | depth/age + dead-letter rate | retention + replay |
-| `authoritative-state-store` | FUTURE-WORK | deployment capacity; binding DEP-002+ | deployment | protocol | replication + consistency probes | PITR + replay; single writer only |
-| `evidence-object-store` | FUTURE-WORK | deployment capacity; binding DEP-002+ | deployment | protocol | write/read success + retention integrity | backup restore; append-only kept |
-| `external-rail-adapters` | FUTURE-WORK | protocol WORK-001..WORK-033; binding DEP-002+ | deployment | deployment | circuit state + rail reachability | fail-closed hold + replay |
+| `protocol-gateway` | present (in-process) | `src/lib/protocol-runtime/gateway/` | deployment | protocol | readiness + command acceptance | redeploy + queue replay |
+| `transition-runtime` | present (in-process) | `src/lib/protocol-runtime/transition/` + `hosting/` | deployment | protocol | transition backlog + consistency probes | redeploy + PITR + replay |
+| `scheduler` | present (in-process) | `src/lib/durable/scheduler.ts` + `hosting/scheduler-wiring.ts` | deployment | deployment | heartbeat + missed-schedule alarms | redeploy (config only) |
+| `reconciler-workers` | present (in-process) | `src/lib/protocol-runtime/rails/reconciliation.ts` | deployment | protocol | drift metrics + reconciliation lag | redeploy + idempotent replay |
+| `netting-settlement-workers` | present (in-process) | `src/lib/protocol-runtime/netting/` + `settlement/` | deployment | protocol | batch progress + ledger integrity | redeploy + replay; never un-finalize |
+| `durable-command-queue` | present (in-process) | `src/lib/durable/queue.ts` | deployment | deployment | depth/age + dead-letter rate | retention + replay |
+| `authoritative-state-store` | present (in-process) | the per-domain persistence modules on `src/lib/durable/db.ts` | deployment | protocol | replication + consistency probes | PITR + replay; single writer only |
+| `evidence-object-store` | present (in-process) | `src/lib/protocol-runtime/evidence/` | deployment | protocol | write/read success + retention integrity | backup restore; append-only kept |
+| `external-rail-adapters` | present (in-process — the PROTOCOL-OWNED SIMULATED RAILS) | `src/lib/protocol-runtime/rails/adapters.ts` | deployment | deployment | circuit state + rail reachability | fail-closed hold + replay |
+
+The externalized process binding for every behind-the-boundary component
+(separately deployed processes; real queue/persistence/adapter
+infrastructure) and the real-rail credential binding for
+`external-rail-adapters` (DEP-005) remain recorded future work per component
+in `deploy/contracts/components.json` (`future_work`) — the in-process
+present-set is an honest claim of repository presence, never of externalized
+deployment.
 
 ## Per-component contracts
 
@@ -132,79 +191,88 @@ Machine-readable source of record: `deploy/contracts/components.json`. Human sum
 - **Rollback:** stateless redeploy of the previous commit/build artifact. The shell holds no authoritative state, so rollback involves no data recovery.
 - **Boundary rules:** see "Component boundaries" §Web/API below.
 
-### protocol-gateway — FUTURE-WORK
+### protocol-gateway — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033; infrastructure binding from DEP-002 onward. No repository code exists at this base.
+- **Repository entrypoint (present, in-process form):** `src/lib/protocol-runtime/gateway/` — `index.ts` (the module barrel + boundary contract), `admission.ts` (the sole admission call `ProtocolGateway.submitCommand`), `registry.ts` (the per-authority command catalogue), `receipts.ts`, `persistence.ts`, `COMMAND-SURFACE.md` (the UI-011 re-anchoring input). Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — the gateway as a separately deployed process with an HTTP readiness endpoint and observability binding (DEP-002+); the in-process module surface (RTN-010, inside the web-api-boundary application) is the composed realization, not an externalized deployment.
 - **Owner (runtime):** deployment (process, hosting, configuration, scaling, secrets).
 - **Layer (authority hosted):** protocol.
-- **Authority hosted:** the protocol authorities enumerated by the system architecture's hard boundaries — identity, authority, values, accounting, intent, demand, capability, market, liquidity, credit, reservations, routing/compiler, execution admission, clearing, obligations, risk/compliance, recourse, federation — enforced inside a deployment-owned process. It is the sole admission point for protocol commands.
-- **Health signal (contract for the future work item):** readiness endpoint; command acceptance rate and latency; durable-queue submit success.
+- **Authority hosted:** the sole admission point for protocol commands — per-command validation against the owning authorities' registered schemas (the registry A01–A14 and A16 command authorities), idempotent admission receipts, typed rejection evidence, and durable submission. Hosts no authority of its own and implements no identity or market authority (rtn-plan-rulings.md Q4 — subject validation is per-command per owning authority; the earlier hard-boundaries paraphrase is not an authority claim).
+- **Health signal (implemented as the programmatic contract; HTTP binding is deployment work):** `gateway.isReady()` and `gateway.health()` — readiness, command acceptance rate, admission latency, durable-queue submit success.
 - **Rollback (contract):** redeploy the previous artifact; in-flight commands replay from the durable command queue; rollback never mutates authoritative state directly.
 
-### transition-runtime — FUTURE-WORK
+### transition-runtime — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033.
+- **Repository entrypoint (present, in-process form):** `src/lib/protocol-runtime/transition/execution.ts` (the dequeue → resolve-owning-authority → apply-transition → A15-evidence → atomic-commit path) + `substrate-port.ts`, hosted through `src/lib/protocol-runtime/hosting/bindings.ts` (the per-authority command bindings) and `hosting/durable-binding.ts` (the real substrate binding) on `src/lib/durable/worker.ts`. Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — the transition runtime as a separately deployed worker process fleet with observability binding (DEP-002+); the in-process module surface (RTN-011, hosted on the DEP-003 substrate inside the web-api-boundary application) is the composed realization.
 - **Owner (runtime):** deployment. **Layer:** protocol.
-- **Authority hosted:** authoritative state transitions — execution, clearing, obligations, netting, settlement, finality (protocol-owned) — applied as the single writer to `authoritative-state-store`.
-- **Health signal (contract):** transition backlog depth/age; authoritative-state consistency probes.
+- **Authority hosted:** the single authoritative-state writer — the merged authorities' command surfaces (registry A01–A14 and A16) executed as hosted bindings through the command execution path; no other layer mutates authoritative state (the hard boundary).
+- **Health signal (implemented as the programmatic contract):** the transition backlog probe (`hosting/probes.ts` — backlog depth/age over the real queue) and the authoritative-state consistency probes (reservation-ledger identity, liquidity-pool identity, netting conservation).
 - **Rollback (contract):** redeploy the previous artifact plus point-in-time recovery of authoritative state and replay of durable commands. As the only authoritative-state writer, no other rollback path exists.
 
-### scheduler — FUTURE-WORK
+### scheduler — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward.
+- **Repository entrypoint (present, in-process form):** `src/lib/durable/scheduler.ts` (the DEP-003 timing-driven command emitter) + `src/lib/protocol-runtime/hosting/scheduler-wiring.ts` (the protocol-side recurring command emitters: clearing/netting/reconciliation/queue ticks — commands only, never state). Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — the scheduler as a separately deployed timing process with heartbeat/missed-schedule alarms bound to observability (DEP-002+); the in-process module surface (the DEP-003 scheduler + RTN-011's recurring command emitters) is the composed realization.
 - **Owner (runtime):** deployment. **Layer:** deployment.
 - **Authority hosted:** none — emits timing-driven commands into the durable command queue; owns timing only, never mutates authoritative state and never reaches external rails.
-- **Health signal (contract):** scheduler heartbeat; missed-schedule alarms.
+- **Health signal (contract):** scheduler heartbeat; missed-schedule alarms (observability binding from DEP-002+).
 - **Rollback (contract):** redeploy the previous artifact; schedules are configuration, so no data recovery is involved.
 
-### reconciler-workers — FUTURE-WORK
+### reconciler-workers — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033.
+- **Repository entrypoint (present, in-process form):** `src/lib/protocol-runtime/rails/reconciliation.ts` (the A14 Reconciliation Authority: cases, cycles, sources, adjustments) + `rails/matching.ts` (the deterministic INV-14-4 matching) + `rails/persistence.ts` (the per-domain store). The recurring reconciliation-cycle tick commands run through the transition path (`hosting/scheduler-wiring.ts` + the hosted bindings). Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — reconciler workers as separately deployed background processes with reconciliation-lag and drift observability (DEP-002+); the in-process module surface (RTN-004's A14 authority, hosted on the transition path) is the composed realization.
 - **Owner (runtime):** deployment. **Layer:** protocol.
-- **Authority hosted:** protocol-owned reconciliation semantics — compares authoritative state against external evidence and submits corrective commands through the protocol gateway; never mutates authoritative state directly and never reaches rails directly.
-- **Health signal (contract):** reconciliation lag; drift metrics.
+- **Authority hosted:** Reconciliation Authority semantics (registry A14) — cases, cycles, sources, and adjustments: the only exit from UNKNOWN (GC-2), with exactly-once resolution and history-never-mutated adjustments. Corrective actions flow as protocol commands through the gateway, never direct state mutation and never direct rail access.
+- **Health signal (contract):** reconciliation lag; drift metrics (observability binding from DEP-002+).
 - **Rollback (contract):** redeploy the previous artifact; idempotent replay from the durable command path.
 
-### netting-settlement-workers — FUTURE-WORK
+### netting-settlement-workers — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: protocol runtime per dependency graph WORK-001..WORK-033.
+- **Repository entrypoint (present, in-process form):** `src/lib/protocol-runtime/netting/authority.ts` (the A11 Netting Authority) + `settlement/authority.ts` (the A12 Settlement and Finality Authority) + their per-domain persistence modules. The recurring netting-cycle tick commands run through the transition path. Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — netting/settlement workers as separately deployed background processes with batch-progress and ledger-integrity observability (DEP-002+); real-rail settlement transmission additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only).
 - **Owner (runtime):** deployment. **Layer:** protocol.
-- **Authority hosted:** netting, settlement and finality computation (protocol-owned) executed as deployment-owned background processes. Corrections after finality flow only through protocol-governed recourse — deployment rollback never un-finalizes.
-- **Health signal (contract):** settlement batch progress; ledger integrity probes.
+- **Authority hosted:** Netting Authority and Settlement and Finality Authority semantics (registry A11/A12) — conservation-proofed netting sets and net positions, settlement instructions/attempts over the rail adapter authority, and finality records. Corrections after finality flow only through protocol-governed recourse — deployment rollback never un-finalizes.
+- **Health signal (implemented as the programmatic contract):** the netting-conservation ledger-identity probe (`hosting/probes.ts`).
 - **Rollback (contract):** redeploy the previous artifact and replay durable commands; finality is never reversed by deployment action.
 
-### durable-command-queue — FUTURE-WORK
+### durable-command-queue — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward.
+- **Repository entrypoint (present, in-process form):** `src/lib/durable/queue.ts` (the DEP-003 durable queue: UNIQUE (idempotency_key, kind) dedupe, at-least-once delivery, lease reclaim, dead-lettering) — the durable command path the gateway submits onto and the worker consumes from. Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — the durable command queue as separately provisioned queue infrastructure with depth/age and dead-letter observability (DEP-002+); the in-process module surface (the DEP-003 SQLite-backed queue inside the web-api-boundary application) is the composed realization.
 - **Owner (runtime):** deployment. **Layer:** deployment.
 - **Authority hosted:** none — durable, at-least-once transport for protocol commands (the execution topology's "durable command path" node); ordering and durability only; no financial semantics.
-- **Health signal (contract):** queue depth and age; dead-letter rate.
+- **Health signal (contract):** queue depth and age; dead-letter rate (observability binding from DEP-002+).
 - **Rollback (contract):** message retention and replay; payload semantics belong to producers and consumers, never to the queue.
 
-### authoritative-state-store — FUTURE-WORK
+### authoritative-state-store — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward.
+- **Repository entrypoint (present, in-process form):** the per-domain persistence modules over the DEP-003 database layer — `src/lib/protocol-runtime/kernel/persistence.ts` (the convention) + `src/lib/durable/db.ts` + the per-domain `persistence.ts` of intent, policy, capability, routing, reservations, liquidity, credit, queues, clearing, obligations, netting, settlement, rails (`rails/persistence.ts`) and risk (`risk/store.ts`). Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — production persistence infrastructure with replication, point-in-time recovery, and backup verification (DEP-002+); the in-process module surface (the per-domain SQLite stores on the DEP-003 database layer inside the web-api-boundary application) is the composed realization.
 - **Owner (runtime):** deployment (persistence infrastructure: backups, recovery, scaling). **Layer:** protocol (hosted authority).
-- **Authority hosted:** protocol-owned authoritative state (identity, accounting, reservations, obligations, settlement and finality records) on deployment-owned persistence infrastructure; mutated only by `transition-runtime` through protocol-owned transitions — no other layer may mutate it directly (hard boundary).
-- **Health signal (contract):** replication and consistency probes; backup verification.
+- **Authority hosted:** protocol-owned authoritative state — intent, fulfillment-policy, capability, route-plan, reservation, liquidity, credit, queue, clearing, obligation, netting, settlement-and-finality, rail-operation, and risk/compliance records (registry A01–A14 and A16; rail-operation records included per rtn-plan-rulings.md Q1) — on the per-domain persistence convention over the DEP-003 database layer; mutated only by `transition-runtime` through protocol-owned transitions — no other layer may mutate it directly (hard boundary).
+- **Health signal (implemented as the programmatic contract):** the ledger-identity consistency probes over the persisted per-domain stores (`hosting/probes.ts`); replication and backup verification arrive with the externalized binding (DEP-002+).
 - **Rollback (contract):** point-in-time recovery plus replay of durable commands; direct external mutation is never permitted.
 
-### evidence-object-store — FUTURE-WORK
+### evidence-object-store — present today (in-process)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: deployment capacity per dependency graph; infrastructure binding from DEP-002 onward.
+- **Repository entrypoint (present, in-process form):** `src/lib/protocol-runtime/evidence/` — `log.ts` (the A15 EvidenceLog), `record.ts` (the closed authority vocabulary + five-slot record contract), `chain.ts` (the hash chain), `canonical.ts`, `persistence.ts` (the append-only per-domain evidence store, ON CONFLICT DO NOTHING write keys — INV-15-4). Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — evidence object storage as separately provisioned infrastructure with retention-integrity observability (DEP-002+); the in-process module surface (RTN-002's A15 log + per-domain evidence store) is the composed realization.
 - **Owner (runtime):** deployment (object storage infrastructure). **Layer:** protocol (hosted authority).
-- **Authority hosted:** protocol-owned evidence records — command and decision evidence written by protocol components, plus external evidence ingested through the rail adapters — on deployment-owned object storage; append-only; never edited or deleted within retention.
-- **Health signal (contract):** write and read success; retention integrity checks.
+- **Authority hosted:** Evidence Authority records (registry A15) — append-only, hash-chained evidence over every consequential operation of every authority, plus external evidence ingested through the rail adapters; never edited or deleted within retention (GC-5).
+- **Health signal (contract):** write and read success; retention integrity checks (the chain verification is the programmatic integrity check; observability binding from DEP-002+).
 - **Rollback (contract):** restore from backup with append-only history preserved; rollback never rewrites evidence.
 
-### external-rail-adapters — FUTURE-WORK
+### external-rail-adapters — present today (in-process: the PROTOCOL-OWNED SIMULATED RAILS)
 
-- **Repository entrypoint (future-work marker):** FUTURE-WORK: protocol adapter semantics per dependency graph WORK-001..WORK-033; credential binding from DEP-002 onward.
+- **Repository entrypoint (present, in-process form):** `src/lib/protocol-runtime/rails/adapters.ts` — the transmission-and-reporting-only adapter interface (RTN-004, under the Q1/delta-1 ruling: no code path in the adapter interface creates or mutates RailAdapter/RailOperation state; reports are recorded through the A13 authority's command surface). The in-process realization is the simulated rail: same interface, no external transmission, no real credentials, no signing capability. Claimed paths exist on disk at the declared base.
+- **Future work that remains:** FUTURE-WORK: real-rail credential binding under DEP-005 — production rail credentials exist solely in the production secret scope, and real adapters replace the simulated rails; externalized process binding (DEP-002+) for the adapter fleet with circuit-state and rail-reachability observability.
 - **Owner (runtime):** deployment. **Layer:** deployment.
 - **Authority hosted:** none — the only component that transmits to external rails (banks, PSPs, mobile money, blockchains); it transmits exclusively protocol-authorized outputs and cannot originate or alter financial decisions; it holds rail credentials and fails closed when they are absent; it ingests external evidence into `evidence-object-store`.
-- **Health signal (contract):** adapter circuit state; rail reachability; submission acknowledgment rate.
+- **Health signal (contract):** adapter circuit state; rail reachability; submission acknowledgment rate (observability binding from DEP-002+).
 - **Rollback (contract):** fail-closed disable or hold, then replay of pending authorized submissions after recovery; financial reversals flow only through protocol-governed recourse.
-- **Simulation rule:** development, test/CI, sandbox and staging use protocol-owned simulated rails — same interface, no external transmission, no real credentials, no signing capability.
+- **Simulation rule:** development, test/CI, sandbox and staging use protocol-owned simulated rails — same interface, no external transmission, no real credentials, no signing capability. This IS the in-process form materialized today; real rails arrive only under DEP-005's separately authorized production configuration.
 
 ## Component boundaries
 
@@ -258,3 +326,9 @@ Rollback principles:
 ## Contract evolution
 
 Adding, removing or re-scoping components, environments or the `PAYSWAP_ENV` allowlist is a governed change that updates `deploy/contracts/components.json`, the `spec/deployment/*` documents and `scripts/validate_deployment.py` together in one work item. DEP-002 onward binds these components to real infrastructure; until then the registry is the single source of truth for what exists versus what is FUTURE-WORK.
+
+**Change record:**
+
+- **DEP-001** generated the contract (base `fdef3aa7…`; present-set locked to `web-api-boundary`).
+- **DEP-002** added the runtime-packaging/startup-validation/health-readiness delta checks (every locked DEP-001 value unchanged).
+- **RTN-012** updated the present-set to all ten components with the RTN wave's in-process repository entrypoints (rtn-plan-rulings.md Q3/delta 3, under the DEP-003 precedent): declared base moved to the RTN wave base `14b6ca56c07de585df6d1a3a97edcc36ad2e4c02` (where the in-process entrypoints exist on disk); every component carries the `future_work` note recording the externalized process binding (and, for the rail adapters, the DEP-005 real-rail credential binding) that remains future work; owner stays `deployment` for every component; authority only in protocol-layer entries (registry-aligned names per rtn-plan-rulings.md Q4); `external-rail-adapters` stays authority_hosted `none` (Q3, delta 3). All three surfaces — components.json, this document, and the validator — were updated together in that one work item, and `python3 scripts/validate_deployment.py` exits 0 over the updated contract.
