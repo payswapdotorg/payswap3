@@ -246,7 +246,7 @@ describe('single-writer boundary review: the transition path is the only externa
     // methods. Outside each authority's own domain, a module may REFERENCE
     // an authority/ledger class only as a TYPE: a type-only import can
     // neither construct an authority nor call a mutating command, so the
-    // single-writer discipline holds. This admits exactly two classes of
+    // single-writer discipline holds. This admits exactly three classes of
     // cross-domain reference:
     //   - the merged, spec-mandated compositions (liquidity/credit take
     //     the area-5 ReservationLedger type — INV-6-2: "position
@@ -255,12 +255,24 @@ describe('single-writer boundary review: the transition path is the only externa
     //     hosting/durable-binding.ts), which drives INJECTED authority
     //     instances — composed by the harness/server — through the
     //     command execution path, and never constructs or reaches into an
-    //     authority itself.
+    //     authority itself;
+    //   - the RTN-012 wave barrel (src/lib/protocol-runtime/index.ts —
+    //     work order RTN-012's owned surface), which RE-EXPORTS the
+    //     composed public surface. A re-export is a value import by
+    //     necessity (a class cannot be re-exported type-only), but the
+    //     barrel constructs nothing, calls no command, and reaches no
+    //     substrate: check (h) below mechanically enforces exactly that,
+    //     so the exception is scoped to the barrel's single path and
+    //     carries its own stronger gate (added by the RTN-012 integration
+    //     item — the review learns the wave's composition root).
     const offenders: string[] = [];
     walk(RUNTIME_DIR, (filePath) => {
       const relative = filePath.slice(REPO_ROOT.length + 1);
       if (relative.endsWith('.test.ts') || relative.endsWith('.d.ts')) {
         return;
+      }
+      if (relative === 'src/lib/protocol-runtime/index.ts') {
+        return; // the RTN-012 wave barrel — gated by check (h) instead
       }
       const segments = relative.split('/');
       // e.g. src/lib/protocol-runtime/<domain>/<file>.ts — the file's own
@@ -288,5 +300,46 @@ describe('single-writer boundary review: the transition path is the only externa
       }
     });
     expect(offenders).toEqual([]);
+  });
+
+  test('(h) the RTN-012 wave barrel is a pure re-export composition root — no construction, no authority command, no substrate reach', () => {
+    // The wave barrel (src/lib/protocol-runtime/index.ts — RTN-012's
+    // owned surface) re-exports the composed public surface. The
+    // single-writer discipline holds through it because the barrel
+    // EXECUTES nothing: it constructs no authority, calls no command, and
+    // never reaches the substrate. This check mechanically enforces the
+    // (g) exception's conditions: the module body is exactly its export
+    // statements.
+    //
+    // Spec sources: spec/protocol-runtime-work-orders/RTN-012.md (the
+    // wave-barrel owned surface); spec/deployment/topology.md line 188
+    // (the single-writer rule the barrel must not disturb);
+    // rtn-plan-rulings.md Q3 (the in-process composed form's enforced
+    // module boundaries).
+    const barrelPath = join(RUNTIME_DIR, 'index.ts');
+    if (!existsSync(barrelPath)) {
+      return; // not materialized in this tree
+    }
+    const source = readFileSync(barrelPath, 'utf8');
+    // Strip block and line comments; the barrel must consist ONLY of
+    // re-export statements (`export ... from '...'` / `export type ...
+    // from '...'`) — nothing else executes.
+    const code = source
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/^\s*\/\/.*$/gm, '');
+    const statements = code
+      .split(';')
+      .map((statement) => statement.replace(/\s+/g, ' ').trim())
+      .filter((statement) => statement.length > 0);
+    expect(statements.length).toBeGreaterThan(0);
+    const nonReExports = statements.filter(
+      (statement) => !(statement.startsWith('export ') && statement.includes(" from '")),
+    );
+    expect(nonReExports).toEqual([]);
+    // No substrate reach (the register()/enqueue integration rule — the
+    // barrel never bypasses the transition path), no construction, and no
+    // authority-command call site.
+    expect(source.includes('../../durable/')).toBe(false);
+    expect(/\bnew\s+[A-Z]/.test(code)).toBe(false);
   });
 });

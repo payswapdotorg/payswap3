@@ -8,8 +8,8 @@ repository root:
   1. deploy/contracts/components.json parses, and every component carries the
      required fields (id, name, exists_in_repository_today, owner, layer,
      authority_hosted, repository_entrypoint, environment_reachability,
-     health_signal, rollback; production_gate whenever 'production' is
-     reachable).
+     health_signal, rollback, future_work; production_gate whenever
+     'production' is reachable).
   2. Runtime environment contract agrees across registry, documents and
      implementation: the PAYSWAP_ENV allowlist is exactly {sandbox, production}
      with fail-safe 'sandbox' in components.json, spec/deployment/
@@ -19,12 +19,16 @@ repository root:
      environment reachability, and the matrix set equals the canonical set.
   4. Every repository entrypoint claimed to exist today exists on disk;
      future-work components carry explicit FUTURE-WORK markers (no silent
-     invention), and the only component claiming repository presence today is
-     web-api-boundary.
+     invention); the present-set equals the RTN-012 governed set (all ten
+     components, recorded below); every component carries a non-empty
+     FUTURE-WORK-tagged future_work note (what remains beyond the in-process
+     form: externalized process binding; real-rail credential binding under
+     DEP-005).
   5. Runtime ownership model: every component is deployment-owned; protocol
      authority is hosted only by protocol-layer components.
   6. spec/deployment/topology.md agrees with the registry (all component ids
-     and the normative execution-topology nodes are present).
+     and the normative execution-topology nodes are present) and records the
+     RTN-012 governed contract change.
 
 Usage (from the repository root):
 
@@ -36,6 +40,23 @@ Exit codes: 0 = contract valid (summary printed); 1 = validation failure
 Contract evolution is governed: changing the component set, the environment
 set or the PAYSWAP_ENV allowlist requires updating components.json, the
 spec/deployment/* documents and this validator in the same work item.
+
+Governed change history:
+  - DEP-001 generated the contract (base fdef3aa…, present-set locked to
+    web-api-boundary).
+  - DEP-002 added the runtime-packaging/startup/health delta checks (every
+    locked DEP-001 value unchanged).
+  - RTN-012 (this form) updated the present-set to all ten components with
+    the RTN wave's IN-PROCESS repository entrypoints (rtn-plan-rulings.md
+    Q3/delta 3, under the DEP-003 precedent; the topology.md "Contract
+    evolution" clause — components.json + spec/deployment/* + this validator
+    updated together in the one work item): the declared base moved to the
+    RTN wave base (where the in-process entrypoints exist), every component
+    carries the future_work note recording the externalized process binding
+    (and, for the rail adapters, the DEP-005 real-rail credential binding)
+    that remains future work, owner stays 'deployment' for every component,
+    authority only in protocol-layer entries, and external-rail-adapters
+    stays authority_hosted 'none' (transmission-and-reporting only).
 
 Dependency-free: Python 3 standard library only.
 """
@@ -61,9 +82,29 @@ DOCKERIGNORE = REPO_ROOT / ".dockerignore"
 NEXT_CONFIG_TS = REPO_ROOT / "next.config.ts"
 
 EXPECTED_BASE_BRANCH = "main"
-EXPECTED_BASE_SHA = "fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73"
+# The RTN-012 governed contract change moved the declared base to the RTN
+# wave base (RTN-001..RTN-011 merged) — the base at which the nine newly
+# present components' in-process repository entrypoints exist on disk.
+# Precedent: the DEP-001 base fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73.
+EXPECTED_BASE_SHA = "14b6ca56c07de585df6d1a3a97edcc36ad2e4c02"
+EXPECTED_UPDATED_BY = "RTN-012"
 EXPECTED_CONTRACT = "payswap-deployment-components"
-EXPECTED_PRESENT_COMPONENTS = {"web-api-boundary"}
+# The RTN-012 present-set: web-api-boundary (the application) plus the nine
+# protocol/deployment components materialized as in-process module surfaces
+# by the RTN wave (rtn-plan-rulings.md Q3/delta 3 — one governed change;
+# every claimed entrypoint exists on disk at the declared base).
+EXPECTED_PRESENT_COMPONENTS = {
+    "web-api-boundary",
+    "protocol-gateway",
+    "transition-runtime",
+    "scheduler",
+    "reconciler-workers",
+    "netting-settlement-workers",
+    "durable-command-queue",
+    "authoritative-state-store",
+    "evidence-object-store",
+    "external-rail-adapters",
+}
 EXPECTED_ENVIRONMENTS = {"development", "test-ci", "sandbox", "staging", "production"}
 EXPECTED_RUNTIME_VAR = "PAYSWAP_ENV"
 EXPECTED_RUNTIME_ALLOWLIST = {"sandbox", "production"}
@@ -102,6 +143,7 @@ REQUIRED_COMPONENT_FIELDS = (
     "layer",
     "authority_hosted",
     "repository_entrypoint",
+    "future_work",
     "environment_reachability",
     "health_signal",
     "rollback",
@@ -178,9 +220,15 @@ def main():
     )
     check(
         registry.get("base_sha") == EXPECTED_BASE_SHA,
-        f"components.json: base_sha must be the DEP-001 base {EXPECTED_BASE_SHA!r} "
-        "(changing the declared base is a governed contract change that updates "
-        "this validator)",
+        f"components.json: base_sha must be the RTN-012 governed base "
+        f"{EXPECTED_BASE_SHA!r} (changing the declared base is a governed "
+        "contract change that updates this validator)",
+    )
+    check(
+        registry.get("updated_by") == EXPECTED_UPDATED_BY,
+        f"components.json: updated_by must be {EXPECTED_UPDATED_BY!r} (the "
+        "work item that last performed the governed contract change; the "
+        "provenance field is machine-checked, not silent)",
     )
     check(
         registry.get("runtime_environment_variable") == EXPECTED_RUNTIME_VAR,
@@ -391,6 +439,23 @@ def main():
                     f"{label}: {field} must be a non-empty string",
                 )
 
+            # the future_work note (rtn-plan-rulings.md Q3/delta 3): what
+            # remains beyond the in-process form — externalized process
+            # binding; real-rail credential binding under DEP-005. Required
+            # for EVERY component (present and future-work alike) and
+            # carrying the FUTURE-WORK tag.
+            future = component.get("future_work")
+            if check(
+                isinstance(future, str) and len(future.strip()) > 0,
+                f"{label}: future_work must be a non-empty string (the future "
+                "work that remains beyond the in-process form — Q3/delta 3)",
+            ) and isinstance(future, str):
+                check(
+                    "FUTURE-WORK" in future,
+                    f"{label}: future_work must carry the FUTURE-WORK tag "
+                    "(recorded future work, never a silent present-claim)",
+                )
+
             # optional route surface
             surface = component.get("route_surface")
             if surface is not None:
@@ -409,13 +474,14 @@ def main():
         f"duplicate component ids: {[i for i in ids if ids.count(i) > 1]}",
     )
 
-    # ---- 4. honesty lock: only the web boundary exists today ----------------
+    # ---- 4. honesty lock: the RTN-012 governed present-set -----------------
     check(
         present_ids == EXPECTED_PRESENT_COMPONENTS,
-        f"components claiming repository presence today must equal "
-        f"{sorted(EXPECTED_PRESENT_COMPONENTS)} (found {sorted(present_ids)}); "
-        "adding a present component is a governed contract change that updates "
-        "this validator",
+        f"components claiming repository presence today must equal the "
+        f"RTN-012 governed set {sorted(EXPECTED_PRESENT_COMPONENTS)} (found "
+        f"{sorted(present_ids)}); changing the present-set is a governed "
+        "contract change that updates this validator together with "
+        "components.json and the spec/deployment/* documents",
     )
 
     # ---- 5. environments.md matrix agreement ---------------------------------
@@ -485,7 +551,20 @@ def main():
             )
         check(
             "FUTURE-WORK" in topology_text,
-            "topology.md must carry FUTURE-WORK markers for not-yet-in-repo components",
+            "topology.md must carry FUTURE-WORK markers for the future work "
+            "that remains beyond the in-process forms",
+        )
+        # The RTN-012 governed contract change is recorded in the document
+        # itself (the as-of-today overlay + the contract-evolution record).
+        check(
+            "RTN-012" in topology_text,
+            "topology.md must record the RTN-012 governed contract change "
+            "(the as-of-today overlay update + the contract-evolution note)",
+        )
+        check(
+            "in-process" in topology_text,
+            "topology.md must state the in-process materialization form of "
+            "the RTN wave's components (rtn-plan-rulings.md Q3)",
         )
 
     # ---- 7. DEP-002 runtime packaging, startup validation, health/ready ----
@@ -661,11 +740,12 @@ def main():
 
     # ---- summary ---------------------------------------------------------------
     total = present_count + future_count
-    print("DEP-001/DEP-002 deployment contract validation")
+    print("DEP-001/DEP-002/RTN-012 deployment contract validation")
     print(f"  base: {registry.get('base_branch')} @ {registry.get('base_sha')}")
+    print(f"  last governed change: {registry.get('updated_by')}")
     print(
-        f"  components: {total} total, {present_count} present today, "
-        f"{future_count} future-work"
+        f"  components: {total} total, {present_count} present today "
+        f"(in-process module surfaces), {future_count} future-work"
     )
     if isinstance(envs, list):
         print(f"  environments: {', '.join(envs)}")
