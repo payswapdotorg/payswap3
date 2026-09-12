@@ -23,8 +23,8 @@
   "closure": "SYS-003"
  },
  "activeWork": [
-  "UI-009 in flight (responsive/accessibility/role hardening across all surfaces)",
-  "RTN wave MATERIALIZED with the seven deltas applied (spec/protocol-runtime-work-orders/RTN-001..012 + README activation record); frontier = RTN-001 dispatchable at antichain 1"
+  "RTN wave COMPLETE: RTN-001..012 all merged (SHAs in rtnWave.mergeRecord; PRs #20,#22-#32); UI-009 merged (PR #21, fd996c3)",
+  "Frontier: UI-011 (port re-anchoring — RTN-012 dependency satisfied) + DEP-004 (DISPATCHABLE — gate satisfied: RTN-001..011 hard + RTN-012 merged)"
  ],
  "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
  "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001); DEP-001 contract merged. Frontier: UI-002 in flight, DEP-002 dispatchable. Git history authoritative.",
@@ -43,18 +43,33 @@
   "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
   "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
   "frontier": [
-   "DEP-004 BLOCKED (RTN wave materialized; dispatch gate RTN-001..011 hard + RTN-012 recommended)",
-   "Product chain: UI-001..008 merged; UI-009 in flight (hardening); UI-011 opened (cross-program dep on RTN-012)"
+   "DEP-004 DISPATCHABLE (gate satisfied: RTN-001..RTN-011 merged hard + RTN-012 merged f22a624 — the dispatchability memo rides RTN-012's INTEGRATION-EVIDENCE.md, citing rulings Q2)",
+   "Product chain: UI-001..UI-009 merged (UI-009 = PR #21 fd996c3); UI-011 dispatchable (cross-program dependency RTN-012 merged); then UI-010 closure"
   ],
-  "note": "Architect rulings delivered 2026-09-11: verdict APPROVE-WITH-MODIFICATIONS (spec/development-state/rtn-plan-rulings.md) \u2014 all five questions ruled, no ACR required, seven ordered deltas; delta 6 directs opening the product port-re-anchoring work item (additive, product ledger). DEP-004 unblocked after RTN-001..011 + gate RTN-012. Infrastructure discovery (Composio): ONLY GitHub connected \u2014 Vercel/Cloudflare/database/queue/observability providers unconnected; DEP-005/006/007 infrastructure bindings await operator connections."
+  "note": "RTN wave complete (all 12 work orders merged; merge SHAs in rtnWave.mergeRecord). DEP-004 unblocked per the RTN-012 dispatchability memo. Infrastructure discovery (Composio): ONLY GitHub connected — Vercel/Cloudflare/database/queue/observability providers unconnected; DEP-005/006/007 infrastructure bindings await operator connections."
  },
  "rtnWave": {
-  "status": "materialized",
+  "status": "complete",
   "workOrders": "spec/protocol-runtime-work-orders/",
   "rulings": "spec/development-state/rtn-plan-rulings.md (merged fb8df22, PR #18)",
-  "verdict": "APPROVE-WITH-MODIFICATIONS \u2014 seven deltas applied",
-  "scope": "A01\u2013A16 operational spine; A17\u2013A24 deferred to named follow-on RTN wave 2 (delta 2)",
-  "dep004Gate": "RTN-001..RTN-011 hard + RTN-012 recommended",
-  "productCoupling": "UI-011 port re-anchoring item opened additively (delta 6); RTN-012 question-9 deferral recorded (delta 7)"
+  "verdict": "APPROVE-WITH-MODIFICATIONS — seven deltas applied",
+  "scope": "A01–A16 operational spine; A17–A24 deferred to named follow-on RTN wave 2 (delta 2)",
+  "dep004Gate": "SATISFIED — RTN-001..RTN-011 hard + RTN-012 all merged",
+  "productCoupling": "UI-011 port re-anchoring item opened additively (delta 6); RTN-012 question-9 deferral recorded (delta 7)",
+  "mergeRecord": {
+   "RTN-001": "184dbbb (PR #20)",
+   "RTN-002": "54b12ff (PR #24)",
+   "RTN-003": "adf78f3 (PR #23)",
+   "RTN-004": "945df37 (PR #22)",
+   "RTN-005": "92adb6a (PR #25)",
+   "RTN-006": "fe0fed0 (PR #26)",
+   "RTN-007": "28c6746 (PR #27)",
+   "RTN-008": "e67c48c (PR #28)",
+   "RTN-009": "4ac6792 (PR #29)",
+   "RTN-010": "ed4a05c (PR #30)",
+   "RTN-011": "14b6ca5 (PR #31)",
+   "RTN-012": "f22a624 (PR #32)"
+  },
+  "note": "All 12 work orders merged and independently verified by the Tech Lead (verification batteries in each PR). Composed golden path proven end-to-end in scripts/test_protocol_composed_journey.mjs (49-record chain VERIFIED). Wave-2 (A17-A24) remains a named deferral."
  }
 }

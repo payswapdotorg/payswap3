@@ -1,7 +1,7 @@
 # Protocol Runtime Materialization work orders (RTN wave)
 
 **Program:** protocol-runtime (governed runtime materialization program)
-**Status:** ACTIVE — wave materialized per the Architect's rulings (spec/development-state/rtn-plan-rulings.md, merged fb8df22): verdict **APPROVE-WITH-MODIFICATIONS**, seven ordered deltas applied to these work orders.
+**Status:** COMPLETE (2026-09-12) — all 12 work orders merged and independently verified by the Tech Lead: RTN-001 184dbbb · RTN-002 54b12ff · RTN-003 adf78f3 · RTN-004 945df37 · RTN-005 92adb6a · RTN-006 fe0fed0 · RTN-007 28c6746 · RTN-008 e67c48c · RTN-009 4ac6792 · RTN-010 ed4a05c · RTN-011 14b6ca5 · RTN-012 f22a624 (PRs #20, #22–#32). Wave materialized per the Architect's rulings (spec/development-state/rtn-plan-rulings.md, merged fb8df22): verdict **APPROVE-WITH-MODIFICATIONS**, seven ordered deltas applied to these work orders. The composed golden path is proven end-to-end (scripts/test_protocol_composed_journey.mjs — 49-record chain VERIFIED); the DEP-004 dispatchability memo and the nine reconciliation answers are filed in src/lib/protocol-runtime/INTEGRATION-EVIDENCE.md. RTN wave 2 (A17–A24) remains the named deferral.
 **Source proposal:** spec/development-state/rtn-materialization-plan-proposal.md (§3 decomposition, §4 invariants, §5 DEP-004 unblocking path).
 
 These work orders materialize the frozen v0.1 protocol authorities (A01–A16) as executable runtime code, in-process first (the DEP-003 precedent). They do not alter spec/architecture/v0.1/ (frozen), do not create protocol v0.2, and do not reopen WORK-001..WORK-033.

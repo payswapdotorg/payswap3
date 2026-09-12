@@ -114,12 +114,6 @@
    "note": "Additive ledger item opened per rtn-plan-rulings.md delta 6: owns src/lib/protocol/ port backings, stand-in mock retirement, spec/product/*-mapping-records.md re-anchoring; hard dependency on the merged composed RTN runtime (RTN-012 minimum); sequenced before UI-010 closure acceptance and before SYS-001 acceptance; does NOT gate DEP-004."
   }
  },
- "frontier": {
-  "openItems": [
-   "UI-009",
-   "UI-011 (blocked on cross-program RTN-012)"
-  ],
-  "note": "UI-001..008 merged; UI-009 in flight (hardening). UI-011 opened additively per rtn-plan-rulings.md delta 6 (port re-anchoring; hard dep on RTN-012); UI-010 closure now depends on UI-009 + UI-011. RTN wave materialized with the seven deltas applied (spec/protocol-runtime-work-orders/)."
- },
- "note": "UI-006 merged 87b9672 (PR #15) \u2014 waiting/queued/delayed UX with recovery. UI-007 dispatched (liquidity/credit/queue visibility; session live at base 87b9672). Git history authoritative."
+ "frontier": "UI-011",
+ "note": "UI-001..UI-009 all merged (UI-009 hardening = PR #21 fd996c3). RTN-012 merged f22a624 — UI-011 (port re-anchoring; additive item per rulings delta 6) is DISPATCHABLE: swap mock backings for runtime adapters over RTN-010 COMMAND-SURFACE.md, retire mocks, re-anchor mapping records. Then UI-010 closure (depends UI-009 + UI-011). Git history authoritative."
 }
