@@ -20,6 +20,25 @@
 > real-rail credential binding — DEP-005); the in-process forms claim no
 > externalized deployment and reach no production financial effect
 > (fail-closed; simulated rails only).
+>
+> **Governed contract change — DEP-004** (same clause): the durable
+> operational-jobs layer over the composed protocol runtime was
+> materialized as one further in-process module surface — the
+> `operational-jobs` component (`src/lib/operations/`: the reconciliation
+> sweep, clearing batch progression, netting-settlement progression and
+> queue-drain support job kinds, registered through the DEP-003
+> substrate's `register()` integration point and emitting protocol
+> commands exclusively through the protocol gateway with deterministic
+> idempotency keys). The registry summary and the per-component contracts
+> below were updated together with `deploy/contracts/components.json` and
+> `scripts/validate_deployment.py` in that one work item; the declared
+> base moved to the DEP-004 dispatch base (main @
+> 2c3f9cf0efb7bae808662d4dd1adaf604d69de0e — the composed runtime the
+> jobs orchestrate over; the operational-jobs entrypoints arrive with the
+> DEP-004 work item's tree). The component hosts no authority
+> (orchestration only); its future work is recorded like every other
+> component's (externalized process binding — DEP-002+; real-rail
+> credential binding — DEP-005).
 
 ## Purpose and method
 
@@ -29,7 +48,7 @@ DEP-001 defines contracts only. It performs no cloud deployments, no runtime pac
 
 Honesty rule: a component that does not exist as repository code at the declared base is marked **FUTURE-WORK** with its dependency-graph provenance. It is never silently presented as existing, and no entrypoint is invented for it. The machine-readable registry (`deploy/contracts/components.json`) and the validator (`scripts/validate_deployment.py`) enforce this: claimed-today entrypoints must exist on disk, and the present-set is locked to the governed set — `web-api-boundary` alone from DEP-001 until the RTN-012 governed change updated the contract to the ten-component in-process set (each claimed entrypoint exists on disk at the declared base; each component records its remaining future work). A further present-set change is again a governed change that updates all three surfaces together.
 
-## Repository source of truth (RTN-012 governed base 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02)
+## Repository source of truth (DEP-004 governed base 2c3f9cf0efb7bae808662d4dd1adaf604d69de0e)
 
 The repository's real entrypoints today (the honesty rule: claimed-today
 entrypoints must exist on disk at the declared base):
@@ -40,6 +59,7 @@ entrypoints must exist on disk at the declared base):
 - **Route surface:** `/` (shell home), `/state-primitives` (verification surface), `/_not-found`.
 - **Environment contract already in the app:** `src/lib/environment.ts` reads the server-side `PAYSWAP_ENV` variable with an exact allowlist (`sandbox | production`) and fail-safe to `sandbox`. This topology aligns with and extends that contract; it never contradicts it (see "Environment signal wiring" below).
 - **The composed protocol runtime (the RTN wave, in-process):** `src/lib/protocol-runtime/` — the kernel, evidence, risk, intent, policy, capability, routing, reservations, liquidity, credit, queues, clearing, obligations, netting, settlement, rails, gateway, transition, and hosting module families (the registry A01–A16 operational spine; `src/lib/protocol-runtime/index.ts` is the wave barrel documenting the module map and the composition order) — plus the DEP-003 durable execution substrate (`src/lib/durable/`: db, queue, worker, scheduler, events) the runtime hosts on.
+- **The durable operational-jobs layer (DEP-004, in-process):** `src/lib/operations/` — the operational-jobs family (`index.ts` is the family barrel documenting the module map and the composition order over the composed runtime): the reconciliation sweep, clearing batch progression, netting-settlement progression and queue-drain support job kinds, the orchestration wiring (registration + scheduler + on-demand triggers), the job-progress audit reader, and the operational evidence document (`OPERATIONS-EVIDENCE.md`). The jobs run as durable `operations.*` kinds on the DEP-003 substrate, derive work only from the authorities' public read surfaces, and emit protocol commands exclusively through the protocol gateway (the one admission point) — `scripts/test_operations.mjs` is the plain-Node evidence harness.
 
 The in-process form is the FIRST REALIZATION of the component contract, not
 an externalized deployment (rtn-plan-rulings.md Q3): the logical execution
@@ -117,6 +137,7 @@ Every node behind the boundary now ALSO exists as repository code in its
 | Durable command path | `src/lib/durable/queue.ts` (+ `worker.ts` as the dequeue engine of the transition path) |
 | Transition/runtime | `src/lib/protocol-runtime/transition/` + `hosting/` (the single authoritative-state writer on the substrate) |
 | scheduler | `src/lib/durable/scheduler.ts` + `src/lib/protocol-runtime/hosting/scheduler-wiring.ts` (timing-driven command emitters) |
+| operational jobs (the orchestration layer) | `src/lib/operations/` (the DEP-004 durable operational-jobs family: reconciliation sweeps, clearing batch progression, netting-settlement progression, queue-drain support — commands only, through the gateway) |
 | reconcilers | `src/lib/protocol-runtime/rails/reconciliation.ts` (the A14 authority; recurring cycle commands through the transition path) |
 | netting/settlement | `src/lib/protocol-runtime/netting/` + `settlement/` (the A11/A12 authorities; recurring tick commands) |
 | Authoritative state / database | the per-domain persistence modules over `src/lib/durable/db.ts` (the kernel persistence convention) |
@@ -143,10 +164,11 @@ rails).
 | Protocol gateway | `protocol-gateway` | present today (in-process: `protocol-runtime/gateway/`; externalized binding FUTURE-WORK) |
 | Durable command path | `durable-command-queue` | present today (in-process: `durable/queue.ts`; externalized binding FUTURE-WORK) |
 | Transition/runtime | `transition-runtime` | present today (in-process: `protocol-runtime/transition/` + `hosting/`; externalized binding FUTURE-WORK) |
-| Background workers | worker family: `reconciler-workers`, `netting-settlement-workers` (further subtypes arrive as governed work adds them) | present today (in-process: the A14 / A11/A12 authorities hosted on the transition path; externalized binding FUTURE-WORK) |
+| Background workers | worker family: `reconciler-workers`, `netting-settlement-workers` (further subtypes arrive as governed work adds them) + the `operational-jobs` orchestration layer (DEP-004) | present today (in-process: the A14 / A11/A12 authorities hosted on the transition path, orchestrated by the operational-jobs family; externalized binding FUTURE-WORK) |
 | scheduler | `scheduler` | present today (in-process: `durable/scheduler.ts` + `hosting/scheduler-wiring.ts`; externalized binding FUTURE-WORK) |
 | reconcilers | `reconciler-workers` | present today (in-process: `protocol-runtime/rails/reconciliation.ts`) |
 | netting/settlement | `netting-settlement-workers` | present today (in-process: `protocol-runtime/netting/` + `settlement/`) |
+| operational jobs | `operational-jobs` | present today (in-process: `src/lib/operations/` — the durable operational-jobs family over the composed runtime; externalized binding FUTURE-WORK) |
 | Authoritative state / database | `authoritative-state-store` | present today (in-process: the per-domain persistence modules on `durable/db.ts`; externalized binding FUTURE-WORK) |
 | queue | `durable-command-queue` | present today (in-process: `durable/queue.ts`) |
 | object/evidence storage | `evidence-object-store` | present today (in-process: `protocol-runtime/evidence/`; externalized binding FUTURE-WORK) |
@@ -156,7 +178,7 @@ rails).
 
 ## Component registry summary
 
-Machine-readable source of record: `deploy/contracts/components.json` (updated by the RTN-012 governed change: all ten components present with in-process entrypoints; every component carries its future_work note). Human summary (full per-component contracts follow):
+Machine-readable source of record: `deploy/contracts/components.json` (updated by the RTN-012 governed change to the ten in-process components, then by the DEP-004 governed change adding the `operational-jobs` family; every component carries its future_work note). Human summary (full per-component contracts follow):
 
 | id | status | repository entrypoint (in-process form) | owner (runtime) | layer (authority hosted) | health signal (contract) | rollback (contract) |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -166,6 +188,7 @@ Machine-readable source of record: `deploy/contracts/components.json` (updated b
 | `scheduler` | present (in-process) | `src/lib/durable/scheduler.ts` + `hosting/scheduler-wiring.ts` | deployment | deployment | heartbeat + missed-schedule alarms | redeploy (config only) |
 | `reconciler-workers` | present (in-process) | `src/lib/protocol-runtime/rails/reconciliation.ts` | deployment | protocol | drift metrics + reconciliation lag | redeploy + idempotent replay |
 | `netting-settlement-workers` | present (in-process) | `src/lib/protocol-runtime/netting/` + `settlement/` | deployment | protocol | batch progress + ledger integrity | redeploy + replay; never un-finalize |
+| `operational-jobs` | present (in-process) | `src/lib/operations/` (the job family + orchestration + the progress reader) | deployment | deployment | job-progress audit reader; job/reconciliation lag | redeploy + idempotent job replay |
 | `durable-command-queue` | present (in-process) | `src/lib/durable/queue.ts` | deployment | deployment | depth/age + dead-letter rate | retention + replay |
 | `authoritative-state-store` | present (in-process) | the per-domain persistence modules on `src/lib/durable/db.ts` | deployment | protocol | replication + consistency probes | PITR + replay; single writer only |
 | `evidence-object-store` | present (in-process) | `src/lib/protocol-runtime/evidence/` | deployment | protocol | write/read success + retention integrity | backup restore; append-only kept |
@@ -237,6 +260,15 @@ deployment.
 - **Health signal (implemented as the programmatic contract):** the netting-conservation ledger-identity probe (`hosting/probes.ts`).
 - **Rollback (contract):** redeploy the previous artifact and replay durable commands; finality is never reversed by deployment action.
 
+### operational-jobs — present today (in-process)
+
+- **Repository entrypoint (present, in-process form):** `src/lib/operations/` — `index.ts` (the family barrel + boundary contract), `jobs.ts` (the shared job runtime: the gateway-only submission discipline, the deterministic (job, cycle, subject) idempotency keys, the audit journal), `reconciliation-sweep.ts` (A14 orchestration), `clearing-progression.ts` (A09 window-batch progression), `netting-settlement-progression.ts` (A11 set progression + A12 settlement support — progression only, finality never), `queue-drain-support.ts` (A08 eligibility/expiry sweeps), `orchestration.ts` (registration through the substrate's `register()` integration point + the scheduler wiring following the scheduler-wiring precedent + the on-demand triggers), `progress-reader.ts` (the reads-only job-progress audit reader), `OPERATIONS-EVIDENCE.md` (the operational evidence document). Claimed paths exist on disk in the DEP-004 work item's tree.
+- **Future work that remains:** FUTURE-WORK: externalized process binding — the operational jobs as separately deployed background worker processes with job-lag, reconciliation-lag and batch-progression observability (DEP-002+); real-rail settlement support additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only). The recorded D-2 vocabulary gap (src/lib/protocol-runtime/INTEGRATION-EVIDENCE.md) leaves a subset of the jobs' gateway submissions queued pending the recorded vocabulary-alignment follow-up — a composed-runtime property documented in `src/lib/operations/OPERATIONS-EVIDENCE.md`, not a deployment-contract change.
+- **Owner (runtime):** deployment. **Layer:** deployment (hosts no protocol authority — orchestration and job logic only).
+- **Authority hosted:** none — the background operational jobs and orchestration for reconciliation sweeps, clearing batch progression, netting-settlement progression and queue-draining support. The jobs are durable `operations.*` kinds on the DEP-003 substrate: they derive work ONLY from the authorities' public read surfaces and emit protocol commands EXCLUSIVELY through `protocol-gateway` (the one admission point) with deterministic idempotency keys per (job, cycle, subject) — zero authority semantics, zero direct state mutation, never a blind retry of an UNKNOWN outcome (reconciliation is the A14 path's job), and settlement support NEVER asserts finality (finality is the Settlement Authority's own command). Every consequential job action is audited (the durable_events journal under the `operational-jobs` owner) and evidenced in the A15 chain through the protocol's own discipline.
+- **Health signal (implemented as the programmatic contract):** the job-progress audit reader (`src/lib/operations/progress-reader.ts`) — the journal + command-execution join; job-lag, reconciliation-lag and batch-progression metrics bind to observability from DEP-002+.
+- **Rollback (contract):** redeploy the previous artifact; the durable jobs replay from the DEP-003 queue with deterministic idempotency keys (re-execution re-derives pending work from authoritative state and re-submits the SAME keys — recorded receipts, never a second effect). Rollback never asserts or reverses finality (R3).
+
 ### durable-command-queue — present today (in-process)
 
 - **Repository entrypoint (present, in-process form):** `src/lib/durable/queue.ts` (the DEP-003 durable queue: UNIQUE (idempotency_key, kind) dedupe, at-least-once delivery, lease reclaim, dead-lettering) — the durable command path the gateway submits onto and the worker consumes from. Claimed paths exist on disk at the declared base.
@@ -280,7 +312,7 @@ deployment.
 
 **Durable command path (queue boundary).** Every state-changing protocol operation flows through `durable-command-queue` — no component bypasses it by writing authoritative state directly. At-least-once delivery; replay-safe; consumers are idempotent. The queue itself carries no financial semantics.
 
-**Worker boundary.** Background workers (`reconciler-workers`, `netting-settlement-workers`, future subtypes) consume durable commands and execute protocol-owned semantics inside deployment-owned processes. They never serve internet traffic, never hold rail credentials (only adapters do), and never mutate authoritative state directly.
+**Worker boundary.** Background workers (`reconciler-workers`, `netting-settlement-workers`, future subtypes) consume durable commands and execute protocol-owned semantics inside deployment-owned processes. They never serve internet traffic, never hold rail credentials (only adapters do), and never mutate authoritative state directly. The `operational-jobs` component (DEP-004) is the orchestration layer of this boundary: its durable job kinds derive pending work from the authorities' public read surfaces and emit protocol commands exclusively through the protocol gateway — never executing protocol-owned semantics themselves (the transition runtime remains the single writer) and never mutating authoritative state directly.
 
 **Scheduler boundary.** `scheduler` emits timing-driven commands into the durable queue. It owns timing, not semantics: no state mutation, no rail access, no protocol decisions.
 
@@ -332,3 +364,4 @@ Adding, removing or re-scoping components, environments or the `PAYSWAP_ENV` all
 - **DEP-001** generated the contract (base `fdef3aa7…`; present-set locked to `web-api-boundary`).
 - **DEP-002** added the runtime-packaging/startup-validation/health-readiness delta checks (every locked DEP-001 value unchanged).
 - **RTN-012** updated the present-set to all ten components with the RTN wave's in-process repository entrypoints (rtn-plan-rulings.md Q3/delta 3, under the DEP-003 precedent): declared base moved to the RTN wave base `14b6ca56c07de585df6d1a3a97edcc36ad2e4c02` (where the in-process entrypoints exist on disk); every component carries the `future_work` note recording the externalized process binding (and, for the rail adapters, the DEP-005 real-rail credential binding) that remains future work; owner stays `deployment` for every component; authority only in protocol-layer entries (registry-aligned names per rtn-plan-rulings.md Q4); `external-rail-adapters` stays authority_hosted `none` (Q3, delta 3). All three surfaces — components.json, this document, and the validator — were updated together in that one work item, and `python3 scripts/validate_deployment.py` exits 0 over the updated contract.
+- **DEP-004** added the `operational-jobs` component — the durable operational-jobs family (`src/lib/operations/`: reconciliation sweeps, clearing batch progression, netting-settlement progression, queue-drain support; the orchestration wiring; the job-progress audit reader; the operational evidence document + the `scripts/test_operations.mjs` evidence harness) — layer `deployment`, authority_hosted `none` (orchestration only: commands exclusively through `protocol-gateway`, deterministic idempotency keys per (job, cycle, subject), finality never asserted by the jobs, UNKNOWN outcomes trigger the A14 reconciliation path — never a blind retry). Declared base moved to the DEP-004 dispatch base `2c3f9cf0efb7bae808662d4dd1adaf604d69de0e` (the composed protocol runtime the jobs orchestrate over; the operational-jobs entrypoints arrive with the DEP-004 work item's tree and the validator's on-disk honesty check runs against it); owner stays `deployment` for every component; authority only in protocol-layer entries (unchanged). All three surfaces — components.json, this document, and the validator — were updated together in that one work item, and `python3 scripts/validate_deployment.py` exits 0 over the updated contract.

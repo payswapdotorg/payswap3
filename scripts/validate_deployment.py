@@ -46,17 +46,28 @@ Governed change history:
     web-api-boundary).
   - DEP-002 added the runtime-packaging/startup/health delta checks (every
     locked DEP-001 value unchanged).
-  - RTN-012 (this form) updated the present-set to all ten components with
-    the RTN wave's IN-PROCESS repository entrypoints (rtn-plan-rulings.md
+  - RTN-012 updated the present-set to all ten components with the RTN
+    wave's IN-PROCESS repository entrypoints (rtn-plan-rulings.md
     Q3/delta 3, under the DEP-003 precedent; the topology.md "Contract
-    evolution" clause — components.json + spec/deployment/* + this validator
-    updated together in the one work item): the declared base moved to the
-    RTN wave base (where the in-process entrypoints exist), every component
-    carries the future_work note recording the externalized process binding
-    (and, for the rail adapters, the DEP-005 real-rail credential binding)
-    that remains future work, owner stays 'deployment' for every component,
-    authority only in protocol-layer entries, and external-rail-adapters
-    stays authority_hosted 'none' (transmission-and-reporting only).
+    evolution" clause — components.json + spec/deployment/* + this
+    validator updated together in the one work item): the declared base
+    moved to the RTN wave base (where the in-process entrypoints exist),
+    every component carries the future_work note recording the
+    externalized process binding (and, for the rail adapters, the DEP-005
+    real-rail credential binding) that remains future work, owner stays
+    'deployment' for every component, authority only in protocol-layer
+    entries, and external-rail-adapters stays authority_hosted 'none'
+    (transmission-and-reporting only).
+  - DEP-004 (this form) added the 'operational-jobs' component (the durable
+    operational-jobs family — reconciliation sweeps, clearing batch
+    progression, netting-settlement progression, queue-draining support;
+    layer deployment, authority none — orchestration only, commands
+    exclusively through the protocol gateway) and moved the declared base
+    to the DEP-004 dispatch base (main @ 2c3f9cf — the composed protocol
+    runtime the jobs orchestrate over; the operational-jobs entrypoints
+    arrive with the DEP-004 work item's tree and the on-disk honesty check
+    runs against it). All three surfaces updated together in the one work
+    item; every locked value otherwise unchanged.
 
 Dependency-free: Python 3 standard library only.
 """
@@ -82,17 +93,21 @@ DOCKERIGNORE = REPO_ROOT / ".dockerignore"
 NEXT_CONFIG_TS = REPO_ROOT / "next.config.ts"
 
 EXPECTED_BASE_BRANCH = "main"
-# The RTN-012 governed contract change moved the declared base to the RTN
-# wave base (RTN-001..RTN-011 merged) — the base at which the nine newly
-# present components' in-process repository entrypoints exist on disk.
-# Precedent: the DEP-001 base fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73.
-EXPECTED_BASE_SHA = "14b6ca56c07de585df6d1a3a97edcc36ad2e4c02"
-EXPECTED_UPDATED_BY = "RTN-012"
+# The DEP-004 governed contract change moved the declared base to the
+# DEP-004 dispatch base (main @ 2c3f9cf — the composed protocol runtime
+# RTN-001..012 merged, the runtime the operational-jobs family orchestrates
+# over). The operational-jobs entrypoints arrive with the DEP-004 work
+# item's tree; the on-disk entrypoint honesty check below runs against the
+# working tree of that item. Precedents: the DEP-001 base
+# fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73; the RTN-012 base
+# 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02.
+EXPECTED_BASE_SHA = "2c3f9cf0efb7bae808662d4dd1adaf604d69de0e"
+EXPECTED_UPDATED_BY = "DEP-004"
 EXPECTED_CONTRACT = "payswap-deployment-components"
-# The RTN-012 present-set: web-api-boundary (the application) plus the nine
-# protocol/deployment components materialized as in-process module surfaces
-# by the RTN wave (rtn-plan-rulings.md Q3/delta 3 — one governed change;
-# every claimed entrypoint exists on disk at the declared base).
+# The DEP-004 present-set: the RTN-012 ten-component set plus the
+# 'operational-jobs' component (the durable operational-jobs family —
+# one governed change; every claimed entrypoint exists on disk in this
+# work item's tree).
 EXPECTED_PRESENT_COMPONENTS = {
     "web-api-boundary",
     "protocol-gateway",
@@ -100,6 +115,7 @@ EXPECTED_PRESENT_COMPONENTS = {
     "scheduler",
     "reconciler-workers",
     "netting-settlement-workers",
+    "operational-jobs",
     "durable-command-queue",
     "authoritative-state-store",
     "evidence-object-store",
@@ -220,7 +236,7 @@ def main():
     )
     check(
         registry.get("base_sha") == EXPECTED_BASE_SHA,
-        f"components.json: base_sha must be the RTN-012 governed base "
+        f"components.json: base_sha must be the DEP-004 governed base "
         f"{EXPECTED_BASE_SHA!r} (changing the declared base is a governed "
         "contract change that updates this validator)",
     )
@@ -474,11 +490,11 @@ def main():
         f"duplicate component ids: {[i for i in ids if ids.count(i) > 1]}",
     )
 
-    # ---- 4. honesty lock: the RTN-012 governed present-set -----------------
+    # ---- 4. honesty lock: the DEP-004 governed present-set ------------------
     check(
         present_ids == EXPECTED_PRESENT_COMPONENTS,
         f"components claiming repository presence today must equal the "
-        f"RTN-012 governed set {sorted(EXPECTED_PRESENT_COMPONENTS)} (found "
+        f"DEP-004 governed set {sorted(EXPECTED_PRESENT_COMPONENTS)} (found "
         f"{sorted(present_ids)}); changing the present-set is a governed "
         "contract change that updates this validator together with "
         "components.json and the spec/deployment/* documents",
