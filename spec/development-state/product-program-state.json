@@ -1,119 +1,121 @@
 {
- "schemaVersion": 1,
- "program": "payswap3-product",
- "status": "active",
- "closureTarget": "UI-010",
- "workItems": {
-  "UI-001": {
-   "id": "UI-001",
-   "title": "Product foundation: application shell, navigation grammar, and state display primitives",
-   "status": "merged",
-   "dependsOn": [],
-   "workOrder": "spec/product/work-orders/UI-001.md",
-   "merge": "f934a76 (PR #6)"
+  "schemaVersion": 1,
+  "program": "payswap3-product",
+  "status": "active",
+  "closureTarget": "UI-010",
+  "workItems": {
+    "UI-001": {
+      "id": "UI-001",
+      "title": "Product foundation: application shell, navigation grammar, and state display primitives",
+      "status": "merged",
+      "dependsOn": [],
+      "workOrder": "spec/product/work-orders/UI-001.md",
+      "merge": "f934a76 (PR #6)"
+    },
+    "UI-002": {
+      "id": "UI-002",
+      "title": "Customer payment intent surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-001"
+      ],
+      "workOrder": "spec/product/work-orders/UI-002.md",
+      "merge": "5bff0d6 (PR #10)"
+    },
+    "UI-003": {
+      "id": "UI-003",
+      "title": "Merchant checkout surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-002"
+      ],
+      "workOrder": "spec/product/work-orders/UI-003.md",
+      "merge": "ccf43dd (PR #13)"
+    },
+    "UI-004": {
+      "id": "UI-004",
+      "title": "Provider and capability surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-002"
+      ],
+      "workOrder": "spec/product/work-orders/UI-004.md",
+      "merge": "35ef9fe (PR #12)"
+    },
+    "UI-005": {
+      "id": "UI-005",
+      "title": "Track, status, and evidence surface",
+      "status": "merged",
+      "dependsOn": [
+        "UI-002"
+      ],
+      "workOrder": "spec/product/work-orders/UI-005.md",
+      "merge": "4ce0e74 (PR #11)"
+    },
+    "UI-006": {
+      "id": "UI-006",
+      "title": "Waiting, queued, and delayed fulfillment UX with recovery",
+      "status": "merged",
+      "dependsOn": [
+        "UI-003",
+        "UI-004",
+        "UI-005"
+      ],
+      "workOrder": "spec/product/work-orders/UI-006.md",
+      "merge": "87b9672 (PR #15)"
+    },
+    "UI-007": {
+      "id": "UI-007",
+      "title": "Liquidity, credit, and queue visibility surfaces",
+      "status": "merged",
+      "dependsOn": [
+        "UI-006"
+      ],
+      "workOrder": "spec/product/work-orders/UI-007.md",
+      "merge": "dd1399d (PR #16)"
+    },
+    "UI-008": {
+      "id": "UI-008",
+      "title": "Agent proposal, mediation, and dispute/recourse surfaces",
+      "status": "merged",
+      "dependsOn": [
+        "UI-007"
+      ],
+      "workOrder": "spec/product/work-orders/UI-008.md",
+      "merge": "daeced3 (PR #17)"
+    },
+    "UI-009": {
+      "id": "UI-009",
+      "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
+      "status": "merged",
+      "dependsOn": [
+        "UI-008"
+      ],
+      "workOrder": "spec/product/work-orders/UI-009.md",
+      "merge": "fd996c3 (PR #21)"
+    },
+    "UI-010": {
+      "id": "UI-010",
+      "title": "End-to-end UX closure evidence and Architect closure",
+      "status": "planned",
+      "dependsOn": [
+        "UI-009",
+        "UI-011"
+      ],
+      "workOrder": "spec/product/work-orders/UI-010.md"
+    },
+    "UI-011": {
+      "id": "UI-011",
+      "title": "Protocol port re-anchoring to the composed runtime",
+      "status": "merged",
+      "dependsOn": [
+        "RTN-012 (cross-program)"
+      ],
+      "workOrder": "to be materialized at dispatch readiness (post RTN-012 merge); scope pinned by rtn-plan-rulings.md delta 6",
+      "note": "Additive ledger item opened per rtn-plan-rulings.md delta 6: owns src/lib/protocol/ port backings, stand-in mock retirement, spec/product/*-mapping-records.md re-anchoring; hard dependency on the merged composed RTN runtime (RTN-012 minimum); sequenced before UI-010 closure acceptance and before SYS-001 acceptance; does NOT gate DEP-004.",
+      "merge": "0022405 (PR #34)"
+    }
   },
-  "UI-002": {
-   "id": "UI-002",
-   "title": "Customer payment intent surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-001"
-   ],
-   "workOrder": "spec/product/work-orders/UI-002.md",
-   "merge": "5bff0d6 (PR #10)"
-  },
-  "UI-003": {
-   "id": "UI-003",
-   "title": "Merchant checkout surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-002"
-   ],
-   "workOrder": "spec/product/work-orders/UI-003.md",
-   "merge": "ccf43dd (PR #13)"
-  },
-  "UI-004": {
-   "id": "UI-004",
-   "title": "Provider and capability surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-002"
-   ],
-   "workOrder": "spec/product/work-orders/UI-004.md",
-   "merge": "35ef9fe (PR #12)"
-  },
-  "UI-005": {
-   "id": "UI-005",
-   "title": "Track, status, and evidence surface",
-   "status": "merged",
-   "dependsOn": [
-    "UI-002"
-   ],
-   "workOrder": "spec/product/work-orders/UI-005.md",
-   "merge": "4ce0e74 (PR #11)"
-  },
-  "UI-006": {
-   "id": "UI-006",
-   "title": "Waiting, queued, and delayed fulfillment UX with recovery",
-   "status": "merged",
-   "dependsOn": [
-    "UI-003",
-    "UI-004",
-    "UI-005"
-   ],
-   "workOrder": "spec/product/work-orders/UI-006.md",
-   "merge": "87b9672 (PR #15)"
-  },
-  "UI-007": {
-   "id": "UI-007",
-   "title": "Liquidity, credit, and queue visibility surfaces",
-   "status": "merged",
-   "dependsOn": [
-    "UI-006"
-   ],
-   "workOrder": "spec/product/work-orders/UI-007.md",
-   "merge": "dd1399d (PR #16)"
-  },
-  "UI-008": {
-   "id": "UI-008",
-   "title": "Agent proposal, mediation, and dispute/recourse surfaces",
-   "status": "merged",
-   "dependsOn": [
-    "UI-007"
-   ],
-   "workOrder": "spec/product/work-orders/UI-008.md",
-   "merge": "daeced3 (PR #17)"
-  },
-  "UI-009": {
-   "id": "UI-009",
-   "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
-   "status": "blocked",
-   "dependsOn": [
-    "UI-008"
-   ],
-   "workOrder": "spec/product/work-orders/UI-009.md"
-  },
-  "UI-010": {
-   "id": "UI-010",
-   "title": "End-to-end UX closure evidence and Architect closure",
-   "status": "blocked",
-   "dependsOn": [
-    "UI-009",
-    "UI-011"
-   ],
-   "workOrder": "spec/product/work-orders/UI-010.md"
-  },
-  "UI-011": {
-   "id": "UI-011",
-   "title": "Protocol port re-anchoring to the composed runtime",
-   "status": "planned",
-   "dependsOn": [
-    "RTN-012 (cross-program)"
-   ],
-   "workOrder": "to be materialized at dispatch readiness (post RTN-012 merge); scope pinned by rtn-plan-rulings.md delta 6",
-   "note": "Additive ledger item opened per rtn-plan-rulings.md delta 6: owns src/lib/protocol/ port backings, stand-in mock retirement, spec/product/*-mapping-records.md re-anchoring; hard dependency on the merged composed RTN runtime (RTN-012 minimum); sequenced before UI-010 closure acceptance and before SYS-001 acceptance; does NOT gate DEP-004."
-  }
- },
- "frontier": "UI-011",
- "note": "UI-001..UI-009 all merged (UI-009 hardening = PR #21 fd996c3). RTN-012 merged f22a624 — UI-011 (port re-anchoring; additive item per rulings delta 6) is DISPATCHABLE: swap mock backings for runtime adapters over RTN-010 COMMAND-SURFACE.md, retire mocks, re-anchor mapping records. Then UI-010 closure (depends UI-009 + UI-011). Git history authoritative."
+  "frontier": "UI-010",
+  "note": "UI-011 merged (0022405, PR #34) \u2014 protocol ports re-anchored to the composed runtime; UI-009 state corrected to merged per git facts (fd996c3, PR #21); frontier = UI-010 (final product item, closure target)"
 }
