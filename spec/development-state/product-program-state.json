@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "program": "payswap3-product",
-  "status": "active",
+  "status": "closed",
   "closureTarget": "UI-010",
   "workItems": {
     "UI-001": {
@@ -97,12 +97,14 @@
     "UI-010": {
       "id": "UI-010",
       "title": "End-to-end UX closure evidence and Architect closure",
-      "status": "planned",
+      "status": "merged",
       "dependsOn": [
         "UI-009",
         "UI-011"
       ],
-      "workOrder": "spec/product/work-orders/UI-010.md"
+      "workOrder": "spec/product/work-orders/UI-010.md",
+      "merge": "b378f6d (PR #35)",
+      "note": "End-to-end UX closure evidence bundle + Architect closure submission (spec/product/closure/): port-level workflow journeys WF-1..WF-6 (62/62 assertions, A15 chain VERIFIED height 29); built-app audit WF-7..WF-8 (31/31 checks; role matrix 168/168 zero leakage); responsive + accessibility re-verification (keyboard/hscroll/touch-target 0 failures; 2 axe violations = FINDING 5 h1 gaps, dispositioned D-6); mapping roll-up (66 consequential states, 91/91 nine-question records, 0 unmapped); environment-signal proof (config-derived, anti-spoofed; FINDING 4 recorded); five integration findings + deferral ledger D-1..D-9. Local transplant verification battery: tsc 0; 1965/1965 (50134 expects); build green; 14/14 harnesses; governance 17/17; deployment PASS; durable 69/69."
     },
     "UI-011": {
       "id": "UI-011",
@@ -116,6 +118,6 @@
       "merge": "0022405 (PR #34)"
     }
   },
-  "frontier": "UI-010",
-  "note": "UI-011 merged (0022405, PR #34) \u2014 protocol ports re-anchored to the composed runtime; UI-009 state corrected to merged per git facts (fd996c3, PR #21); frontier = UI-010 (final product item, closure target)"
+  "frontier": null,
+  "note": "PRODUCT PROGRAM CLOSED by Tech Lead approval of the UI-010 closure submission (merge b378f6d, PR #35; base 2e3b831 verified exact; battery re-run locally, all green). All 11 items merged with git facts. Tech Lead dispositions: D-7 WAIVER-1 \u2014 ACCEPTED as the documented ungated verification-tooling pattern (fixtures-only content; under-exposure, not leakage; product role matrix independently evidenced 168/168); D-2 (FINDING 2: UI-011 splice does not reach the routes) and D-3 (FINDING 1: drain() halts the worker) \u2014 ELEVATED urgency into SYS-001's browser/surface transport binding remediation (supersedes in-process registration); D-4 \u2192 UI-007-owned surface; D-5 \u2192 shell owner; D-6 \u2192 UI-008 semantics (after D-2 remediation); D-8 \u2192 RTN wave-2 program; D-9 recorded, no action; WCAG 2.2 AA baseline remains assumption-flagged (fresh a11y evidence stands: 0 violations on 26/27 surfaces). SYSTEM closure NOT claimed \u2014 governed by spec/governance/SYSTEM-CLOSURE.md. Honest companion: spec/product/closure/deferral-ledger.md."
 }
