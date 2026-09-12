@@ -1,7 +1,7 @@
 # Waiting and recovery mapping records — UI-006
 
-**Authority owner:** Fulfillment/Queue Authority — spec/architecture/v0.1, `liquidity-credit-queues.md`
-**Runtime:** ARRIVING (the mock backing in `src/lib/protocol/mock-waiting-authority.ts` is presentation-only and NON-AUTHORITATIVE; sandbox data only)
+**Authority owner:** Fulfillment/Queue Authority — spec/architecture/v0.1, `liquidity-credit-queues.md` — **re-anchored by UI-011 to the composed A08 Queue Authority with A06 Liquidity / A07 Credit reads**
+**Runtime:** LIVE (the runtime adapter in `src/lib/protocol/runtime-waiting-adapter.ts` behind `getWaitingPort()`: snapshots read the A08 records; re-checks submit `queues.eligibility.evaluate` and cancels submit `queues.item.cancel` through the protocol gateway — the sole admission point). The mock backing is retired (the shim retains only the frozen harness imports — script records with no authority effect)
 **Surface:** waiting/queued/delayed presentation on the track surface — `/track/[referenceId]/waiting` and the waiting recovery panel composed onto the track detail surface
 **Display mapping:** `src/lib/protocol/waiting-state-mapping.ts` (one-to-one authority state → display presentation)
 **Record id scheme:** WQ-01 … WQ-16
@@ -256,3 +256,18 @@ The following are explicitly NOT authority states; they are presentations or cla
 - The mock backing (`src/lib/protocol/mock-waiting-authority.ts`) is presentation-only, NON-AUTHORITATIVE, and holds sandbox data only. The Fulfillment/Queue Authority implementation (per spec/architecture/v0.1, liquidity-credit-queues.md) is ARRIVING; when it lands, it replaces the mock behind `getWaitingPort()` and nothing else on the surface changes.
 - The mock's scripting API exists for the UI-006 verification harness and can script fulfillment phases only. It cannot script a recovery or an inquiry outcome: the only path to an accepted recovery result is `requestRecovery()`, which assesses authorization per request and refuses anything not individually authorized per protocol.
 - No time or progress estimate in this document or in the UI is authoritative unless the authority reported it. Where the authority has published no estimate, the surface says so explicitly.
+
+
+---
+
+## UI-011 re-anchoring — runtime truth and the question-9 discharge
+
+- **Owning authority:** the Queue Authority (A08) owns the FulfillmentQueue and QueuedItem records (the frozen one-way item chain QUEUED → ELIGIBLE → DISPATCHED → terminal(GRADUATED | CANCELLED | EXPIRED), INV-8-4: an item is never re-queued or re-dispatched until reconciliation resolves the operation); the Liquidity (A06) and Credit (A07) authorities own the release conditions' underlying values.
+- **fq.* vocabulary derivation (frozen port vocabulary, runtime truth behind it):** QUEUED/ELIGIBLE → `fq.queued.liquidity-credit` or `fq.queued.provider-availability` (derived from the queue's own immutable release-conditions policy); DISPATCHED → `fq.waiting.settlement-confirmation` (awaiting the linked operation's confirmation, INV-8-4); GRADUATED → `fq.resolved.completed`; CANCELLED/EXPIRED → `fq.resolved.failed` (with the authority's recorded reason). The delayed-* and unknown-* members are not produced by the runtime adapter from queue records (the runtime's UNKNOWN for dispatched operations lives in the settlement/rail path and resolves only through the A14 cycle — GC-2); their records stand with that stated.
+- **Evidence identity:** the A15 ITEM_* chain (ITEM_QUEUED / ITEM_ELIGIBLE / ITEM_DISPATCHED / ITEM_GRADUATED / ITEM_CANCELLED / ITEM_EXPIRED, each with the queue sequence and reason codes) + the gateway admission receipts for re-check/cancel commands.
+- **UNKNOWN semantics:** a reference the runtime does not know renders not-found (the honest no-record answer through the frozen WaitingLookupResult vocabulary — there is no no-answer member; the record states the reading); recovery retry/escalate are DENIED with the recorded gap (no runtime command kinds — INV-8-4 is structural), never fabricated.
+- **Reconciliation path:** re-check submits the real `queues.eligibility.evaluate` command over the runtime's current A06/A07/A03 reads; the snapshot re-read reports whatever the authority then holds (including a still-queued state — another honest answer, never a fabricated progression).
+- **User-visible wording source:** the snapshot's reason/expectation wordings restate the A08 record's own fields (state, queue policy, release conditions, linked operation).
+- **Viewer roles:** the runtime's read surface places no per-viewer restriction on queue reads; the product shell's audience model governs surface access.
+- **Question 9 (user-visible state) — RTN-012's deferral DISCHARGED (see INTEGRATION-EVIDENCE.md and intent-mapping-records.md):** the waiting surfaces render the composed runtime's real A08/A06/A07 data server-side; the per-port adapter suite (`runtime-waiting-adapter.test.ts`) proves the snapshot derivation, the gateway-admitted re-check, and the cancel authorization rules over the real runtime. End-to-end evidence rolls up under UI-010.
+- **Recorded deferrals:** the frozen port interface is synchronous while the gateway is async — re-check/cancel results report the SUBMISSION honestly (every admission outcome, including typed rejections, is recorded in the A15 chain — GATEWAY_COMMAND_REJECTED evidence — so nothing drops silently); the async evolution is product-surface work outside this item. Browser-context calls present not-found (no transport binding). The legacy sandbox reference ids resolve not-found against a fresh runtime.

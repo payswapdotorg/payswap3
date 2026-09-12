@@ -7,18 +7,24 @@
  *
  * Authority owners (per spec/architecture/v0.1):
  * - Agent proposals and human mediation: the Agents/Mediation Authority
- *   (extensions-agents-merchant.md).
+ *   (extensions-agents-merchant.md) — RTN wave 2, NOT merged as runtime code.
  * - Disputes and recourse paths: the Disputes/Recourse Authority
- *   (disputes-federation-blockchain-emergence.md).
+ *   (disputes-federation-blockchain-emergence.md) — RTN wave 2; the composed
+ *   runtime's A10 obligation dispute primitive (obligations.dispute.open /
+ *   applyDisputeResolution) is the merged dispute surface this port
+ *   re-anchors to.
  *
- * Runtime: ARRIVING. The only backing available today is the presentation-only
- * mock (mock-mediation-authority.ts), which is explicitly NON-AUTHORITATIVE.
- * Nothing in this port may be treated as authoritative, and no presentation
- * code may apply a decision outside the authorization this port surfaces.
+ * RE-ANCHORED (UI-011): the backing is the RUNTIME ADAPTER over the composed
+ * protocol runtime (src/lib/protocol/runtime-mediation-adapter.ts): dispute
+ * reads come from the A10 obligation ledger, dispute initiation submits
+ * obligations.dispute.open through the protocol gateway, and the area-19/21
+ * surfaces (proposals, mediation cases, the full dispute workflow) present
+ * unavailable/denied with the recorded gap — never fabricated. The mock
+ * mediation authority is DELETED outright (zero read-only importers).
  *
  * Presentation code must import TYPES ONLY from this module (`import type`) so
- * the mock backing is never pulled into client bundles; the port accessor is
- * for server-side pages and API routes.
+ * no backing is ever pulled into client bundles; the port accessor is for
+ * server-side pages and API routes.
  */
 
 export type PartyRole =
@@ -433,12 +439,27 @@ export interface MediationPort {
   }>;
 }
 
-import { getMockMediationAuthority } from "./mock-mediation-authority";
+import { getUnavailableMediationPort } from "./unavailable-backing";
 
 /**
- * Port accessor. Returns the NON-AUTHORITATIVE mock backing (runtime ARRIVING
- * for the real authorities). Server-side use only: pages and API routes.
+ * The registered runtime-adapter backing (set once per server process by
+ * src/lib/protocol/server-runtime.ts). Server-side use only: pages and API
+ * routes — the runtime is in-process on the server.
+ */
+let registeredBacking: MediationPort | undefined;
+
+/** UI-011 seam: register the server-side runtime adapter as this port's backing. */
+export function registerMediationPortBacking(backing: MediationPort): void {
+  registeredBacking = backing;
+}
+
+/**
+ * Port accessor. Since UI-011 it returns the registered RUNTIME ADAPTER
+ * (A10 dispute reads + gateway-admitted obligations.dispute.open; the
+ * area-19/21 gaps are denied/unavailable with recorded reasons). When no
+ * adapter is registered in this context, it returns the honest
+ * transport-unavailable backing.
  */
 export function getMediationPort(): MediationPort {
-  return getMockMediationAuthority();
+  return registeredBacking ?? getUnavailableMediationPort();
 }

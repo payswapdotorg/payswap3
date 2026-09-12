@@ -226,9 +226,44 @@ describe('single-writer boundary review: the product tier never mutates authorit
     expect(offenders).toEqual([]);
   });
 
-  test('(e-cont) the product ports surface (src/lib/protocol) imports no protocol-runtime authority', () => {
+  test('(e-cont, amended by UI-011) the product ports surface (src/lib/protocol) imports protocol-runtime ONLY through the sanctioned port-adapter modules', () => {
+    // UI-011 — the sanctioned product splice (rtn-plan-rulings.md
+    // Q5/delta 6; the gateway boundary test's splice guard is the work
+    // order's named amendment target, and this hosting-suite check guards
+    // the SAME pre-splice invariant, so the splice amends both honestly):
+    // the port adapter modules, the server-side composition root, the
+    // runtime handle, the adapter-boundary constants, the intent port's
+    // runtime-vocabulary re-export, and the product adapter tests are
+    // EXACTLY the sanctioned importers. Nothing else under
+    // src/lib/protocol/ imports protocol-runtime, and (e) above keeps
+    // src/app/ + src/components/ clean of authority imports entirely.
+    const SANCTIONED_PRODUCT_ADAPTER_FILES = new Set([
+      'adapter-boundary.ts',
+      'runtime-handle.ts',
+      'runtime-intent-adapter.ts',
+      'runtime-checkout-adapter.ts',
+      'runtime-capability-adapter.ts',
+      'runtime-tracking-adapter.ts',
+      'runtime-waiting-adapter.ts',
+      'runtime-liquidity-adapter.ts',
+      'runtime-mediation-adapter.ts',
+      'server-runtime.ts',
+      'intent-port.ts',
+      'runtime-intent-adapter.test.ts',
+      'runtime-checkout-adapter.test.ts',
+      'runtime-capability-adapter.test.ts',
+      'runtime-tracking-adapter.test.ts',
+      'runtime-waiting-adapter.test.ts',
+      'runtime-liquidity-adapter.test.ts',
+      'runtime-mediation-adapter.test.ts',
+      'product-adapter-test-compose.ts',
+    ]);
     const offenders: string[] = [];
     walk(join(REPO_ROOT, 'src', 'lib', 'protocol'), (filePath) => {
+      const fileName = filePath.split('/').pop() ?? '';
+      if (SANCTIONED_PRODUCT_ADAPTER_FILES.has(fileName)) {
+        return;
+      }
       const source = readFileSync(filePath, 'utf8');
       for (const specifier of importSpecifiers(source)) {
         if (specifier.includes('protocol-runtime/')) {

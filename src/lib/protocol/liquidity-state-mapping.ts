@@ -48,6 +48,8 @@ export type LiquidityAuthorityStateId =
   | 'queue.value.unknown'
   | 'oversight.aggregate.quoted'
   | 'oversight.aggregate.unknown'
+  | 'authority-binding.arriving'
+  | 'authority-binding.runtime-backed'
   | 'access.denied'
   | 'authority-binding.arriving';
 
@@ -153,10 +155,12 @@ export const LIQUIDITY_MAPPING_RECORD_CATALOG: readonly LiquidityMappingRecordSu
   },
   {
     recordId: 'LQ-012',
-    authorityState: 'authority-binding.arriving',
+    authorityState: 'authority-binding.runtime-backed',
     owningAuthority: 'Liquidity Authority / Credit Authority',
     presentation:
-      'An ARRIVING banner states that values are backed by the presentation-only mock until the authoritative runtime arrives; provenance wording still names the owning authorities.',
+      'Re-anchored by UI-011: the binding banner states that values are backed by the composed runtime’s A06/A07/A08 ' +
+      'authorities (runtime LIVE); provenance wording names the owning authorities, and cross-provider aggregates render ' +
+      'UNKNOWN by the recorded read-surface gap.',
   },
 ];
 
@@ -505,8 +509,8 @@ export function mapAccessDenied(denied: LiquidityAccessDenied): MappedAccessDeni
 
 export interface MappedAuthorityBinding {
   readonly recordId: 'LQ-012';
-  readonly state: 'authority-binding.arriving';
-  readonly runtime: 'ARRIVING';
+  readonly state: 'authority-binding.runtime-backed';
+  readonly runtime: 'ARRIVING' | 'LIVE';
   readonly authorityOwners: readonly LiquidityAuthorityOwner[];
   readonly authorityReference: string;
   readonly note: string;
@@ -517,14 +521,19 @@ export interface MappedAuthorityBinding {
 export function mapAuthorityBinding(binding: LiquidityPortBinding): MappedAuthorityBinding {
   return {
     recordId: 'LQ-012',
-    state: 'authority-binding.arriving',
+    state: 'authority-binding.runtime-backed',
     runtime: binding.runtime,
     authorityOwners: binding.authorityOwners,
     authorityReference: binding.authorityReference,
     note: binding.note,
     target: 'The authoritative liquidity, credit, and queue implementation',
     detail:
-      'The Liquidity Authority and the Credit Authority bindings arrive at runtime (ARRIVING). Until then every value on these surfaces comes from the presentation-only mock and is not authoritative.',
+      binding.runtime === 'LIVE'
+        ? 'Re-anchored by UI-011: the A06 Liquidity Authority, A07 Credit Authority, and A08 Queue Authority over the ' +
+          'composed protocol runtime back this port (runtime LIVE). Every value is the owning authority’s own read; ' +
+          'cross-provider aggregates are authority-UNKNOWN by the recorded read-surface gap — never UI-side sums. ' +
+          'Provenance wording names the owning authority on every cell.'
+        : 'The Liquidity Authority and the Credit Authority bindings are ARRIVING; nothing here is authoritative.',
   };
 }
 

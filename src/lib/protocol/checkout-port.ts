@@ -9,14 +9,16 @@
  * established by UI-002 (intent-port) and UI-004/UI-005 (capability-port /
  * tracking-port).
  *
- * BOUNDARY FACTS (pinned):
+ * BOUNDARY FACTS (pinned; re-anchored by UI-011):
  * - Authority owner of checkout truth: the Checkout/Intent Authority per
- *   spec/architecture/v0.1.
- * - Runtime status: ARRIVING — the real protocol authority is not live yet.
- * - The only implementation available today is the mock in
- *   mock-checkout-authority.ts, which is explicitly NON-AUTHORITATIVE and
- *   presentation-only: it never decides financial truth; it restates
- *   scripted sandbox data so the surface can be built and verified.
+ *   spec/architecture/v0.1 — the re-anchored adapter reads the composed A01
+ *   Intent Authority; the area-20 Merchant Authority runtime is RTN wave 2
+ *   (not merged) and its absence is stated honestly at the boundary.
+ * - Runtime status: LIVE — the composed protocol runtime backs the port
+ *   adapter (src/lib/protocol/runtime-checkout-adapter.ts): reads come from
+ *   the A01 query API + the real A15 chain, and decisions fail closed
+ *   (decision-not-allowed) because the composed runtime exposes no
+ *   merchant-decision command surface. Nothing is fabricated.
  * - The surface NEVER computes totals, fees, or exchange figures UI-side.
  *   Every amount rendered by this surface is quoted by the authority and
  *   carried here verbatim. The formatters below are presentation-only
@@ -29,21 +31,31 @@
 // Authority identity + runtime
 // ---------------------------------------------------------------------------
 
-import { mockCheckoutAuthority } from "./mock-checkout-authority";
+import { getUnavailableCheckoutPort } from "./unavailable-backing";
 
 /** The authority that owns checkout truth (spec/architecture/v0.1). */
 export const CHECKOUT_AUTHORITY_OWNER =
   "Checkout/Intent Authority (spec/architecture/v0.1)" as const;
 
-/** The runtime status of the real protocol authority backing this port. */
+/**
+ * The runtime status of the CHECKOUT authority surface backing this port.
+ * Re-anchored note (UI-011): the port's READS are re-anchored to the LIVE
+ * composed A01 Intent Authority (real intent terms and states, named in every
+ * reportedBy), but the area-20 Merchant Authority runtime (checkout-session
+ * semantics, merchant decisions) is RTN wave 2 and NOT merged — so the
+ * checkout authority surface itself is still ARRIVING and decisions fail
+ * closed with the recorded gap. The pinned status stays honestly ARRIVING.
+ */
 export type CheckoutRuntimeStatus = "ARRIVING";
 
-/** Pinned runtime status: the protocol authority backing this port is ARRIVING. */
+/** Pinned runtime status: the area-20 checkout authority surface is ARRIVING (RTN wave 2). */
 export const CHECKOUT_PORT_RUNTIME: CheckoutRuntimeStatus = "ARRIVING";
 
 /**
- * The port boundary is non-authoritative while the runtime is ARRIVING: the
- * mock below restates scripted sandbox data and owns no financial truth.
+ * The checkout port is not yet authoritative as a whole: its reads are
+ * A01-authoritative (named in reportedBy), but its decision semantics have
+ * no merged runtime command surface — decisions are refused, never
+ * fabricated.
  */
 export const CHECKOUT_PORT_IS_AUTHORITATIVE = false as const;
 
@@ -326,11 +338,11 @@ export type CheckoutDecisionResult =
  * nothing and computes nothing.
  */
 export interface CheckoutPort {
-  /** Pinned runtime status of the backing authority. */
+  /** Runtime status of the checkout authority surface (area-20 RTN wave 2: ARRIVING; reads are A01-LIVE — see authorityOwner/reportedBy). */
   readonly runtime: CheckoutRuntimeStatus;
   /** The authority that owns checkout truth. */
   readonly authorityOwner: string;
-  /** Explicitly false while the backing implementation is the mock. */
+  /** True while the checkout decision semantics have no merged runtime command surface. */
   readonly nonAuthoritative: true;
   getOffer(request: CheckoutOfferRequest): Promise<CheckoutOfferResult>;
   getStatus(request: CheckoutStatusRequest): Promise<CheckoutStatusResult>;
@@ -341,11 +353,25 @@ export interface CheckoutPort {
 }
 
 /**
- * Port accessor for the merchant checkout surface. Today this returns the
- * NON-AUTHORITATIVE mock (runtime ARRIVING); when the real Checkout/Intent
- * Authority lands, this accessor is the single seam that swaps over. The
- * surface code never imports the mock directly.
+ * The registered runtime-adapter backing (set once per server process by
+ * src/lib/protocol/server-runtime.ts); in a browser context no adapter is
+ * registered and the honest transport-unavailable backing answers.
+ */
+let registeredBacking: CheckoutPort | undefined;
+
+/** UI-011 seam: register the server-side runtime adapter as this port's backing. */
+export function registerCheckoutPortBacking(backing: CheckoutPort): void {
+  registeredBacking = backing;
+}
+
+/**
+ * Port accessor for the merchant checkout surface. Since UI-011 it returns
+ * the registered RUNTIME ADAPTER (A01 reads over the composed runtime;
+ * decisions fail closed where no runtime command surface exists); when no
+ * adapter is registered in this context (browser), it returns the honest
+ * transport-unavailable backing. The surface code never imports a backing
+ * directly.
  */
 export function getCheckoutPort(): CheckoutPort {
-  return mockCheckoutAuthority;
+  return registeredBacking ?? getUnavailableCheckoutPort();
 }

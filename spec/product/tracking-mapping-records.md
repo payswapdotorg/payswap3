@@ -353,3 +353,20 @@ Mock session examples referenced below: `PWS-9QM2` (succeeded), `PWS-2H8D` (fail
 7. Unanswerable case? Not applicable here; the authorization itself is the port's answer. (Audience resolution always answers — least-visibility fallback `unauthenticated`.)
 8. Audiences? Every audience can land here — including unauthenticated (not authorized for any reference in the mock session records: no anonymous tracking). Per-reference authorization is owned by the authorities behind the port; the mock's per-record audience lists are a presentation choice.
 9. Evidence? None is shown; authorization precedes any evidence.
+
+---
+
+## UI-011 re-anchoring — runtime truth and the question-9 discharge
+
+- **Owning authority:** the Intent Authority (A01) owns the tracked consequential states (DRAFT ... terminal FULFILLED/FAILED/CANCELLED) and the plain-language history's source records; the Evidence Authority (A15) owns the proof trail itself (the real record chain).
+- **Evidence identity:** every history entry and every evidence-trail view is a REAL A15 record — record id, sequence number, hash, owning authority, outcome + reason code — read from the composed runtime's log; the adapter never synthesizes a record (a no-answer evidence view presents the record-level UNKNOWN honestly, P5/N1).
+- **Tracked-state derivation (P4, frozen vocabulary):** DRAFT -> waiting; AUTHORIZED/ROUTED/FULFILLING -> in-progress; FULFILLED -> succeeded; FAILED/CANCELLED -> failed (with the A15-recorded reason codes). 'pending' is not expressible in the port's closed vocabulary.
+- **Reference resolution:** lookups resolve the runtime's own protocol object ids (the A01 intent ids the A15 chain names). References the runtime does not know render not-found with UNKNOWN-honest wording — the runtime's real answer, never a fabricated view.
+- **UNKNOWN semantics:** not-found wording states it is the runtime's answer for the reference (and, in browser context, that the adapter was not reachable — the recorded no-transport-binding deferral); the evidence-read availability scripting demonstrates the record-level no-answer presentation.
+- **Reconciliation path:** re-check re-queries the authority; terminal states are terminal (the frozen one-way table); settlement-side UNKNOWN resolves only through the A14 reconciliation cycle (GC-2) — presented as such, never invented.
+- **User-visible wording source:** history wording restates the A15 records' own outcomes and reason codes; the state wordings restate the A01 report.
+- **Viewer roles:** the runtime's read surface places no per-viewer restriction on protocol object reads; the product shell's audience model governs surface access.
+- **Question 9 (user-visible state) — RTN-012's deferral DISCHARGED (see INTEGRATION-EVIDENCE.md and intent-mapping-records.md):** the track surfaces render the composed runtime's real A01/A15 data server-side; the per-port adapter suite (runtime-tracking-adapter.test.ts) proves the tracked-state matrix, the A15-backed history/proof trail, and the no-answer record view over the real runtime. End-to-end evidence rolls up under UI-010.
+- **Recorded deferrals:** browser-context lookups present not-found with UNKNOWN-honest wording (no transport binding — recorded future work); the legacy sandbox reference ids (PWS-*, STL-*) resolve not-found against a fresh runtime (the honest answer through the frozen vocabulary).
+- **Adapter identity:** the runtime adapter (runtime-tracking-adapter.ts) behind getTrackingPort(); the mock is retired (the shim returns the CURRENT port backing and the reference catalog is honestly labeled).
+

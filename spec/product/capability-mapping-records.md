@@ -8,8 +8,13 @@ of `spec/product/intent-mapping-records.md` (UX contract Section 8).
   provider capability surface, UI-004).
 - Mapping module: `src/lib/protocol/capability-state-mapping.ts` (one-to-one,
   P4).
-- Port: `src/lib/protocol/capability-port.ts`; backing:
-  `src/lib/protocol/mock-capability-authority.ts` (NON-AUTHORITATIVE,
+- Port: `src/lib/protocol/capability-port.ts`; backing (re-anchored by
+  UI-011): `src/lib/protocol/runtime-capability-adapter.ts` (the RUNTIME
+  ADAPTER over the composed A03 Capability Authority — LIVE, read-only;
+  the mock backing is retired; the shim retains only the frozen
+  availability-scripting imports, which script the boundary's OWN
+  availability axis, never authority state). The original mock-era note
+  said: (NON-AUTHORITATIVE,
   presentation-only, runtime ARRIVING).
 - Authority owner of every state below: the Capability/Routing Authority per
   `spec/architecture/v0.1`.
@@ -210,3 +215,17 @@ capability vocabulary (available, unavailable, conditional, pending,
 indeterminate) carries no waiting-on-external-party semantics. `WaitingState`
 remains available to the shared primitive set for surfaces whose authority
 vocabulary includes it (e.g. the intent surface).
+
+
+---
+
+## UI-011 re-anchoring — runtime truth and the question-9 discharge
+
+- **Owning authority:** the Capability Authority (A03) owns every CapabilityRecord — the runtime's own state vocabulary (REGISTERED → ACTIVE → DEGRADED → RETIRED, terminal), declared capacity, corridors, cost schedules, tiers — read through the authority's own query API (getCapability / snapshot).
+- **Presentation-axis derivation (one-to-one, P4, unchanged shape):** REGISTERED → `pending` (in-progress display: awaiting the activation command), ACTIVE → `available` (succeeded display), DEGRADED → `conditional` (action-required display; the authority's own no-new-commitments rule is the condition), RETIRED → `unavailable` (failed display, terminal). `indeterminate` is never produced by the runtime adapter (A03 states are determinate); the availability axis ('reachable' when the runtime answers) is the adapter's own observation, scriptable by the verification harness for the availability-unknown presentation only.
+- **Evidence identity:** the A15 chain's CAPABILITY_* records (registered / state-changed) and the authority's own snapshot view; every item's evidence link anchors to the capability detail surface.
+- **UNKNOWN semantics:** the authoritative zero (a fresh runtime lists no capabilities — the authority's real answer) renders as the empty listing with the boundary note; the availability-unknown presentation (CAP-MAP-006) is produced when the source is unavailable (scripted or browser-context).
+- **Reconciliation path:** re-request re-reads the A03 snapshot; capability state changes occur only through gateway-admitted commands (capability.activate/degrade/retire — D-2 un-hosted kinds driven by the owning authority per the composed-journey precedent until the vocabulary alignment lands).
+- **User-visible wording source:** the adapter's reportedBy names the A03 authority; the descriptor summaries restate the record's own fields (rail, corridor, cost schedule, capacity — integer Money).
+- **Question 9 (user-visible state) — RTN-012's deferral DISCHARGED (see INTEGRATION-EVIDENCE.md and intent-mapping-records.md):** the capability surfaces render the composed runtime's real A03 records server-side; the per-port adapter suite (`runtime-capability-adapter.test.ts`) proves the state-matrix derivation over the real authority. End-to-end evidence rolls up under UI-010.
+- **Recorded deferrals:** browser-context calls present the boundary without an authoritative registry enumeration (no transport binding — the gateway HTTP binding is recorded future work); capability commands are D-2 un-hosted (driven by the owning authority in the composed-journey precedent).
