@@ -1,5 +1,5 @@
 import type { NavAudience } from "@/lib/navigation";
-import { getMockTrackingAuthority } from "./mock-tracking-authority";
+import { getUnavailableTrackingPort } from "./unavailable-backing";
 
 /**
  * UI-005 — Track, status, and evidence surface.
@@ -9,11 +9,13 @@ import { getMockTrackingAuthority } from "./mock-tracking-authority";
  * This module declares, in types, everything the tracking surfaces need from
  * the protocol side. It declares NO protocol semantics of its own: every
  * state, wording, timestamp, and evidence record below is shaped here and
- * ANSWERED by the authority behind the port. The only backing at runtime is
- * the presentation-only mock in ./mock-tracking-authority.ts — explicitly
- * NON-AUTHORITATIVE, with the real owners named below. When the live
- * tracking adapter lands, it is swapped in at getTrackingPort() and ONLY
- * there; no surface or component changes.
+ * ANSWERED by the authority behind the port. RE-ANCHORED (UI-011): the
+ * backing is the RUNTIME ADAPTER over the composed protocol runtime
+ * (src/lib/protocol/runtime-tracking-adapter.ts) — a read-only projection
+ * of the A01 Intent Authority's state reports and the A15 evidence chain
+ * (the real proof trail). The mock tracking authority is retired; it is
+ * swapped in at getTrackingPort() and ONLY there; no surface or component
+ * changes.
  *
  * Authority owner (per spec/architecture/v0.1): the Intent Authority (tracked
  * consequential states + plain-language history) and the Evidence Authority
@@ -195,22 +197,22 @@ export type TrackingLookupResult =
     };
 
 /**
- * The adapter boundary report — the mock self-describes so every surface can
- * render the boundary honestly. Runtime is marked ARRIVING until the real
- * tracking adapter replaces the mock at the port accessor.
+ * The adapter boundary report — the backing self-describes so every surface
+ * can render the boundary honestly. Re-anchored by UI-011: the runtime
+ * adapter over the composed protocol runtime (A01 + A15).
  */
 export interface TrackingBoundaryReport {
   readonly surface: string;
   readonly portModule: string;
   readonly backingModule: string;
-  readonly backingKind: "mock";
-  readonly runtime: "ARRIVING";
-  readonly authoritative: false;
-  readonly presentationOnly: true;
+  readonly backingKind: "mock" | "runtime-adapter";
+  readonly runtime: "ARRIVING" | "LIVE";
+  readonly authoritative: boolean;
+  readonly presentationOnly: boolean;
   /** Named owners of the real answers. */
   readonly authorityOwner: string;
   readonly authorityOwnerSource: string;
-  /** Scriptable dimensions exposed by the mock for verification. */
+  /** Scriptable dimensions exposed for verification (the evidence-read availability axis). */
   readonly scriptable: readonly string[];
   readonly note: string;
 }
@@ -225,15 +227,28 @@ export interface TrackingPort {
    * the surface tracks by reference only.
    */
   lookupReference(reference: string, viewer: NavAudience): Promise<TrackingLookupResult>;
-  /** The adapter boundary report (mock self-description, runtime ARRIVING). */
+  /** The adapter boundary report (the runtime adapter's honest self-description). */
   describeBoundary(): TrackingBoundaryReport;
 }
 
 /**
- * Port accessor. The mock authority is the only backing at runtime and is
- * presentation-only (NON-AUTHORITATIVE). The swap to the real adapter
- * happens here and only here.
+ * The registered runtime-adapter backing (set once per server process by
+ * src/lib/protocol/server-runtime.ts); in a browser context no adapter is
+ * registered and the honest transport-unavailable backing answers.
+ */
+let registeredBacking: TrackingPort | undefined;
+
+/** UI-011 seam: register the server-side runtime adapter as this port's backing. */
+export function registerTrackingPortBacking(backing: TrackingPort): void {
+  registeredBacking = backing;
+}
+
+/**
+ * Port accessor. Since UI-011 it returns the registered RUNTIME ADAPTER
+ * (A01 state reports + the A15 proof trail over the composed runtime);
+ * when no adapter is registered in this context (browser), it returns the
+ * honest transport-unavailable backing. The swap happens here and only here.
  */
 export function getTrackingPort(): TrackingPort {
-  return getMockTrackingAuthority();
+  return registeredBacking ?? getUnavailableTrackingPort();
 }

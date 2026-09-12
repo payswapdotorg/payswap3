@@ -2,7 +2,7 @@
 
 - Work order: UI-007 (liquidity, credit, and queued-position visibility surfaces)
 - Authority owners: the Liquidity Authority (liquidity positions, queued positions) and the Credit Authority (credit positions), per spec/architecture/v0.1 liquidity-credit-queues.md
-- Runtime status: ARRIVING — every value on these surfaces is currently backed by the presentation-only mock (src/lib/protocol/mock-liquidity-authority.ts), which is NON-AUTHORITATIVE and carries sandbox data only
+- Runtime status: LIVE (re-anchored by UI-011) — every value on these surfaces is backed by the RUNTIME ADAPTER FACTORY over the composed A06 Liquidity / A07 Credit / A08 Queue authorities (src/lib/protocol/runtime-liquidity-adapter.ts behind getLiquidityPort(overrides)); the mock backing is retired (the shim retains only the frozen sandbox-override reader + the permission mirror)
 - Surfaces covered: /liquidity (provider), /oversight (operator), and the UI-007 verification harness (src/app/verification/liquidity-flow)
 - Companion code: src/lib/protocol/liquidity-state-mapping.ts (one-to-one authority state to display presentation; the record ids below are the ids emitted by that module)
 
@@ -205,3 +205,17 @@ Owning authority: the Liquidity Authority and the Credit Authority (per spec/arc
 - Loading skeletons as states. Skeletons are rendering affordances, not authority states, and never replace an UNKNOWN that the authority reported.
 - Soft denial. "You would see data here if…" upsells are not part of the denied state — a denied surface renders nothing and redirects home.
 - The mock as an authority. The mock is presentation-only; provenance never names it as an owner.
+
+---
+
+## UI-011 re-anchoring — runtime truth and the question-9 discharge
+
+- **Owning authority:** the Liquidity Authority (A06) owns liquidity pools and positions (the INV-6-1 accounting: total = available + reserved + consumed, integer-exact); the Credit Authority (A07) owns credit lines and exposure (INV-7-1: exposure <= limit); the Queue Authority (A08) owns the queued-position snapshots.
+- **Value provenance:** every quoted figure is the owning authority's own read — positions via positionsOf (pools enumerated from the real POOL_OPENED A15 chain), credit via linesInOrder + lineExposure, queue depth as the authority's own resident-item set. Each value carries its quote id, quoted-at, and owning authority (N1/P11: nothing computed UI-side).
+- **UNKNOWN semantics (runtime truth):** the three oversight aggregates are authority-UNKNOWN BY READ-SURFACE GAP — the composed runtime exposes no cross-provider aggregate read, and the product never sums authority figures UI-side; each aggregate's explanation states the gap and its reconciliation names the owning authority's future read-surface extension (a recorded deferral, never a zero and never a failure). The verification overrides script the READ's availability axis only.
+- **Reconciliation path:** re-request re-reads the authorities; pool/line/queue changes occur only through gateway-admitted commands (the D-2 un-hosted kinds driven by the owning authorities per the composed-journey precedent).
+- **User-visible wording source:** every cell's provenance wording names the owning authority and quote identity (the mapping module's provenanceWordingForCell).
+- **Role mirror (P8):** provider-positions answers providers only; operator-oversight answers operators only — refused, never filtered-and-shown.
+- **Question 9 (user-visible state) — RTN-012's deferral DISCHARGED (see INTEGRATION-EVIDENCE.md and intent-mapping-records.md):** the liquidity/oversight surfaces render the composed runtime's real A06/A07/A08 data server-side; the per-port adapter suite (runtime-liquidity-adapter.test.ts) proves the quoted values, the authority-UNKNOWN aggregates, the role mirror, and the override scripting over the real runtime. End-to-end evidence rolls up under UI-010.
+- **Recorded deferrals:** the cross-provider oversight aggregate read (recorded future read-surface work — the per-provider reads remain available); browser-context calls present denied-with-reason (no transport binding); the A06/A07/A08 command kinds are D-2 un-hosted (the composed-journey precedent drives them on the owning authorities).
+

@@ -4,14 +4,17 @@
  * Adapter-boundary pattern (proven by intent-port UI-002, capability-port
  * UI-004, tracking-port UI-005, checkout-port UI-003): this module declares the
  * track surface's waiting data needs as typed interfaces plus a port accessor.
- * `getWaitingPort()` currently returns the NON-AUTHORITATIVE mock backing
- * (src/lib/protocol/mock-waiting-authority.ts).
+ * RE-ANCHORED (UI-011): `getWaitingPort()` returns the registered RUNTIME
+ * ADAPTER over the composed protocol runtime (src/lib/protocol/
+ * runtime-waiting-adapter.ts) when one is registered (server); the mock
+ * backing is retired.
  *
  * - Authority owner: the Fulfillment/Queue Authority
- *   (spec/architecture/v0.1, liquidity-credit-queues.md).
- * - Runtime: ARRIVING — the authority-backed implementation lands with the
- *   fulfillment/queue service; until then every value here is presentation-only
- *   sandbox data.
+ *   (spec/architecture/v0.1, liquidity-credit-queues.md) — the composed A08
+ *   Queue Authority with A06 Liquidity / A07 Credit reads.
+ * - Runtime: LIVE — the composed protocol runtime backs the adapter; where
+ *   the runtime exposes no command surface (retry/escalate recovery), the
+ *   adapter denies with the recorded gap instead of fabricating.
  *
  * Hard boundaries honored by every consumer of this port:
  * - Waiting, queued, and delayed are distinct authority-reported conditions,
@@ -30,17 +33,14 @@
  *   mutate durable financial state.
  */
 
-import {
-  MOCK_WAITING_AUTHORITY_OWNER,
-  MOCK_WAITING_RUNTIME,
-  mockWaitingAuthority,
-} from "@/lib/protocol/mock-waiting-authority";
+import { getUnavailableWaitingPort } from "@/lib/protocol/unavailable-backing";
 
-/** Owning authority for everything this port reports. */
-export const WAITING_PORT_AUTHORITY_OWNER = MOCK_WAITING_AUTHORITY_OWNER;
+/** Owning authority for everything this port reports (re-anchored to the composed runtime). */
+export const WAITING_PORT_AUTHORITY_OWNER =
+  "Fulfillment/Queue Authority (spec/architecture/v0.1 liquidity-credit-queues.md) — the composed A08 Queue Authority with A06/A07 reads";
 
-/** Runtime status of the authority-backed implementation. */
-export const WAITING_PORT_RUNTIME_STATUS = MOCK_WAITING_RUNTIME;
+/** Runtime status of the authority-backed implementation (re-anchored by UI-011). */
+export const WAITING_PORT_RUNTIME_STATUS = "LIVE" as const;
 
 /** Roles that may view waiting detail, mirroring the shell audience grammar. */
 export type WaitingViewerRole =
@@ -288,13 +288,15 @@ export type WaitingRecoveryRequestResult =
     };
 
 /**
- * The waiting surface's data needs. The mock backing is presentation-only and
- * NON-AUTHORITATIVE; the authority-backed implementation is ARRIVING.
+ * The waiting surface's data needs, re-anchored to the composed runtime
+ * (A08 reads; queues.eligibility.evaluate / queues.item.cancel commands via
+ * the protocol gateway).
  */
 export interface WaitingPort {
   readonly runtime: typeof WAITING_PORT_RUNTIME_STATUS;
   readonly authorityOwner: string;
-  readonly nonAuthoritative: true;
+  /** Re-anchored by UI-011: false — the runtime adapter is authoritative for what it reports. */
+  readonly nonAuthoritative: boolean;
   /** Per-reference, per-role lookup of the waiting snapshot. */
   lookupWaiting(
     referenceId: string,
@@ -311,9 +313,23 @@ export interface WaitingPort {
 }
 
 /**
- * Port accessor. Returns the NON-AUTHORITATIVE mock backing while the real
- * Fulfillment/Queue Authority implementation is ARRIVING.
+ * The registered runtime-adapter backing (set once per server process by
+ * src/lib/protocol/server-runtime.ts); in a browser context no adapter is
+ * registered and the honest transport-unavailable backing answers.
+ */
+let registeredBacking: WaitingPort | undefined;
+
+/** UI-011 seam: register the server-side runtime adapter as this port's backing. */
+export function registerWaitingPortBacking(backing: WaitingPort): void {
+  registeredBacking = backing;
+}
+
+/**
+ * Port accessor. Since UI-011 it returns the registered RUNTIME ADAPTER
+ * (A08 reads + gateway-admitted recovery/inquiry commands over the composed
+ * runtime); when no adapter is registered in this context (browser), it
+ * returns the honest transport-unavailable backing.
  */
 export function getWaitingPort(): WaitingPort {
-  return mockWaitingAuthority;
+  return registeredBacking ?? getUnavailableWaitingPort();
 }

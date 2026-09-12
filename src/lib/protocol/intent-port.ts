@@ -9,29 +9,46 @@
  * port, and nothing on the product side computes, decides, or fabricates
  * intent state (N1), acceptance (N1/P4), or settlement wording (N2).
  *
- * CURRENT IMPLEMENTATION: the port is backed by a MOCK that is explicitly
- * NON-AUTHORITATIVE and PRESENTATION-ONLY. The mock simulates the
- * transport and fixture records the real runtime will expose; it is never
- * a financial authority (N1), never protocol authorization (N3), and
- * never durable financial state (N5). The protocol runtime — and with it
- * the Intent Authority's real state vocabulary — is ARRIVING with the
- * protocol runtime program. When it lands, this port is re-anchored to
- * the runtime and the mock is retired; the surfaces do not change shape.
+ * CURRENT IMPLEMENTATION (UI-011 — the sanctioned product splice): the
+ * port is backed by the RUNTIME ADAPTER over the composed protocol
+ * runtime (src/lib/protocol/runtime-intent-adapter.ts): commands are
+ * admitted exclusively through ProtocolGateway.submitCommand (the sole
+ * admission point) and state reads use the composed A01 Intent
+ * Authority's public query API over the real A15 evidence log. The
+ * stand-in mock authority is RETIRED (mock-intent-authority.ts now holds
+ * only the frozen verification-harness imports and backs nothing). The
+ * port interface is unchanged: the function signatures product surfaces
+ * call compile exactly as before.
+ *
+ * RE-ANCHORED VOCABULARY: the iterable authority-state vocabulary is the
+ * runtime's own INTENT_STATES export (A01: DRAFT → AUTHORIZED → ROUTED →
+ * FULFILLING → terminal(FULFILLED | FAILED | CANCELLED)). The frozen
+ * mock-era fixture members remain in the AuthorityState union solely so
+ * the read-only product surfaces that type against them (the UI-002
+ * verification harness's submit-outcome selector) keep compiling — the
+ * runtime adapter never reports them; every runtime-produced state is a
+ * real A01 state, and each state's mapping record states which.
  *
  * Consequential-state mapping: every authority state renderable through
  * this port carries a nine-question mapping record in
  * spec/product/intent-mapping-records.md. Unmapped states do not ship.
  */
 
-// ── Authority fixture vocabulary ─────────────────────────────────────────
+// ── Authority state vocabulary (re-anchored to the runtime's own export) ──
 //
-// These identifiers are the MOCK's fixture vocabulary only. The Intent
-// Authority's real state vocabulary ARRIVES with the protocol runtime;
-// nothing here defines protocol semantics. Each fixture state maps to
-// exactly one display state in intent-state-mapping.ts and carries a
-// mapping record in spec/product/intent-mapping-records.md.
+// AUTHORITY_STATES is the Intent Authority's REAL state vocabulary,
+// imported from the runtime's own leaf module (pure constants — safe in
+// every module graph). The legacy fixture members stay in the TYPE union
+// only for interface compatibility with the frozen product surfaces.
 
-export const AUTHORITY_STATES = [
+export { INTENT_STATES as RUNTIME_INTENT_STATES } from '../protocol-runtime/intent/types.ts';
+import { INTENT_STATES } from '../protocol-runtime/intent/types.ts';
+
+/** The iterable authority-state vocabulary: the runtime's real A01 states (typed over the widened union so frozen surfaces that compare against legacy fixture members keep compiling). */
+export const AUTHORITY_STATES: readonly AuthorityState[] = INTENT_STATES;
+
+/** The mock-era fixture members (interface-compat only — never reported by the runtime adapter). */
+export const LEGACY_FIXTURE_STATES = [
   'acknowledged',
   'rejected',
   'unresolved',
@@ -40,10 +57,22 @@ export const AUTHORITY_STATES = [
   'action-requested',
 ] as const;
 
-export type AuthorityState = (typeof AUTHORITY_STATES)[number];
+type LegacyFixtureState = (typeof LEGACY_FIXTURE_STATES)[number];
+
+/** The authority state vocabulary the port can report (runtime states + interface-compat fixture members). */
+export type AuthorityState = (typeof INTENT_STATES)[number] | LegacyFixtureState;
 
 export function isAuthorityState(value: unknown): value is AuthorityState {
-  return typeof value === 'string' && (AUTHORITY_STATES as readonly string[]).includes(value);
+  return (
+    typeof value === 'string' &&
+    ((INTENT_STATES as readonly string[]).includes(value) ||
+      (LEGACY_FIXTURE_STATES as readonly string[]).includes(value))
+  );
+}
+
+/** True iff the state is one the composed runtime's Intent Authority actually reports. */
+export function isRuntimeAuthorityState(value: unknown): value is (typeof INTENT_STATES)[number] {
+  return typeof value === 'string' && (INTENT_STATES as readonly string[]).includes(value);
 }
 
 // ── Common value shapes ──────────────────────────────────────────────────
@@ -66,8 +95,9 @@ export interface IntentAuthorityRef {
   readonly owner: 'Intent Authority';
   /** Per spec/architecture/v0.1 — the Intent Authority owns intent state. */
   readonly architectureRef: 'spec/architecture/v0.1';
-  readonly runtimeStatus: 'ARRIVING';
-  readonly implementation: 'mock (non-authoritative, presentation-only)';
+  /** Re-anchored by UI-011: the composed protocol runtime backs the adapter. */
+  readonly runtimeStatus: 'ARRIVING' | 'LIVE';
+  readonly implementation: string;
 }
 
 // ── Composition ──────────────────────────────────────────────────────────
@@ -249,15 +279,32 @@ export type SessionIntentListResult =
 export interface BoundaryReport {
   readonly adapter: 'intent-port';
   readonly authorityOwner: 'Intent Authority (spec/architecture/v0.1)';
-  readonly runtimeStatus: 'ARRIVING';
-  readonly implementation: 'mock';
-  readonly authoritative: false;
+  /** Re-anchored by UI-011: 'LIVE' — the composed runtime backs the adapter. */
+  readonly runtimeStatus: 'ARRIVING' | 'LIVE';
+  /** Implementation identity, stated honestly (UI-011 acceptance). */
+  readonly implementation: string;
+  /** Re-anchored by UI-011: the runtime adapter is authoritative for state presentation. */
+  readonly authoritative: boolean;
   readonly note: string;
 }
 
 // ── The port ─────────────────────────────────────────────────────────────
 
-import { getMockIntentPort } from './mock-intent-authority';
+import { getUnavailableIntentPort } from './unavailable-backing';
+
+/**
+ * The registered runtime-adapter backing (set once per server process by
+ * src/lib/protocol/server-runtime.ts through registerIntentPortBacking).
+ * In a browser context (the frozen 'use client' consumers) no runtime
+ * adapter is registered — the transport-unavailable backing answers and
+ * presents no-answer / not-transported as UNKNOWN (P5), never fabricating.
+ */
+let registeredBacking: IntentPort | undefined;
+
+/** UI-011 seam: register the server-side runtime adapter as this port's backing. */
+export function registerIntentPortBacking(backing: IntentPort): void {
+  registeredBacking = backing;
+}
 
 export interface IntentPort {
   /** Describes this adapter boundary, for honest display where relevant. */
@@ -288,11 +335,13 @@ export interface IntentPort {
 }
 
 /**
- * The adapter boundary accessor. Today it returns the NON-AUTHORITATIVE
- * mock; when the protocol runtime program lands it returns the runtime
- * adapter and the mock is retired. Surfaces never import the mock
- * directly — they go through this port.
+ * The adapter boundary accessor. Since UI-011 it returns the registered
+ * RUNTIME ADAPTER (the composed protocol runtime behind the gateway —
+ * the sole admission point for commands; the A01 query API + A15 log for
+ * reads); when no adapter is registered in this context (browser), it
+ * returns the honest transport-unavailable backing. Surfaces never
+ * import any backing directly — they go through this port.
  */
 export function getIntentPort(): IntentPort {
-  return getMockIntentPort();
+  return registeredBacking ?? getUnavailableIntentPort();
 }

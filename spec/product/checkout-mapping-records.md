@@ -1,7 +1,17 @@
 # Checkout consequential-state mapping records (UI-003 — merchant checkout surface)
 
-**Authority owner of checkout truth:** Checkout/Intent Authority per spec/architecture/v0.1
-**Runtime status:** ARRIVING — the real protocol authority is not live; the only backing today is `mock-checkout-authority.ts`, which is explicitly **NON-AUTHORITATIVE and presentation-only** (sandbox data, scriptable outcomes, one scripted outcome path per checkout id).
+**Authority owner of checkout truth:** Checkout/Intent Authority per spec/architecture/v0.1 — **re-anchored by UI-011**: the port's READS come from the composed A01 Intent Authority (LIVE: real DemandDescriptor terms, real intent states); the area-20 Merchant Authority runtime (checkout-session semantics) is RTN wave 2 and NOT merged, so the checkout authority surface itself is pinned honestly ARRIVING and merchant decisions fail closed with the recorded gap.
+**Runtime status:** READS LIVE (A01 over the composed protocol runtime) · CHECKOUT-AUTHORITY SURFACE ARRIVING (area-20 wave 2) — the backing is `src/lib/protocol/runtime-checkout-adapter.ts` (commands would flow through `ProtocolGateway.submitCommand`; none exist for merchant decisions, so `submitDecision` refuses with `decision-not-allowed` and nothing is fabricated). The mock backing is retired (`mock-checkout-authority.ts` retains only the frozen verification-catalog imports).
+
+## UI-011 re-anchoring — runtime truth and the question-9 discharge
+
+- **Owning authority:** reads — the Intent Authority (A01: the recorded intent's terms, state, and A15 chain); decisions — NO merged runtime command surface (the area-20 Merchant Authority is RTN wave 2; the recorded deferral owns the decision splice when that runtime lands).
+- **Evidence identity:** the A15 INTENT_* chain behind each offer/status; the gateway admission receipts for any admitted command; no fee is quoted anywhere (the runtime exposes no fee-quote surface — only figures the Intent Authority reports are quoted).
+- **UNKNOWN semantics:** `cko-map-08` (unknown) is produced from runtime truth when the checkout's merchant-decision record does not exist in the composed runtime (the intent progressed beyond DRAFT) — with its reconciliation path; `checkout-not-found` is the honest no-record answer for references the A01 registry does not hold.
+- **Reconciliation path:** re-check re-reads the A01 record; the decision gap is recorded (never silently presented as a mock acceptance).
+- **User-visible wording source:** the adapter's reportedBy/conditions wordings restate the A01 record's own fields (amount, deadline, allowed rails, cost ceiling).
+- **Question 9 (user-visible state) — RTN-012's deferral DISCHARGED (see intent-mapping-records.md's discharge section and INTEGRATION-EVIDENCE.md):** the checkout surfaces render the composed runtime's real intent data server-side; the verification harness's scripted outcomes degrade honestly (its catalog is display-only). End-to-end journey evidence rolls up under UI-010.
+- **Recorded deferrals:** the merchant-decision command surface (area-20 wave 2; the decision splice lands with it); no fee-quote surface (only A01-reported figures are quoted).
 **Surface:** merchant checkout flow — offer/quote presentation (consequence-first), explicit accept and decline, consequential state presentation (`src/app/(merchant)/checkout/*`, `src/components/merchant/*`).
 **Adapter boundary:** `src/lib/protocol/checkout-port.ts` (`getCheckoutPort()`), mapping module `src/lib/protocol/checkout-state-mapping.ts` (`resolveCheckoutDisplay`).
 **Mapping discipline:** every authority state below resolves to **exactly one** display state (one-to-one, P4); the display state is rendered through the shared state primitives (`src/components/state`) exclusively. The nine-question record format follows `spec/product/intent-mapping-records.md` (UI-002).
@@ -9,6 +19,9 @@
 ---
 
 ## Record cko-map-01 — `offered` → ActionRequiredState (`action-required`)
+
+> **Re-anchored (UI-011):** produced from the runtime's real DRAFT intent (the adapter reads the A01 record; the offer's terms are the DemandDescriptor's own fields; the queue lists recorded DRAFT intents).
+
 
 1. **What is the consequential state, in plain language?** An offer/quote is presented to this merchant and is waiting for an explicit decision. Nothing has been committed: the money, the obligations, and the chargeback exposure described in the quote are all still *conditional* on an acceptance that has not happened.
 2. **Which protocol object and authority state does it map from?** The merchant checkout object (`cko_*`, protocol reference `pco_*`) in authority state `offered`.
@@ -24,6 +37,9 @@
 
 ## Record cko-map-02 — `accept-submitted` → InProgressState (`in-progress-accept-submission`)
 
+> **Re-anchored (UI-011):** NOT produced by the runtime adapter — accept decisions are refused with the recorded area-20 gap (`decision-not-allowed`); the record's presentation contract stands for when the area-20 runtime lands.
+
+
 1. **What is the consequential state, in plain language?** The merchant has explicitly confirmed an acceptance; it is being routed through protocol authorization. The acceptance is neither acknowledged nor refused yet — nothing is committed *or* rejected at this moment.
 2. **Which protocol object and authority state does it map from?** The checkout decision submission in authority state `accept-submitted` (receipt `drc_*`).
 3. **Which authority owns the truth of this state?** The Checkout/Intent Authority (protocol authorization path). The mock simulates the routing only.
@@ -37,6 +53,9 @@
 ---
 
 ## Record cko-map-03 — `decline-submitted` → InProgressState (`in-progress-decline-submission`)
+
+> **Re-anchored (UI-011):** NOT produced by the runtime adapter — decline decisions are refused with the recorded area-20 gap; retained so nothing unmapped ships.
+
 
 1. **What is the consequential state, in plain language?** The merchant has explicitly confirmed a decline; it is being routed through protocol authorization. The decline is not yet recorded.
 2. **Which protocol object and authority state does it map from?** The checkout decision submission in authority state `decline-submitted` (receipt `drc_*`).
@@ -52,6 +71,9 @@
 
 ## Record cko-map-04 — `accepted` → SucceededState (`succeeded-acknowledged`)
 
+> **Re-anchored (UI-011):** NOT produced by the runtime adapter (no merchant-decision command surface; area-20 wave 2). Retained for the future surface.
+
+
 1. **What is the consequential state, in plain language?** The merchant's acceptance is acknowledged and recorded by the authority. The merchant is now committed to the offer's obligations; the money has *not necessarily moved* — payment is a separate, later authority-reported phase.
 2. **Which protocol object and authority state does it map from?** The checkout object in authority state `accepted`, with the acceptance acknowledgment receipt (scenario `cko_live_accept_001`).
 3. **Which authority owns the truth of this state?** The Checkout/Intent Authority (checkout ledger).
@@ -65,6 +87,9 @@
 ---
 
 ## Record cko-map-05 — `accepted-awaiting-payment` → WaitingState (`waiting-payment-confirmation`)
+
+> **Re-anchored (UI-011):** NOT produced by the runtime adapter (area-20 wave 2). Retained.
+
 
 1. **What is the consequential state, in plain language?** The acceptance is acknowledged and the checkout is now waiting for the paying-side authority to confirm the customer's payment. Money has not moved to the merchant.
 2. **Which protocol object and authority state does it map from?** The checkout object in authority state `accepted-awaiting-payment` (scenario `cko_payment_pending_001`).
@@ -80,6 +105,9 @@
 
 ## Record cko-map-06 — `declined` → SucceededState (`succeeded-declined`)
 
+> **Re-anchored (UI-011):** NOT produced by the runtime adapter (area-20 wave 2). Retained.
+
+
 1. **What is the consequential state, in plain language?** The merchant's decline is recorded by the authority. The offer is closed to this merchant, the customer's intent moves on without this merchant's fulfilment, and no obligation from the offer applies.
 2. **Which protocol object and authority state does it map from?** The checkout object in authority state `declined`, with the decline receipt (scenarios `cko_live_decline_001`, `cko_high_band_decline_001`).
 3. **Which authority owns the truth of this state?** The Checkout/Intent Authority (checkout ledger).
@@ -94,6 +122,9 @@
 
 ## Record cko-map-07 — `failed` → FailedState (`failed`)
 
+> **Re-anchored (UI-011):** produced from the runtime's real terminal intents — an intent the A01 authority moved to FAILED or CANCELLED presents this checkout state with the authority's recorded reason (the state page carries the reason code).
+
+
 1. **What is the consequential state, in plain language?** A checkout decision failed. The authority recorded a reason — e.g. protocol authorization refused the acceptance because the merchant identity lacks the high-band scope — and the checkout did not proceed.
 2. **Which protocol object and authority state does it map from?** The checkout object in authority state `failed` with a recorded reason and suggested next actions (scenario `cko_fail_authorization_001`).
 3. **Which authority owns the truth of this state?** The Checkout/Intent Authority (and, where the failure is an authorization refusal, the protocol authorization path it names).
@@ -107,6 +138,9 @@
 ---
 
 ## Record cko-map-08 — `unknown` → UnknownState (`unknown`) **[the UNKNOWN path]**
+
+> **Re-anchored (UI-011):** produced from runtime truth: the intent progressed beyond DRAFT (the merchant-decision record does not exist in the composed runtime) — unknown with its reconciliation path, never a fabricated decision outcome.
+
 
 1. **What is the consequential state, in plain language?** The outcome of a submitted decision is genuinely UNKNOWN to this surface: the acceptance was routed, but no terminal acknowledgment or failure arrived before the response window closed. It may have been accepted, or refused, or still be in flight — the surface does not know and will not guess.
 2. **Which protocol object and authority state does it map from?** The checkout object in authority state `unknown` (scenario `cko_unknown_001`).

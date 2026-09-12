@@ -2,7 +2,7 @@
 
 **Work order:** UI-008 — Agent proposal, mediation, and dispute/recourse surfaces
 **Authority owners:** the Agents/Mediation Authority (spec/architecture/v0.1/extensions-agents-merchant.md — agent proposals, human mediation) and the Disputes/Recourse Authority (spec/architecture/v0.1/disputes-federation-blockchain-emergence.md — disputes, recourse paths).
-**Runtime:** ARRIVING — every record below is currently backed by the presentation-only mock authority (src/lib/protocol/mock-mediation-authority.ts). The mock is never authoritative and never scripts an unauthorized decision.
+**Runtime:** LIVE where the composed runtime answers (re-anchored by UI-011): disputes read from the A10 obligation ledger's dispute primitive and dispute initiation submits `obligations.dispute.open` through the protocol gateway (the sole admission point) — `src/lib/protocol/runtime-mediation-adapter.ts` behind `getMediationPort()`. The area-19 (Agents/Mediation) and area-21 (Disputes/Recourse) authorities are RTN wave 2 and NOT merged: proposals, mediation cases, and the dispute workflow beyond the A10 primitive present unavailable/denied with the recorded gap — never fabricated. The mock authority is DELETED outright (zero read-only importers).
 **Format:** follows the intent-mapping-records.md record set — header with authority owner + runtime, the nine-question record set per consequential state, and the explicit non-states list at the end.
 **Mapping implementation:** one-to-one, in src/lib/protocol/mediation-state-mapping.ts; each record id (MD-*) is emitted by the mapping and rendered through the shared state primitives in @/components/state.
 
@@ -351,3 +351,16 @@ The following are deliberately NOT states in this mapping and must never be pres
 - **"Dispute closed" without the recourse trail** — resolution always presents with its recourse window/stages; there is no bare "closed" presentation.
 - **Guessed or cached authority state** — when the authority cannot report, the state is UNKNOWN (MD-007/MD-105/MD-205/MD-306/MD-400), never a default.
 - **Invisible authorization denials** — a denied action is disabled WITH its reason and, when submitted anyway, the denial is displayed and announced; denials are results, not errors to swallow.
+
+
+---
+
+## UI-011 re-anchoring — runtime truth and the question-9 discharge
+
+- **Owning authority:** the Obligation Authority (A10) owns the merged dispute primitive (obligations.dispute.open terminalizes a recorded obligation into DISPUTED; resolution creates replacement obligations and never mutates the disputed one — INV-10 governance). The Agents/Mediation Authority (area 19) and the Disputes/Recourse Authority (area 21) — the owners of the proposal/mediation/recourse workflows — are RTN wave 2 and NOT merged: their surfaces present unavailable (per-record) and denied (per-command) with the recorded gap.
+- **Evidence identity:** the A15 chain — OBLIGATION_CREATED records (with origin references) and OBLIGATION_STATE_CHANGED records with cause references (the dispute id) and reason codes (DISPUTE_OPEN / DISPUTE_RESOLUTION) — plus the gateway admission receipt for the dispute-initiation command.
+- **UNKNOWN/unavailable semantics:** proposal/mediation fetches present `unavailable` (the port's own fetch triad — the authority cannot currently report); dispute references the runtime does not know present `not-visible` with the honest reason (never a fabricated record); the party docket reports the runtime's real empty proposal/mediation sets.
+- **Reconciliation path:** disputes resolve only through the Obligation Authority's recorded resolution (A15-evidenced); the area-19/21 workflows land with their runtimes (the recorded deferral).
+- **User-visible wording source:** dispute records restate the A10/A15 facts (the obligation's terms, the DISPUTE_OPEN cause reference, the terminalization state); the initiation briefing is worded from the A10 primitive's own semantics.
+- **Question 9 (user-visible state) — RTN-012's deferral DISCHARGED (see INTEGRATION-EVIDENCE.md and intent-mapping-records.md):** the mediation surfaces render the composed runtime's real A10 dispute data server-side; the per-port adapter suite (`runtime-mediation-adapter.test.ts`) proves the dispute-initiation round-trip through the gateway, the A15-recorded evidence, and the honest wave-2 denials. End-to-end evidence rolls up under UI-010.
+- **Recorded deferrals:** the area-19/21 surfaces (proposals, mediation cases, recourse beyond the A10 primitive) — deferred to the RTN wave-2 splice; the harness script surface reports honestly that no authority-state scripting exists over the runtime adapter.

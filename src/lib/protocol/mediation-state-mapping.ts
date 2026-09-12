@@ -24,13 +24,15 @@ import type {
 
 const AGENTS_MEDIATION_AUTHORITY = "Agents/Mediation Authority";
 const DISPUTES_RECOURSE_AUTHORITY = "Disputes/Recourse Authority";
-const MOCK_RUNTIME_NOTE = "mock backing; runtime ARRIVING; presentation-only, never authoritative";
+// Re-anchored by UI-011: the constant name is frozen surface vocabulary
+// (read-only consumers render it); the VALUE states the runtime truth.
+const MOCK_RUNTIME_NOTE = "runtime-backed where the composed runtime answers (UI-011): A10 dispute primitive live; area-19/21 RTN wave 2 — unavailable/denied with the recorded gap, never fabricated";
 
 export const MEDIATION_AUTHORITIES = {
   agentsMediation: AGENTS_MEDIATION_AUTHORITY,
   disputesRecourse: DISPUTES_RECOURSE_AUTHORITY,
-  reportedByAgents: `${AGENTS_MEDIATION_AUTHORITY} (${MOCK_RUNTIME_NOTE})`,
-  reportedByDisputes: `${DISPUTES_RECOURSE_AUTHORITY} (${MOCK_RUNTIME_NOTE})`,
+  reportedByAgents: `${AGENTS_MEDIATION_AUTHORITY} (area 19, RTN wave 2 — not merged; unavailable with the recorded gap)`,
+  reportedByDisputes: `${DISPUTES_RECOURSE_AUTHORITY} (area 21, RTN wave 2 — not merged; the composed A10 dispute primitive is the live dispute surface)`,
   runtimeNote: MOCK_RUNTIME_NOTE,
 } as const;
 

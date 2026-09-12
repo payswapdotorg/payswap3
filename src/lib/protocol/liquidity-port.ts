@@ -6,13 +6,15 @@
 // waiting-port UI-006).
 //
 // This module declares the DATA NEEDS of the UI-007 read-only visibility
-// surfaces as typed shapes, plus a single port accessor. The ONLY
-// implementation behind the accessor today is the presentation-only mock in
-// ./mock-liquidity-authority.ts, which is explicitly NON-AUTHORITATIVE.
+// surfaces as typed shapes, plus a single port accessor. RE-ANCHORED
+// (UI-011): the registered backing is the RUNTIME ADAPTER over the composed
+// protocol runtime (src/lib/protocol/runtime-liquidity-adapter.ts) — reads
+// from the A06 Liquidity Authority, A07 Credit Authority, and A08 Queue
+// Authority query APIs; the presentation-only mock is retired.
 //
 // The authority owners of this truth are the Liquidity Authority and the
 // Credit Authority per spec/architecture/v0.1 liquidity-credit-queues.md.
-// The authoritative runtime binding is ARRIVING.
+// The authoritative runtime binding is LIVE (the composed runtime).
 //
 // Invariants this port enforces for every consumer:
 //   N1/P11 — every monetary value is an authority-quoted string (or an
@@ -29,10 +31,22 @@
 // ============================================================================
 
 import type { NavAudience } from '@/lib/navigation';
-import {
-  getMockLiquidityPort,
-  type LiquiditySandboxOverrides,
-} from '@/lib/protocol/mock-liquidity-authority';
+import { getUnavailableLiquidityPort } from '@/lib/protocol/unavailable-backing';
+
+/**
+ * Verification-harness scripting of the read's availability axis: the value
+ * sources the harness marks authority-UNKNOWN (moved here from the retired
+ * mock module — the frozen verification surfaces and pages import this type
+ * through the mock-path shim, which re-exports it).
+ */
+export interface LiquiditySandboxOverrides {
+  readonly unknownSources: readonly LiquidityValueSourceId[];
+}
+
+/** Empty overrides (the default, unscripted read). */
+export const EMPTY_LIQUIDITY_SANDBOX_OVERRIDES: LiquiditySandboxOverrides = {
+  unknownSources: [],
+};
 
 // ---------------------------------------------------------------------------
 // Authority ownership
@@ -323,8 +337,10 @@ export type OperatorOversightResult =
 // ---------------------------------------------------------------------------
 
 export interface LiquidityPortBinding {
-  readonly implementation: 'mock-presentation-only';
-  readonly runtime: 'ARRIVING';
+  /** Implementation identity, stated honestly (UI-011 acceptance). */
+  readonly implementation: string;
+  /** Re-anchored by UI-011: 'LIVE' — the composed runtime backs the adapter. */
+  readonly runtime: 'ARRIVING' | 'LIVE';
   readonly authorityOwners: readonly LiquidityAuthorityOwner[];
   readonly authorityReference: string;
   readonly note: string;
@@ -336,19 +352,33 @@ export interface LiquidityPort {
   getOperatorOversight(query: OperatorOversightQuery): Promise<OperatorOversightResult>;
 }
 
-export const EMPTY_LIQUIDITY_SANDBOX_OVERRIDES: LiquiditySandboxOverrides = {
-  unknownSources: [],
-};
+/**
+ * The registered runtime-adapter FACTORY (set once per server process by
+ * src/lib/protocol/server-runtime.ts): it receives the verification
+ * harness's sandbox overrides and returns the adapter bound to them. In a
+ * browser context no factory is registered and the honest
+ * transport-unavailable backing answers.
+ */
+let registeredFactory: ((overrides: LiquiditySandboxOverrides) => LiquidityPort) | undefined;
+
+/** UI-011 seam: register the server-side runtime adapter factory as this port's backing. */
+export function registerLiquidityPortBacking(
+  factory: (overrides: LiquiditySandboxOverrides) => LiquidityPort,
+): void {
+  registeredFactory = factory;
+}
 
 /**
- * The port accessor. Today it returns the NON-AUTHORITATIVE mock backing
- * (presentation-only; the Liquidity Authority and Credit Authority per
- * spec/architecture/v0.1 liquidity-credit-queues.md own the truth; runtime
- * ARRIVING). When the authoritative implementation arrives it binds here and
- * the surfaces change nothing about how they present.
+ * The port accessor. Since UI-011 it returns the registered RUNTIME ADAPTER
+ * (A06/A07/A08 reads over the composed runtime — the Liquidity Authority and
+ * Credit Authority per spec/architecture/v0.1 liquidity-credit-queues.md own
+ * the truth, runtime LIVE); when no adapter is registered in this context
+ * (browser), it returns the honest transport-unavailable backing. The
+ * overrides parameter is the verification harness's scripting of the read's
+ * availability axis (authority-UNKNOWN presentation).
  */
 export function getLiquidityPort(
   overrides: LiquiditySandboxOverrides = EMPTY_LIQUIDITY_SANDBOX_OVERRIDES
 ): LiquidityPort {
-  return getMockLiquidityPort(overrides);
+  return registeredFactory !== undefined ? registeredFactory(overrides) : getUnavailableLiquidityPort(overrides);
 }

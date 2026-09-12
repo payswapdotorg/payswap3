@@ -8,15 +8,18 @@
  * shapes is owned by the Capability/Routing Authority per
  * spec/architecture/v0.1.
  *
- * The current backing of this port is the mock capability authority
- * (src/lib/protocol/mock-capability-authority.ts): explicitly
- * NON-AUTHORITATIVE, presentation-only, runtime ARRIVING. The surface never
- * computes a capability, eligibility, or routing decision; it presents what
- * the port reports, including explicit UNKNOWN shapes when the truth cannot
- * be authoritatively determined.
+ * RE-ANCHORED (UI-011): the backing is the RUNTIME ADAPTER over the
+ * composed protocol runtime (src/lib/protocol/
+ * runtime-capability-adapter.ts): every capability report is read from the
+ * A03 Capability Authority's own query API (REGISTERED / ACTIVE / DEGRADED /
+ * RETIRED, declared capacity, corridors, cost schedules). The port is
+ * read-only — no command kinds. The surface never computes a capability,
+ * eligibility, or routing decision; it presents what the port reports,
+ * including explicit UNKNOWN shapes when the truth cannot be
+ * authoritatively determined.
  */
 
-import { mockCapabilityAuthority } from "./mock-capability-authority";
+import { getUnavailableCapabilityPort } from "./unavailable-backing";
 
 // ---------------------------------------------------------------------------
 // Capability state vocabulary — owned by the Capability/Routing Authority.
@@ -192,14 +195,24 @@ export interface CapabilityPort {
 }
 
 /**
- * Port accessor for the provider capability surface.
- *
- * The current backing is the mock capability authority: NON-AUTHORITATIVE,
- * presentation-only, runtime ARRIVING. The authority owner of this surface's
- * truth is the Capability/Routing Authority per spec/architecture/v0.1; the
- * protocol adapter that binds to it has not arrived. When it does, only this
- * accessor changes — the surface and its mapping records do not.
+ * The registered runtime-adapter backing (set once per server process by
+ * src/lib/protocol/server-runtime.ts); in a browser context no adapter is
+ * registered and the honest transport-unavailable backing answers.
+ */
+let registeredBacking: CapabilityPort | undefined;
+
+/** UI-011 seam: register the server-side runtime adapter as this port's backing. */
+export function registerCapabilityPortBacking(backing: CapabilityPort): void {
+  registeredBacking = backing;
+}
+
+/**
+ * Port accessor for the provider capability surface. Since UI-011 it returns
+ * the registered RUNTIME ADAPTER (A03 reads over the composed runtime);
+ * when no adapter is registered in this context (browser), it returns the
+ * honest transport-unavailable backing. The surface and its mapping records
+ * did not change.
  */
 export function getCapabilityPort(): CapabilityPort {
-  return mockCapabilityAuthority;
+  return registeredBacking ?? getUnavailableCapabilityPort();
 }

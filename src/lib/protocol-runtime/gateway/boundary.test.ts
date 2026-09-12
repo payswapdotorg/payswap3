@@ -17,10 +17,12 @@
  *      calls an authority command method (admission executes nothing —
  *      "no financial effect occurs at admission"; the transition path is
  *      RTN-011's owned surface).
- *   3. NO product splice: nothing under src/app/ or src/lib/protocol/
- *      imports the protocol runtime (the web-boundary wiring is the UI-011
- *      governed splice — rtn-plan-rulings.md Q5/delta 6 — and is FORBIDDEN
- *      to RTN-010).
+ *   3. THE PRODUCT SPLICE BOUNDARY (amended by UI-011, the sanctioned
+ *      splice — rtn-plan-rulings.md Q5/delta 6): src/lib/protocol/ PORT
+ *      ADAPTERS are the sanctioned importers of the protocol runtime (via
+ *      the composed barrel and its leaf modules); NOTHING ELSE under
+ *      src/lib/protocol/ imports it; and src/app/ and src/components/
+ *      STILL NEVER import it — mechanically enforced, invariant unchanged.
  *   4. The exported surface is exactly the documented contract: the barrel
  *      re-exports precisely the admission/receipt/registry/evidence/health/
  *      persistence symbols (enumerated at runtime), and the registry's kind
@@ -159,11 +161,45 @@ describe('RTN-010 boundary review — no second admission path exists', () => {
     expect(offenders).toEqual([]);
   });
 
-  test('no src/app/ or src/lib/protocol/ source imports the protocol runtime (the product splice is UI-011, not RTN-010)', () => {
+  test('src/lib/protocol/ port adapters are the sanctioned protocol-runtime importers; src/app/ and src/components/ still never import it (the product splice is UI-011, amended by UI-011)', () => {
+    // UI-011 — the sanctioned product splice (rtn-plan-rulings.md
+    // Q5/delta 6, spec/product/work-orders/UI-011.md acceptance): the
+    // product ports were re-anchored to the composed protocol runtime.
+    // The modules below are EXACTLY the sanctioned importers: the runtime
+    // adapters (runtime-*-adapter.ts), the runtime handle, the server-side
+    // composition root (server-runtime.ts), the shared adapter-boundary
+    // constants, the intent port's runtime-vocabulary re-export, and the
+    // product adapter test suites. Nothing else under src/lib/protocol/
+    // may reference the protocol runtime, and src/app/ + src/components/
+    // NEVER import it — mechanically enforced, invariant unchanged.
+    const SANCTIONED_PRODUCT_ADAPTER_FILES = new Set([
+      'src/lib/protocol/adapter-boundary.ts',
+      'src/lib/protocol/runtime-handle.ts',
+      'src/lib/protocol/runtime-intent-adapter.ts',
+      'src/lib/protocol/runtime-checkout-adapter.ts',
+      'src/lib/protocol/runtime-capability-adapter.ts',
+      'src/lib/protocol/runtime-tracking-adapter.ts',
+      'src/lib/protocol/runtime-waiting-adapter.ts',
+      'src/lib/protocol/runtime-liquidity-adapter.ts',
+      'src/lib/protocol/runtime-mediation-adapter.ts',
+      'src/lib/protocol/server-runtime.ts',
+      'src/lib/protocol/intent-port.ts',
+      'src/lib/protocol/runtime-intent-adapter.test.ts',
+      'src/lib/protocol/runtime-checkout-adapter.test.ts',
+      'src/lib/protocol/runtime-capability-adapter.test.ts',
+      'src/lib/protocol/runtime-tracking-adapter.test.ts',
+      'src/lib/protocol/runtime-waiting-adapter.test.ts',
+      'src/lib/protocol/runtime-liquidity-adapter.test.ts',
+      'src/lib/protocol/runtime-mediation-adapter.test.ts',
+      'src/lib/protocol/product-adapter-test-compose.ts',
+    ]);
     const offenders: string[] = [];
     for (const root of ['src/app', 'src/lib/protocol', 'src/components']) {
       for (const file of sourceFilesUnder(root)) {
         const relative = file.slice(REPO_ROOT.length + 1).replaceAll('\\', '/');
+        if (root === 'src/lib/protocol' && SANCTIONED_PRODUCT_ADAPTER_FILES.has(relative)) {
+          continue;
+        }
         const content = read(file);
         if (/protocol-runtime/.test(content)) {
           offenders.push(relative);
