@@ -1,0 +1,54 @@
+Composing the runtime (the server composition root, over var/ui010-journeys/)…
+The seven runtime adapters are registered into the product port modules.
+
+  [WF-1] rails.adapter.register + activate — VIA THE GATEWAY
+(node:16958) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/z/payswap3/src/lib/protocol-runtime/hosting/durable-binding.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/z/payswap3/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  [WF-1] rails adapter ACTIVE — register admitted=true, activate admitted=true
+  [WF-1] capability register + gate approval + activate (A03 command surface)
+  [WF-1] capability ACTIVE — registered.ok=true, gate=APPROVED, activated.ok=true
+  [WF-1] PROVIDER CAPABILITY SURFACE read: ports.capability.listCapabilities() — cap-usd (available) — CAP-MAP-001 'available'
+  [WF-1] CONSEQUENCE QUOTE: ports.intent.requestConsequenceReport(draft) — report qrpt_rt_001: fee=1.50 USD, total=26.50 USD, 8 plain-language terms
+  [WF-1] EXPLICIT SUBMIT: ports.intent.submitIntent(draft, authorization) — transported — intent pid.v1.8aed9241ec8fd1c627f79b4595ce14ed610acc185a8e880fe1e71256e76aab32, authority state DRAFT → display WAITING (IMR-9 (spec/product/intent-mapping-records.md))
+  [WF-1] AUTHORIZE: gateway intent.authorize (compliance-gated) — admitted=true; A01 state=AUTHORIZED
+  [WF-1] STATE READ: ports.intent.getIntentState(intentId) — AUTHORIZED → display IN_PROGRESS (IMR-10 (spec/product/intent-mapping-records.md))
+  [WF-1] TRACKING READ: ports.tracking.lookupReference(intentId, "customer") — tracked: state=in-progress; history=2 entries; evidenceTrail=2 records
+  [WF-1] UNKNOWN READ: ports.intent.getIntentState(<never-submitted>) — no-answer (reason no-record) — the note words it UNKNOWN with the reconciliation path
+  [WF-1] UNKNOWN TRACKING: ports.tracking.lookupReference("NOT-A-REFERENCE") — not-found — "the runtime's real answer for this reference … never as a fabricated state" (TRK-LOOKUP-NOT-FOUND)
+  [WF-2] submit intent-2 (the offer behind the checkout) — intent pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf DRAFT
+  [WF-2] CHECKOUT LIST: ports.checkout.listOpenCheckouts() — 1 open offer(s); pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf — ACTION_REQUIRED (cko-map-01)
+  [WF-2] CHECKOUT OFFER: ports.checkout.getOffer({checkoutId}) — "Open offer — payment intent pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf"; 5 material conditions; plainLanguageSummary carries the no-settlement-finality wording
+  [WF-2] CHECKOUT STATUS (pre-cancel): ports.checkout.getStatus() — state=offered → display action-required
+  [WF-2] AUTHORIZE intent-2 — admitted=true; A01 state=AUTHORIZED
+  [WF-2] TERMINAL CANCEL: gateway intent.cancel (reason PAYER_CANCELLED — the A01 reason-code vocabulary)
+  [WF-2] CHECKOUT STATUS (post-cancel): ports.checkout.getStatus() — state=failed → display failed; reason: The Intent Authority reports the intent CANCELLED — the offer did not proceed and no money
+  [WF-2] TRACKING READ of the cancelled intent — state=failed; outcome: The Intent Authority reports the intent pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf CANCELLED (reason code PAYER
+  [WF-3] CHECKOUT STATUS over the AUTHORIZED intent: ports.checkout.getStatus() — state=unknown → display unknown
+  [WF-3] DECISION SUBMIT: ports.checkout.submitDecision({decision: "accept"}) — refused — decision-not-allowed: The composed protocol runtime exposes no merchant-decision command surface: the area-20 Merchant Authority (checkout-session semantics: CHECKOUT_OPENE…
+  [WF-3] UNKNOWN-REFERENCE STATUS: ports.checkout.getStatus(<unknown id>) — error=checkout-not-found → presentation {"target":"the requested checkout object — The Intent Authority holds no intent record for pid.v1.no-such-checkout, so no checkout state exists to report. UNKNO
+  [WF-4] QUEUE + ITEM (A08 command surface) — queue-ui010 (OPEN); item pid.v1.32062efd9e08960b52201666ca7273e0ac6714d8e692530c893dbc9cb8e817c9 QUEUED
+  [WF-4] WAITING LOOKUP: ports.waiting.lookupWaiting(itemId, "customer") — fq.queued.liquidity-credit (queued) — display WAITING (WQ-01)
+  [WF-4] RE-CHECK: ports.waiting.requestRecheck({referenceId, requestedByRole}) — accepted (fq.inquiry.recheck-requested, WQ-15) — routedTo: Fulfillment/Queue Authority (A08) via the protocol gateway — queues.eligibility.evaluate
+  [WF-4] SNAPSHOT RE-READ after the re-check — fq.queued.liquidity-credit — the release conditions still do not hold (an honest no-progression answer, never a fabricated progression)
+  [WF-4] RETRY RECOVERY: ports.waiting.requestRecovery({actionId: "retry"}) — denied (fq.recovery.denied, WQ-14) — Denied per protocol: the composed runtime exposes no retry command kind — A08’s "never re-queued or re-dispatched until …
+  [WF-4] CANCEL RECOVERY: ports.waiting.requestRecovery({actionId: "cancel"}) — accepted (fq.recovery.cancel-requested, WQ-12) — routedTo: Fulfillment/Queue Authority (A08) via the protocol gateway — queues.item.cancel
+  [WF-4] TERMINAL RE-READ: ports.waiting.lookupWaiting(itemId) — fq.resolved.failed (outcome failed) — display FAILED terminal (WQ-09)
+  [WF-5] CLEARING: gateway clearing.batch.open/stage/commit/finalize — batch pid.v1.aef13f21c09d4b1f438a0f2d8cf98ea438146cc2e1919611f1e83351a556f98f committed; obligation pid.v1.dd5bf74a1beb8edda4dc01fbcea25f3ce93cca107f0815e64dcb563afbb7e335 CREATED for origin activity-ui010-wf5
+  [WF-5] PARTY DOCKET: ports.mediation.getPartyDocket("customer") — fetched — disputes: 0; proposals: 0 (the runtime's authoritative empty set for the area-19 surface); mediations: 0; disputableIntents: 1
+  [WF-5] INITIATION BRIEFING: ports.mediation.getDisputeInitiationBriefing() — authority: Obligation Authority (A10 dispute primitive) over the composed protocol runtime — obligati…; 5 grounds; 4 consequences; whatHappensNext + consequenceOfInaction present
+  [WF-5] INITIATION MATRIX: ports.mediation.describeDisputeInitiationMatrix({intentReference}) — customer=true merchant=true provider=false operator=false administrator=false
+  [WF-5] DISPUTE INITIATION: ports.mediation.initiateDispute({...actor: "customer"}) — initiated — dispute pid.v1.1a0de586f6be80bfa043975b425f097997e6edf309710ec51e288cd6fed8e6f3; obligation now DISPUTED; record authorityState=open
+  [WF-5] DISPUTE READ: ports.mediation.getDispute({disputeId, viewer}) — fetched — authorityState=open; recourseTrail: Dispute recorded (completed)
+  [WF-5] RE-DISPUTE DENIAL: initiateDispute on the DISPUTED obligation — denied — The dispute was NOT initiated — nothing was recorded. The matching obligation is in the DISPUTED state — the frozen one-way table does not allow the D…
+  [WF-5] AREA-19 GAP: ports.mediation.getProposal({proposalId: "P-001"}) — unavailable — The Agents/Mediation Authority (area 19 — agent proposals, human mediation) is RTN wave 2 and NOT merged as ru…
+  [WF-6] A06 pool + confirmed funding — pool-usd funded with 1000.00 USD (POOL_OPENED + FUNDING_CONFIRMED in the A15 chain)
+  [WF-6] OVERSIGHT READ: ports.liquidity.getOperatorOversight({requester: "operator"}) — 3 aggregates; 3 are authority-unknown
+  [WF-6] PROVIDER POSITIONS: ports.liquidity.getProviderPositions({requester: "provider"}) — 1 liquidity position(s): pid.v1.7cfeb037f5887d83a8199a96d52e687dfaee37835853f54abb9cb774243e6575 available 1000.00 USD; credit lines: 0; queue snapshots: 1
+  [WF-6] OVERSIGHT ROLE GATE: getOperatorOversight({requester: "customer"}) — denied — The operator oversight surface mirrors what the owning authorities permit: only the operator audience may read the overs…
+
+A15 evidence chain verification: VERIFIED (verified height 29, final hash a6f0e976f3cd4afa20292599…)
+
+62 assertions, 0 failed.
+Artifact: spec/product/closure/evidence/workflows/port-journeys.json

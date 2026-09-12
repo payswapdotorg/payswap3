@@ -1,0 +1,48 @@
+{
+  "statePrimitives": {
+    "labels": [
+      "Succeeded",
+      "Failed",
+      "Unknown",
+      "Waiting",
+      "Waiting",
+      "In progress",
+      "Action required",
+      "Unknown",
+      "Failed",
+      "Unknown",
+      "Waiting"
+    ],
+    "sixDistinct": true,
+    "chips": [
+      "",
+      "Succeeded",
+      "",
+      "Failed",
+      "",
+      "Unknown",
+      "",
+      "Waiting",
+      "",
+      "Waiting",
+      "",
+      "In progress",
+      "",
+      "Action required",
+      "",
+      "Unknown",
+      "",
+      "Failed",
+      "",
+      "Unknown",
+      "",
+      "Waiting"
+    ]
+  },
+  "unknownHonesty": {
+    "dashed": true,
+    "amber": true,
+    "disambiguation": true,
+    "reconciliation": true
+  }
+}

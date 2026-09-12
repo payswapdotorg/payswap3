@@ -1,0 +1,226 @@
+{
+  "home": {
+    "route": "/",
+    "focusableCount": 14,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "state-primitives": {
+    "route": "/state-primitives",
+    "focusableCount": 49,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "pay-compose": {
+    "route": "/pay",
+    "focusableCount": 7,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "pay-review": {
+    "route": "/pay/review",
+    "focusableCount": 7,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "pay-intent-state": {
+    "route": "/pay/INTENT-UI010-UNKNOWN",
+    "focusableCount": 8,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "checkout-list": {
+    "route": "/checkout",
+    "focusableCount": 7,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "checkout-decision": {
+    "route": "/checkout/cko_live_offer_001",
+    "focusableCount": 9,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "capabilities": {
+    "route": "/capabilities",
+    "focusableCount": 13,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "capability-detail": {
+    "route": "/capabilities/intent-acceptance",
+    "focusableCount": 7,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "liquidity": {
+    "route": "/liquidity",
+    "focusableCount": 8,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "oversight": {
+    "route": "/oversight",
+    "focusableCount": 8,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "track": {
+    "route": "/track",
+    "focusableCount": 8,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "track-status-intent": {
+    "route": "/track/PWS-2H8D",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "track-status-settlement": {
+    "route": "/track/STL-4419",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "waiting-recovery": {
+    "route": "/track/TRK-4410-QUEUED-LIQ/waiting",
+    "focusableCount": 8,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "mediation-hub": {
+    "route": "/mediation",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "mediation-case": {
+    "route": "/mediation/case/M-101",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "dispute-initiation": {
+    "route": "/mediation/dispute/new",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "dispute-detail": {
+    "route": "/mediation/dispute/D-201",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "proposal-review": {
+    "route": "/mediation/proposal/P-001",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "verification-intent-flow": {
+    "route": "/verification/intent-flow",
+    "focusableCount": 19,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "verification-checkout-flow": {
+    "route": "/verification/checkout-flow",
+    "focusableCount": 6,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "verification-capability-flow": {
+    "route": "/verification/capability-flow",
+    "focusableCount": 8,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "verification-liquidity-flow": {
+    "route": "/verification/liquidity-flow",
+    "focusableCount": 0,
+    "coveredAllFocusables": true,
+    "wrapped": false,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "verification-tracking-flow": {
+    "route": "/verification/tracking-flow",
+    "focusableCount": 17,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "verification-waiting-flow": {
+    "route": "/verification/waiting-flow",
+    "focusableCount": 20,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "verification-mediation-flow": {
+    "route": "/verification/mediation-flow",
+    "focusableCount": 48,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  },
+  "not-found": {
+    "route": "/no-such-route-ui010",
+    "focusableCount": 7,
+    "coveredAllFocusables": true,
+    "wrapped": true,
+    "trap": false,
+    "focusInvisible": []
+  }
+}

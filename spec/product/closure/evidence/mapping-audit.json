@@ -1,0 +1,958 @@
+{
+  "bundle": "UI-010 mapping-completeness roll-up (UX contract Section 8)",
+  "base": "main @ 2e3b8314f3d1532b6032f9e5c93bf0aef9cd2e90",
+  "method": "CODE SIDE: the consequential-state vocabularies and record ids enumerated from the display-resolution layer (src/lib/protocol/*-state-mapping.ts) and the frozen port types — the modules the surfaces use for every stateful rendering. DOC SIDE: every record in spec/product/*-mapping-records.md parsed for its id and its numbered answers (the nine-question format). CROSS-CHECK: every code-referenced record id exists in the docs; every record carries nine answers; every enumerated consequential state resolves to a record.",
+  "codeSide": {
+    "ports": {
+      "intent": {
+        "document": "spec/product/intent-mapping-records.md",
+        "consequentialStates": [
+          {
+            "state": "DRAFT",
+            "displayState": "WAITING",
+            "recordId": "IMR-9"
+          },
+          {
+            "state": "AUTHORIZED",
+            "displayState": "IN_PROGRESS",
+            "recordId": "IMR-10"
+          },
+          {
+            "state": "ROUTED",
+            "displayState": "IN_PROGRESS",
+            "recordId": "IMR-11"
+          },
+          {
+            "state": "FULFILLING",
+            "displayState": "IN_PROGRESS",
+            "recordId": "IMR-12"
+          },
+          {
+            "state": "FULFILLED",
+            "displayState": "SUCCEEDED",
+            "recordId": "IMR-13"
+          },
+          {
+            "state": "FAILED",
+            "displayState": "FAILED",
+            "recordId": "IMR-14"
+          },
+          {
+            "state": "CANCELLED",
+            "displayState": "FAILED",
+            "recordId": "IMR-15"
+          },
+          {
+            "state": "acknowledged",
+            "displayState": "SUCCEEDED",
+            "recordId": "IMR-1"
+          },
+          {
+            "state": "rejected",
+            "displayState": "FAILED",
+            "recordId": "IMR-2"
+          },
+          {
+            "state": "unresolved",
+            "displayState": "UNKNOWN",
+            "recordId": "IMR-3"
+          },
+          {
+            "state": "held-for-recipient",
+            "displayState": "WAITING",
+            "recordId": "IMR-4"
+          },
+          {
+            "state": "processing",
+            "displayState": "IN_PROGRESS",
+            "recordId": "IMR-5"
+          },
+          {
+            "state": "action-requested",
+            "displayState": "ACTION_REQUIRED",
+            "recordId": "IMR-6"
+          }
+        ],
+        "boundaryResults": [
+          {
+            "result": "submitNotTransported",
+            "recordId": "IMR-7"
+          },
+          {
+            "result": "queryNoAnswer",
+            "recordId": "IMR-8"
+          }
+        ],
+        "boundaryDisplay": [
+          "submitNotTransported",
+          "queryNoAnswer"
+        ]
+      },
+      "checkout": {
+        "document": "spec/product/checkout-mapping-records.md",
+        "displayStates": [
+          "accept-submitted",
+          "accepted",
+          "accepted-awaiting-payment",
+          "decline-submitted",
+          "declined",
+          "failed",
+          "offered",
+          "unknown"
+        ],
+        "recordIds": [
+          "cko-map-01",
+          "cko-map-02",
+          "cko-map-03",
+          "cko-map-04",
+          "cko-map-05",
+          "cko-map-06",
+          "cko-map-07",
+          "cko-map-08"
+        ]
+      },
+      "capability": {
+        "document": "spec/product/capability-mapping-records.md",
+        "consequentialStates": [
+          {
+            "state": "available",
+            "recordId": "CAP-MAP-001"
+          },
+          {
+            "state": "unavailable",
+            "recordId": "CAP-MAP-002"
+          },
+          {
+            "state": "conditional",
+            "recordId": "CAP-MAP-003"
+          },
+          {
+            "state": "pending",
+            "recordId": "CAP-MAP-004"
+          },
+          {
+            "state": "indeterminate",
+            "recordId": "CAP-MAP-005"
+          },
+          {
+            "state": "availabilityUnknown",
+            "recordId": "CAP-MAP-006"
+          }
+        ]
+      },
+      "tracking": {
+        "document": "spec/product/tracking-mapping-records.md",
+        "consequentialStates": [
+          {
+            "state": "succeeded",
+            "label": "SUCCEEDED",
+            "recordId": "TRK-SUCCEEDED"
+          },
+          {
+            "state": "failed",
+            "label": "FAILED",
+            "recordId": "TRK-FAILED"
+          },
+          {
+            "state": "in-progress",
+            "label": "IN_PROGRESS",
+            "recordId": "TRK-IN-PROGRESS"
+          },
+          {
+            "state": "waiting",
+            "label": "WAITING",
+            "recordId": "TRK-WAITING"
+          },
+          {
+            "state": "unknown",
+            "label": "UNKNOWN",
+            "recordId": "TRK-UNKNOWN"
+          },
+          {
+            "state": "action-required",
+            "label": "ACTION_REQUIRED",
+            "recordId": "TRK-ACTION-REQUIRED"
+          }
+        ],
+        "outcomeRecords": [
+          "TRK-EVIDENCE-UNAVAILABLE",
+          "TRK-LOOKUP-NOT-FOUND",
+          "TRK-LOOKUP-NOT-AUTHORIZED"
+        ]
+      },
+      "waiting": {
+        "document": "spec/product/waiting-mapping-records.md",
+        "consequentialStates": [
+          {
+            "state": "fq.queued.liquidity-credit",
+            "recordId": null
+          },
+          {
+            "state": "fq.queued.provider-availability",
+            "recordId": null
+          },
+          {
+            "state": "fq.waiting.settlement-confirmation",
+            "recordId": null
+          },
+          {
+            "state": "fq.delayed.liquidity-window",
+            "recordId": null
+          },
+          {
+            "state": "fq.delayed.provider-backoff",
+            "recordId": null
+          },
+          {
+            "state": "fq.unknown.pending-reconciliation",
+            "recordId": null
+          },
+          {
+            "state": "fq.unknown.after-wait-timeout",
+            "recordId": null
+          },
+          {
+            "state": "fq.resolved.completed",
+            "recordId": null
+          },
+          {
+            "state": "fq.resolved.failed",
+            "recordId": null
+          },
+          {
+            "state": "fq.resolved.still-unknown",
+            "recordId": null
+          },
+          {
+            "state": "fq.recovery.retry-requested",
+            "recordId": null
+          },
+          {
+            "state": "fq.recovery.cancel-requested",
+            "recordId": null
+          },
+          {
+            "state": "fq.recovery.escalate-requested",
+            "recordId": null
+          },
+          {
+            "state": "fq.recovery.denied",
+            "recordId": null
+          },
+          {
+            "state": "fq.inquiry.recheck-requested",
+            "recordId": null
+          },
+          {
+            "state": "fq.inquiry.rejected",
+            "recordId": null
+          }
+        ],
+        "declaredRecordIds": [
+          "WQ-01",
+          "WQ-02",
+          "WQ-03",
+          "WQ-04",
+          "WQ-05",
+          "WQ-06",
+          "WQ-07",
+          "WQ-08",
+          "WQ-09",
+          "WQ-10",
+          "WQ-11",
+          "WQ-12",
+          "WQ-13",
+          "WQ-14",
+          "WQ-15",
+          "WQ-16"
+        ]
+      },
+      "liquidity": {
+        "document": "spec/product/liquidity-mapping-records.md",
+        "catalog": [
+          {
+            "recordId": "LQ-001",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-002",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-003",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-004",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-005",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-006",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-007",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-008",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-009",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-010",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-011",
+            "title": ""
+          },
+          {
+            "recordId": "LQ-012",
+            "title": ""
+          }
+        ]
+      },
+      "mediation": {
+        "document": "spec/product/mediation-mapping-records.md",
+        "disputeStates": [],
+        "mediationStates": [],
+        "proposalStates": [],
+        "recourseStages": [],
+        "fetchKinds": []
+      }
+    }
+  },
+  "docSide": {
+    "files": {
+      "intent-mapping-records.md": {
+        "recordCount": 15,
+        "records": [
+          {
+            "id": "IMR-1",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-2",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-3",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-4",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-5",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-6",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-7",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-8",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-9",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-10",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-11",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-12",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-13",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-14",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "IMR-15",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          }
+        ]
+      },
+      "checkout-mapping-records.md": {
+        "recordCount": 8,
+        "records": [
+          {
+            "id": "cko-map-01",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "cko-map-02",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "cko-map-03",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "cko-map-04",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "cko-map-05",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "cko-map-06",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "cko-map-07",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "cko-map-08",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          }
+        ]
+      },
+      "capability-mapping-records.md": {
+        "recordCount": 6,
+        "records": [
+          {
+            "id": "CAP-MAP-001",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "CAP-MAP-002",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "CAP-MAP-003",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "CAP-MAP-004",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "CAP-MAP-005",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "CAP-MAP-006",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          }
+        ]
+      },
+      "tracking-mapping-records.md": {
+        "recordCount": 9,
+        "records": [
+          {
+            "id": "TRK-SUCCEEDED",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-FAILED",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-IN-PROGRESS",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-WAITING",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-UNKNOWN",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-ACTION-REQUIRED",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-EVIDENCE-UNAVAILABLE",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-LOOKUP-NOT-FOUND",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "TRK-LOOKUP-NOT-AUTHORIZED",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          }
+        ]
+      },
+      "waiting-mapping-records.md": {
+        "recordCount": 16,
+        "records": [
+          {
+            "id": "WQ-01",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-02",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-03",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-04",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-05",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-06",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-07",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-08",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-09",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-10",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-11",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-12",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-13",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-14",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-15",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "WQ-16",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          }
+        ]
+      },
+      "liquidity-mapping-records.md": {
+        "recordCount": 12,
+        "records": [
+          {
+            "id": "LQ-001",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-002",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-003",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-004",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-005",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-006",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-007",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-008",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-009",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-010",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-011",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "LQ-012",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          }
+        ]
+      },
+      "mediation-mapping-records.md": {
+        "recordCount": 25,
+        "records": [
+          {
+            "id": "MD-001",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-002",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-003",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-004",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-005",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-006",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-007",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-101",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-102",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-103",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-104",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-105",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-201",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-202",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-203",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-204",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-205",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-206",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-301",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-302",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-303",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-304",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-305",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-306",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          },
+          {
+            "id": "MD-400",
+            "numberedAnswers": 9,
+            "nineAnswers": true
+          }
+        ]
+      },
+      "shell-mapping-records.md": {
+        "recordCount": 0,
+        "records": []
+      }
+    }
+  },
+  "portReports": [
+    {
+      "port": "intent",
+      "states": 15,
+      "mapped": 15
+    },
+    {
+      "port": "checkout",
+      "states": 8,
+      "mapped": 8,
+      "note": "display resolver record ids"
+    },
+    {
+      "port": "capability",
+      "states": 6,
+      "mapped": 6
+    },
+    {
+      "port": "tracking",
+      "states": 9,
+      "mapped": 9
+    },
+    {
+      "port": "waiting",
+      "states": 16,
+      "mapped": 16,
+      "declaredRecordIds": [
+        "WQ-01",
+        "WQ-02",
+        "WQ-03",
+        "WQ-04",
+        "WQ-05",
+        "WQ-06",
+        "WQ-07",
+        "WQ-08",
+        "WQ-09",
+        "WQ-10",
+        "WQ-11",
+        "WQ-12",
+        "WQ-13",
+        "WQ-14",
+        "WQ-15",
+        "WQ-16"
+      ]
+    },
+    {
+      "port": "liquidity",
+      "states": 12,
+      "mapped": 12
+    },
+    {
+      "port": "mediation",
+      "states": 0,
+      "mapped": 0
+    }
+  ],
+  "totals": {
+    "consequentialStatesEnumerated": 66,
+    "recordsInDocs": 91,
+    "recordsWithNineAnswers": 91,
+    "incompleteRecords": [],
+    "unmappedConsequentialStates": 0,
+    "problems": [],
+    "boundaryPresentations": {
+      "checked": 5,
+      "missing": 0,
+      "detail": [
+        {
+          "doc": "checkout-mapping-records.md",
+          "where": "adapter reachability (checkout-not-found / authority-unreachable → AvailabilityUnknownState)",
+          "needle": "Adapter reachability conditions",
+          "present": true
+        },
+        {
+          "doc": "waiting-mapping-records.md",
+          "where": "not-found lookup vocabulary (the honest no-record reading)",
+          "needle": "a reference the runtime does not know renders not-found",
+          "present": true
+        },
+        {
+          "doc": "mediation-mapping-records.md",
+          "where": "area-19/21 unavailable/denied with the recorded gap",
+          "needle": "present unavailable/denied with the recorded gap",
+          "present": true
+        },
+        {
+          "doc": "intent-mapping-records.md",
+          "where": "browser-context no-answer / not-transported (IMR-7/IMR-8)",
+          "needle": "no browser transport binding",
+          "present": true
+        },
+        {
+          "doc": "liquidity-mapping-records.md",
+          "where": "denied (role not permitted) and ARRIVING records",
+          "needle": "LQ-011",
+          "present": true
+        }
+      ]
+    },
+    "docRecordsNotReferencedByCode": [
+      "MD-001",
+      "MD-002",
+      "MD-003",
+      "MD-004",
+      "MD-005",
+      "MD-006",
+      "MD-007",
+      "MD-101",
+      "MD-102",
+      "MD-103",
+      "MD-104",
+      "MD-105",
+      "MD-201",
+      "MD-202",
+      "MD-203",
+      "MD-204",
+      "MD-205",
+      "MD-206",
+      "MD-301",
+      "MD-302",
+      "MD-303",
+      "MD-304",
+      "MD-305",
+      "MD-306",
+      "MD-400"
+    ]
+  }
+}

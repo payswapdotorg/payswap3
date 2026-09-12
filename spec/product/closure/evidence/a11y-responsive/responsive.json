@@ -1,0 +1,1451 @@
+{
+  "home": {
+    "route": "/",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 14,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 14,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 14,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "state-primitives": {
+    "route": "/state-primitives",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 49,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/state-primitives?env=production",
+              "display": "inline",
+              "w": 227,
+              "h": 36
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 49,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/state-primitives?env=production",
+              "display": "inline",
+              "w": 235,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 49,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/state-primitives?env=production",
+              "display": "inline",
+              "w": 235,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "pay-compose": {
+    "route": "/pay",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "pay-review": {
+    "route": "/pay/review",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "pay-intent-state": {
+    "route": "/pay/INTENT-UI010-UNKNOWN",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [
+            {
+              "tag": "button",
+              "role": "",
+              "name": "Re-check now",
+              "display": "inline-block",
+              "w": 83.2,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [
+            {
+              "tag": "button",
+              "role": "",
+              "name": "Re-check now",
+              "display": "inline-block",
+              "w": 83.2,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [
+            {
+              "tag": "button",
+              "role": "",
+              "name": "Re-check now",
+              "display": "inline-block",
+              "w": 83.2,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "checkout-list": {
+    "route": "/checkout",
+    "audience": "merchant",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "checkout-decision": {
+    "route": "/checkout/cko_live_offer_001",
+    "audience": "merchant",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 9,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 9,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 9,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "capabilities": {
+    "route": "/capabilities",
+    "audience": "provider",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 12,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 12,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 12,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "capability-detail": {
+    "route": "/capabilities/intent-acceptance",
+    "audience": "provider",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "liquidity": {
+    "route": "/liquidity",
+    "audience": "provider",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "oversight": {
+    "route": "/oversight",
+    "audience": "operator",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "track": {
+    "route": "/track",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 9,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Payment or settlement reference",
+              "display": "flex",
+              "w": 326,
+              "h": 20
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 9,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Payment or settlement reference",
+              "display": "flex",
+              "w": 688,
+              "h": 20
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 9,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Payment or settlement reference",
+              "display": "flex",
+              "w": 672,
+              "h": 20
+            }
+          ],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "track-status-intent": {
+    "route": "/track/PWS-2H8D",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "track-status-settlement": {
+    "route": "/track/STL-4419",
+    "audience": "merchant",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "waiting-recovery": {
+    "route": "/track/TRK-4410-QUEUED-LIQ/waiting",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "track surface",
+              "display": "inline",
+              "w": 91.8,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "track surface",
+              "display": "inline",
+              "w": 91.8,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "track surface",
+              "display": "inline",
+              "w": 91.8,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "mediation-hub": {
+    "route": "/mediation",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "mediation-case": {
+    "route": "/mediation/case/M-101",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "dispute-initiation": {
+    "route": "/mediation/dispute/new",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "dispute-detail": {
+    "route": "/mediation/dispute/D-201",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "proposal-review": {
+    "route": "/mediation/proposal/P-001",
+    "audience": "customer",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "verification-intent-flow": {
+    "route": "/verification/intent-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 21,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Next submit outcome (mock script)",
+              "display": "flex",
+              "w": 326,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authority reachable",
+              "display": "flex",
+              "w": 118.7,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 21,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Next submit outcome (mock script)",
+              "display": "flex",
+              "w": 392.3,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authority reachable",
+              "display": "flex",
+              "w": 118.7,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 21,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Next submit outcome (mock script)",
+              "display": "flex",
+              "w": 648.3,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authority reachable",
+              "display": "flex",
+              "w": 118.7,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "verification-checkout-flow": {
+    "route": "/verification/checkout-flow",
+    "audience": "merchant",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 6,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "verification-capability-flow": {
+    "route": "/verification/capability-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 8,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "verification-liquidity-flow": {
+    "route": "/verification/liquidity-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 0,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 0,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 0,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "verification-tracking-flow": {
+    "route": "/verification/tracking-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 17,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/track/PWS-9QM2",
+              "display": "inline",
+              "w": 122.2,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 17,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/track/PWS-9QM2",
+              "display": "inline",
+              "w": 658.7,
+              "h": 36
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 17,
+          "under44Exempt": [
+            {
+              "tag": "a",
+              "role": "",
+              "name": "/track/PWS-9QM2",
+              "display": "inline",
+              "w": 122.2,
+              "h": 16
+            }
+          ],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "verification-waiting-flow": {
+    "route": "/verification/waiting-flow",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 20,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 20,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 20,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "verification-mediation-flow": {
+    "route": "/verification/mediation-flow",
+    "audience": "operator",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 55,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "display": "flex",
+              "w": 326,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods or services not received",
+              "display": "flex",
+              "w": 272,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods or services not as described",
+              "display": "flex",
+              "w": 272,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement amount mismatch",
+              "display": "flex",
+              "w": 272,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "display": "flex",
+              "w": 272,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "display": "flex",
+              "w": 272,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "display": "flex",
+              "w": 326,
+              "h": 14
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 55,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "display": "flex",
+              "w": 704,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods or services not received",
+              "display": "flex",
+              "w": 650,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods or services not as described",
+              "display": "flex",
+              "w": 650,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement amount mismatch",
+              "display": "flex",
+              "w": 650,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "display": "flex",
+              "w": 650,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "display": "flex",
+              "w": 650,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "display": "flex",
+              "w": 704,
+              "h": 14
+            }
+          ],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 55,
+          "under44Exempt": [
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Referenced swap",
+              "display": "flex",
+              "w": 644,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods or services not received",
+              "display": "flex",
+              "w": 590,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Goods or services not as described",
+              "display": "flex",
+              "w": 590,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Settlement amount mismatch",
+              "display": "flex",
+              "w": 590,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Authorization disagreement",
+              "display": "flex",
+              "w": 590,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Other (evidence required)",
+              "display": "flex",
+              "w": 590,
+              "h": 14
+            },
+            {
+              "tag": "label",
+              "role": "",
+              "name": "Your account of what happened",
+              "display": "flex",
+              "w": 644,
+              "h": 14
+            }
+          ],
+          "under44Failures": []
+        }
+      }
+    }
+  },
+  "not-found": {
+    "route": "/no-such-route-ui010",
+    "audience": "unauthenticated",
+    "breakpoints": {
+      "390": {
+        "width": 390,
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "768": {
+        "width": 768,
+        "scrollWidth": 768,
+        "innerWidth": 768,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      },
+      "1440": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "noHorizontalScroll": true,
+        "touchTargets": {
+          "measured": 7,
+          "under44Exempt": [],
+          "under44Failures": []
+        }
+      }
+    }
+  }
+}

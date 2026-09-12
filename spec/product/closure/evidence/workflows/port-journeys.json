@@ -1,0 +1,782 @@
+{
+  "summary": {
+    "bundle": "UI-010 Leg A — port-level end-to-end workflow journeys",
+    "base": "main @ 2e3b8314f3d1532b6032f9e5c93bf0aef9cd2e90",
+    "harness": "node --import ./alias-loader.mjs product-port-journeys.mjs (Node 24.19, native TS stripping)",
+    "composition": "journey-lib.mjs — the server composition root mirrored (substrate→evidence→authorities→persist→bindings→transition→gateway→scheduler + the seven runtime adapters registered into the product ports); recorded deviations: parameterized runtime dir (var/ui010-journeys/), tick-based drain (probe-drain.mjs evidences why)",
+    "runtimeDir": "var/ui010-journeys/ (fresh per run; per-domain SQLite stores + the A15 evidence store)",
+    "workflows": [
+      {
+        "workflow": "WF-1",
+        "title": "Customer intent lifecycle: consequence quote → explicit submit → compliance-gated authorize → tracking + evidence proof trail",
+        "surfacesCrossed": [
+          "customer intent surface (/pay flow: compose→review→submit→state)",
+          "provider capability surface (/capabilities)",
+          "tracking surface (/track/[referenceId])"
+        ],
+        "statesExercised": [
+          "WAITING (DRAFT, IMR-9)",
+          "IN_PROGRESS (AUTHORIZED, IMR-10)",
+          "UNKNOWN (no-answer query, IMR-8)",
+          "not-found tracking (TRK-LOOKUP-NOT-FOUND)"
+        ],
+        "steps": 12,
+        "assertionsPassed": 14,
+        "assertionsFailed": 0
+      },
+      {
+        "workflow": "WF-2",
+        "title": "Merchant checkout over a real DRAFT intent → offer read → terminal cancel → failed status → tracking view of the failure",
+        "surfacesCrossed": [
+          "merchant checkout surface (/checkout, /checkout/[checkoutId])",
+          "customer intent surface (the port submit that creates the offer)",
+          "tracking surface (/track/[referenceId])"
+        ],
+        "statesExercised": [
+          "ACTION_REQUIRED (offered, cko-map-01)",
+          "FAILED (CANCELLED with reason code, cko-map-07 / TRK-FAILED)"
+        ],
+        "steps": 8,
+        "assertionsPassed": 10,
+        "assertionsFailed": 0
+      },
+      {
+        "workflow": "WF-3",
+        "title": "Checkout UNKNOWN over the post-DRAFT intent + the fail-closed accept-decision refusal + the unknown-reference error mapping",
+        "surfacesCrossed": [
+          "merchant checkout surface (/checkout/[checkoutId])"
+        ],
+        "statesExercised": [
+          "UNKNOWN (checkout session gap with reconciliation, cko-map-08)",
+          "honest refusal (decision-not-allowed)",
+          "checkout-not-found → UNKNOWN presentation"
+        ],
+        "steps": 3,
+        "assertionsPassed": 5,
+        "assertionsFailed": 0
+      },
+      {
+        "workflow": "WF-4",
+        "title": "Waiting/recovery: queue item → WAITING snapshot → re-check command → cancel recovery → terminal resolution (+ the retry denial)",
+        "surfacesCrossed": [
+          "tracking surface (/track/[referenceId])",
+          "waiting/recovery surface (/track/[referenceId]/waiting)"
+        ],
+        "statesExercised": [
+          "WAITING (fq.queued.liquidity-credit, WQ-01)",
+          "re-check accepted (fq.inquiry.recheck-requested, WQ-15)",
+          "recovery denial (fq.recovery.denied, WQ-14)",
+          "FAILED terminal (fq.resolved.failed with reason, WQ-09)"
+        ],
+        "steps": 7,
+        "assertionsPassed": 11,
+        "assertionsFailed": 0
+      },
+      {
+        "workflow": "WF-5",
+        "title": "Mediation/dispute: obligations via clearing → party docket → initiation matrix → dispute open through the gateway → dispute record + recourse trail (+ re-dispute denial + the area-19 gaps)",
+        "surfacesCrossed": [
+          "mediation surfaces (/mediation, /mediation/dispute/new, /mediation/dispute/[disputeId])",
+          "tracking surface (the obligation's origin reference)"
+        ],
+        "statesExercised": [
+          "ACTION_REQUIRED (disputable obligation on the docket)",
+          "dispute open (MD-201 dispute-open with the authority)",
+          "denied re-dispute (frozen one-way table)",
+          "unavailable (area-19 proposals, MD-400-class)"
+        ],
+        "steps": 8,
+        "assertionsPassed": 16,
+        "assertionsFailed": 0
+      },
+      {
+        "workflow": "WF-6",
+        "title": "Authoritative-UNKNOWN: the operator oversight aggregates (A06/A07/A08 read-surface gap) + provider positions + the oversight role gate",
+        "surfacesCrossed": [
+          "operator oversight surface (/oversight)",
+          "provider liquidity surface (/liquidity)"
+        ],
+        "statesExercised": [
+          "UNKNOWN — authoritative (LQ-009/LQ-010 aggregates, authority-unknown with reconciliation)",
+          "denied (oversight role gate, LQ-011)"
+        ],
+        "steps": 4,
+        "assertionsPassed": 6,
+        "assertionsFailed": 0,
+        "authoritativeUnknown": {
+          "aggregates": [
+            {
+              "aggregateId": "oversight-total-reserved",
+              "subject": "total reserved across providers"
+            },
+            {
+              "aggregateId": "oversight-queue-depth",
+              "subject": "queued entries across providers"
+            },
+            {
+              "aggregateId": "oversight-credit-utilized",
+              "subject": "credit utilized across providers"
+            }
+          ],
+          "renderedAs": "unknown (authority-unknown values with reconciliation paths) — never success, never failure, never a fabricated sum"
+        }
+      }
+    ],
+    "evidenceChainValid": true,
+    "evidenceChain": {
+      "verdict": "VERIFIED",
+      "verifiedHeight": 29,
+      "finalHash": "a6f0e976f3cd4afa202925998d7e6da05ad511c99faa0b4b44df6d0926ec6fc0"
+    },
+    "totalAssertions": 62,
+    "failedAssertions": 0
+  },
+  "journeys": [
+    {
+      "workflow": "WF-1",
+      "title": "Customer intent lifecycle: consequence quote → explicit submit → compliance-gated authorize → tracking + evidence proof trail",
+      "surfacesCrossed": [
+        "customer intent surface (/pay flow: compose→review→submit→state)",
+        "provider capability surface (/capabilities)",
+        "tracking surface (/track/[referenceId])"
+      ],
+      "statesExercised": [
+        "WAITING (DRAFT, IMR-9)",
+        "IN_PROGRESS (AUTHORIZED, IMR-10)",
+        "UNKNOWN (no-answer query, IMR-8)",
+        "not-found tracking (TRK-LOOKUP-NOT-FOUND)"
+      ],
+      "environment": "sandbox topology of the real composed system: plain-Node harness (Node 24.19, native TS type stripping) composing substrate(DEP-003 node:sqlite) + A15 evidence log + A01/A02/A03/A04/A05/A06/A07/A08/A09/A10/A11/A12/A13/A14/A16 authorities + persist hooks + gateway + scheduler + the seven product runtime adapters (the UI-011 splice)",
+      "steps": [
+        {
+          "label": "rails.adapter.register + activate — VIA THE GATEWAY",
+          "action": "gateway.submitCommand('rails.adapter.register' / 'rails.adapter.activate')",
+          "stateBefore": "no rail adapters"
+        },
+        {
+          "label": "rails adapter ACTIVE",
+          "stateAfter": "adapter pid.v1.6b79c88a6f45721f6e8710f3e5016a8dddab9b5d5872dd81febae4b964b4d310 = ACTIVE",
+          "outcome": "register admitted=true, activate admitted=true"
+        },
+        {
+          "label": "capability register + gate approval + activate (A03 command surface)",
+          "action": "capability.registerCapability → risk.evaluateAndRecordCheck/decideCheck (APPROVED) → capability.activateCapability",
+          "stateBefore": "no capabilities in the A03 registry"
+        },
+        {
+          "label": "capability ACTIVE",
+          "stateAfter": "cap-usd = ACTIVE",
+          "outcome": "registered.ok=true, gate=APPROVED, activated.ok=true"
+        },
+        {
+          "label": "PROVIDER CAPABILITY SURFACE read: ports.capability.listCapabilities()",
+          "stateAfter": "1 capability item(s); boundary runtime=LIVE",
+          "outcome": "cap-usd (available) — CAP-MAP-001 'available'"
+        },
+        {
+          "label": "CONSEQUENCE QUOTE: ports.intent.requestConsequenceReport(draft)",
+          "outcome": "report qrpt_rt_001: fee=1.50 USD, total=26.50 USD, 8 plain-language terms",
+          "stateAfter": "a reviewed consequence report exists (the review surface can render it; the submit gate is armed)"
+        },
+        {
+          "label": "EXPLICIT SUBMIT: ports.intent.submitIntent(draft, authorization)",
+          "outcome": "transported — intent pid.v1.8aed9241ec8fd1c627f79b4595ce14ed610acc185a8e880fe1e71256e76aab32, authority state DRAFT → display WAITING (IMR-9 (spec/product/intent-mapping-records.md))",
+          "stateBefore": "no intent record",
+          "stateAfter": "A01 holds intent pid.v1.8aed9241ec8fd1c627f79b4595ce14ed610acc185a8e880fe1e71256e76aab32 in DRAFT; evidence: consequence-terms | submission-received | authority-state-report"
+        },
+        {
+          "label": "AUTHORIZE: gateway intent.authorize (compliance-gated)",
+          "outcome": "admitted=true; A01 state=AUTHORIZED",
+          "stateBefore": "DRAFT",
+          "stateAfter": "AUTHORIZED"
+        },
+        {
+          "label": "STATE READ: ports.intent.getIntentState(intentId)",
+          "outcome": "AUTHORIZED → display IN_PROGRESS (IMR-10 (spec/product/intent-mapping-records.md))"
+        },
+        {
+          "label": "TRACKING READ: ports.tracking.lookupReference(intentId, \"customer\")",
+          "outcome": "tracked: state=in-progress; history=2 entries; evidenceTrail=2 records",
+          "stateAfter": "current: The Intent Authority reports the intent pid.v1.8aed9241ec8fd1c627f79b4595ce14ed610acc185a8e880fe1e71256e76aab32 AUTHORIZED — progressing as reported. · evidence: INTENT_CREATED(DRAFT · sequence 7 · hash dd43233e411807fa5669e3dfda0133ad91d6cc5f1cd249598481970f8bc0e4c2) | INTENT_AUTHORIZED(AUTHORIZED · sequence 12 · hash ad997d38d39a198c689d48cb342ca777f29a22a8559b615792850a9fafe1572e)"
+        },
+        {
+          "label": "UNKNOWN READ: ports.intent.getIntentState(<never-submitted>)",
+          "outcome": "no-answer (reason no-record) — the note words it UNKNOWN with the reconciliation path",
+          "stateAfter": "the intent state surface renders UNKNOWN (IMR-8), never 404/failed"
+        },
+        {
+          "label": "UNKNOWN TRACKING: ports.tracking.lookupReference(\"NOT-A-REFERENCE\")",
+          "outcome": "not-found — \"the runtime's real answer for this reference … never as a fabricated state\" (TRK-LOOKUP-NOT-FOUND)"
+        }
+      ],
+      "assertions": [
+        {
+          "label": "the rail adapter is ACTIVE for the corridor",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the capability is ACTIVE in the A03 snapshot",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the capability surface lists the ACTIVE capability from the A03 registry (CAP-MAP-001 'available')",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the consequence report quotes terms from the A03 snapshot (fee 1.50 USD)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the explicit submit is transported (gateway admission + durable execution)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the DRAFT snapshot resolves to the WAITING display state (IMR-9)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the intent compliance gate check is APPROVED (the real risk authority)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "intent.authorize admitted + executed: the intent is AUTHORIZED",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the intent state query returns the AUTHORIZED snapshot (IN_PROGRESS, IMR-10)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the tracking lookup resolves the intent by its protocol object id",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the tracked state is in-progress (TRK-IN-PROGRESS)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the evidence trail carries A15 record ids, sequences, and hashes",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "an unknown reference queries as no-answer → UNKNOWN (never failure)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the tracking lookup of an unknown reference is not-found with UNKNOWN-honest wording",
+          "pass": true,
+          "evidence": null
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "workflow": "WF-2",
+      "title": "Merchant checkout over a real DRAFT intent → offer read → terminal cancel → failed status → tracking view of the failure",
+      "surfacesCrossed": [
+        "merchant checkout surface (/checkout, /checkout/[checkoutId])",
+        "customer intent surface (the port submit that creates the offer)",
+        "tracking surface (/track/[referenceId])"
+      ],
+      "statesExercised": [
+        "ACTION_REQUIRED (offered, cko-map-01)",
+        "FAILED (CANCELLED with reason code, cko-map-07 / TRK-FAILED)"
+      ],
+      "environment": "sandbox topology of the real composed system: plain-Node harness (Node 24.19, native TS type stripping) composing substrate(DEP-003 node:sqlite) + A15 evidence log + A01/A02/A03/A04/A05/A06/A07/A08/A09/A10/A11/A12/A13/A14/A16 authorities + persist hooks + gateway + scheduler + the seven product runtime adapters (the UI-011 splice)",
+      "steps": [
+        {
+          "label": "submit intent-2 (the offer behind the checkout)",
+          "outcome": "intent pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf DRAFT"
+        },
+        {
+          "label": "CHECKOUT LIST: ports.checkout.listOpenCheckouts()",
+          "outcome": "1 open offer(s); pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf — ACTION_REQUIRED (cko-map-01)",
+          "stateAfter": "receiveAmount 12.5 USD, validUntil 2026-09-13T14:14:42.101Z"
+        },
+        {
+          "label": "CHECKOUT OFFER: ports.checkout.getOffer({checkoutId})",
+          "outcome": "\"Open offer — payment intent pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf\"; 5 material conditions; plainLanguageSummary carries the no-settlement-finality wording",
+          "stateAfter": "the merchant decision page renders the offer (ACTION_REQUIRED)"
+        },
+        {
+          "label": "CHECKOUT STATUS (pre-cancel): ports.checkout.getStatus()",
+          "outcome": "state=offered → display action-required"
+        },
+        {
+          "label": "AUTHORIZE intent-2",
+          "outcome": "admitted=true; A01 state=AUTHORIZED"
+        },
+        {
+          "label": "TERMINAL CANCEL: gateway intent.cancel (reason PAYER_CANCELLED — the A01 reason-code vocabulary)",
+          "stateBefore": "AUTHORIZED (the offer rendered as UNKNOWN post-DRAFT)",
+          "stateAfter": "CANCELLED (terminal)"
+        },
+        {
+          "label": "CHECKOUT STATUS (post-cancel): ports.checkout.getStatus()",
+          "outcome": "state=failed → display failed; reason: The Intent Authority reports the intent CANCELLED — the offer did not proceed and no money",
+          "stateAfter": "nextActions: Open the intent’s state page for the authority’s recorded reason code"
+        },
+        {
+          "label": "TRACKING READ of the cancelled intent",
+          "outcome": "state=failed; outcome: The Intent Authority reports the intent pid.v1.daea8c22e92d74de6cbc63dd6e5ddc3ec76b04966e9a74c26aa9fa558c9d6ccf CANCELLED (reason code PAYER"
+        }
+      ],
+      "assertions": [
+        {
+          "label": "a second intent is submitted and held in DRAFT",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the checkout list presents the DRAFT intent as an open offer",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the offer read quotes the intent's own recorded terms (no fee invented)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the offer wording never states settlement or finality (N2)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the offered checkout resolves to ACTION_REQUIRED (cko-map-01)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "intent-2 is AUTHORIZED (the precondition for the terminal cancel)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "intent.cancel admitted + executed: the intent is CANCELLED",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the cancelled checkout presents the failed record with reason and next actions (cko-map-07)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the tracked view presents the terminal failure with the recorded reason code (TRK-FAILED)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the cancelled intent no longer appears as an open offer",
+          "pass": true,
+          "evidence": null
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "workflow": "WF-3",
+      "title": "Checkout UNKNOWN over the post-DRAFT intent + the fail-closed accept-decision refusal + the unknown-reference error mapping",
+      "surfacesCrossed": [
+        "merchant checkout surface (/checkout/[checkoutId])"
+      ],
+      "statesExercised": [
+        "UNKNOWN (checkout session gap with reconciliation, cko-map-08)",
+        "honest refusal (decision-not-allowed)",
+        "checkout-not-found → UNKNOWN presentation"
+      ],
+      "environment": "sandbox topology of the real composed system: plain-Node harness (Node 24.19, native TS type stripping) composing substrate(DEP-003 node:sqlite) + A15 evidence log + A01/A02/A03/A04/A05/A06/A07/A08/A09/A10/A11/A12/A13/A14/A16 authorities + persist hooks + gateway + scheduler + the seven product runtime adapters (the UI-011 splice)",
+      "steps": [
+        {
+          "label": "CHECKOUT STATUS over the AUTHORIZED intent: ports.checkout.getStatus()",
+          "outcome": "state=unknown → display unknown",
+          "stateAfter": "reconciliation.whoResolves: The Checkout/Intent Authority: the area-20 checkout-session record (wave 2) would resolve the merchant-decisio"
+        },
+        {
+          "label": "DECISION SUBMIT: ports.checkout.submitDecision({decision: \"accept\"})",
+          "outcome": "refused — decision-not-allowed: The composed protocol runtime exposes no merchant-decision command surface: the area-20 Merchant Authority (checkout-session semantics: CHECKOUT_OPENE…",
+          "stateBefore": "the merchant presses Accept on the offer",
+          "stateAfter": "no decision recorded, nothing committed (fail closed; the area-20 wave-2 gap)"
+        },
+        {
+          "label": "UNKNOWN-REFERENCE STATUS: ports.checkout.getStatus(<unknown id>)",
+          "outcome": "error=checkout-not-found → presentation {\"target\":\"the requested checkout object — The Intent Authority holds no intent record for pid.v1.no-such-checkout, so no checkout state exists to report. UNKNO",
+          "stateAfter": "the surface renders the availability-unknown presentation (UNKNOWN), never a fabricated state"
+        }
+      ],
+      "assertions": [
+        {
+          "label": "WF-1's authorized intent is available for the post-DRAFT checkout read",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the post-DRAFT checkout state is UNKNOWN — never success or failure (cko-map-08)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the UNKNOWN checkout carries its reconciliation path (who resolves + re-check trigger)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the accept decision is REFUSED (decision-not-allowed) — nothing committed",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the unknown-reference checkout maps to an UNKNOWN-class presentation",
+          "pass": true,
+          "evidence": null
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "workflow": "WF-4",
+      "title": "Waiting/recovery: queue item → WAITING snapshot → re-check command → cancel recovery → terminal resolution (+ the retry denial)",
+      "surfacesCrossed": [
+        "tracking surface (/track/[referenceId])",
+        "waiting/recovery surface (/track/[referenceId]/waiting)"
+      ],
+      "statesExercised": [
+        "WAITING (fq.queued.liquidity-credit, WQ-01)",
+        "re-check accepted (fq.inquiry.recheck-requested, WQ-15)",
+        "recovery denial (fq.recovery.denied, WQ-14)",
+        "FAILED terminal (fq.resolved.failed with reason, WQ-09)"
+      ],
+      "environment": "sandbox topology of the real composed system: plain-Node harness (Node 24.19, native TS type stripping) composing substrate(DEP-003 node:sqlite) + A15 evidence log + A01/A02/A03/A04/A05/A06/A07/A08/A09/A10/A11/A12/A13/A14/A16 authorities + persist hooks + gateway + scheduler + the seven product runtime adapters (the UI-011 splice)",
+      "steps": [
+        {
+          "label": "QUEUE + ITEM (A08 command surface)",
+          "outcome": "queue-ui010 (OPEN); item pid.v1.32062efd9e08960b52201666ca7273e0ac6714d8e692530c893dbc9cb8e817c9 QUEUED",
+          "stateBefore": "no queue items",
+          "stateAfter": "item pid.v1.32062efd9e08960b52201666ca7273e0ac6714d8e692530c893dbc9cb8e817c9 for intent pid.v1.8aed9241ec8fd1c627f79b4595ce14ed610acc185a8e880fe1e71256e76aab32"
+        },
+        {
+          "label": "WAITING LOOKUP: ports.waiting.lookupWaiting(itemId, \"customer\")",
+          "outcome": "fq.queued.liquidity-credit (queued) — display WAITING (WQ-01)",
+          "stateAfter": "whatIsWaiting: Intent pid.v1.8aed9241ec8fd1c627f79b4595ce14ed610acc185a8e880fe1e71256e76aab32's fulfillment (queue queue-ui01 · reason: Waiting on the queue’s release conditions (the eligibility rule the authority evaluates over its own liquidity · expectation: The queue drains (queues.queue.drain.start) and dispatches eligible items in ord"
+        },
+        {
+          "label": "RE-CHECK: ports.waiting.requestRecheck({referenceId, requestedByRole})",
+          "outcome": "accepted (fq.inquiry.recheck-requested, WQ-15) — routedTo: Fulfillment/Queue Authority (A08) via the protocol gateway — queues.eligibility.evaluate",
+          "stateAfter": "the command is admitted on the durable path; the snapshot re-read reports the authority's answer"
+        },
+        {
+          "label": "SNAPSHOT RE-READ after the re-check",
+          "outcome": "fq.queued.liquidity-credit — the release conditions still do not hold (an honest no-progression answer, never a fabricated progression)"
+        },
+        {
+          "label": "RETRY RECOVERY: ports.waiting.requestRecovery({actionId: \"retry\"})",
+          "outcome": "denied (fq.recovery.denied, WQ-14) — Denied per protocol: the composed runtime exposes no retry command kind — A08’s \"never re-queued or re-dispatched until …"
+        },
+        {
+          "label": "CANCEL RECOVERY: ports.waiting.requestRecovery({actionId: \"cancel\"})",
+          "outcome": "accepted (fq.recovery.cancel-requested, WQ-12) — routedTo: Fulfillment/Queue Authority (A08) via the protocol gateway — queues.item.cancel",
+          "stateBefore": "item QUEUED",
+          "stateAfter": "the cancel command is admitted; the item's next read reports the authority's state"
+        },
+        {
+          "label": "TERMINAL RE-READ: ports.waiting.lookupWaiting(itemId)",
+          "outcome": "fq.resolved.failed (outcome failed) — display FAILED terminal (WQ-09)",
+          "stateAfter": "failureReason: Reason code as recorded: INTENT_CANCELLED. · nextActions: A retry is a new, explicitly submitted intent — never a silent re-dispatch (INV-8-4)."
+        }
+      ],
+      "assertions": [
+        {
+          "label": "WF-1's intent is available for the queued fulfillment",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the queue item is enqueued (A08, ITEM_QUEUED in the A15 chain)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the waiting lookup finds the item and presents a QUEUED snapshot",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the WAITING snapshot carries what/why/next (P6 mandatory content)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the recovery actions are explicit: cancel authorized, retry/escalate not-authorized",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the re-check request is accepted and routed to queues.eligibility.evaluate",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the re-read after the re-check is still an honest QUEUED (no fabricated progression)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the retry recovery is DENIED per protocol (INV-8-4 structural; no retry kind)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the cancel recovery is accepted and routed to queues.item.cancel",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the cancelled item presents the explicit terminal resolution with the recorded reason",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the waiting lookup also resolves the item by INTENT id (the tracking→waiting deep link)",
+          "pass": true,
+          "evidence": null
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "workflow": "WF-5",
+      "title": "Mediation/dispute: obligations via clearing → party docket → initiation matrix → dispute open through the gateway → dispute record + recourse trail (+ re-dispute denial + the area-19 gaps)",
+      "surfacesCrossed": [
+        "mediation surfaces (/mediation, /mediation/dispute/new, /mediation/dispute/[disputeId])",
+        "tracking surface (the obligation's origin reference)"
+      ],
+      "statesExercised": [
+        "ACTION_REQUIRED (disputable obligation on the docket)",
+        "dispute open (MD-201 dispute-open with the authority)",
+        "denied re-dispute (frozen one-way table)",
+        "unavailable (area-19 proposals, MD-400-class)"
+      ],
+      "environment": "sandbox topology of the real composed system: plain-Node harness (Node 24.19, native TS type stripping) composing substrate(DEP-003 node:sqlite) + A15 evidence log + A01/A02/A03/A04/A05/A06/A07/A08/A09/A10/A11/A12/A13/A14/A16 authorities + persist hooks + gateway + scheduler + the seven product runtime adapters (the UI-011 splice)",
+      "steps": [
+        {
+          "label": "CLEARING: gateway clearing.batch.open/stage/commit/finalize",
+          "outcome": "batch pid.v1.aef13f21c09d4b1f438a0f2d8cf98ea438146cc2e1919611f1e83351a556f98f committed; obligation pid.v1.dd5bf74a1beb8edda4dc01fbcea25f3ce93cca107f0815e64dcb563afbb7e335 CREATED for origin activity-ui010-wf5",
+          "stateBefore": "no obligations in the A10 ledger",
+          "stateAfter": "one OUTSTANDING (CREATED) obligation"
+        },
+        {
+          "label": "PARTY DOCKET: ports.mediation.getPartyDocket(\"customer\")",
+          "outcome": "fetched — disputes: 0; proposals: 0 (the runtime's authoritative empty set for the area-19 surface); mediations: 0; disputableIntents: 1",
+          "stateAfter": "disputable: activity-ui010-wf5 (Obligation pid.v1.dd5bf74a1beb8edda4dc01fbcea25f3ce93cca107f0815e64dcb563afbb7e335 — 25.00 USD (CREATED))"
+        },
+        {
+          "label": "INITIATION BRIEFING: ports.mediation.getDisputeInitiationBriefing()",
+          "outcome": "authority: Obligation Authority (A10 dispute primitive) over the composed protocol runtime — obligati…; 5 grounds; 4 consequences; whatHappensNext + consequenceOfInaction present"
+        },
+        {
+          "label": "INITIATION MATRIX: ports.mediation.describeDisputeInitiationMatrix({intentReference})",
+          "outcome": "customer=true merchant=true provider=false operator=false administrator=false"
+        },
+        {
+          "label": "DISPUTE INITIATION: ports.mediation.initiateDispute({...actor: \"customer\"})",
+          "outcome": "initiated — dispute pid.v1.1a0de586f6be80bfa043975b425f097997e6edf309710ec51e288cd6fed8e6f3; obligation now DISPUTED; record authorityState=open",
+          "stateBefore": "obligation pid.v1.dd5bf74a1beb8edda4dc01fbcea25f3ce93cca107f0815e64dcb563afbb7e335 CREATED (OUTSTANDING)",
+          "stateAfter": "obligation DISPUTED (terminalized; no settlement proceeds while the dispute is open)"
+        },
+        {
+          "label": "DISPUTE READ: ports.mediation.getDispute({disputeId, viewer})",
+          "outcome": "fetched — authorityState=open; recourseTrail: Dispute recorded (completed)",
+          "stateAfter": "proof: A15 chain (dispute pid.v1.1a0de586f6be80bfa043975b425f097997e6edf309710ec51e288cd6fed8e6f3)"
+        },
+        {
+          "label": "RE-DISPUTE DENIAL: initiateDispute on the DISPUTED obligation",
+          "outcome": "denied — The dispute was NOT initiated — nothing was recorded. The matching obligation is in the DISPUTED state — the frozen one-way table does not allow the D…"
+        },
+        {
+          "label": "AREA-19 GAP: ports.mediation.getProposal({proposalId: \"P-001\"})",
+          "outcome": "unavailable — The Agents/Mediation Authority (area 19 — agent proposals, human mediation) is RTN wave 2 and NOT merged as ru…"
+        }
+      ],
+      "assertions": [
+        {
+          "label": "the clearing record stages on the open batch",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the clearing commit created the obligation in CREATED (the A10 sink)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the party docket reads the disputable obligation from the A10 ledger",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the initiation briefing carries the authority consequence wording before any submit (P2)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the initiation matrix authorizes customer+merchant only (P8-style matrix over the A10 primitive)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the dispute is initiated through obligations.dispute.open (gateway admission + execution)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the obligation is DISPUTED after the command executes",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the dispute record presents authorityState \"open\" (not resolved — the command executed)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the A15 chain records the DISPUTE_OPEN transition",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the dispute read returns the fetched record with its recourse trail",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the recourse trail cites the A15 chain as its proof",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the party docket now lists the open dispute",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the re-dispute is DENIED (the frozen one-way table: DISPUTED is not re-enterable)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "an agent proposal reads unavailable with the recorded area-19 gap (never fabricated)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "a proposal decision is denied (fail closed; nothing committed)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the proposal decision matrix is all-unauthorized (fail closed)",
+          "pass": true,
+          "evidence": null
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "workflow": "WF-6",
+      "title": "Authoritative-UNKNOWN: the operator oversight aggregates (A06/A07/A08 read-surface gap) + provider positions + the oversight role gate",
+      "surfacesCrossed": [
+        "operator oversight surface (/oversight)",
+        "provider liquidity surface (/liquidity)"
+      ],
+      "statesExercised": [
+        "UNKNOWN — authoritative (LQ-009/LQ-010 aggregates, authority-unknown with reconciliation)",
+        "denied (oversight role gate, LQ-011)"
+      ],
+      "environment": "sandbox topology of the real composed system: plain-Node harness (Node 24.19, native TS type stripping) composing substrate(DEP-003 node:sqlite) + A15 evidence log + A01/A02/A03/A04/A05/A06/A07/A08/A09/A10/A11/A12/A13/A14/A16 authorities + persist hooks + gateway + scheduler + the seven product runtime adapters (the UI-011 splice)",
+      "steps": [
+        {
+          "label": "A06 pool + confirmed funding",
+          "outcome": "pool-usd funded with 1000.00 USD (POOL_OPENED + FUNDING_CONFIRMED in the A15 chain)"
+        },
+        {
+          "label": "OVERSIGHT READ: ports.liquidity.getOperatorOversight({requester: \"operator\"})",
+          "outcome": "3 aggregates; 3 are authority-unknown",
+          "stateAfter": "oversight-total-reserved (Total reserved across providers (USD)): UNKNOWN — The composed runtime exposes no cross-provider aggregate read: the A06 Liquidity Authority… resolves: The Liquidity Authority (a cross-pool aggregate read) — recorded future read-surface work\n           oversight-queue-depth (Queued entries across providers): UNKNOWN — The composed runtime exposes no cross-queue aggregate read: the A08 Queue Authority’s publ… resolves: The Queue Authority (a cross-queue aggregate read) — recorded future read-surface work\n           oversight-credit-utilized (Credit utilized across providers (USD)): UNKNOWN — The composed runtime exposes no cross-provider aggregate read: the A07 Credit Authority’s … resolves: The Credit Authority (a cross-line aggregate read) — recorded future read-surface work"
+        },
+        {
+          "label": "PROVIDER POSITIONS: ports.liquidity.getProviderPositions({requester: \"provider\"})",
+          "outcome": "1 liquidity position(s): pid.v1.7cfeb037f5887d83a8199a96d52e687dfaee37835853f54abb9cb774243e6575 available 1000.00 USD; credit lines: 0; queue snapshots: 1",
+          "stateAfter": "the provider surface renders the authority-quoted figures (contrasting the oversight aggregates' authoritative UNKNOWN)"
+        },
+        {
+          "label": "OVERSIGHT ROLE GATE: getOperatorOversight({requester: \"customer\"})",
+          "outcome": "denied — The operator oversight surface mirrors what the owning authorities permit: only the operator audience may read the overs…"
+        }
+      ],
+      "assertions": [
+        {
+          "label": "a real pool with confirmed funding exists in A06",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the operator oversight read is permitted",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the cross-provider aggregates present authority-UNKNOWN — never a UI-side sum (LQ-009/LQ-010)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "every authority-unknown aggregate carries who-resolves + recheck-trigger (P5 reconciliation)",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "the provider positions read is permitted with real A06 figures",
+          "pass": true,
+          "evidence": null
+        },
+        {
+          "label": "a non-operator requester is denied the oversight read (the port role gate)",
+          "pass": true,
+          "evidence": null
+        }
+      ],
+      "artifacts": [],
+      "authoritativeUnknown": {
+        "aggregates": [
+          {
+            "aggregateId": "oversight-total-reserved",
+            "subject": "total reserved across providers"
+          },
+          {
+            "aggregateId": "oversight-queue-depth",
+            "subject": "queued entries across providers"
+          },
+          {
+            "aggregateId": "oversight-credit-utilized",
+            "subject": "credit utilized across providers"
+          }
+        ],
+        "renderedAs": "unknown (authority-unknown values with reconciliation paths) — never success, never failure, never a fabricated sum"
+      }
+    }
+  ]
+}

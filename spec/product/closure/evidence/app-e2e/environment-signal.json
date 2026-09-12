@@ -1,0 +1,53 @@
+{
+  "note": "Controlled configuration check in the sandbox: the same standalone build started with PAYSWAP_ENV=production. No production financial execution is claimed or performed; this evidences the signal derivation chain only. FINDING 4: statically prerendered surfaces bake the build-time signal (see findings.md).",
+  "sandboxInstance": {
+    "baseUrl": "http://localhost:3210",
+    "health": {
+      "status": "ok",
+      "component": "web-api-boundary",
+      "env": "sandbox"
+    },
+    "homeBanner": "Sandbox environment"
+  },
+  "productionInstance": {
+    "baseUrl": "http://localhost:3211",
+    "health": {
+      "status": "ok",
+      "component": "web-api-boundary",
+      "env": "production"
+    },
+    "banners": {
+      "/track (dynamic)": "Production environment",
+      "/ (static)": "Sandbox environment",
+      "/state-primitives (static)": "Sandbox environment",
+      "/verification/intent-flow (static)": "Sandbox environment",
+      "/no-such-route-ui010 (404, static)": "Sandbox environment"
+    }
+  },
+  "checks": [
+    {
+      "label": "the sandbox instance (PAYSWAP_ENV unset) reports env=sandbox",
+      "pass": true,
+      "evidence": "{\"status\":\"ok\",\"env\":\"sandbox\",\"component\":\"web-api-boundary\"}"
+    },
+    {
+      "label": "the sandbox instance renders the Sandbox banner",
+      "pass": true
+    },
+    {
+      "label": "the production-configured instance (PAYSWAP_ENV=production) reports env=production — the signal derives exclusively from configuration",
+      "pass": true,
+      "evidence": "{\"status\":\"ok\",\"env\":\"production\",\"component\":\"web-api-boundary\"}"
+    },
+    {
+      "label": "a DYNAMIC page on the production instance renders the Production banner (request-time derivation)",
+      "pass": true,
+      "evidence": "banner=/track → Production environment"
+    },
+    {
+      "label": "FINDING 4 recorded: 4/4 statically prerendered surfaces on the production instance render the STALE build-time (Sandbox) banner — the banner is baked at prerender time; the dynamic surfaces and /api/health derive at request time",
+      "pass": true,
+      "evidence": "home=Sandbox environment; state-primitives=Sandbox environment; intent-flow=Sandbox environment; 404=Sandbox environment"
+    }
+  ]
+}
