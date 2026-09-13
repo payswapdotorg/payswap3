@@ -16,8 +16,8 @@ honesty, not an open defect; a missing disposition is a stop condition.
 
 ## Generation provenance
 
-- base commit (HEAD at generation): `90ef9091c14be9e2cb27012770defb6a0a0ebbee`
-- base tree: `3f0543c3c8f8b4bfc151a441e101757fd91dc6ef`
+- base commit (HEAD at generation): `d29c52968e56e78ed9c90d14ca02a2c81ac52f4e`
+- base tree: `0fddd21aa8c75e531d98822065157ce7cea81e3d`
 - provenance only — read at generation; the closure gate re-derives every row at run time (ancestor + subject proofs against the live HEAD) and fails closed on divergence. The exact release revision is likewise read at run time by the closure gate — never hand-written.
 
 ## Layer 1 — protocol (frozen v0.1 authoring surface: WORK-001..WORK-033)
@@ -126,9 +126,9 @@ honesty, not an open defect; a missing disposition is a stop condition.
 | --- | --- | --- | --- | --- | --- | --- |
 | SYS-001 | three-architecture reconciliation | spec/system-reconciliation-matrix.json (+3) | 6ec6b38 (PR #40) | yes | yes | PASS |
 | SYS-002 | full-system dogfood | spec/system-dogfood/corpus-index.json (+3) | 967519a (PR #41) | yes | yes | PASS |
-| SYS-003 | system closure (this work item) | spec/system-work-orders/SYS-003.md (+5) | — (the Lead finalize) | self | self | CLOSURE-DRAFT |
+| SYS-003 | system closure (this work item — merged at the Lead finalize) | spec/system-work-orders/SYS-003.md (+5) | 90ef909 (PR #42) | yes | yes | MERGED (closure finalized) |
 
-- **SYS-003:** the closure work item itself — the merge is the Lead finalize (Architect approval + merge + finalization); the closure gate is the live mechanical proof of every other acceptance bullet
+- **SYS-003:** the closure work item, merged by the Lead finalize (Architect approval + merge + finalization); the closure gate re-verified every acceptance bullet at the finalize revision
 
 ## The honest-handoff ledger (owners + recorded dispositions)
 
@@ -180,7 +180,7 @@ honesty, not an open defect; a missing disposition is a stop condition.
 
 - acceptance-surface rows: **70**
 - honest-handoff rows: **24**
-- rows with a recorded merge fact: **69** (ancestor-of-HEAD: 69; subject-containment: 69)
+- rows with a recorded merge fact: **70** (ancestor-of-HEAD: 70; subject-containment: 70)
 - honest-handoff rows missing a disposition: **0** (must be 0 — a missing disposition is a stop condition)
 
 ## Regeneration

@@ -16,8 +16,8 @@
     "status"
   ],
   "generation": {
-    "base_commit": "90ef9091c14be9e2cb27012770defb6a0a0ebbee",
-    "base_tree": "3f0543c3c8f8b4bfc151a441e101757fd91dc6ef",
+    "base_commit": "d29c52968e56e78ed9c90d14ca02a2c81ac52f4e",
+    "base_tree": "0fddd21aa8c75e531d98822065157ce7cea81e3d",
     "note": "provenance only — read at generation; the closure gate re-derives every row at run time (ancestor + subject proofs against the live HEAD) and fails closed on divergence. The exact release revision is likewise read at run time by the closure gate — never hand-written."
   },
   "layers": {
@@ -1493,7 +1493,7 @@
       },
       {
         "item": "SYS-003",
-        "title": "system closure (this work item)",
+        "title": "system closure (this work item — merged at the Lead finalize)",
         "layer": "system",
         "governing_evidence": [
           "spec/system-work-orders/SYS-003.md",
@@ -1503,12 +1503,16 @@
           "spec/system-closure/closure-record.md",
           "scripts/test_system_closure.mjs"
         ],
-        "recorded_merge": null,
-        "commit_subject": null,
-        "ancestor_of_head": null,
-        "subject_containment": null,
-        "status": "CLOSURE-DRAFT",
-        "note": "the closure work item itself — the merge is the Lead finalize (Architect approval + merge + finalization); the closure gate is the live mechanical proof of every other acceptance bullet"
+        "status": "MERGED (closure finalized)",
+        "note": "the closure work item, merged by the Lead finalize (Architect approval + merge + finalization); the closure gate re-verified every acceptance bullet at the finalize revision",
+        "recorded_merge": {
+          "sha": "90ef909",
+          "pr": 42,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "SYS-003: system closure (closure gate, final reconciliation matrix, state synchronization proof, closure record draft) (#42)",
+        "ancestor_of_head": true,
+        "subject_containment": true
       }
     ]
   },
@@ -1717,9 +1721,9 @@
   "totals": {
     "acceptance_surface_rows": 70,
     "honest_handoff_rows": 24,
-    "rows_with_recorded_merge": 69,
-    "rows_ancestor_of_head": 69,
-    "rows_subject_containment": 69,
+    "rows_with_recorded_merge": 70,
+    "rows_ancestor_of_head": 70,
+    "rows_subject_containment": 70,
     "handoff_rows_missing_disposition": 0
   }
 }

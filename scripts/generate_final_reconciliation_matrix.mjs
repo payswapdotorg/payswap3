@@ -389,7 +389,12 @@ function systemLayer(root) {
         item: 'SYS-003',
         title: 'system closure (this work item — merged at the Lead finalize)',
         layer: 'system',
-        governing_evidence: [
+        // Lead-applied fix (post-finalize first exercise): proofRow's
+        // parameter is `evidence` — the worker's latent post-merge branch
+        // passed `governing_evidence` (never exercised pre-finalize), so
+        // the merged SYS-003 row lost its evidence column and the .md
+        // render crashed. One-token contract delta, DEP-007 precedent.
+        evidence: [
           'spec/system-work-orders/SYS-003.md',
           'spec/system-closure/final-reconciliation-matrix.json',
           'spec/system-closure/final-reconciliation-matrix.md',

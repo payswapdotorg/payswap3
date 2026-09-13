@@ -147,7 +147,8 @@ the gate groups and the cited artifacts):
 > - **Merge** — PR #42 squash `90ef909` into `main` (this commit's parent).
 > - **Finalization** — THIS commit: the state files now record SYS-003
 >   MERGED and SYSTEM COMPLETE; the machine matrix is regenerated at the
->   merge revision (its `generation` provenance records `90ef909`); the
+>   finalized state (regenerated after the state synchronization so the
+>   SYS-003 row records MERGED — the rows are stable at the closed state); the
 >   roadmap is closed — **the PaySwap three-layer system completion program
 >   is COMPLETE** (Protocol v0.1 frozen + WORK-001..033; RTN A01-A16 with
 >   wave-2 the recorded named deferral; Product UI-001..011 with the program
