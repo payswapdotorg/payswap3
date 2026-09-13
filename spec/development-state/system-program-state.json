@@ -24,9 +24,10 @@
   },
   "activeWork": [
     "UI-010 MERGED (b378f6d, PR #35) — payswap3-product program CLOSED by Tech Lead approval (closure submission spec/product/closure/)",
-    "DEP-005 MERGED (bd85a83, PR #36) — rail-connectivity family recovered from suspension casualty sandbox ws-610fb729 (transcript dead, sandbox durable)",
-    "DEP-006 MERGED (9c7c3c2, PR #37) — CI/CD and promotion delivered as repository-local automation (gate runner 6 gates, promotion tool record/migrate/rollback-plan/verify, GitHub workflows, spec/deployment/ci-cd.md contract, four-surface registry update; validator 946 checks PASS)",
-    "DEP-007 MERGED (25b1789, PR #38) — observability/resilience/DR recovered via transcript tool-call replay after the worker pod was reset post-completion (16 files +5958/-2, drill harness 30 scenarios/483 assertions ALL GREEN re-verified at the integration station; contract delta Lead-applied: health-signal upgrades + validator DEP-007 section, 1011 checks PASS)"
+    "DEP-005 MERGED (bd85a83, PR #36) — rail-connectivity family recovered from suspension casualty sandbox ws-610fb729",
+    "DEP-006 MERGED (9c7c3c2, PR #37) — CI/CD and promotion as repository-local automation (gate runner, promotion tool, workflows; validator 946 checks)",
+    "DEP-007 MERGED (25b1789, PR #38) — observability/resilience/DR via transcript tool-call replay recovery (16 files +5958/-2; drills 30/483; contract delta Lead-applied; 1011 checks)",
+    "DEP-008 MERGED (8d713f1, PR #39) — production readiness proof: the DEPLOYMENT PROGRAM IS COMPLETE (DEP-001..008). Worker head 07d8265 pushed verbatim (git objects recovered from the sandbox .git and grafted); release record pr-1789278934747 freezing ed673d7 (tree 35b92ab9, content digest 9b83ecdc27) re-proved at the integration station: ALL 10 proof groups PASS (50 scenarios / 317 assertions / 0 stop conditions) matching the committed transcript exactly. Worker recommendation: approve-with-conditions — Tech Lead accepts (conditions recorded: DEP-007 determinism fix is load-bearing for verify; annotate rebase-orphaned DEP-006 rehearsal records as historical at next governance touch; production claims stay gated on the DEP-002+ production deployment binding)."
   ],
   "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
   "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001). Product program CLOSED (UI-010, PR #35): the deferral ledger (spec/product/closure/deferral-ledger.md) is the product layer's honest handoff — D-2 (UI-011 splice unreachable by routes) and D-3 (drain() halts worker) ELEVATE SYS-001's transport-binding urgency; fold both into the SYS-001 HTTP binding remediation. Remaining frontier: DEP-005 (in flight) -> DEP-006..008 -> SYS-001/002 -> SYS-003 closure.",
@@ -45,14 +46,16 @@
     "DEP-002": "merged 1a6926c (PR #8): runtime packaging + configuration",
     "DEP-003": "merged b3bc430 (PR #9): durable persistence + work execution (node:sqlite substrate, zero deps)",
     "frontier": [
-      "DEP-008 DISPATCHABLE (depends DEP-006 MERGED + DEP-007 MERGED + product closure candidate — all satisfied: UI-010 merged)",
-      "Composio infrastructure truth unchanged: ONLY GitHub connected — production deployment binding / artifact registry / external telemetry binding remain FUTURE-WORK until operator connects providers"
+      "SYS-001 DISPATCHABLE (three-architecture reconciliation; depends on UI + deployment items — all merged; carries the product-closure deferral ledger D-1/D-2/D-3 HTTP-binding remediation fold-in)",
+      "SYS-002 after SYS-001; SYS-003 closure after SYS-002 + DEP-008",
+      "Composio infrastructure truth unchanged: ONLY GitHub connected — production deployment binding remains FUTURE-WORK (DEP-002+) until operator connects providers"
     ],
     "note": "RTN wave complete (all 12 work orders merged; merge SHAs in rtnWave.mergeRecord). DEP-004 unblocked per the RTN-012 dispatchability memo. Infrastructure discovery (Composio): ONLY GitHub connected — Vercel/Cloudflare/database/queue/observability providers unconnected; DEP-005/006/007 infrastructure bindings await operator connections.",
     "DEP-004": "merged 3126426 (PR #33): reconciliation/clearing/netting/settlement-support operational jobs (src/lib/operations/ + harness; contract trio updated; deployment validator PASS 695 checks)",
     "DEP-005": "merged bd85a83 (PR #36): external rail connectivity boundary (src/lib/rail-connectivity/ + harness + deployment contract trio; validator PASS 778 checks)",
     "DEP-006": "merged 9c7c3c2 (PR #37): CI/CD and promotion — repo-local gate battery (governance, deployment-contract, durable-contract, typecheck, 15 harnesses, build), immutable-revision promotion records with content digests, migration gate on throwaway copies, rollback-plan honoring R1-R5 with UNKNOWN-never-retried, GitHub Actions ci+promotion workflows (no CI-only gates), rehearsal evidence in deploy/promotions/",
-    "DEP-007": "merged 25b1789 (PR #38): observability, resilience and disaster recovery — src/lib/observability/ (nine-domain taxonomy, telemetry, actionable worst-of health, scrubbed logging, tracing), src/lib/recovery/ (verified backup, fail-closed restore with evidence-integrity verification, idempotent replay), drill harness (7 groups, 30/483 PASS), spec/deployment/observability.md; /api/ready additive componentHealth (F6 preserved); transcript-replay recovery after pod reset"
+    "DEP-007": "merged 25b1789 (PR #38): observability, resilience and disaster recovery — src/lib/observability/ (nine-domain taxonomy, telemetry, actionable worst-of health, scrubbed logging, tracing), src/lib/recovery/ (verified backup, fail-closed restore with evidence-integrity verification, idempotent replay), drill harness (7 groups, 30/483 PASS), spec/deployment/observability.md; /api/ready additive componentHealth (F6 preserved); transcript-replay recovery after pod reset",
+    "DEP-008": "merged 8d713f1 (PR #39): production readiness proof — scripts/test_production_readiness.mjs (ten fail-closed proof groups: release-identity, protocol-integration, ui-integration, failure-injection, scaling-behavior, config-secret-safety, backup-restore-queue-recovery, unknown-reconciliation, external-effect-safety, rollback-observability; 50/317 PASS), release record pr-1789278934747 (immutable revision ed673d7, all 6 gates green, verify end-to-end), DEP-008-READINESS-TRANSCRIPT.md (complete verification transcript + stop-condition audit), spec/deployment/production-readiness.md (the contract), four-surface registry update (validator 1151 checks)"
   },
   "rtnWave": {
     "status": "complete",
