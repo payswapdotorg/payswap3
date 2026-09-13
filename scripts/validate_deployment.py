@@ -40,6 +40,21 @@ repository root:
      configuration.ts); topology.md records the DEP-005 governed contract
      change; the secret-boundary patterns (S1-S5) are scanned over the
      family's source too.
+  9. DEP-006 CI/CD and promotion (spec/deployment/ci-cd.md): the workflow
+     files exist and reference only repo-local gate scripts (every
+     repository script they invoke exists on disk; no run: step fetches or
+     executes remote code); the CI/CD toolchain exists (gate runner,
+     promotion tool, package snapshot, the contract document); the
+     components.json ci_cd contract object agrees with the tree (every
+     referenced path exists; the gate list matches the contract order);
+     deploy/promotions/ is present in the tree and promotion-records.jsonl
+     exists, with every record carrying all gates passing + a content
+     digest (migration-audit and build-evidence entries reference existing
+     records and carry their digests/checksums; a promotion record whose
+     environment context resolves to production is refused — production
+     deployment binding is FUTURE-WORK); topology.md and configuration.md
+     record the DEP-006 governed contract change; the secret-boundary
+     patterns (S1-S5) are scanned over the new surfaces too.
 
 Usage (from the repository root):
 
@@ -99,6 +114,25 @@ Governed change history:
     validator - were updated together in the one work item; every locked
     value otherwise unchanged.
 
+  - DEP-006 (this form) landed the CI/CD and promotion contract
+    (spec/deployment/ci-cd.md) as repository-local deployment-layer
+    automation - no present-set change (all eleven components unchanged):
+    the gate runner scripts/run_ci_gates.mjs, the promotion tool
+    scripts/promote.mjs (record / migrate / verify / rollback-plan;
+    append-only JSONL promotion records in
+    deploy/promotions/promotion-records.jsonl), the package-snapshot
+    evidence tool scripts/package_snapshot.mjs, and the GitHub Actions
+    workflows .github/workflows/ci.yml + promotion.yml (repo-local gates
+    only). The registry gained the top-level 'ci_cd' contract object. The
+    declared base moved to the DEP-006 dispatch base (main @ 663b1d4 -
+    DEP-002/003/004/005 all merged; the work order's dependency gate
+    satisfied). Production deployment binding is recorded FUTURE-WORK:
+    every production_gate stays authoritative and the promotion tool
+    refuses a resolved PAYSWAP_ENV=production context. All four surfaces -
+    components.json, topology.md, configuration.md and this validator -
+    were updated together in the one work item; every locked value
+    otherwise unchanged.
+
 Dependency-free: Python 3 standard library only.
 """
 
@@ -125,18 +159,36 @@ RAIL_CONNECTIVITY_DIR = REPO_ROOT / "src" / "lib" / "rail-connectivity"
 RAIL_CONNECTIVITY_CONFIGURATION_TS = RAIL_CONNECTIVITY_DIR / "configuration.ts"
 RAIL_CONNECTIVITY_HARNESS = REPO_ROOT / "scripts" / "test_rail_connectivity.mjs"
 
+# DEP-006 CI/CD and promotion surfaces (spec/deployment/ci-cd.md).
+CI_YML = REPO_ROOT / ".github" / "workflows" / "ci.yml"
+PROMOTION_YML = REPO_ROOT / ".github" / "workflows" / "promotion.yml"
+GATE_RUNNER = REPO_ROOT / "scripts" / "run_ci_gates.mjs"
+PROMOTION_TOOL = REPO_ROOT / "scripts" / "promote.mjs"
+PACKAGE_SNAPSHOT = REPO_ROOT / "scripts" / "package_snapshot.mjs"
+CI_CD_MD = REPO_ROOT / "spec" / "deployment" / "ci-cd.md"
+PROMOTIONS_DIR = REPO_ROOT / "deploy" / "promotions"
+PROMOTION_RECORDS = PROMOTIONS_DIR / "promotion-records.jsonl"
+EXPECTED_CI_CD_GATES = [
+    "governance",
+    "deployment-contract",
+    "durable-contract",
+    "typecheck",
+    "harnesses",
+    "build",
+]
+
 EXPECTED_BASE_BRANCH = "main"
-# The DEP-005 governed contract change moved the declared base to the
-# DEP-005 dispatch base (main @ 5bda6c0 — DEP-003 + DEP-004 merged; the
-# composed protocol runtime + the operational-jobs layer the connectivity
-# boundary composes over). The rail-connectivity family entrypoints arrive
-# with the DEP-005 work item's tree; the on-disk entrypoint honesty check
-# below runs against the working tree of that item. Precedents: the
+# The DEP-006 governed contract change moved the declared base to the
+# DEP-006 dispatch base (main @ 663b1d4 — DEP-002/003/004/005 all merged;
+# the work order's dependency gate satisfied). The CI/CD toolchain files
+# arrive with the DEP-006 work item's tree; the on-disk honesty checks
+# below run against the working tree of that item. Precedents: the
 # DEP-001 base fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73; the RTN-012 base
 # 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02; the DEP-004 base
-# 2c3f9cf0efb7bae808662d4dd1adaf604d69de0e.
-EXPECTED_BASE_SHA = "5bda6c02a6302461908a5601da5b49f655a489c1"
-EXPECTED_UPDATED_BY = "DEP-005"
+# 2c3f9cf0efb7bae808662d4dd1adaf604d69de0e; the DEP-005 base
+# 5bda6c02a6302461908a5601da5b49f655a489c1.
+EXPECTED_BASE_SHA = "663b1d4c4e3f1e4b9ebdd2b2758520cb5d8067ed"
+EXPECTED_UPDATED_BY = "DEP-006"
 EXPECTED_CONTRACT = "payswap-deployment-components"
 # The DEP-004 present-set: the RTN-012 ten-component set plus the
 # 'operational-jobs' component (the durable operational-jobs family —
@@ -954,9 +1006,410 @@ def main():
         "missing on disk",
     )
 
+    # ---- 9. DEP-006 CI/CD and promotion ------------------------------------
+    # (delta checks added by the DEP-006 governed contract change; every
+    #  locked value above is unchanged. CI/CD is deployment-owned capacity —
+    #  the registry's top-level ci_cd contract object — not a component: the
+    #  present-set does not change. The contract is spec/deployment/ci-cd.md.)
+
+    def workflow_run_steps(path):
+        """Extract the `run:` step command lines from a workflow YAML file."""
+        if not path.is_file():
+            return None
+        steps = []
+        for line in path.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if stripped.startswith("- name:") or stripped.startswith("name:"):
+                continue
+            if stripped.startswith("run:"):
+                command = stripped[len("run:"):].strip()
+                if command:
+                    steps.append(command)
+        return steps
+
+    # 9a. the workflow files exist and reference only repo-local gate scripts.
+    ci_text = read(CI_YML)
+    check(CI_YML.is_file(), ".github/workflows/ci.yml must exist (the CI workflow)")
+    if ci_text:
+        check(
+            "node scripts/run_ci_gates.mjs" in ci_text,
+            "ci.yml must run the repo-local gate battery (node scripts/run_ci_gates.mjs) — "
+            "no gate may exist that only CI can run",
+        )
+        check(
+            "bun install --frozen-lockfile" in ci_text,
+            "ci.yml must install the locked dependency graph (bun install --frozen-lockfile)",
+        )
+    promo_text = read(PROMOTION_YML)
+    check(PROMOTION_YML.is_file(), ".github/workflows/promotion.yml must exist "
+          "(the promotion-evidence workflow)")
+    if promo_text:
+        check(
+            "workflow_dispatch" in promo_text,
+            "promotion.yml must be workflow_dispatch-only (manual promotion evidence, "
+            "no automatic production promotion)",
+        )
+        check(
+            "node scripts/promote.mjs verify" in promo_text,
+            "promotion.yml must re-verify records with the repo-local promotion tool "
+            "(node scripts/promote.mjs verify)",
+        )
+    for workflow in (CI_YML, PROMOTION_YML):
+        rel = str(workflow.relative_to(REPO_ROOT))
+        if not workflow.is_file():
+            continue
+        steps = workflow_run_steps(workflow)
+        if steps is not None:
+            for command in steps:
+                check(
+                    "http://" not in command and "https://" not in command
+                    and not re.search(r"\b(curl|wget|nc|ssh)\b", command),
+                    f"{rel}: run step must not fetch or execute remote code "
+                    f"(repo-local gate scripts only): {command[:60]!r}",
+                )
+                for match in re.finditer(r"scripts/[A-Za-z0-9_./-]+", command):
+                    script_rel = match.group(0).strip('"').strip("'")
+                    if script_rel.endswith("."):
+                        script_rel = script_rel[:-1]
+                    check(
+                        (REPO_ROOT / script_rel).exists(),
+                        f"{rel}: references a repository script missing on disk: {script_rel}",
+                    )
+
+    # 9b. the CI/CD toolchain exists on disk (the honesty rule).
+    for tool, label in (
+        (GATE_RUNNER, "the gate runner"),
+        (PROMOTION_TOOL, "the promotion tool"),
+        (PACKAGE_SNAPSHOT, "the package-snapshot evidence tool"),
+        (CI_CD_MD, "the CI/CD contract document"),
+    ):
+        check(tool.is_file(), f"{tool.relative_to(REPO_ROOT)} ({label}) is missing on disk")
+
+    # 9c. the registry's ci_cd contract object agrees with the tree.
+    ci_cd = registry.get("ci_cd")
+    if check(
+        isinstance(ci_cd, dict),
+        "components.json: the top-level ci_cd contract object is required (DEP-006)",
+    ):
+        for key in ("work_order", "spec_document", "gate_runner", "promotion_tool",
+                    "package_snapshot", "workflows", "promotion_records", "gate_list"):
+            check(key in ci_cd, f"components.json: ci_cd.{key} is required")
+        check(
+            ci_cd.get("work_order") == "DEP-006",
+            "components.json: ci_cd.work_order must be 'DEP-006'",
+        )
+        for key in ("spec_document", "gate_runner", "promotion_tool", "package_snapshot"):
+            value = ci_cd.get(key)
+            if check(
+                isinstance(value, str) and len(value.strip()) > 0,
+                f"components.json: ci_cd.{key} must be a non-empty path",
+            ):
+                check(
+                    (REPO_ROOT / value).is_file(),
+                    f"components.json: ci_cd.{key} missing on disk: {value}",
+                )
+        workflows = ci_cd.get("workflows")
+        if check(
+            isinstance(workflows, list) and len(workflows) == 2,
+            "components.json: ci_cd.workflows must list the two workflow files",
+        ):
+            for workflow in workflows:
+                if check(
+                    isinstance(workflow, str) and len(workflow) > 0,
+                    "components.json: ci_cd.workflows entries must be non-empty paths",
+                ):
+                    check(
+                        (REPO_ROOT / workflow).is_file(),
+                        f"components.json: ci_cd workflow missing on disk: {workflow}",
+                    )
+        records_rel = ci_cd.get("promotion_records")
+        if check(
+            isinstance(records_rel, str) and len(records_rel) > 0,
+            "components.json: ci_cd.promotion_records must be a non-empty path",
+        ):
+            check(
+                (REPO_ROOT / records_rel).is_file(),
+                f"components.json: ci_cd.promotion_records missing on disk: {records_rel}",
+            )
+        gate_list = ci_cd.get("gate_list")
+        check(
+            gate_list == EXPECTED_CI_CD_GATES,
+            f"components.json: ci_cd.gate_list must equal the contract gate order "
+            f"{EXPECTED_CI_CD_GATES} (found {gate_list})",
+        )
+        production_note = str(ci_cd.get("production_promotion", ""))
+        check(
+            "FUTURE-WORK" in production_note and "production_gate" in production_note,
+            "components.json: ci_cd.production_promotion must record the FUTURE-WORK "
+            "production deployment binding with the production_gate staying authoritative",
+        )
+
+    # 9d. deploy/promotions/ is present and the records file exists; every
+    #     record carries all gates passing + a content digest (fail-closed:
+    #     the file starts empty at the implementation commit — append-only
+    #     records can only trail the revision they freeze — and every entry
+    #     that exists is validated).
+    check(
+        PROMOTIONS_DIR.is_dir(),
+        "deploy/promotions/ must be present in the tree (the promotion-record store)",
+    )
+    if check(
+        PROMOTION_RECORDS.is_file(),
+        "deploy/promotions/promotion-records.jsonl must exist in the tree",
+    ):
+        record_ids = set()
+        promotion_entries = []
+        audit_entries = 0
+        evidence_entries = 0
+        pending_references = []  # (label, referenced record id) — validated post-loop
+        for line_no, line in enumerate(
+            PROMOTION_RECORDS.read_text(encoding="utf-8").splitlines(), start=1
+        ):
+            if line.strip() == "":
+                continue
+            try:
+                entry = json.loads(line)
+            except ValueError as exc:
+                errors.append(
+                    f"promotion-records.jsonl line {line_no} does not parse as JSON: {exc}"
+                )
+                continue
+            if not isinstance(entry, dict) or not isinstance(entry.get("type"), str):
+                errors.append(
+                    f"promotion-records.jsonl line {line_no}: entry must be an object "
+                    "with a 'type' field"
+                )
+                continue
+            entry_type = entry.get("type")
+            if entry_type == "promotion-record":
+                label = f"promotion-record {entry.get('record_id')!r}"
+                promotion_entries.append(entry)
+                record_id = entry.get("record_id")
+                if check(
+                    isinstance(record_id, str) and len(record_id) > 0,
+                    f"{label}: record_id must be a non-empty string (line {line_no})",
+                ):
+                    check(
+                        record_id not in record_ids,
+                        f"{label}: duplicate record_id (append-only store, ids are unique)",
+                    )
+                    record_ids.add(record_id)
+                revision = entry.get("revision")
+                if check(
+                    isinstance(revision, dict),
+                    f"{label}: revision must be an object",
+                ):
+                    for field, pattern in (
+                        ("commit_sha", r"^[0-9a-f]{40}$"),
+                        ("tree_digest", r"^[0-9a-f]{40}$"),
+                        ("content_digest", r"^[0-9a-f]{64}$"),
+                    ):
+                        value = revision.get(field)
+                        if check(
+                            isinstance(value, str) and len(value) > 0,
+                            f"{label}: revision.{field} is required",
+                        ):
+                            check(
+                                re.fullmatch(pattern, value) is not None,
+                                f"{label}: revision.{field} must match {pattern}",
+                            )
+                    check(
+                        isinstance(revision.get("commit_subject"), str)
+                        and len(revision.get("commit_subject", "")) > 0,
+                        f"{label}: revision.commit_subject is required",
+                    )
+                    check(
+                        isinstance(revision.get("tracked_file_count"), int)
+                        and revision.get("tracked_file_count", 0) > 0,
+                        f"{label}: revision.tracked_file_count must be a positive integer",
+                    )
+                gates = entry.get("gate_table")
+                if check(
+                    isinstance(gates, list) and len(gates) > 0,
+                    f"{label}: gate_table must be a non-empty list (the recorded battery)",
+                ):
+                    for gate in gates:
+                        if isinstance(gate, dict):
+                            gate_name = gate.get("gate")
+                            check(
+                                gate.get("passed") is True and gate.get("exit") == 0,
+                                f"{label}: gate {gate_name!r} must be passing "
+                                "(a record with any failed gate must not exist)",
+                            )
+                    gate_names = [g.get("gate") for g in gates if isinstance(g, dict)]
+                    check(
+                        gate_names == EXPECTED_CI_CD_GATES,
+                        f"{label}: gate_table must cover the contract gate order "
+                        f"{EXPECTED_CI_CD_GATES} (found {gate_names})",
+                    )
+                env_context = entry.get("environment_context")
+                if check(
+                    isinstance(env_context, dict),
+                    f"{label}: environment_context must be an object (the PAYSWAP_ENV "
+                    "allowlist context)",
+                ):
+                    check(
+                        env_context.get("runtime_allowlist") == ["sandbox", "production"],
+                        f"{label}: environment_context.runtime_allowlist must be "
+                        "['sandbox', 'production']",
+                    )
+                    check(
+                        env_context.get("runtime_fail_safe") == "sandbox",
+                        f"{label}: environment_context.runtime_fail_safe must be 'sandbox'",
+                    )
+                    resolved = env_context.get("payswap_env_resolved")
+                    check(
+                        resolved in ("sandbox", "production"),
+                        f"{label}: environment_context.payswap_env_resolved must be in "
+                        "the allowlist",
+                    )
+                    check(
+                        resolved != "production",
+                        f"{label}: a promotion record must NOT carry a resolved "
+                        "production environment context — production deployment binding "
+                        "is FUTURE-WORK, the production_gate contract stays authoritative, "
+                        "and unverified production promotion is forbidden",
+                    )
+                check(
+                    isinstance(entry.get("gate_verdict"), dict)
+                    and entry.get("gate_verdict", {}).get("passed") is True,
+                    f"{label}: gate_verdict.passed must be true",
+                )
+            elif entry_type == "migration-audit":
+                audit_entries += 1
+                label = f"migration-audit (line {line_no})"
+                referenced = entry.get("record_id")
+                if check(
+                    isinstance(referenced, str) and len(referenced) > 0,
+                    f"{label}: record_id is required (the audited record)",
+                ):
+                    pending_references.append((label, referenced))
+                applied = entry.get("applied")
+                if check(
+                    isinstance(applied, list) and len(applied) > 0,
+                    f"{label}: applied must be a non-empty list (the applied set)",
+                ):
+                    for migration in applied:
+                        if isinstance(migration, dict):
+                            check(
+                                re.fullmatch(r"^[0-9a-f]{64}$", str(migration.get("checksum", "")))
+                                is not None,
+                                f"{label}: applied {migration.get('name')!r} must carry a "
+                                "sha256 checksum",
+                            )
+                check(
+                    entry.get("real_database_mutated") is False,
+                    f"{label}: real_database_mutated must be false (the migration gate "
+                    "runs against a throwaway copy only)",
+                )
+                check(
+                    entry.get("verified") is True,
+                    f"{label}: verified must be true (the applied set matched the files "
+                    "on disk)",
+                )
+            elif entry_type == "build-evidence":
+                evidence_entries += 1
+                label = f"build-evidence (line {line_no})"
+                referenced = entry.get("record_id")
+                if check(
+                    isinstance(referenced, str) and len(referenced) > 0,
+                    f"{label}: record_id is required (the evidenced record)",
+                ):
+                    pending_references.append((label, referenced))
+                for field in ("build_output_digest", "image_context_digest"):
+                    value = entry.get(field)
+                    if check(
+                        isinstance(value, str) and len(value) > 0,
+                        f"{label}: {field} is required (the reproducible-build evidence)",
+                    ):
+                        check(
+                            re.fullmatch(r"^[0-9a-f]{64}$", value) is not None,
+                            f"{label}: {field} must be a sha256 hex digest",
+                        )
+            else:
+                errors.append(
+                    f"promotion-records.jsonl line {line_no}: unknown entry type "
+                    f"{entry_type!r} (promotion-record | migration-audit | build-evidence)"
+                )
+        # Reference integrity (post-loop: file order must not matter).
+        known_ids = {e.get("record_id") for e in promotion_entries}
+        for label, referenced in pending_references:
+            check(
+                referenced in known_ids,
+                f"{label}: references an unknown promotion record {referenced!r} "
+                "(audit-trail entries must reference promotion-record entries)",
+            )
+        # The store's honesty: at least one complete record chain must exist
+        # once the store is non-empty (the rehearsal appends it). The empty
+        # file is legal only at the implementation commit (bootstrap).
+        if PROMOTION_RECORDS.stat().st_size > 0:
+            check(
+                len(promotion_entries) > 0,
+                "a non-empty promotion-records.jsonl must contain promotion-record "
+                "entries (the append-only store starts with a record)",
+            )
+
+    # 9e. topology.md and configuration.md record the DEP-006 governed
+    #     contract change and the contract document.
+    if TOPOLOGY_MD.is_file():
+        topology_text_dep006 = TOPOLOGY_MD.read_text(encoding="utf-8")
+        check(
+            "DEP-006" in topology_text_dep006,
+            "topology.md must record the DEP-006 governed contract change "
+            "(the contract-evolution change record)",
+        )
+        check(
+            "spec/deployment/ci-cd.md" in topology_text_dep006,
+            "topology.md must reference the CI/CD and promotion contract document",
+        )
+    if CONFIGURATION_MD.is_file():
+        config_text_dep006 = CONFIGURATION_MD.read_text(encoding="utf-8")
+        check(
+            "ci-cd.md" in config_text_dep006,
+            "spec/deployment/configuration.md must reference the CI/CD contract "
+            "document (the closed-list scope note)",
+        )
+    if CI_CD_MD.is_file():
+        ci_cd_doc_text = CI_CD_MD.read_text(encoding="utf-8")
+        for marker in (
+            "run_ci_gates.mjs",
+            "promote.mjs",
+            "package_snapshot.mjs",
+            "promotion-records.jsonl",
+            "UNKNOWN is never retried",
+            "R1",
+            "throwaway",
+            "production deployment binding",
+        ):
+            check(
+                marker in ci_cd_doc_text,
+                f"spec/deployment/ci-cd.md must document {marker!r} (the CI/CD and "
+                "promotion contract)",
+            )
+
+    # 9f. the S1 secret-boundary scan covers the DEP-006 surfaces too.
+    for surface in (GATE_RUNNER, PROMOTION_TOOL, PACKAGE_SNAPSHOT, CI_YML,
+                    PROMOTION_YML, CI_CD_MD):
+        text_s = read(surface)
+        for pat in _secret_patterns:
+            check(
+                not re.search(pat, text_s),
+                f"secret-value pattern {pat!r} found in "
+                f"{surface.relative_to(REPO_ROOT)} (S1 violation)",
+            )
+    _tracked_env_dep006 = _sp.run(
+        ["git", "ls-files", "deploy/promotions"], cwd=str(REPO_ROOT),
+        capture_output=True, text=True,
+    ).stdout.strip()
+    check(
+        PROMOTION_RECORDS.is_file() and "promotion-records.jsonl" in _tracked_env_dep006,
+        "deploy/promotions/promotion-records.jsonl must be present in the git tree "
+        "(the append-only promotion record store is a tracked contract surface)",
+    )
+
     # ---- summary ---------------------------------------------------------------
     total = present_count + future_count
-    print("DEP-001/DEP-002/RTN-012/DEP-004/DEP-005 deployment contract validation")
+    print("DEP-001/DEP-002/RTN-012/DEP-004/DEP-005/DEP-006 deployment contract validation")
     print(f"  base: {registry.get('base_branch')} @ {registry.get('base_sha')}")
     print(f"  last governed change: {registry.get('updated_by')}")
     print(

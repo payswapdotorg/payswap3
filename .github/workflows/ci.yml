@@ -1,0 +1,38 @@
+# DEP-006 — CI (spec/deployment/ci-cd.md).
+#
+# Honest and minimal: this workflow runs the SAME repo-local gate battery
+# that an operator runs with plain `node scripts/run_ci_gates.mjs` in a fresh
+# clone. NO gate exists that only CI can run — every gate it invokes is a
+# repository-local script (python3 / bun / node), so a local "success" and a
+# CI "success" are the same statement. The promotion workflow
+# (.github/workflows/promotion.yml) re-verifies recorded promotion evidence
+# the same way; production deployment binding remains FUTURE-WORK (the
+# production_gate contract in deploy/contracts/components.json stays
+# authoritative).
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    name: repo-local gate battery (run_ci_gates.mjs)
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: run the gate battery
+        run: node scripts/run_ci_gates.mjs

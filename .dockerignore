@@ -17,6 +17,9 @@ dist
 .git
 .gitignore
 .gitattributes
+# CI/CD workflow definitions (DEP-006): repository automation metadata, never
+# runtime material — kept out of the image build context (S1–S5, F7).
+.github
 
 # ── Environment / secret material — NEVER source-controlled, NEVER imaged ──
 .env
