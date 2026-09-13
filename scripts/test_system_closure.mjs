@@ -652,11 +652,17 @@ await runGroup('closure:closure-corpus', (group) => {
     group.check(proof.includes(stateFile), `the proof covers ${stateFile}`);
   }
 
-  group.scenario('the closure record DRAFT carries the PENDING Architect sign-off block and every required section');
+  group.scenario('the closure record carries the clearly-marked Architect sign-off block (PENDING in the worker phase; RECORDED after the Lead finalize)');
   const record = readText('spec/system-closure/closure-record.md');
+  // Lead-applied delta (post-finalize first exercise): the sign-off block is
+  // phase-bound by design — PENDING while the worker owns the draft,
+  // RECORDED once the Architect has approved, merged and finalized. The
+  // worker NEVER signs; the gate asserts the block exists, is clearly
+  // marked with its phase, and the finalize never removes it.
   group.check(
-    record.includes('Architect sign-off: PENDING (Lead finalize)'),
-    'the closure record carries the clearly-marked PENDING sign-off block',
+    record.includes('Architect sign-off: PENDING (Lead finalize)') ||
+      record.includes('Architect sign-off: RECORDED (Lead finalize'),
+    'the closure record carries the clearly-marked sign-off block (PENDING or RECORDED — never absent, never worker-signed)',
   );
   for (const marker of [
     '## The program being closed',
@@ -776,7 +782,7 @@ const bulletMapping = [
     bullet: 'architect-closure-record',
     group: 'closure:closure-corpus',
     evidence: [
-      'spec/system-closure/closure-record.md (DRAFT; Architect sign-off: PENDING (Lead finalize))',
+      'spec/system-closure/closure-record.md (the sign-off block: PENDING in the worker phase; RECORDED after the Lead finalize — the gate asserts its presence and phase marking)',
       'spec/system-closure/final-reconciliation-matrix.json (live-verified)',
     ],
   },
@@ -800,7 +806,9 @@ const verdict = {
     read_at_run_time: 'git rev-parse HEAD / HEAD^{tree} — never hand-written',
   },
   dispatch_base: { commit: DISPATCH_BASE, verified_ancestor_of_head: true },
-  architect_closure: 'closure-record DRAFT complete; Architect sign-off: PENDING (Lead finalize) — the approval, merge and finalization are the Lead finalize, never claimed by this gate',
+  architect_closure: (readText('spec/system-closure/closure-record.md').includes('Architect sign-off: RECORDED (Lead finalize')
+    ? 'closure record SIGNED by the Architect (Lead finalize) — the approval, merge and finalization are recorded; this gate re-derives every acceptance bullet at the closed state'
+    : 'closure-record DRAFT complete; Architect sign-off: PENDING (Lead finalize) — the approval, merge and finalization are the Lead finalize, never claimed by this gate'),
   sandbox_class: 'this gate proves the REPOSITORY system; production claims stay gated on the DEP-002+ production deployment binding',
   harness: HARNESS_NAME,
 };
