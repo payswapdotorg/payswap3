@@ -4,6 +4,7 @@ import { getMediationPort } from "@/lib/protocol/mediation-port";
 import type { PartyRole } from "@/lib/protocol/mediation-port";
 import { FetchedRecordFrame } from "@/components/mediation/fetched-record-frame";
 import { MediationThreadView } from "@/components/mediation/mediation-thread-view";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-008 — Mediation participation detail (deep link, role-checked).
@@ -20,6 +21,9 @@ export default async function MediationCasePage({
 }) {
   const { caseId } = await params;
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   await requireRoleSurface("customer", ["merchant"]);
   const viewer: PartyRole = audience === "merchant" ? "merchant" : "customer";
   const fetched = await getMediationPort().getMediationCase({ caseId, viewer });

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getMediationPort } from "@/lib/protocol/mediation-port";
 import type { MediationHarnessScript } from "@/lib/protocol/mediation-port";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-008 — Harness scripting endpoint (VERIFICATION SURFACE ONLY).
@@ -34,6 +35,9 @@ const SCRIPT_TYPES = new Set([
 const PROPOSAL_SCRIPT_STATES = new Set(["awaiting-decision", "expired", "authority-unreachable"]);
 
 export async function POST(request: Request) {
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const script = (await request.json().catch(() => null)) as MediationHarnessScript | null;
   if (!script || typeof script.type !== "string" || !SCRIPT_TYPES.has(script.type)) {
     return NextResponse.json(

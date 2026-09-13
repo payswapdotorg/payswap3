@@ -33,7 +33,7 @@
  *   mutate durable financial state.
  */
 
-import { getUnavailableWaitingPort } from "@/lib/protocol/unavailable-backing";
+import { getUnavailableWaitingPort } from "./unavailable-backing";
 
 /** Owning authority for everything this port reports (re-anchored to the composed runtime). */
 export const WAITING_PORT_AUTHORITY_OWNER =

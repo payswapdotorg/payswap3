@@ -17,6 +17,7 @@ import { requireRoleSurface } from "@/lib/shell-guard";
 import { getCapabilityPort } from "@/lib/protocol/capability-port";
 import { CapabilityDetailView } from "@/components/provider/capability-detail-view";
 import { ProviderSurfaceFrame } from "@/components/provider/capability-surface-frame";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 type Params = { capabilityId: string };
 
@@ -29,6 +30,9 @@ export async function generateMetadata({
   // Metadata is guarded without a redirect: non-provider audiences must not
   // learn capability truth from document titles.
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   if (!guardSurface(audience, ["provider"])) {
     return { title: "PaySwap" };
   }

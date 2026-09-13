@@ -6,6 +6,7 @@ import {
   TrackNotFoundView,
   TrackNotAuthorizedView,
 } from "@/components/track/lookup-result-views";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-005 — the deep-linkable tracking status view.
@@ -53,6 +54,9 @@ export default async function TrackReferencePage({ params }: TrackReferencePageP
   const decodedReference = decodeURIComponent(referenceId);
 
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const port = getTrackingPort();
   const result = await port.lookupReference(decodedReference, audience);
 

@@ -3,6 +3,7 @@ import { requireRoleSurface } from "@/lib/shell-guard";
 import { getMediationPort } from "@/lib/protocol/mediation-port";
 import { AvailabilityUnknownState } from "@/components/state";
 import { PartyDocketView } from "@/components/mediation/party-docket-view";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-008 — Party surface (customer + merchant, role-gated): the viewer's own
@@ -24,6 +25,9 @@ export const dynamic = "force-dynamic";
 export default async function PartyMediationPage() {
   await requireRoleSurface("customer", ["merchant"]);
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const viewer = audience === "merchant" ? "merchant" : "customer";
   const fetched = await getMediationPort().getPartyDocket(viewer);
 

@@ -26,6 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-008 — Verification harness: /verification/mediation-flow.
@@ -57,6 +58,9 @@ const MEDIATION_ACTION_LABELS: Record<string, string> = {
 
 export default async function MediationFlowVerificationPage() {
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const port = getMediationPort();
   const [proposalMatrix, mediationMatrix, disputeMatrix, briefing, customerDocket] =
     await Promise.all([

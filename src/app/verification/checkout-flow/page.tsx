@@ -21,6 +21,7 @@ import {
   CheckoutFlowHarness,
   type CheckoutMatrixRow,
 } from "@/components/verification/checkout-flow-harness";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 export const metadata = {
   title: "Checkout flow verification — payswap",
@@ -34,6 +35,9 @@ export default async function CheckoutFlowVerificationPage() {
     "administrator",
   ]);
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
 
   const port = getCheckoutPort();
 

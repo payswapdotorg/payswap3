@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { TrackLookupForm } from "@/components/track/lookup-form";
 import { getTrackingPort } from "@/lib/protocol/tracking-port";
 import { resolveShellAudience } from "@/lib/shell-audience-server";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-005 — the track entry/search surface.
@@ -52,6 +53,9 @@ const STATE_EXPLANATIONS: ReadonlyArray<readonly [string, string]> = [
 
 export default async function TrackPage() {
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const boundary = getTrackingPort().describeBoundary();
 
   return (

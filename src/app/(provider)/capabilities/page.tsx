@@ -15,6 +15,7 @@ import { requireRoleSurface } from "@/lib/shell-guard";
 import { getCapabilityPort } from "@/lib/protocol/capability-port";
 import { CapabilityListView } from "@/components/provider/capability-list-view";
 import { ProviderSurfaceFrame } from "@/components/provider/capability-surface-frame";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 export const metadata = {
   title: "Capabilities — PaySwap provider surface",
@@ -25,6 +26,9 @@ export const metadata = {
 export default async function ProviderCapabilitiesPage() {
   await requireRoleSurface("provider");
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const resolved = resolveNavigation(audience);
   const entries: readonly NavEntry[] = [
     ...resolved.primary,

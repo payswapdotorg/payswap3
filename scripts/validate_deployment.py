@@ -218,8 +218,8 @@ EXPECTED_BASE_BRANCH = "main"
 # dispatch bases are both 663b1d4 (dispatched in parallel); the DEP-008
 # dispatch base is a39cccf (DEP-006 + DEP-007 + the product closure
 # candidate UI-010 all merged — the work order's dependency gate).
-EXPECTED_BASE_SHA = "a39cccf312cf55aff6321eb5e0dbbde7936f201b"
-EXPECTED_UPDATED_BY = "DEP-008"
+EXPECTED_BASE_SHA = "46507326265aa5be869d0389f0414d5c7c28f762"
+EXPECTED_UPDATED_BY = "SYS-001"
 EXPECTED_CONTRACT = "payswap-deployment-components"
 # The DEP-004 present-set: the RTN-012 ten-component set plus the
 # 'operational-jobs' component (the durable operational-jobs family —
@@ -1688,6 +1688,163 @@ def main():
     check(
         "spec/deployment/production-readiness.md" in configuration_text_dep008,
         "configuration.md must list the production-readiness contract as a companion",
+    )
+
+    # ---- 12. SYS-001 three-architecture reconciliation ------------------------
+    # (the D-1 HTTP binding, the D-2 route-reachable composition, the D-3
+    # bounded drain, the reconciliation matrix + the automated checks, and
+    # the governed route-surface change — every check ADDITIVE; the DEP-008
+    # checks above are intact)
+
+    sys001_route = REPO_ROOT / "src" / "app" / "api" / "protocol" / "commands" / "route.ts"
+    check(
+        sys001_route.is_file(),
+        "SYS-001: the protocol gateway HTTP binding route "
+        "src/app/api/protocol/commands/route.ts must exist (the D-1 transport)",
+    )
+    sys001_composition = REPO_ROOT / "src" / "lib" / "protocol" / "server-composition.ts"
+    check(
+        sys001_composition.is_file(),
+        "SYS-001: the server-only shared composition module "
+        "src/lib/protocol/server-composition.ts must exist (the D-2 remediation)",
+    )
+    if check(sys001_composition.is_file(), "SYS-001: server-composition.ts readable"):
+        composition_text = sys001_composition.read_text(encoding="utf-8")
+        for marker in [
+            "ensureProductPortsWired",
+            "wireProductPortsToProtocolRuntime",
+        ]:
+            check(
+                marker in composition_text,
+                f"SYS-001: server-composition.ts exports/uses {marker} (the idempotent registration seam)",
+            )
+    sys001_runtime_text = (REPO_ROOT / "src" / "lib" / "protocol" / "server-runtime.ts").read_text(
+        encoding="utf-8"
+    )
+    for marker in [
+        "getProtocolRuntimeHandle",
+        "DRAIN_MAX_PASSES",
+        "worker.tick()",
+    ]:
+        check(
+            marker in sys001_runtime_text,
+            f"SYS-001: server-runtime.ts carries {marker} (the process-global composition + the D-3 bounded tick pass)",
+        )
+    check(
+        "durableRuntime.worker.tick()" in sys001_runtime_text
+        and "durableRuntime.worker.stop()" in sys001_runtime_text
+        and "durableRuntime.worker.start()" in sys001_runtime_text,
+        "SYS-001: server-runtime.ts drain() composes the frozen worker's public API (tick/stop/start — no protocol semantics touched)",
+    )
+    if check(sys001_route.is_file(), "SYS-001: route readable"):
+        route_text = sys001_route.read_text(encoding="utf-8")
+        for marker in [
+            "ensureProductPortsWired",
+            "getServerProtocolGateway",
+            "submitCommand",
+            "force-dynamic",
+        ]:
+            check(
+                marker in route_text,
+                f"SYS-001: the HTTP binding route carries {marker} (the A01 admission transport over the composed runtime)",
+            )
+        check(
+            "process.env" not in route_text,
+            "SYS-001: the HTTP binding route reads no environment variable of its own (no new configurable name)",
+        )
+    # The routes import the composition module (the D-2 acceptance's static
+    # half — the wiring reaches the routes' module graphs).
+    wired_routes = 0
+    unwired = []
+    for area in ("api",):
+        app_api = REPO_ROOT / "src" / "app" / area
+        for path_obj in sorted(app_api.rglob("route.ts")):
+            route_source = path_obj.read_text(encoding="utf-8")
+            if "getMediationPort()" in route_source or "getIntentPort()" in route_source or "getServerProtocolGateway" in route_source:
+                wired_routes += 1
+                if "ensureProductPortsWired" not in route_source:
+                    unwired.append(str(path_obj.relative_to(REPO_ROOT)))
+    check(
+        wired_routes >= 6,
+        "SYS-001: the port-calling API routes exist (mediation family + the protocol binding)",
+    )
+    check(
+        len(unwired) == 0,
+        f"SYS-001: every port-calling API route awaits ensureProductPortsWired (the D-2 wiring; unwired: {unwired})",
+    )
+    reconciliation_matrix_md = REPO_ROOT / "spec" / "system-reconciliation-matrix.md"
+    check(
+        reconciliation_matrix_md.is_file(),
+        "SYS-001: spec/system-reconciliation-matrix.md must exist (the deterministic reconciliation matrix)",
+    )
+    reconciliation_matrix_json = REPO_ROOT / "spec" / "system-reconciliation-matrix.json"
+    if check(
+        reconciliation_matrix_json.is_file(),
+        "SYS-001: spec/system-reconciliation-matrix.json must exist (the machine-readable companion)",
+    ):
+        try:
+            matrix = json.loads(reconciliation_matrix_json.read_text(encoding="utf-8"))
+            check(isinstance(matrix.get("journeys"), list) and len(matrix["journeys"]) == 8,
+                  "SYS-001: the matrix carries eight journeys")
+            check(matrix.get("harness") == "scripts/test_system_reconciliation.mjs",
+                  "SYS-001: the matrix names its harness")
+        except (OSError, ValueError) as exc:
+            check(False, f"SYS-001: system-reconciliation-matrix.json does not parse: {exc}")
+    check(
+        (REPO_ROOT / "scripts" / "test_system_reconciliation.mjs").is_file(),
+        "SYS-001: scripts/test_system_reconciliation.mjs must exist (the automated checks)",
+    )
+    check(
+        (REPO_ROOT / "scripts" / "test_transport_binding.mjs").is_file(),
+        "SYS-001: scripts/test_transport_binding.mjs must exist (the built-app D-1/D-2/D-3 proof harness)",
+    )
+    # The deferral ledger records the D-1/D-2/D-3 resolutions (append-only
+    # dispositions; the other entries untouched).
+    deferral_ledger = REPO_ROOT / "spec" / "product" / "closure" / "deferral-ledger.md"
+    if check(deferral_ledger.is_file(), "SYS-001: the deferral ledger must exist"):
+        ledger_text = deferral_ledger.read_text(encoding="utf-8")
+        check(
+            "D-1" in ledger_text and "RESOLVED" in ledger_text,
+            "SYS-001: the deferral ledger records D-1's resolution",
+        )
+        for entry in ("D-2", "D-3"):
+            check(
+                f"## {entry}" in ledger_text and "RESOLVED" in ledger_text,
+                f"SYS-001: the deferral ledger records {entry}'s resolution",
+            )
+        for preserved in ("D-4", "D-5", "D-6", "D-7", "D-8", "D-9"):
+            check(
+                f"## {preserved}" in ledger_text,
+                f"SYS-001: the deferral ledger preserves entry {preserved} (non-SYS-001 dispositions untouched)",
+            )
+    # The route-surface change is recorded on the four surfaces together.
+    web_boundary = next(
+        (component for component in components if isinstance(components, list) and component.get("id") == "web-api-boundary"),
+        None,
+    ) if isinstance(components, list) else None
+    if web_boundary is not None:
+        check(
+            "/api/protocol/commands" in (web_boundary.get("route_surface") or []),
+            "SYS-001: web-api-boundary route_surface records /api/protocol/commands (the governed change)",
+        )
+        entrypoints = (web_boundary.get("repository_entrypoint") or {}).get("paths") or []
+        check(
+            "src/lib/protocol/server-composition.ts" in entrypoints,
+            "SYS-001: web-api-boundary repository_entrypoint records the server-composition module",
+        )
+        check(
+            "src/app/api/protocol/commands/route.ts" in entrypoints,
+            "SYS-001: web-api-boundary repository_entrypoint records the HTTP binding route",
+        )
+    topology_text_sys001 = TOPOLOGY_MD.read_text(encoding="utf-8") if TOPOLOGY_MD.is_file() else ""
+    check(
+        "SYS-001" in topology_text_sys001,
+        "topology.md must record the SYS-001 governed contract change (the contract-evolution entry)",
+    )
+    configuration_text_sys001 = CONFIGURATION_MD.read_text(encoding="utf-8") if CONFIGURATION_MD.is_file() else ""
+    check(
+        "SYS-001" in configuration_text_sys001,
+        "configuration.md must record the SYS-001 configuration boundary (adds no configurable values)",
     )
 
     # ---- summary ---------------------------------------------------------------

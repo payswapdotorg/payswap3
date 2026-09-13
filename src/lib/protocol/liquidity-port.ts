@@ -31,7 +31,7 @@
 // ============================================================================
 
 import type { NavAudience } from '@/lib/navigation';
-import { getUnavailableLiquidityPort } from '@/lib/protocol/unavailable-backing';
+import { getUnavailableLiquidityPort } from './unavailable-backing';
 
 /**
  * Verification-harness scripting of the read's availability axis: the value
