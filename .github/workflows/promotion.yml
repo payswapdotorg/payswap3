@@ -1,0 +1,47 @@
+# DEP-006 — promotion evidence verification (spec/deployment/ci-cd.md).
+#
+# workflow_dispatch only: given a promotion record id recorded in
+# deploy/promotions/promotion-records.jsonl, this workflow re-verifies the
+# record with the repo-local promotion tool — recompute the content digest at
+# the recorded SHA (temp worktree), re-run the full gate battery there, and
+# compare against the recorded gate table. This is promotion EVIDENCE in CI;
+# it still binds nothing to production: production deployment binding is
+# FUTURE-WORK and the production_gate contract in
+# deploy/contracts/components.json stays authoritative (no unverified
+# production promotion).
+#
+# The record id is passed through the environment (not interpolated into the
+# shell command) — no shell-injection surface.
+name: promotion-verify
+
+on:
+  workflow_dispatch:
+    inputs:
+      record_id:
+        description: "Promotion record id (a promotion-record entry in deploy/promotions/promotion-records.jsonl)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: re-verify a promotion record (promote.mjs verify)
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout (full history — the recorded commit SHAs must exist for the worktree checkout)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: setup bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: verify the promotion record
+        run: node scripts/promote.mjs verify "$PAYSWAP_PROMOTION_RECORD_ID"
+        env:
+          PAYSWAP_PROMOTION_RECORD_ID: ${{ inputs.record_id }}
