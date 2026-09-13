@@ -133,6 +133,36 @@ Governed change history:
     were updated together in the one work item; every locked value
     otherwise unchanged.
 
+  - DEP-008 (this form) landed the production readiness proof contract
+    (spec/deployment/production-readiness.md) as repository-local
+    deployment-layer EVIDENCE - no present-set change (all eleven
+    components unchanged): the readiness proof harness
+    scripts/test_production_readiness.mjs (ten named fail-closed proof
+    groups wrapping the composed-journey, DEP-007-drill, operations and
+    rail-connectivity harnesses and composing the DEP-006 promotion
+    tooling; each group checks its assigned work-order stop condition),
+    the captured verification transcript
+    deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md (required once a
+    promotion record exists whose recorded commit subject begins
+    'DEP-008:' - append-only records trail the revision they freeze), and
+    the promotion records for the release revision. The ci_cd registry
+    object gained readiness_harness / readiness_transcript /
+    readiness_contract / readiness_proof_groups. A disclosed one-line
+    battery-determinism fix was applied to
+    scripts/test_observability_resilience.mjs (a drill note printed the
+    epoch-ms backup id - violating the ci-cd.md section 2 byte-
+    determinism contract and breaking promote.mjs verify for any record
+    at a tree containing it; no assertion, scenario or drill changed).
+    The declared base moved to the DEP-008 dispatch base (main @ a39cccf
+    - DEP-006 + DEP-007 + the product closure candidate UI-010 all
+    merged; the work order's dependency gate satisfied). Production
+    readiness is never inferred from sandbox behavior (F8); the
+    production deployment binding stays FUTURE-WORK and every
+    production_gate stays authoritative. All four surfaces -
+    components.json, topology.md, configuration.md and this validator -
+    were updated together in the one work item; every locked value
+    otherwise unchanged.
+
 Dependency-free: Python 3 standard library only.
 """
 
@@ -178,19 +208,18 @@ EXPECTED_CI_CD_GATES = [
 ]
 
 EXPECTED_BASE_BRANCH = "main"
-# The DEP-006 governed contract change moved the declared base to the
-# DEP-006 dispatch base (main @ 663b1d4 — DEP-002/003/004/005 all merged;
-# the work order's dependency gate satisfied). The CI/CD toolchain files
-# arrive with the DEP-006 work item's tree; the on-disk honesty checks
-# below run against the working tree of that item. Precedents: the
-# DEP-001 base fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73; the RTN-012 base
+# The governed contract change moves the declared base with each wave that
+# updates the shared surfaces (changing the declared base is a governed
+# contract change that updates this validator). Precedents: the DEP-001
+# base fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73; the RTN-012 base
 # 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02; the DEP-004 base
 # 2c3f9cf0efb7bae808662d4dd1adaf604d69de0e; the DEP-005 base
-# 5bda6c02a6302461908a5601da5b49f655a489c1; the DEP-007 dispatch base is
-# also 663b1d4 (DEP-003+DEP-004+DEP-005 merged — the same base as DEP-006,
-# dispatched in parallel).
-EXPECTED_BASE_SHA = "663b1d4c4e3f1e4b9ebdd2b2758520cb5d8067ed"
-EXPECTED_UPDATED_BY = "DEP-007"
+# 5bda6c02a6302461908a5601da5b49f655a489c1; the DEP-006 and DEP-007
+# dispatch bases are both 663b1d4 (dispatched in parallel); the DEP-008
+# dispatch base is a39cccf (DEP-006 + DEP-007 + the product closure
+# candidate UI-010 all merged — the work order's dependency gate).
+EXPECTED_BASE_SHA = "a39cccf312cf55aff6321eb5e0dbbde7936f201b"
+EXPECTED_UPDATED_BY = "DEP-008"
 EXPECTED_CONTRACT = "payswap-deployment-components"
 # The DEP-004 present-set: the RTN-012 ten-component set plus the
 # 'operational-jobs' component (the durable operational-jobs family —
@@ -248,6 +277,32 @@ EXPECTED_RAIL_CONNECTIVITY_ENTRYPOINTS = [
     "src/lib/rail-connectivity/boundary.ts",
     "src/lib/rail-connectivity/RAIL-CONNECTIVITY-EVIDENCE.md",
     "scripts/test_rail_connectivity.mjs",
+]
+
+# DEP-008 production readiness proof surfaces (spec/deployment/
+# production-readiness.md).
+READINESS_HARNESS = REPO_ROOT / "scripts" / "test_production_readiness.mjs"
+READINESS_CONTRACT_MD = REPO_ROOT / "spec" / "deployment" / "production-readiness.md"
+READINESS_TRANSCRIPT_MD = REPO_ROOT / "deploy" / "promotions" / "DEP-008-READINESS-TRANSCRIPT.md"
+EXPECTED_PROOF_GROUPS = [
+    "proof:release-identity",
+    "proof:protocol-integration",
+    "proof:ui-integration",
+    "proof:failure-injection",
+    "proof:scaling-behavior",
+    "proof:config-secret-safety",
+    "proof:backup-restore-queue-recovery",
+    "proof:unknown-reconciliation",
+    "proof:external-effect-safety",
+    "proof:rollback-observability",
+]
+EXPECTED_READINESS_STOP_CONDITIONS = [
+    "unsafe external retry",
+    "environment crossing",
+    "missing recovery path",
+    "unreconciled UNKNOWN",
+    "configuration ambiguity",
+    "unexplained authority bypass",
 ]
 
 LAYERS = {"protocol", "product", "deployment"}
@@ -1492,9 +1547,152 @@ def main():
                   "drill:telemetry-taxonomy"):
         check(group in drill_text, f"the DEP-007 drill harness must name the {group!r} drill group")
 
+    # ---- 11. DEP-008 production readiness proof ------------------------------
+    # (the readiness proof contract: spec/deployment/production-readiness.md —
+    # the release freeze, the ten proof groups, the stop-condition audit, the
+    # captured transcript once the DEP-008 release record exists)
+
+    # 11a. surface presence.
+    check(READINESS_HARNESS.is_file(),
+          "scripts/test_production_readiness.mjs must exist (the DEP-008 readiness proof harness)")
+    check(READINESS_CONTRACT_MD.is_file(),
+          "spec/deployment/production-readiness.md must exist (the DEP-008 contract)")
+
+    # 11b. the harness names all ten proof groups and all six stop conditions.
+    harness_text = read(READINESS_HARNESS) if READINESS_HARNESS.is_file() else ""
+    for group in EXPECTED_PROOF_GROUPS:
+        check(group in harness_text, f"the DEP-008 readiness harness must name the {group!r} proof group")
+    for stop in EXPECTED_READINESS_STOP_CONDITIONS:
+        check(stop in harness_text, f"the DEP-008 readiness harness must check the {stop!r} stop condition")
+    check("NOT TRIGGERED" in harness_text,
+          "the DEP-008 readiness harness must compute the stop-condition audit verdicts")
+
+    # 11c. the contract document names the groups, the stop conditions and
+    # the F8 sandbox-evidence hard boundary.
+    readiness_md_text = read(READINESS_CONTRACT_MD) if READINESS_CONTRACT_MD.is_file() else ""
+    for group in EXPECTED_PROOF_GROUPS:
+        check(group in readiness_md_text,
+              f"spec/deployment/production-readiness.md must name the {group!r} proof group")
+    for stop in EXPECTED_READINESS_STOP_CONDITIONS:
+        check(stop in readiness_md_text,
+              f"spec/deployment/production-readiness.md must name the {stop!r} stop condition")
+    check("never inferred from sandbox behavior" in readiness_md_text,
+          "spec/deployment/production-readiness.md must state the F8 sandbox-evidence hard boundary")
+    check("FUTURE-WORK" in readiness_md_text,
+          "spec/deployment/production-readiness.md must record the production deployment binding as FUTURE-WORK")
+
+    # 11d. the registry's ci_cd object carries the readiness surfaces.
+    if isinstance(ci_cd, dict):
+        for key in ("readiness_harness", "readiness_transcript", "readiness_contract"):
+            value = ci_cd.get(key)
+            if check(
+                isinstance(value, str) and len(value.strip()) > 0,
+                f"components.json: ci_cd.{key} must be a non-empty path (DEP-008)",
+            ):
+                if key == "readiness_transcript":
+                    # The transcript lands with the DEP-008 release record
+                    # (append-only records trail the revision they freeze);
+                    # its existence is enforced conditionally in 11e below.
+                    check(
+                        value == "deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md",
+                        f"components.json: ci_cd.{key} must name the DEP-008 transcript path",
+                    )
+                else:
+                    check(
+                        (REPO_ROOT / value).is_file(),
+                        f"components.json: ci_cd.{key} missing on disk: {value}",
+                    )
+        declared_groups = ci_cd.get("readiness_proof_groups")
+        check(
+            declared_groups == EXPECTED_PROOF_GROUPS,
+            "components.json: ci_cd.readiness_proof_groups must equal the ten DEP-008 proof groups "
+            f"(found {declared_groups})",
+        )
+
+    # 11e. the captured transcript — required once the DEP-008 release record
+    # exists (a promotion-record whose recorded commit subject begins
+    # 'DEP-008:'). Until then the requirement is waived: append-only records
+    # trail the revision they freeze (ci-cd.md section 3), so the battery must
+    # stay green at the implementation commit for the record to be creatable.
+    dep008_records = []
+    if PROMOTION_RECORDS.is_file():
+        for line in PROMOTION_RECORDS.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                entry = json.loads(line)
+            except ValueError:
+                continue
+            if (isinstance(entry, dict)
+                    and entry.get("type") == "promotion-record"
+                    and isinstance(entry.get("revision"), dict)
+                    and str(entry["revision"].get("commit_subject", "")).startswith("DEP-008:")):
+                dep008_records.append(entry)
+    if dep008_records:
+        latest = dep008_records[-1]
+        label = f"promotion-record {latest.get('record_id')!r}"
+        check(
+            READINESS_TRANSCRIPT_MD.is_file(),
+            "deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md must exist once a DEP-008 release "
+            "record exists (the complete verification transcript — the work order's required evidence)",
+        )
+        transcript_text = read(READINESS_TRANSCRIPT_MD) if READINESS_TRANSCRIPT_MD.is_file() else ""
+        check(
+            str(latest.get("record_id")) in transcript_text,
+            f"the readiness transcript must name the release record id ({label})",
+        )
+        check(
+            str(latest["revision"].get("commit_sha", "")) in transcript_text,
+            f"the readiness transcript must name the release revision SHA ({label})",
+        )
+        for group in EXPECTED_PROOF_GROUPS:
+            check(group in transcript_text,
+                  f"the readiness transcript must record the {group!r} proof group")
+        for stop in EXPECTED_READINESS_STOP_CONDITIONS:
+            check(stop in transcript_text,
+                  f"the readiness transcript must record the {stop!r} stop-condition check")
+        check("NOT TRIGGERED" in transcript_text,
+              "the readiness transcript must record the stop-condition audit verdicts")
+        check("SANDBOX" in transcript_text.upper() and "F8" in transcript_text,
+              "the readiness transcript must state the sandbox-evidence boundary (F8)")
+
+    # 11f. the S1 secret-boundary scan covers the DEP-008 surfaces too.
+    for surface in (READINESS_HARNESS, READINESS_CONTRACT_MD, READINESS_TRANSCRIPT_MD):
+        if not surface.is_file():
+            continue
+        text_s = read(surface)
+        for pat in _secret_patterns:
+            check(
+                not re.search(pat, text_s),
+                f"secret-value pattern {pat!r} found in "
+                f"{surface.relative_to(REPO_ROOT)} (S1 violation)",
+            )
+
+    # 11g. topology.md and configuration.md record the DEP-008 governed
+    # contract change (the four-surface rule).
+    topology_text_dep008 = read(TOPOLOGY_MD) if TOPOLOGY_MD.is_file() else ""
+    check(
+        "DEP-008" in topology_text_dep008,
+        "topology.md must record the DEP-008 governed contract change "
+        "(the Contract-evolution change record)",
+    )
+    check(
+        "spec/deployment/production-readiness.md" in topology_text_dep008,
+        "topology.md must list the production-readiness contract as a companion",
+    )
+    configuration_text_dep008 = read(CONFIGURATION_MD) if CONFIGURATION_MD.is_file() else ""
+    check(
+        "DEP-008" in configuration_text_dep008,
+        "configuration.md must record the DEP-008 configuration boundary (adds no configurable values)",
+    )
+    check(
+        "spec/deployment/production-readiness.md" in configuration_text_dep008,
+        "configuration.md must list the production-readiness contract as a companion",
+    )
+
     # ---- summary ---------------------------------------------------------------
     total = present_count + future_count
-    print("DEP-001/DEP-002/RTN-012/DEP-004/DEP-005/DEP-006/DEP-007 deployment contract validation")
+    print("DEP-001/DEP-002/RTN-012/DEP-004/DEP-005/DEP-006/DEP-007/DEP-008 deployment contract validation")
     print(f"  base: {registry.get('base_branch')} @ {registry.get('base_sha')}")
     print(f"  last governed change: {registry.get('updated_by')}")
     print(

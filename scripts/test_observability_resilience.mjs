@@ -809,7 +809,17 @@ async function drillBackupRestore() {
     const manifestRows = readBackupManifest(composition.backupPaths.manifest);
     drill.equal(manifestRows.length, 1, 'the manifest holds exactly one row after one backup');
     drill.equal(manifestRows[0].backupId, entry.backupId, 'the manifest row is the backup receipt');
-    drill.note(`backup:${entry.backupId}:${entry.byteSize}B:events=${entry.eventCount}`);
+    // DEP-008 battery-determinism fix (disclosed in the readiness transcript,
+    // deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md): the raw backupId
+    // embeds the creation epoch (backup-<epoch-ms>) — a per-run value that
+    // made this harness's stdout non-byte-identical across runs at the same
+    // tree, violating the ci-cd.md §2 battery determinism contract (any
+    // promotion record whose revision contains this harness could never pass
+    // `promote.mjs verify`'s per-harness stdout-digest comparison). The note
+    // keeps every deterministic fact (byte size, event count) and records
+    // the id's shape; the id's manifest identity is asserted above (the
+    // manifest row === the receipt id) — no assertion or scenario changed.
+    drill.note(`backup:id=backup-<epoch-ms>:${entry.byteSize}B:events=${entry.eventCount}`);
 
     drill.scenario('restore into a fresh target copy — the full verification battery');
     const restore = restoreBackup({
