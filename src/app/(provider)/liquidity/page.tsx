@@ -40,6 +40,7 @@ import { resolveShellAudience } from '@/lib/shell-audience-server';
 import { Clock, ShieldCheck } from 'lucide-react';
 
 import type { Metadata } from 'next';
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 export const metadata: Metadata = {
   title: 'Liquidity positions — Payswap',
@@ -50,6 +51,9 @@ export const metadata: Metadata = {
 export default async function ProviderLiquidityPage() {
   await requireRoleSurface('provider');
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const overrides = await readSandboxOverridesFromCurrentRequest();
   const result = await getLiquidityPort(overrides).getProviderPositions({
     kind: 'provider-positions',

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { resolveShellAudience } from "@/lib/shell-audience-server";
 import { getMediationPort } from "@/lib/protocol/mediation-port";
 import type { PartyRole } from "@/lib/protocol/mediation-port";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-008 — Record query endpoint (GET) used by the interactive surfaces to
@@ -30,6 +31,9 @@ export async function GET(request: Request) {
   }
 
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   if (audience === "unauthenticated") {
     return NextResponse.json(
       {

@@ -33,6 +33,7 @@ import {
   getCheckoutPort,
 } from "@/lib/protocol/checkout-port";
 import { resolveCheckoutAdapterErrorPresentation } from "@/lib/protocol/checkout-state-mapping";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 export const metadata = {
   title: "Merchant checkout — payswap",
@@ -49,6 +50,9 @@ export default async function MerchantCheckoutPage({
   // surface; every other audience is redirected home by the shared guard.
   await requireRoleSurface("merchant");
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
 
   const { checkoutId } = await searchParams;
   const port = getCheckoutPort();

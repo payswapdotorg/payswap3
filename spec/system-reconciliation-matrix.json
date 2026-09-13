@@ -1,0 +1,670 @@
+{
+  "matrix": "payswap-system-reconciliation-matrix",
+  "version": 1,
+  "generated_by": "SYS-001",
+  "work_order": "spec/system-work-orders/SYS-001.md",
+  "reconciliation_contract": "spec/system-reconciliation.md",
+  "harness": "scripts/test_system_reconciliation.mjs",
+  "human_readable_companion": "spec/system-reconciliation-matrix.md",
+  "hop_names": [
+    "product_action",
+    "canonical_protocol_object",
+    "owning_authority",
+    "api_runtime_boundary",
+    "deployment_component",
+    "durable_state_evidence",
+    "user_visible_outcome"
+  ],
+  "journeys": [
+    {
+      "journey_id": "J1-customer-pay",
+      "journey": "Customer pay — compose → review (consequence terms) → explicit submit → intent state",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/(customer)/pay/page.tsx",
+            "src/app/(customer)/pay/review/page.tsx",
+            "src/app/(customer)/pay/[intentId]/page.tsx"
+          ],
+          "components": [
+            "src/components/pay/compose-intent-view.tsx",
+            "src/components/pay/review-intent-view.tsx",
+            "src/components/pay/intent-state-view.tsx"
+          ]
+        },
+        "canonical_protocol_object": {
+          "type": "PaymentIntent",
+          "states_export": "INTENT_STATES",
+          "states_file": "src/lib/protocol-runtime/intent/types.ts",
+          "state_vocabulary": [
+            "DRAFT",
+            "AUTHORIZED",
+            "ROUTED",
+            "FULFILLING",
+            "FULFILLED",
+            "FAILED",
+            "CANCELLED"
+          ]
+        },
+        "owning_authority": {
+          "registry_area": "A01",
+          "name": "Intent Authority",
+          "file": "src/lib/protocol-runtime/intent/authority.ts",
+          "class": "IntentAuthority",
+          "command_methods": [
+            "submitIntent",
+            "authorizeIntent",
+            "routeIntent",
+            "startFulfillingIntent",
+            "fulfillIntent"
+          ],
+          "query_methods": [
+            "getIntent",
+            "getReceipt"
+          ]
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/intent-port.ts",
+          "port_accessor": "getIntentPort",
+          "port_methods": [
+            "submitIntent",
+            "requestConsequenceReport",
+            "getIntentState",
+            "listSessionIntents"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-intent-adapter.ts",
+          "adapter_factory": "createRuntimeIntentAdapter",
+          "gateway_kinds": [
+            "intent.submit"
+          ],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": "src/app/api/protocol/commands/route.ts"
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "protocol-gateway",
+          "transition-runtime",
+          "durable-command-queue",
+          "authoritative-state-store",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "var/web-runtime/durable.sqlite durable_jobs (kind='intent.submit', UNIQUE(idempotency_key, kind))",
+          "domain_store": "var/web-runtime/intent.sqlite (openIntentStore write-through persist hook)",
+          "evidence_records": [
+            "INTENT_CREATED",
+            "INTENT_STATE_CHANGED",
+            "INTENT_AUTHORIZED",
+            "GATEWAY_COMMAND_REJECTED"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite (the A15 chain, hash-verified)"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [
+            "transported",
+            "not-transported",
+            "refused"
+          ],
+          "state_vocabulary": "IntentQueryResult: snapshot (IntentStateSnapshot.stateReport) | no-answer (UNKNOWN with reconciliation path)",
+          "presentation_records": "spec/product/intent-mapping-records.md"
+        }
+      }
+    },
+    {
+      "journey_id": "J2-track",
+      "journey": "Track — reference lookup → tracked view with evidence trail",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/track/page.tsx",
+            "src/app/track/[referenceId]/page.tsx"
+          ],
+          "components": []
+        },
+        "canonical_protocol_object": {
+          "type": "PaymentIntent (the tracked reference is the protocol object id)",
+          "states_export": "INTENT_STATES",
+          "states_file": "src/lib/protocol-runtime/intent/types.ts"
+        },
+        "owning_authority": {
+          "registry_area": "A01",
+          "name": "Intent Authority",
+          "file": "src/lib/protocol-runtime/intent/authority.ts",
+          "class": "IntentAuthority",
+          "command_methods": [],
+          "query_methods": [
+            "getIntent"
+          ]
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/tracking-port.ts",
+          "port_accessor": "getTrackingPort",
+          "port_methods": [
+            "lookupReference"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-tracking-adapter.ts",
+          "adapter_factory": "createRuntimeTrackingAdapter",
+          "gateway_kinds": [],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": null
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "authoritative-state-store",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "read surface over durable state created by the J1 command path",
+          "domain_store": "var/web-runtime/intent.sqlite",
+          "evidence_records": [
+            "INTENT_CREATED",
+            "INTENT_STATE_CHANGED"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [],
+          "state_vocabulary": "TrackingLookupResult: tracked (TrackedReferenceView + evidence trail) | not-found (explicit wording, never fabricated)",
+          "presentation_records": "spec/product/tracking-mapping-records.md"
+        }
+      }
+    },
+    {
+      "journey_id": "J3-waiting-queued",
+      "journey": "Waiting/queued — queue membership, waiting panel, re-check and recovery requests",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/track/[referenceId]/waiting/page.tsx"
+          ],
+          "components": [
+            "src/components/track/waiting-inquiry-form.tsx",
+            "src/components/track/waiting-recovery-panel.tsx"
+          ]
+        },
+        "canonical_protocol_object": {
+          "type": "QueuedItemRecord",
+          "states_export": "ITEM_STATES",
+          "states_file": "src/lib/protocol-runtime/queues/types.ts",
+          "state_vocabulary": [
+            "QUEUED",
+            "ELIGIBLE",
+            "DISPATCHED",
+            "GRADUATED",
+            "CANCELLED",
+            "EXPIRED"
+          ]
+        },
+        "owning_authority": {
+          "registry_area": "A08",
+          "name": "Queue Authority",
+          "file": "src/lib/protocol-runtime/queues/authority.ts",
+          "class": "QueueAuthority",
+          "command_methods": [
+            "createQueue",
+            "enqueueItem",
+            "evaluateEligibility",
+            "cancelItem",
+            "dispatchNext",
+            "resolveDispatchedItem"
+          ],
+          "query_methods": [
+            "item",
+            "queue"
+          ]
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/waiting-port.ts",
+          "port_accessor": "getWaitingPort",
+          "port_methods": [
+            "lookupWaiting",
+            "requestRecheck",
+            "requestRecovery"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-waiting-adapter.ts",
+          "adapter_factory": "createRuntimeWaitingAdapter",
+          "gateway_kinds": [
+            "queues.item.enqueue",
+            "queues.eligibility.evaluate",
+            "queues.item.cancel"
+          ],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": "src/app/api/protocol/commands/route.ts"
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "protocol-gateway",
+          "transition-runtime",
+          "durable-command-queue",
+          "scheduler",
+          "authoritative-state-store",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "var/web-runtime/durable.sqlite durable_jobs (kind='queues.item.enqueue' | 'queues.eligibility.evaluate' | 'queues.item.cancel')",
+          "domain_store": "var/web-runtime/queues.sqlite (openQueuesStore)",
+          "evidence_records": [
+            "ITEM_QUEUED",
+            "ITEM_STATE vocabulary per ITEM_STATES",
+            "GATEWAY_COMMAND_REJECTED"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [
+            "accepted",
+            "rejected"
+          ],
+          "state_vocabulary": "WaitingLookupResult (status not-found | snapshot with queue position + recovery actions); WaitingInquiryResult; WaitingRecoveryRequestResult (denied arms worded as not-transported, never authority refusals)",
+          "presentation_records": "spec/product/waiting-mapping-records.md"
+        }
+      }
+    },
+    {
+      "journey_id": "J4-unknown-reconciliation",
+      "journey": "UNKNOWN outcome + reconciliation — no-answer presentations, the A14 cycle lifecycle, and the finality gate over unresolved outcomes",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/(customer)/pay/[intentId]/page.tsx",
+            "src/app/track/[referenceId]/page.tsx",
+            "src/app/(operator)/oversight/page.tsx",
+            "src/app/track/[referenceId]/waiting/page.tsx"
+          ],
+          "components": [
+            "src/components/pay/intent-state-view.tsx"
+          ]
+        },
+        "canonical_protocol_object": {
+          "type": "no-answer arms (IntentQueryResult.no-answer, TrackingLookupResult.not-found, ProviderPositionsResult.denied) + ReconciliationCase (A14: OPEN → INVESTIGATING → RESOLVED_CONFIRMED | RESOLVED_FAILED | RESOLVED_ADJUSTED | MATCHED) + the settlement UNKNOWN-hold",
+          "states_file": "src/lib/protocol-runtime/rails/reconciliation.ts",
+          "gateway_refusal": "settlement.finality.declare refused UNKNOWN_HELD while an attempt is unresolved (GC-2: finality is blocked until reconciliation resolves)"
+        },
+        "owning_authority": {
+          "registry_area": "A14",
+          "name": "Reconciliation Authority",
+          "file": "src/lib/protocol-runtime/rails/reconciliation.ts",
+          "class": "ReconciliationAuthority",
+          "command_methods": [
+            "registerSource",
+            "openCycle",
+            "collectStatements",
+            "runMatching",
+            "closeCycle",
+            "investigateCase",
+            "resolveCase"
+          ],
+          "query_methods": [
+            "getCaseByOriginOperation"
+          ],
+          "co_owning_authority": {
+            "registry_area": "A12",
+            "name": "Settlement and Finality Authority",
+            "file": "src/lib/protocol-runtime/settlement/authority.ts",
+            "class": "SettlementAuthority",
+            "role": "holds UNKNOWN (isUnknownHeld), gates finality (declareFinality), applies resolutions exactly once"
+          }
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/intent-port.ts",
+          "port_accessor": "getIntentPort / getTrackingPort / getWaitingPort / getLiquidityPort",
+          "port_methods": [
+            "getIntentState",
+            "lookupReference",
+            "lookupWaiting",
+            "getProviderPositions",
+            "getOperatorOversight"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-intent-adapter.ts",
+          "adapter_factory": "createRuntime*Adapter",
+          "gateway_kinds": [
+            "reconciliation.source.register",
+            "reconciliation.cycle.open",
+            "reconciliation.cycle.statements.collect",
+            "reconciliation.cycle.matching.run",
+            "reconciliation.cycle.close",
+            "settlement.finality.declare"
+          ],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": "src/app/api/protocol/commands/route.ts",
+          "adapter_file_note": "the seven runtime adapters (src/lib/protocol/runtime-*-adapter.ts)",
+          "port_file_note": "the seven port modules (src/lib/protocol/*-port.ts)"
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "protocol-gateway",
+          "reconciler-workers",
+          "netting-settlement-workers",
+          "transition-runtime",
+          "durable-command-queue",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "var/web-runtime/durable.sqlite durable_jobs (reconciliation.* and settlement.* kinds)",
+          "domain_store": "var/web-runtime/rails.sqlite (reconciliation cases/cycles/sources + settlement instructions)",
+          "evidence_records": [
+            "RECONCILIATION_CASE_OPENED",
+            "RECONCILIATION_CASE_INVESTIGATED",
+            "RECONCILIATION_CASE_RESOLVED",
+            "GATEWAY_COMMAND_REJECTED (typed refusal evidence)"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite",
+          "full_unknown_path_evidence": "scripts/test_protocol_composed_journey.mjs",
+          "full_unknown_path_note": "the composed UNKNOWN path: rail UNKNOWN at settlement, the auto case, INVESTIGATING, RESOLVED_CONFIRMED, and finality advancing exactly once; kept green by the SYS-001 gate battery"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [],
+          "state_vocabulary": "UNKNOWN presented as UNKNOWN with its reconciliation path on every arm (no-answer, not-found, denied); never translated to success or failure; recovery wording names who resolves",
+          "presentation_records": "the mapping-record families (IMR/TRK/WFM/LIQ) — every UNKNOWN member carries its reconciliation wording"
+        }
+      }
+    },
+    {
+      "journey_id": "J5-merchant-checkout",
+      "journey": "Merchant checkout + settlement promise — offer/status/queue reads and the fail-closed decision surface",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/(merchant)/checkout/page.tsx",
+            "src/app/(merchant)/checkout/[checkoutId]/page.tsx"
+          ],
+          "components": [
+            "src/components/merchant/checkout-decision-controls.tsx"
+          ]
+        },
+        "canonical_protocol_object": {
+          "type": "PaymentIntent (the checkout offer/state reads the A01 record; the checkout-session authority itself is area 20, RTN wave 2 — D-8)",
+          "states_export": "INTENT_STATES",
+          "states_file": "src/lib/protocol-runtime/intent/types.ts"
+        },
+        "owning_authority": {
+          "registry_area": "A01 (reads); decisions own NO authority (area 20 is RTN wave 2 — fail closed, decision-not-allowed)",
+          "name": "Intent Authority (read surface) — the Merchant checkout-session Authority (area 20) is wave 2",
+          "file": "src/lib/protocol-runtime/intent/authority.ts",
+          "class": "IntentAuthority",
+          "command_methods": [],
+          "query_methods": [
+            "getIntent"
+          ]
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/checkout-port.ts",
+          "port_accessor": "getCheckoutPort",
+          "port_methods": [
+            "getOffer",
+            "getStatus",
+            "listOpenCheckouts",
+            "submitDecision"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-checkout-adapter.ts",
+          "adapter_factory": "createRuntimeCheckoutAdapter",
+          "gateway_kinds": [],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": null
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "authoritative-state-store",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "read surface over durable state created by the J1 command path (no command path for checkout decisions — fail closed)",
+          "domain_store": "var/web-runtime/intent.sqlite",
+          "evidence_records": [
+            "INTENT_CREATED",
+            "INTENT_STATE_CHANGED"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [],
+          "state_vocabulary": "CheckoutOfferResult / CheckoutStatusResult / CheckoutQueueResult (ok + record | error authority-unreachable from browser contexts); CheckoutDecisionResult: the decision is REFUSED 'decision-not-allowed' — nothing committed, nothing fabricated",
+          "presentation_records": "spec/product/checkout-mapping-records.md"
+        }
+      }
+    },
+    {
+      "journey_id": "J6-liquidity-credit-visibility",
+      "journey": "Liquidity/credit visibility — provider positions and operator oversight aggregates",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/(provider)/liquidity/page.tsx",
+            "src/app/(operator)/oversight/page.tsx"
+          ],
+          "components": []
+        },
+        "canonical_protocol_object": {
+          "type": "liquidity positions (A06, over the reservation ledger) + credit lines and exposure (A07) + queue aggregates (A08)",
+          "states_file": "src/lib/protocol-runtime/liquidity/authority.ts"
+        },
+        "owning_authority": {
+          "registry_area": "A06 + A07",
+          "name": "Liquidity Authority (A06) and Credit Authority (A07) over the A05 reservation ledger",
+          "file": "src/lib/protocol-runtime/liquidity/authority.ts",
+          "class": "LiquidityAuthority",
+          "co_authority_file": "src/lib/protocol-runtime/credit/authority.ts",
+          "co_authority_class": "CreditAuthority",
+          "command_methods": [],
+          "query_methods": [
+            "positionsOf"
+          ]
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/liquidity-port.ts",
+          "port_accessor": "getLiquidityPort",
+          "port_methods": [
+            "getProviderPositions",
+            "getOperatorOversight"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-liquidity-adapter.ts",
+          "adapter_factory": "createRuntimeLiquidityPortFactory",
+          "gateway_kinds": [],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": null
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "authoritative-state-store",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "read surface over durable reservation/queue state (created through the A05 command path)",
+          "domain_store": "var/web-runtime/reservations.sqlite + var/web-runtime/queues.sqlite",
+          "evidence_records": [
+            "RESERVATION_HELD",
+            "RESERVATION_CONSUMED",
+            "QUEUE_ITEM_ENQUEUED"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [],
+          "state_vocabulary": "ProviderPositionsResult / OperatorOversightResult: permitted (authoritative figures) | denied (fail-closed) — aggregates annotate UNKNOWN where a read-surface gap is recorded, never fabricated zeros",
+          "presentation_records": "spec/product/liquidity-mapping-records.md"
+        }
+      }
+    },
+    {
+      "journey_id": "J7-mediation-dispute",
+      "journey": "Mediation/dispute — the party docket, dispute initiation over a recorded obligation, the dispute record",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/mediation/page.tsx",
+            "src/app/mediation/dispute/new/page.tsx",
+            "src/app/mediation/dispute/[disputeId]/page.tsx",
+            "src/app/mediation/case/[caseId]/page.tsx",
+            "src/app/mediation/proposal/[proposalId]/page.tsx",
+            "src/app/api/mediation/dispute/route.ts",
+            "src/app/api/mediation/record/route.ts",
+            "src/app/api/mediation/action/route.ts",
+            "src/app/api/mediation/decision/route.ts",
+            "src/app/api/mediation/script/route.ts"
+          ],
+          "components": []
+        },
+        "canonical_protocol_object": {
+          "type": "ObligationRecord (A10: CREATED → NETTED → SETTLEMENT_PENDING → DISPUTED → …; the dispute primitive terminalizes an OUTSTANDING obligation into DISPUTED)",
+          "states_file": "src/lib/protocol-runtime/obligations/authority.ts"
+        },
+        "owning_authority": {
+          "registry_area": "A10",
+          "name": "Obligation Authority",
+          "file": "src/lib/protocol-runtime/obligations/authority.ts",
+          "class": "ObligationLedgerAuthority",
+          "command_methods": [
+            "applyClearingCommand",
+            "openDispute",
+            "applyDisputeResolution",
+            "applyNettingCommit",
+            "applySettlementInstruction",
+            "applySettlementFinality"
+          ],
+          "query_methods": [
+            "obligations",
+            "obligation"
+          ]
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/mediation-port.ts",
+          "port_accessor": "getMediationPort",
+          "port_methods": [
+            "getPartyDocket",
+            "getDispute",
+            "initiateDispute",
+            "submitProposalDecision",
+            "submitMediationAction"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-mediation-adapter.ts",
+          "adapter_factory": "createRuntimeMediationAdapter",
+          "gateway_kinds": [
+            "obligations.clearing.commit",
+            "obligations.dispute.open"
+          ],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": "src/app/api/protocol/commands/route.ts"
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "protocol-gateway",
+          "transition-runtime",
+          "durable-command-queue",
+          "authoritative-state-store",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "var/web-runtime/durable.sqlite durable_jobs (kind='obligations.clearing.commit' | 'obligations.dispute.open')",
+          "domain_store": "var/web-runtime/obligations.sqlite (openObligationsStore)",
+          "evidence_records": [
+            "OBLIGATION_CREATED",
+            "OBLIGATION_STATE_CHANGED (dispute id as cause reference)",
+            "GATEWAY_COMMAND_REJECTED"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [
+            "initiated",
+            "denied"
+          ],
+          "state_vocabulary": "DisputeInitiationResult: initiated (DisputeRecord authorityState 'open' — the executed DISPUTED state) | denied (authority-grounded refusals); PartyDocket lists disputable obligations and recorded disputes; PortFetch fetched/not-visible/unavailable",
+          "presentation_records": "spec/product/mediation-mapping-records.md"
+        }
+      }
+    },
+    {
+      "journey_id": "J8-capability-provider",
+      "journey": "Capability/provider — the capability registry listing and detail (the corridor supply side)",
+      "hops": {
+        "product_action": {
+          "files": [
+            "src/app/(provider)/capabilities/page.tsx",
+            "src/app/(provider)/capabilities/[capabilityId]/page.tsx"
+          ],
+          "components": []
+        },
+        "canonical_protocol_object": {
+          "type": "CapabilityRecord (A03: PENDING → ACTIVE → DEGRADED/RETIRED; activation is compliance-gated by the A16 risk authority)",
+          "states_file": "src/lib/protocol-runtime/capability/authority.ts"
+        },
+        "owning_authority": {
+          "registry_area": "A03",
+          "name": "Capability Authority",
+          "file": "src/lib/protocol-runtime/capability/authority.ts",
+          "class": "CapabilityAuthority",
+          "command_methods": [
+            "registerCapability",
+            "activateCapability",
+            "degradeCapability",
+            "retireCapability",
+            "offerCommitment"
+          ],
+          "query_methods": [
+            "snapshot"
+          ]
+        },
+        "api_runtime_boundary": {
+          "port_file": "src/lib/protocol/capability-port.ts",
+          "port_accessor": "getCapabilityPort",
+          "port_methods": [
+            "listCapabilities",
+            "getCapability"
+          ],
+          "adapter_file": "src/lib/protocol/runtime-capability-adapter.ts",
+          "adapter_factory": "createRuntimeCapabilityAdapter",
+          "gateway_kinds": [
+            "capability.register",
+            "capability.activate"
+          ],
+          "gateway_file": "src/lib/protocol-runtime/gateway/admission.ts",
+          "gateway_class": "ProtocolGateway",
+          "http_binding": "src/app/api/protocol/commands/route.ts"
+        },
+        "deployment_component": [
+          "web-api-boundary",
+          "protocol-gateway",
+          "transition-runtime",
+          "evidence-object-store"
+        ],
+        "durable_state_evidence": {
+          "durable_jobs": "var/web-runtime/durable.sqlite durable_jobs (kind='capability.register' | 'capability.activate')",
+          "domain_store": "the A03 registry is in-memory per composition with the A15 chain as the durable record (no per-domain capability store is composed — recorded honestly)",
+          "evidence_records": [
+            "CAPABILITY_REGISTERED",
+            "CAPABILITY_STATE_CHANGED"
+          ],
+          "evidence_store": "var/web-runtime/evidence.sqlite"
+        },
+        "user_visible_outcome": {
+          "submit_vocabulary": [],
+          "state_vocabulary": "CapabilityListing (items + sources + boundary) — states mapped per the frozen vocabulary; browser contexts render the honest non-authoritative empty listing with the boundary note (never an authoritative zero claim)",
+          "presentation_records": "spec/product/capability-mapping-records.md"
+        }
+      }
+    }
+  ],
+  "authority_ownership_proof": {
+    "one_composition_root": "src/lib/protocol/server-runtime.ts (the ONE production composition root — composeProtocolRuntime, process-global via globalThis; product-adapter-test-compose.ts is the bun test-only double)",
+    "authority_constructors_outside_runtime": "none (static scan: no file outside src/lib/protocol-runtime/** constructs an authority; the mock shims are RETIRED/NON-AUTHORITATIVE presentation-only and register nothing)",
+    "sole_admission_point": "src/lib/protocol-runtime/gateway/admission.ts ProtocolGateway.submitCommand (COMMAND-SURFACE.md); the D-1 HTTP route forwards verbatim",
+    "single_writer": "the transition runtime (src/lib/protocol-runtime/transition/execution.ts) is the only authoritative-state writer"
+  },
+  "environment_isolation_proof": {
+    "allowlist": [
+      "sandbox",
+      "production"
+    ],
+    "fail_safe": "sandbox",
+    "module": "src/lib/environment.ts",
+    "startup_validation": "src/lib/startup-config.ts validateStartupConfig (production requires PAYSWAP_DATABASE_URL, PAYSWAP_QUEUE_URL, PAYSWAP_EVIDENCE_STORE_URL, PAYSWAP_RAIL_ADAPTERS_URL; sandbox requires none — F4)",
+    "route_reachability": "the D-1 HTTP binding adds no environment gate and no new configurable name; reachable in every class the web-api-boundary serves (development, test-ci, sandbox, staging, production)"
+  }
+}

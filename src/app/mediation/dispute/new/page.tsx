@@ -4,6 +4,7 @@ import { getMediationPort } from "@/lib/protocol/mediation-port";
 import type { PartyRole } from "@/lib/protocol/mediation-port";
 import { AvailabilityUnknownState } from "@/components/state";
 import { DisputeInitiationForm } from "@/components/dispute/dispute-initiation-form";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-008 — Dispute initiation (deep link, role-checked).
@@ -21,6 +22,9 @@ export default async function DisputeInitiationPage({
 }) {
   const { intentReference } = await searchParams;
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   await requireRoleSurface("customer", ["merchant"]);
   const viewer: PartyRole = audience === "merchant" ? "merchant" : "customer";
   const port = getMediationPort();

@@ -39,6 +39,7 @@ import { resolveShellAudience } from '@/lib/shell-audience-server';
 import { Clock, Eye, ShieldCheck } from 'lucide-react';
 
 import type { Metadata } from 'next';
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 export const metadata: Metadata = {
   title: 'Oversight — Payswap',
@@ -49,6 +50,9 @@ export const metadata: Metadata = {
 export default async function OperatorOversightPage() {
   await requireRoleSurface('operator');
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const overrides = await readSandboxOverridesFromCurrentRequest();
   const port = getLiquidityPort(overrides);
   const result = await port.getOperatorOversight({

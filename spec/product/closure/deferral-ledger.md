@@ -6,19 +6,35 @@ owning disposition. The Tech Lead governs every disposition.
 
 ---
 
-## D-1 — the browser/surface transport binding for the composed runtime
+## D-1 — the browser/surface transport binding for the composed runtime — RESOLVED (SYS-001)
 
-- **Deferral:** no HTTP binding exists for the protocol gateway; browser-context
+- **Deferral:** no HTTP binding existed for the protocol gateway; browser-context
   port calls resolve the transport-unavailable backing (honest UNKNOWN /
   not-transported presentations).
 - **Evidence:** UI-011's recorded deferral (the intent/checkout/waiting/mediation
   mapping records' re-anchoring sections); Leg B B-3 (WF-7) evidences the
   P5-correct presentations on the live app.
 - **Owning work order:** **SYS-001** (the deployment program's three-layer
-  reconciliation; COMMAND-SURFACE.md "Health"; DEP-002+). Unchanged by this
-  bundle — but see D-2, which makes it more urgent.
+  reconciliation; COMMAND-SURFACE.md "Health"; DEP-002+).
+- **RESOLUTION (SYS-001, base 4650732):** the HTTP binding landed as
+  `src/app/api/protocol/commands/route.ts` — POST forwards one command
+  envelope VERBATIM through `ProtocolGateway.submitCommand` (the A01
+  admission contract: authority attribution, per-authority body validation,
+  idempotent receipts; responses carry the gateway's typed result
+  vocabulary; typed refusals are HTTP 200 protocol results; GET is the
+  read-only receipt lookup). The route is transport only — no financial
+  authority, no new externally-configurable name. Browser-context port
+  calls keep the honest transport-unavailable backing BY DESIGN (the D-1
+  record's browser contract) — the binding serves the server-side and
+  integrator paths. **Resolving evidence:** the `bind:d1` group of
+  `scripts/test_transport_binding.mjs` (all five typed refusal reason codes,
+  the unattributable/malformed transport refusals, the receipt lookup, and
+  INV-1-3 replay over HTTP on the BUILT app) and the `recon:journeys`
+  group of `scripts/test_system_reconciliation.mjs` (the journeys' commands
+  through the sole admission point); matrix rows J1/J3/J4/J7/J8 (the
+  api_runtime_boundary hop names the HTTP binding).
 
-## D-2 — FINDING 2: the UI-011 splice does not reach the routes (product-layer integration defect)
+## D-2 — FINDING 2: the UI-011 splice does not reach the routes — RESOLVED (SYS-001)
 
 - **Finding:** in BOTH the dev server and the production build, the composition
   root's adapter registrations land in module-graph instances the routes never
@@ -30,7 +46,10 @@ owning disposition. The Tech Lead governs every disposition.
   runtime-backed server reads do not exist at runtime.
 - **Evidence:** `evidence/app-e2e/findings.md` (live-app probes across
   /oversight, /track, the mediation APIs; the code-inspected root cause in the
-  built chunk), `evidence/app-e2e/app-e2e.json` (B-0).
+  built chunk), `evidence/app-e2e/app-e2e.json` (B-0). Reproduced at the SYS-001
+  dispatch base 4650732 (the /oversight, /track and mediation-API probes all
+  returned the backing's "runtime adapter could not be reached" wording; the
+  var/web-runtime stores were created — composition running, serving nothing).
 - **Requested disposition (Tech Lead):** fix the registration's module-graph
   reachability in the product layer (e.g. a server-only shared module the routes
   import, performing the registration idempotently) — OR fold the fix into
@@ -38,8 +57,28 @@ owning disposition. The Tech Lead governs every disposition.
   Until one of those lands, the UI-011 acceptance statement "server-rendered
   surfaces and the API routes carry the runtime-backed reads" is not true of the
   running app, and this ledger is the record of that fact.
+- **RESOLUTION (SYS-001, base 4650732):** the requested disposition's first
+  path landed — `src/lib/protocol/server-composition.ts`, the server-only
+  shared module the routes import, performing the registration idempotently
+  (per module graph) over the ONE process-global composition
+  (`src/lib/protocol/server-runtime.ts`'s globalThis slot: one runtime, one
+  worker fleet, one set of var/web-runtime stores per process, shared across
+  every Turbopack module graph). Twenty-two server-side routes/pages await
+  `ensureProductPortsWired()` before port access; the instrumentation hook is
+  unchanged (it boots the same process-global composition at server start).
+  Every port call in the RUNNING app now resolves the RUNTIME-backed adapters
+  (server-rendered reads AND the API routes); the browser-context 'use client'
+  consumers keep the honest transport-unavailable backing (D-1's recorded
+  browser contract). **Resolving evidence:** the `bind:d2` group of
+  `scripts/test_transport_binding.mjs` (the BUILT app's /oversight, /track and
+  mediation-API surfaces present the runtime adapters' own wording — the
+  backing's "could not be reached" wording is GONE) and the `recon:journeys`
+  group's first scenario of `scripts/test_system_reconciliation.mjs` (the
+  in-process D-2 acceptance: the ports resolve the runtime adapters through the
+  app's own composition root); matrix rows J1–J8 (the api_runtime_boundary hop
+  names the server-composition seam).
 
-## D-3 — FINDING 1: the composition root's drain() halts the worker without executing queued commands
+## D-3 — FINDING 1: the composition root's drain() halts the worker without executing queued commands — RESOLVED (SYS-001)
 
 - **Finding:** `server-runtime.ts`'s `handle.drain()` = `worker.stop()`;
   port-level gateway submissions would present admitted-but-not-executed
@@ -48,11 +87,30 @@ owning disposition. The Tech Lead governs every disposition.
   command never executed) — unreachable today only because no product surface
   can populate the app process's runtime with obligations (D-2).
 - **Evidence:** `evidence/workflows/probe-drain.txt` (the probe: admitted but
-  not executed after drain(); the tick control executes).
+  not executed after drain(); the tick control executes). Reproduced at the
+  SYS-001 dispatch base 4650732 (same probe, same result: INTENT_CREATED
+  absent after drain(), the tick control executes the command).
 - **Requested disposition (Tech Lead):** replace the drain with a bounded tick
   pass (the composed-journey harness's pattern) in the composition root — a
   product-layer helper fix, no protocol semantics involved. Fold into the D-2
   remediation.
+- **RESOLUTION (SYS-001, base 4650732):** the requested disposition landed —
+  `server-runtime.ts`'s `drain()` is now the bounded tick pass (the
+  composed-journey harness's pattern: tick → await in-flight via stop() →
+  start() resumes the auto-poll → repeat until a pass dispatches nothing or
+  the 60-pass hard bound), composing ONLY the frozen DurableWorker's public
+  API. Submitted commands now EXECUTE: the intent adapter's post-submit
+  read-back finds the record, and the mediation adapter's dispute read-back
+  sees the DISPUTED obligation — the latent "initiated + resolved"
+  mis-presentation is UNREACHABLE (the dispute record presents authorityState
+  'open' only after the command executed). **Resolving evidence:** the
+  `bind:d3` group of `scripts/test_transport_binding.mjs` (the BUILT app: an
+  intent.submit admitted through the HTTP binding EXECUTES — the record is
+  readable through the port surface; the receipt replays; the worker keeps
+  running) and the `recon:journeys` J7 scenario of
+  `scripts/test_system_reconciliation.mjs` (the dispute initiation returns
+  'initiated' with authorityState 'open' — the EXECUTED DISPUTED state); matrix
+  row J7 (the user_visible_outcome hop records the D-3 acceptance).
 
 ## D-4 — FINDING 3: /verification/liquidity-flow responds HTTP 500
 

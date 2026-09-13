@@ -35,6 +35,7 @@ import {
   type WaitingViewerRole,
 } from "@/lib/protocol/waiting-port";
 import { getWaitingDisplayPresentation } from "@/lib/protocol/waiting-state-mapping";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 interface WaitingDetailPageProps {
   params: Promise<{ referenceId: string }>;
@@ -68,6 +69,9 @@ export default async function TrackReferenceWaitingPage({
 }: WaitingDetailPageProps) {
   const { referenceId } = await params;
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
 
   // Role-checked like the parent surface: unauthenticated visitors are sent
   // home; per-reference roles are then checked through the port lookup.

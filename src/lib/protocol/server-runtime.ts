@@ -5,7 +5,7 @@
  *
  * THE web-boundary wiring of the sanctioned product splice
  * (rtn-plan-rulings.md Q5/delta 6): this module composes the protocol
- * runtime EXACTLY ONCE per server process, per the composed barrel's
+ * runtime EXACTLY ONCE per server PROCESS, per the composed barrel's
  * documented composition order (src/lib/protocol-runtime/index.ts):
  *
  *     substrate → evidence → authorities → persist hooks → bindings →
@@ -21,10 +21,30 @@
  * NOTHING else composes the runtime: the adapters receive the handle;
  * there is no second composition root.
  *
+ * SYS-001 (D-2 remediation) — ONE composition per PROCESS across every
+ * module graph. Turbopack compiles src/instrumentation.ts and each route
+ * into SEPARATE module graphs with their own module instances; the
+ * pre-SYS-001 wiring (registration performed only in the instrumentation
+ * graph) never reached the routes' port-module instances — in the built
+ * app the register seams were dead-code-eliminated from the
+ * instrumentation graph entirely (deferral-ledger D-2; the UI-010 live-app
+ * findings). The remediation composes the runtime ONCE per process and
+ * shares the handle across graphs through a globalThis key, while the
+ * registration into each graph's OWN port-module instances is performed
+ * idempotently by wireProductPortsToProtocolRuntime() — imported DIRECTLY
+ * by src/lib/protocol/server-composition.ts, the server-only shared module
+ * the routes import (the deferral ledger's requested disposition), and by
+ * src/instrumentation.ts (the Next.js bootstrap hook, unchanged). Both
+ * entry paths converge on the SAME process-global composition; the
+ * registration in the instrumentation graph is harmless (nothing in that
+ * graph reads the ports) and the route graphs' registrations are the ones
+ * the running app serves.
+ *
  * Node-only (the gateway/rails persistence modules import the DEP-003 db
- * layer over node:sqlite) — this module is imported ONLY by
- * src/instrumentation.ts (the Next.js server bootstrap hook, guarded to
- * the nodejs runtime) and never from any client-reachable module graph.
+ * layer over node:sqlite) — imported ONLY from the nodejs runtime
+ * (instrumentation's NEXT_RUNTIME guard) and from server code
+ * (server-composition.ts and the routes that import it); never from any
+ * client-reachable module graph.
  *
  * Durable state: the per-domain SQLite stores live under
  * var/web-runtime/ (the repo's runtime-artifact directory, gitignored),
@@ -70,6 +90,7 @@ import {
   nettingPortFromAuthority,
 } from '../protocol-runtime/settlement/ports.ts';
 import { SimulatedRail, createSimulatedRailAdapter } from '../protocol-runtime/rails/adapters.ts';
+import { money as kernelMoney } from '../protocol-runtime/kernel/money.ts';
 import {
   openTransitionSubstrate,
   asTransitionSubstrate,
@@ -99,19 +120,96 @@ import { createRuntimeMediationAdapter } from './runtime-mediation-adapter';
 /** The runtime-artifact directory for the web app's composed runtime. */
 const RUNTIME_DIR = join(process.cwd(), 'var', 'web-runtime');
 
+/**
+ * The process-global composition slot (SYS-001 D-2). Turbopack compiles
+ * instrumentation.ts and each route into separate module graphs whose
+ * module-level state is NOT shared; `globalThis` IS shared per process, so
+ * the ONE composition (its handle, workers and stores) is anchored here.
+ * Every graph's wireProductPortsToProtocolRuntime() call awaits the same
+ * boot promise; concurrent first calls coalesce (no second composition, no
+ * second worker fleet over the same SQLite files).
+ */
+const GLOBAL_COMPOSITION_KEY = '__payswapProtocolRuntimeComposition__';
+
+type CompositionSlot = { boot: Promise<ProtocolRuntimeHandle> };
+
+function compositionSlot(): CompositionSlot {
+  const holder = globalThis as { [key: string]: unknown };
+  const existing = holder[GLOBAL_COMPOSITION_KEY];
+  if (
+    typeof existing === 'object' &&
+    existing !== null &&
+    typeof (existing as CompositionSlot).boot === 'object' &&
+    (existing as CompositionSlot).boot !== null &&
+    typeof ((existing as CompositionSlot).boot as Promise<unknown>).then === 'function'
+  ) {
+    return existing as CompositionSlot;
+  }
+  const slot: CompositionSlot = { boot: composeProtocolRuntime() };
+  holder[GLOBAL_COMPOSITION_KEY] = slot;
+  // A failed boot is fail-closed: clear the slot so a later call can retry
+  // (the ports keep the transport-unavailable backing in the meantime —
+  // honest UNKNOWN, never fabricated state).
+  slot.boot.catch(() => {
+    if (holder[GLOBAL_COMPOSITION_KEY] === slot) {
+      delete holder[GLOBAL_COMPOSITION_KEY];
+    }
+  });
+  return slot;
+}
+
+/**
+ * The ONE process-global composition accessor (SYS-001 D-2): awaits the
+ * per-process composition boot — the FIRST caller composes, every other
+ * caller (any module graph) awaits the same promise.
+ */
+export function getProtocolRuntimeHandle(): Promise<ProtocolRuntimeHandle> {
+  return compositionSlot().boot;
+}
+
+/** Per-graph idempotence flag: this graph's port-module slots. */
 let wired = false;
 
 /**
  * Compose the runtime per the barrel's documented order and register the
  * seven runtime adapters as the product ports' backings. Idempotent per
- * process; called once from src/instrumentation.ts (nodejs runtime only).
+ * PROCESS for the composition (the globalThis slot) and per MODULE GRAPH
+ * for the registration (this graph's port-module instances); imported
+ * directly by src/instrumentation.ts (nodejs runtime only) AND by
+ * src/lib/protocol/server-composition.ts — the server-only shared module
+ * the routes import (the D-2 remediation).
  */
 export async function wireProductPortsToProtocolRuntime(): Promise<void> {
   if (wired) {
     return;
   }
   wired = true;
+  let handle: ProtocolRuntimeHandle;
+  try {
+    handle = await getProtocolRuntimeHandle();
+  } catch (error) {
+    // Fail-closed: this graph's ports keep the transport-unavailable
+    // backing (honest UNKNOWN, never fabricated state); a later call may
+    // retry the boot (the process-global slot cleared itself on rejection).
+    wired = false;
+    throw error;
+  }
+  registerIntentPortBacking(createRuntimeIntentAdapter(handle));
+  registerCheckoutPortBacking(createRuntimeCheckoutAdapter(handle));
+  registerCapabilityPortBacking(createRuntimeCapabilityAdapter(handle));
+  registerTrackingPortBacking(createRuntimeTrackingAdapter(handle));
+  registerWaitingPortBacking(createRuntimeWaitingAdapter(handle));
+  registerLiquidityPortBacking(createRuntimeLiquidityPortFactory(handle));
+  registerMediationPortBacking(createRuntimeMediationAdapter(handle));
+}
 
+/**
+ * The composition itself (SYS-001: extracted from the old registration
+ * path so the globalThis slot can hold exactly one boot per process).
+ * Runs the barrel's documented order over var/web-runtime/ and returns the
+ * handle. Called exactly once per process (compositionSlot).
+ */
+async function composeProtocolRuntime(): Promise<ProtocolRuntimeHandle> {
   mkdirSync(RUNTIME_DIR, { recursive: true });
   const wallClock = () => Date.now();
 
@@ -250,6 +348,32 @@ export async function wireProductPortsToProtocolRuntime(): Promise<void> {
   // authority command through the SAME single-writer path: the gateway
   // remains the sole admission point and the transition runtime remains
   // the single writer.
+  //
+  // SYS-001 EXTENSION (D-1's binding-reality + D-3's mediation
+  // acceptance): the alias family now covers the DOCUMENTED registry
+  // kinds the SYS-001 reconciliation journeys and the HTTP binding drive
+  // (obligations.clearing.commit — the obligation genesis the A10 dispute
+  // primitive attaches to; queues.item.enqueue — the A08 waiting surface;
+  // capability.register — the A03 registry; settlement.finality.declare —
+  // the A12 finality gate; reconciliation.cycle.open /
+  // statements.collect / matching.run — the A14 cycle lifecycle over the
+  // documented registry vocabulary). Same discipline: the aliases drive
+  // the SAME owning authority commands through the SAME single-writer
+  // path and add NO financial authority of their own; the flat-vocabulary
+  // merged bindings remain the harness path.
+  // The gateway's JSON-ish body values mint into the kernel's branded
+  // Money through the kernel's own minter (the branded types are
+  // constructible ONLY through money() — the same discipline the merged
+  // bindings' expectMoney applies).
+  const moneyOf = (
+    value: { amountMinor?: unknown; currency?: unknown; scale?: unknown } | undefined,
+  ) =>
+    kernelMoney(
+      String(value?.currency ?? ''),
+      Number(value?.amountMinor ?? NaN),
+      Number(value?.scale ?? NaN),
+    );
+
   const gatewayKindAliasBindings = ([
     {
       kind: 'obligations.dispute.open',
@@ -262,9 +386,48 @@ export async function wireProductPortsToProtocolRuntime(): Promise<void> {
           obligationId: String(body?.obligationId ?? ''),
           disputeId: String(body?.disputeId ?? ''),
         });
-        return result.ok
-          ? { status: 'applied' as const, summary: { obligationId: result.value.obligationId, state: result.value.state } }
-          : { status: 'rejected' as const, code: result.code };
+        if (result.ok) {
+          persist.obligations?.(obligations);
+          return { status: 'applied' as const, summary: { obligationId: result.value.obligationId, state: result.value.state } };
+        }
+        return { status: 'rejected' as const, code: result.code };
+      },
+    },
+    {
+      kind: 'obligations.clearing.commit',
+      authority: 'Obligation Authority',
+      owner: 'Obligation Authority',
+      async execute(envelope: {
+        body: {
+          batchId?: unknown;
+          recordId?: unknown;
+          originActivityId?: unknown;
+          originKind?: unknown;
+          debtorParticipantId?: unknown;
+          creditorParticipantId?: unknown;
+          amount?: unknown;
+          reason?: unknown;
+          correctionOf?: unknown;
+        };
+      }) {
+        const body = envelope.body ?? {};
+        const result = await obligations.applyClearingCommand({
+          batchId: String(body.batchId ?? ''),
+          recordId: String(body.recordId ?? ''),
+          originActivityId: String(body.originActivityId ?? ''),
+          originKind: String(body.originKind ?? '') as 'ROUTE_PLAN_HOP' | 'INTENT' | 'RECONCILIATION_ADJUSTMENT',
+          debtorParticipantId: String(body.debtorParticipantId ?? ''),
+          creditorParticipantId: String(body.creditorParticipantId ?? ''),
+          amount: moneyOf(body.amount as { amountMinor?: unknown; currency?: unknown; scale?: unknown } | undefined),
+          reason: String(body.reason ?? ''),
+          ...(body.correctionOf === undefined ? {} : { correctionOf: String(body.correctionOf) }),
+        });
+        // INV-10-3: duplicate instructions are no-ops — the recorded
+        // obligation id returns, never a second ledger entry.
+        persist.obligations?.(obligations);
+        return result.duplicate
+          ? { status: 'replayed' as const, summary: { obligationId: result.obligationId } }
+          : { status: 'applied' as const, summary: { obligationId: result.obligationId } };
       },
     },
     {
@@ -282,6 +445,140 @@ export async function wireProductPortsToProtocolRuntime(): Promise<void> {
         return result.ok
           ? { status: 'applied' as const, summary: { itemId: result.record.itemId, state: result.record.state } }
           : { status: 'rejected' as const, code: result.code };
+      },
+    },
+    {
+      kind: 'queues.item.enqueue',
+      authority: 'Queue Authority',
+      owner: 'Queue Authority',
+      async execute(envelope: {
+        body: {
+          queueId?: unknown;
+          intentId?: unknown;
+          priorityClass?: unknown;
+          terms?: { intentId?: unknown; terms?: { amountMinor?: unknown; currency?: unknown; scale?: unknown } } | undefined;
+        };
+      }) {
+        const body = envelope.body ?? {};
+        const result = await queues.enqueueItem({
+          queueId: String(body.queueId ?? ''),
+          intentId: String(body.intentId ?? ''),
+          priorityClass: Number(body.priorityClass ?? NaN),
+          terms: {
+            intentId: String(body.terms?.intentId ?? body.intentId ?? ''),
+            terms: moneyOf(body.terms?.terms),
+          },
+        });
+        if (!result.ok) {
+          return { status: 'rejected' as const, code: result.code };
+        }
+        persist.queues?.(queues, String(body.queueId ?? ''));
+        // INV-8 idempotency: identical re-enqueue replays the recorded item.
+        return {
+          status: result.replayed ? ('replayed' as const) : ('applied' as const),
+          summary: { itemId: result.record.itemId, state: result.record.state },
+        };
+      },
+    },
+    {
+      kind: 'capability.register',
+      authority: 'Capability Authority',
+      owner: 'Capability Authority',
+      async execute(envelope: {
+        body: {
+          capabilityId?: unknown;
+          declaration?: {
+            railId?: unknown;
+            corridor?: { sourceCurrency?: unknown; destinationCurrency?: unknown; sourceGeography?: unknown; destinationGeography?: unknown } | undefined;
+            costSchedule?: { amountMinor?: unknown; currency?: unknown; scale?: unknown } | undefined;
+            tier?: unknown;
+          } | undefined;
+          declaredCapacity?: { amountMinor?: unknown; currency?: unknown; scale?: unknown } | undefined;
+        };
+      }) {
+        const body = envelope.body ?? {};
+        const declaration = body.declaration;
+        const corridor = declaration?.corridor;
+        const result = await capability.registerCapability({
+          capabilityId: String(body.capabilityId ?? ''),
+          declaration: {
+            railId: String(declaration?.railId ?? ''),
+            corridor: {
+              sourceCurrency: String(corridor?.sourceCurrency ?? ''),
+              destinationCurrency: String(corridor?.destinationCurrency ?? ''),
+              sourceGeography: String(corridor?.sourceGeography ?? ''),
+              destinationGeography: String(corridor?.destinationGeography ?? ''),
+            },
+            costSchedule: moneyOf(declaration?.costSchedule),
+            tier: String(declaration?.tier ?? ''),
+          },
+          declaredCapacity: moneyOf(body.declaredCapacity),
+        });
+        return result.ok
+          ? { status: 'applied' as const, summary: { capabilityId: result.record.capabilityId, state: result.record.state } }
+          : { status: 'rejected' as const, code: result.code };
+      },
+    },
+    {
+      kind: 'settlement.finality.declare',
+      authority: 'Settlement and Finality Authority',
+      owner: 'Settlement and Finality Authority',
+      async execute(envelope: { body: { instructionId?: unknown } }) {
+        const body = envelope.body;
+        const result = await settlement.declareFinality(String(body?.instructionId ?? ''));
+        // The authority's typed refusal (ATTEMPT_NOT_FOUND /
+        // UNKNOWN_HELD / NOT_PROVISIONAL / …) is the command's outcome —
+        // surfaced as the binding's rejected status, finality never
+        // asserted over an unresolved outcome (GC-2).
+        return result.ok
+          ? { status: 'applied' as const, summary: { instructionId: String(body?.instructionId ?? ''), state: 'FINAL' } }
+          : { status: 'rejected' as const, code: result.code };
+      },
+    },
+    {
+      kind: 'reconciliation.cycle.open',
+      authority: 'Reconciliation Authority',
+      owner: 'Reconciliation Authority',
+      async execute(envelope: {
+        body: { windowStartWallMs?: unknown; windowEndWallMs?: unknown; sourceIds?: unknown; ruleVersion?: unknown };
+      }) {
+        const body = envelope.body ?? {};
+        const result = reconciliation.openCycle({
+          windowStartWallMs: Number(body.windowStartWallMs ?? NaN),
+          windowEndWallMs: Number(body.windowEndWallMs ?? NaN),
+          sourceIds: Array.isArray(body.sourceIds) ? (body.sourceIds as readonly string[]) : [],
+          ...(body.ruleVersion === undefined ? {} : { ruleVersion: Number(body.ruleVersion) }),
+        });
+        return result.ok
+          ? { status: 'applied' as const, summary: { cycleId: result.value.cycleId, status: result.value.status } }
+          : { status: 'rejected' as const, code: result.reasonCode };
+      },
+    },
+    {
+      kind: 'reconciliation.cycle.statements.collect',
+      authority: 'Reconciliation Authority',
+      owner: 'Reconciliation Authority',
+      async execute(envelope: { body: { cycleId?: unknown; statements?: unknown } }) {
+        const body = envelope.body ?? {};
+        const statements = Array.isArray(body.statements)
+          ? (body.statements as Parameters<typeof reconciliation.collectStatements>[1])
+          : [];
+        const result = reconciliation.collectStatements(String(body.cycleId ?? ''), statements);
+        return result.ok
+          ? { status: 'applied' as const, summary: { cycleId: result.value.cycleId, status: result.value.status } }
+          : { status: 'rejected' as const, code: result.reasonCode };
+      },
+    },
+    {
+      kind: 'reconciliation.cycle.matching.run',
+      authority: 'Reconciliation Authority',
+      owner: 'Reconciliation Authority',
+      async execute(envelope: { body: { cycleId?: unknown } }) {
+        const body = envelope.body;
+        const result = reconciliation.runMatching(String(body?.cycleId ?? ''));
+        return result.ok
+          ? { status: 'applied' as const, summary: { cycleId: result.value.cycle.cycleId, matched: result.value.match.matched.length } }
+          : { status: 'rejected' as const, code: result.reasonCode };
       },
     },
   ] as unknown as (typeof mergedBindings)[number][]) as (typeof mergedBindings)[number][];
@@ -354,18 +651,42 @@ export async function wireProductPortsToProtocolRuntime(): Promise<void> {
       reconciliation,
     },
     async drain() {
-      // One bounded pass: stop() awaits in-flight executions (the worker
-      // auto-polls regardless; this makes reads-after-submit settle fast).
-      await durableRuntime.worker.stop();
+      // SYS-001 (D-3 remediation) — the BOUNDED TICK PASS (the
+      // composed-journey harness's drain pattern,
+      // scripts/test_protocol_composed_journey.mjs): drive the worker's
+      // own dispatch loop until a pass dispatches nothing or the hard
+      // bound is reached, awaiting each pass's in-flight executions, so
+      // submitted commands EXECUTE instead of presenting
+      // admitted-but-not-executed forever. The pre-SYS-001 drain()
+      // (= worker.stop()) halted the worker permanently without executing
+      // queued commands (deferral-ledger D-3; the probe-drain evidence).
+      // stop() + start() compose the frozen DurableWorker's public API
+      // only: stop() awaits in-flight executions (and clears the poll
+      // timer), start() re-arms the auto-poll loop — the single-writer
+      // discipline (gateway → queue → worker → transition runtime →
+      // owning authority) is untouched.
+      let total = 0;
+      for (let pass = 0; pass < DRAIN_MAX_PASSES; pass += 1) {
+        const dispatched = await durableRuntime.worker.tick();
+        await durableRuntime.worker.stop();
+        durableRuntime.worker.start();
+        total += dispatched;
+        if (dispatched === 0) {
+          break;
+        }
+      }
+      return void total;
     },
   };
 
-  // 9. THE PRODUCT SPLICE — register the seven runtime adapters.
-  registerIntentPortBacking(createRuntimeIntentAdapter(handle));
-  registerCheckoutPortBacking(createRuntimeCheckoutAdapter(handle));
-  registerCapabilityPortBacking(createRuntimeCapabilityAdapter(handle));
-  registerTrackingPortBacking(createRuntimeTrackingAdapter(handle));
-  registerWaitingPortBacking(createRuntimeWaitingAdapter(handle));
-  registerLiquidityPortBacking(createRuntimeLiquidityPortFactory(handle));
-  registerMediationPortBacking(createRuntimeMediationAdapter(handle));
+  return handle;
 }
+
+/**
+ * The hard bound of one drain() call (the composed-journey harness's
+ * drain bound, maxPasses = 60): a bounded-refusal surface — a drain that
+ * cannot settle within the bound returns with whatever has executed; the
+ * worker's auto-poll keeps executing the remainder and later reads
+ * present the authoritative state (never a fabricated one).
+ */
+const DRAIN_MAX_PASSES = 60;

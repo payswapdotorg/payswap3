@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { resolveShellAudience } from "@/lib/shell-audience-server";
 import { getMediationPort } from "@/lib/protocol/mediation-port";
 import type { PartyRole, ProposalDecisionKind } from "@/lib/protocol/mediation-port";
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 /**
  * UI-008 — Proposal decision endpoint.
@@ -47,6 +48,9 @@ export async function POST(request: Request) {
       : undefined;
 
   const audience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   if (audience === "unauthenticated") {
     return NextResponse.json({ kind: "denied", reason: UNAUTHENTICATED_REASON }, { status: 200 });
   }

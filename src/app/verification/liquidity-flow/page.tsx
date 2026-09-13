@@ -36,6 +36,7 @@ import {
   readSandboxOverridesFromCurrentRequest,
 } from '@/lib/protocol/mock-liquidity-authority';
 import { resolveShellAudience } from '@/lib/shell-audience-server';
+import { ensureProductPortsWired } from "@/lib/protocol/server-composition";
 
 export const metadata: Metadata = {
   title: 'UI-007 verification — liquidity, credit & queue visibility',
@@ -54,6 +55,9 @@ const AUDIENCES: readonly NavAudience[] = [
 
 export default async function LiquidityFlowVerificationPage() {
   const currentAudience = await resolveShellAudience();
+  // SYS-001 (D-2): ensure this route's module graph resolves the runtime-backed
+  // port adapters (the process-global composed runtime; idempotent per graph).
+  await ensureProductPortsWired();
   const overrides = await readSandboxOverridesFromCurrentRequest();
   const port = getLiquidityPort(overrides);
 
