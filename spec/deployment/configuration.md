@@ -5,7 +5,7 @@
 **Base:** main @ f934a76f20efbd6e238605d8e7320495974a870e
 **Owned surfaces:** configuration contracts, secret boundaries
 **Forbidden:** protocol semantic changes; product financial authority; external-effect bypass
-**Companions:** `spec/deployment/topology.md` (runtime topology), `spec/deployment/environments.md` (environment classes and fail-closed rules), `spec/deployment/ci-cd.md` (CI/CD and promotion contract, DEP-006), `deploy/contracts/components.json` (machine-readable registry), `scripts/validate_deployment.py` (verification gate)
+**Companions:** `spec/deployment/topology.md` (runtime topology), `spec/deployment/environments.md` (environment classes and fail-closed rules), `spec/deployment/ci-cd.md` (CI/CD and promotion contract, DEP-006), `spec/deployment/observability.md` (observability/resilience/DR contract, DEP-007), `deploy/contracts/components.json` (machine-readable registry), `scripts/validate_deployment.py` (verification gate)
 
 ## Scope
 

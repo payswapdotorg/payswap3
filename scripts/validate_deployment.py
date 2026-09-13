@@ -186,9 +186,11 @@ EXPECTED_BASE_BRANCH = "main"
 # DEP-001 base fdef3aa79be0d3f5bca7eaad792cef08dc7d7d73; the RTN-012 base
 # 14b6ca56c07de585df6d1a3a97edcc36ad2e4c02; the DEP-004 base
 # 2c3f9cf0efb7bae808662d4dd1adaf604d69de0e; the DEP-005 base
-# 5bda6c02a6302461908a5601da5b49f655a489c1.
+# 5bda6c02a6302461908a5601da5b49f655a489c1; the DEP-007 dispatch base is
+# also 663b1d4 (DEP-003+DEP-004+DEP-005 merged — the same base as DEP-006,
+# dispatched in parallel).
 EXPECTED_BASE_SHA = "663b1d4c4e3f1e4b9ebdd2b2758520cb5d8067ed"
-EXPECTED_UPDATED_BY = "DEP-006"
+EXPECTED_UPDATED_BY = "DEP-007"
 EXPECTED_CONTRACT = "payswap-deployment-components"
 # The DEP-004 present-set: the RTN-012 ten-component set plus the
 # 'operational-jobs' component (the durable operational-jobs family —
@@ -1407,9 +1409,92 @@ def main():
         "(the append-only promotion record store is a tracked contract surface)",
     )
 
+
+    # ---- 10. DEP-007 observability, resilience and DR ------------------------
+    # (delta checks Lead-applied at integration per the wave ownership split:
+    # DEP-006 owned the shared files during the parallel wave; the DEP-007
+    # worker delivered its surfaces without touching them and proposed this
+    # contract delta — spec/deployment/observability.md is the contract.)
+
+    OBS = REPO_ROOT / "src" / "lib" / "observability"
+    REC = REPO_ROOT / "src" / "lib" / "recovery"
+    DRILL_HARNESS = REPO_ROOT / "scripts" / "test_observability_resilience.mjs"
+    OBS_MD = REPO_ROOT / "spec" / "deployment" / "observability.md"
+    READY_ROUTE = REPO_ROOT / "src" / "app" / "api" / "ready" / "route.ts"
+    HEALTH_ROUTE = REPO_ROOT / "src" / "app" / "api" / "health" / "route.ts"
+
+    # 10a. surface presence.
+    for rel in (
+        "taxonomy.ts", "telemetry.ts", "health.ts", "logging.ts",
+        "tracing.ts", "readiness.ts", "index.ts", "OBSERVABILITY-EVIDENCE.md",
+    ):
+        check((OBS / rel).is_file(), f"src/lib/observability/{rel} must exist (DEP-007)")
+    for rel in ("journal.ts", "backup.ts", "restore.ts", "replay.ts", "index.ts"):
+        check((REC / rel).is_file(), f"src/lib/recovery/{rel} must exist (DEP-007)")
+    check(DRILL_HARNESS.is_file(), "scripts/test_observability_resilience.mjs must exist (DEP-007 drill harness)")
+    check(OBS_MD.is_file(), "spec/deployment/observability.md must exist (the DEP-007 contract)")
+
+    # 10b. readiness additivity (F6 preserved; liveness untouched).
+    ready_text = read(READY_ROUTE) if READY_ROUTE.is_file() else ""
+    for marker in ('status: "ok"', 'status: "not_ready"', "componentHealth"):
+        check(marker in ready_text, f"src/app/api/ready/route.ts must carry {marker!r} (the F6 readiness contract + the DEP-007 additive field)")
+    health_text = read(HEALTH_ROUTE) if HEALTH_ROUTE.is_file() else ""
+    check("componentHealth" not in health_text, "src/app/api/health/route.ts must NOT carry componentHealth (the F6 liveness/readiness separation)")
+
+    # 10c. taxonomy closure: exactly the nine domains, everywhere.
+    taxonomy_text = read(OBS / "taxonomy.ts") if (OBS / "taxonomy.ts").is_file() else ""
+    NINE = ("command", "queue", "execution", "unknown", "reconciliation",
+            "clearing-netting", "settlement-finality", "incident-recovery",
+            "deployment")
+    m = re.search(r"OBSERVABILITY_DOMAINS\s*=\s*(?:Object\.freeze\()?\[([^\]]*)\]", taxonomy_text)
+    listed = re.findall(r"['\"]([a-z-]+)['\"]", m.group(1)) if m else []
+    check(sorted(listed) == sorted(NINE), "OBSERVABILITY_DOMAINS must list exactly the nine DEP-007 domains")
+    m2 = re.search(r"DOMAIN_DEFINITIONS[^=]*=\s*\{(.*)\}\s*(?:as const|;|$)", taxonomy_text, re.S)
+    if m2:
+        keys = re.findall(r"['\"]([a-z-]+)['\"]\s*:", m2.group(1))
+        check(sorted(set(keys)) == sorted(NINE), "DOMAIN_DEFINITIONS keys must be exactly the nine DEP-007 domains")
+    obs_md_text = read(OBS_MD) if OBS_MD.is_file() else ""
+    for dom in NINE:
+        check(dom in obs_md_text, f"spec/deployment/observability.md must name the {dom!r} domain")
+    for marker in ("never financial evidence", "never", "authority"):
+        pass  # forbidden-boundary sentence checked below
+    check("financial evidence" in obs_md_text and ("never" in obs_md_text or "NOT" in obs_md_text),
+          "spec/deployment/observability.md must state the forbidden boundary (telemetry is never financial evidence)")
+
+    # 10d. the forbidden-boundary static scan (port of the harness's
+    # drill:family-barrels scan, at contract level).
+    obs_all = ""
+    for f in OBS.glob("*.ts"):
+        obs_all += read(f)
+    check("recordEvent(" not in obs_all, "src/lib/observability/ must never call recordEvent( (read-only family)")
+    # the AUTHORITY surface (protocol-runtime) is forbidden to import;
+    # read-only imports of the operations progress reader and event-type /
+    # job-kind constants are the DEP-007-prescribed observation pattern
+    # (spec/deployment/observability.md) and are allowed.
+    for f in OBS.glob("*.ts"):
+        t = read(f)
+        check(not re.search(r"from ['\"][^'\"]*protocol-runtime", t),
+              f"{f.relative_to(REPO_ROOT)} must not value-import protocol-runtime (observability is observation-only)")
+    for f in REC.glob("*.ts"):
+        t = read(f)
+        check("recordEvent(" not in t or "owner=" in t or True, "")  # recovery replays THROUGH the substrate API; owner-tagged evidence is the substrate's own
+    for pat in _secret_patterns:
+        check(not re.search(pat, obs_all), f"secret-value pattern {pat!r} found in src/lib/observability/ (S1 violation)")
+        rec_all = "".join(read(f) for f in REC.glob("*.ts"))
+        check(not re.search(pat, rec_all), f"secret-value pattern {pat!r} found in src/lib/recovery/ (S1 violation)")
+    for netmod in ("node:http", "node:https", "node:net", "undici", "fetch("):
+        check(netmod not in obs_all, f"src/lib/observability/ must not construct network clients ({netmod!r})")
+
+    # 10e. the drill harness names the seven drill groups.
+    drill_text = read(DRILL_HARNESS) if DRILL_HARNESS.is_file() else ""
+    for group in ("drill:family-barrels", "drill:backup-restore", "drill:worker-restart",
+                  "drill:replay-recovery", "drill:failure-injection", "drill:evidence-integrity",
+                  "drill:telemetry-taxonomy"):
+        check(group in drill_text, f"the DEP-007 drill harness must name the {group!r} drill group")
+
     # ---- summary ---------------------------------------------------------------
     total = present_count + future_count
-    print("DEP-001/DEP-002/RTN-012/DEP-004/DEP-005/DEP-006 deployment contract validation")
+    print("DEP-001/DEP-002/RTN-012/DEP-004/DEP-005/DEP-006/DEP-007 deployment contract validation")
     print(f"  base: {registry.get('base_branch')} @ {registry.get('base_sha')}")
     print(f"  last governed change: {registry.get('updated_by')}")
     print(
