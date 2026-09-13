@@ -2,14 +2,15 @@
   "contract": "payswap-deployment-components",
   "version": 1,
   "generated_by": "DEP-001",
-  "updated_by": "DEP-007",
-  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"): DEP-007 materialized observability, resilience and disaster-recovery as in-process library families inside the web-api-boundary application (the DEP-003/RTN-012/DEP-004/DEP-005/DEP-006 precedent; no externalized process binding — recorded future work per component). New surfaces: src/lib/observability/ (the nine-domain telemetry taxonomy, read-only snapshot collector, actionable worst-of health model, structured logging with fail-closed credential-reference scrubbing, trace correlation) and src/lib/recovery/ (verified online backup with append-only manifest, fail-closed restore-into-target with evidence-integrity verification, idempotent queue replay through the exported substrate API) plus scripts/test_observability_resilience.mjs (7 drill groups, 30 scenarios / 483 assertions — backup/restore, worker-restart, replay/recovery, failure-injection, evidence-integrity, telemetry-taxonomy, family-barrels) and spec/deployment/observability.md (the contract). /api/ready gains the strictly additive componentHealth field (F6 liveness/readiness separation preserved; /api/health byte-identical). Health-signal upgrades applied to web-api-boundary, durable-command-queue, operational-jobs and external-rail-adapters; no component added, removed or re-scoped (present-set unchanged). The declared base records the DEP-007 dispatch base (main @ 663b1d4 — DEP-003+DEP-004+DEP-005 merged); the merge landed via PR #38 (25b1789). What remains future work: the externalized telemetry binding (metrics endpoints, alerting, external log/tracing backends), scheduled backup automation and externalized restore rehearsal. Owner stays \"deployment\" for every component; authority only in protocol-layer entries (unchanged). The four surfaces — components.json, spec/deployment/topology.md, spec/deployment/configuration.md and scripts/validate_deployment.py — were updated together in this one work item (the DEP-007 contract delta was Lead-applied at integration per the wave ownership split: DEP-006 owned the shared files during the parallel wave).",
+  "updated_by": "DEP-008",
+  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"): DEP-008 delivered the production readiness proof as repository-local deployment-layer evidence (the release-candidate operational verification work order; dependency gate satisfied — DEP-006 + DEP-007 + the product closure candidate UI-010 all merged at the declared base). No component added, removed or re-scoped (the present-set stays the DEP-004 governed set of eleven); no runtime surface touched (the proof composes over the merged families as black boxes). New surfaces: scripts/test_production_readiness.mjs (the readiness proof harness — ten named fail-closed proof groups wrapping the composed journey, DEP-007 drill, operations and rail-connectivity harnesses and composing the DEP-006 promotion tooling: release-identity, protocol-integration, ui-integration, failure-injection, scaling-behavior [substrate-level in-sandbox only], config-secret-safety, backup-restore-queue-recovery, unknown-reconciliation, external-effect-safety, rollback-observability), spec/deployment/production-readiness.md (the contract: the freeze rule, the ten groups, the six stop conditions, the F8 sandbox-evidence hard boundary), deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md (the captured verification transcript once the DEP-008 release record exists) and the promotion records for the release revision in deploy/promotions/promotion-records.jsonl. The ci_cd contract object gains readiness_harness / readiness_transcript / readiness_contract / readiness_proof_groups. A disclosed one-line battery-determinism fix was applied to scripts/test_observability_resilience.mjs (a drill note printed the epoch-ms backup id — violating the ci-cd.md §2 byte-determinism contract and breaking `promote.mjs verify` for any record at a tree containing it; no assertion, scenario or drill changed). What the evidence is NOT: production readiness is never inferred from sandbox behavior (F8) — the production deployment binding stays FUTURE-WORK and every production_gate in this registry stays authoritative.",
   "base_branch": "main",
-  "base_sha": "663b1d4c4e3f1e4b9ebdd2b2758520cb5d8067ed",
+  "base_sha": "a39cccf312cf55aff6321eb5e0dbbde7936f201b",
   "spec_documents": {
     "topology": "spec/deployment/topology.md",
     "environments": "spec/deployment/environments.md",
-    "configuration": "spec/deployment/configuration.md"
+    "configuration": "spec/deployment/configuration.md",
+    "production_readiness": "spec/deployment/production-readiness.md"
   },
   "runtime_environment_variable": "PAYSWAP_ENV",
   "runtime_env_allowlist": [
@@ -36,7 +37,22 @@
       "harnesses",
       "build"
     ],
-    "production_promotion": "FUTURE-WORK: the production deployment binding (deploying a verified promotion record to the production environment under the separately authorized production configuration); every production_gate in this registry stays authoritative, the promotion tool refuses a resolved PAYSWAP_ENV=production context, and unverified production promotion is forbidden (the DEP-006 work-order Forbidden list)"
+    "production_promotion": "FUTURE-WORK: the production deployment binding (deploying a verified promotion record to the production environment under the separately authorized production configuration); every production_gate in this registry stays authoritative, the promotion tool refuses a resolved PAYSWAP_ENV=production context, and unverified production promotion is forbidden (the DEP-006 work-order Forbidden list)",
+    "readiness_harness": "scripts/test_production_readiness.mjs",
+    "readiness_transcript": "deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md",
+    "readiness_contract": "spec/deployment/production-readiness.md",
+    "readiness_proof_groups": [
+      "proof:release-identity",
+      "proof:protocol-integration",
+      "proof:ui-integration",
+      "proof:failure-injection",
+      "proof:scaling-behavior",
+      "proof:config-secret-safety",
+      "proof:backup-restore-queue-recovery",
+      "proof:unknown-reconciliation",
+      "proof:external-effect-safety",
+      "proof:rollback-observability"
+    ]
   },
   "environments": [
     "development",
