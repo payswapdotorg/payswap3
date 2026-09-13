@@ -12,9 +12,24 @@
 // PAYSWAP_RAIL_ADAPTERS_URL) must be present at runtime; absence ⇒ 503.
 //
 // Semantics (spec/deployment/packaging.md): GET /api/ready → 200 | 503
+//
+// DEP-007 — STRICTLY ADDITIVE enrichment (this work item): the response
+// bodies additionally carry a `componentHealth` field — the nine-domain
+// health model (src/lib/observability/) derived over the durable store
+// the application hosts. The enrichment is additive ONLY:
+//   - the F6 configuration checks above REMAIN the readiness authority;
+//     this field never flips a status code;
+//   - every pre-existing response field and every status code are
+//     byte-identical to the pre-DEP-007 route;
+//   - src/app/api/health/route.ts (liveness — the F6 separation) is
+//     untouched;
+//   - when the durable store cannot be opened or the health cannot be
+//     derived, the field reports `unknown-data` with a named error
+//     (fail-closed — never a guessed 'ok', never a thrown error).
 
 import { NextResponse } from "next/server";
 import { validateStartupConfig } from "@/lib/startup-config";
+import { probeComponentHealth } from "@/lib/observability/readiness";
 
 // Evaluated per request against the live process environment — never
 // statically prerendered or cached (F2: configuration is injected at
@@ -24,8 +39,14 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const result = validateStartupConfig();
 
+  // DEP-007 additive enrichment: the nine-domain component health over the
+  // durable store. Never throws, never changes the status code (fail-closed
+  // to `unknown-data` when the store is unreachable — F6 discipline).
+  const componentHealth = probeComponentHealth();
+
   if (result.ok) {
-    // Ready: return the checks summary (ids, outcomes, value-free details).
+    // Ready: return the checks summary (ids, outcomes, value-free details)
+    // plus the additive component health.
     return NextResponse.json(
       {
         status: "ok",
@@ -36,6 +57,7 @@ export async function GET() {
           ok: check.ok,
           detail: check.detail,
         })),
+        componentHealth,
       },
       {
         status: 200,
@@ -45,7 +67,8 @@ export async function GET() {
   }
 
   // NOT ready: fail closed. 503 with the NAMED failing check ids only —
-  // never values, never partial readiness, never a guess (F6, S4).
+  // never values, never partial readiness, never a guess (F6, S4). The
+  // additive component health rides along for the operator.
   return NextResponse.json(
     {
       status: "not_ready",
@@ -54,6 +77,7 @@ export async function GET() {
       failing: result.checks
         .filter((check) => !check.ok)
         .map((check) => check.id),
+      componentHealth,
     },
     {
       status: 503,
