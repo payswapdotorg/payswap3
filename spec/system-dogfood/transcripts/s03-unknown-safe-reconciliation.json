@@ -1,0 +1,947 @@
+{
+  "scenario_id": "s03-unknown-safe-reconciliation",
+  "scenario_name": "UNKNOWN external outcome and safe reconciliation",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "http-built-app",
+        "surfaces": [
+          "/api/protocol/commands",
+          "/oversight"
+        ],
+        "port": 3397
+      },
+      "steps": [
+        {
+          "step": "command obligations.clearing.commit",
+          "elapsed_ms": 511,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "obligations.clearing.commit",
+            "authority": "Obligation Authority",
+            "idempotency_key": "sys002.dogfood.http.obligation",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.3c53baaa2138d11445cf0459edcc7916ea14f4c6eeaab1920c601b277b773381",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 5,
+                "wallMs": 1789321155902
+              }
+            },
+            "jobId": "b1943ad7-5455-4350-982f-616e390ffb0a"
+          },
+          "executed": {
+            "kind": "obligations.clearing.commit",
+            "authority": "Obligation Authority",
+            "idempotencyKey": "sys002.dogfood.http.obligation",
+            "status": "applied",
+            "summary": {
+              "obligationId": "pid.v1.505ead9f4f38308539a9fc0961cb627dde60e54c4dad69ee5e30f371eea30cfe"
+            }
+          }
+        },
+        {
+          "step": "command settlement.instruction.create",
+          "elapsed_ms": 515,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.instruction.create",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.http.instruction",
+            "subject_ids": [
+              "pid.v1.505ead9f4f38308539a9fc0961cb627dde60e54c4dad69ee5e30f371eea30cfe"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.9d4051965415298910d19a560a5d1221eed6caa5cbb022c27533c63e07875fcb",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 6,
+                "wallMs": 1789321156412
+              }
+            },
+            "jobId": "0e4852f7-8c48-40b8-ac8a-23fad794cf36"
+          },
+          "executed": {
+            "kind": "settlement.instruction.create",
+            "authority": "Settlement and Finality Authority",
+            "idempotencyKey": "sys002.dogfood.http.instruction",
+            "status": "applied",
+            "summary": {
+              "instructionId": "pid.v1.32609e79b385b9276778e89bae56f178aed1c74dd394e67319aa34ada7dff410",
+              "state": "CREATED",
+              "amountMinor": 2500
+            }
+          }
+        },
+        {
+          "step": "command rails.adapter.register",
+          "elapsed_ms": 510,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "rails.adapter.register",
+            "authority": "Rail Authority",
+            "idempotency_key": "sys002.dogfood.http.rails.register",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.b1a6c767646e89dd3e4d7721df42b9a0fc2ca417dcce19887d00a3c833e92f07",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 7,
+                "wallMs": 1789321156927
+              }
+            },
+            "jobId": "22d4b1e4-e46e-44ba-985c-32946544d0c1"
+          },
+          "executed": {
+            "kind": "rails.adapter.register",
+            "authority": "Rail Authority",
+            "idempotencyKey": "sys002.dogfood.http.rails.register",
+            "status": "applied",
+            "summary": {
+              "adapterId": "pid.v1.6b79c88a6f45721f6e8710f3e5016a8dddab9b5d5872dd81febae4b964b4d310",
+              "status": "REGISTERED"
+            }
+          }
+        },
+        {
+          "step": "command rails.adapter.activate",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "rails.adapter.activate",
+            "authority": "Rail Authority",
+            "idempotency_key": "sys002.dogfood.http.rails.activate",
+            "subject_ids": [
+              "pid.v1.6b79c88a6f45721f6e8710f3e5016a8dddab9b5d5872dd81febae4b964b4d310"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.aee241ee13e0f76f49c8048e48939e563ca9be560e3c85fc2ac4371fba4e2a96",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 8,
+                "wallMs": 1789321157435
+              }
+            },
+            "jobId": "a00093df-e677-4d18-809b-4a07eb6b3a40"
+          },
+          "executed": {
+            "kind": "rails.adapter.activate",
+            "authority": "Rail Authority",
+            "idempotencyKey": "sys002.dogfood.http.rails.activate",
+            "status": "applied",
+            "summary": {
+              "adapterId": "pid.v1.6b79c88a6f45721f6e8710f3e5016a8dddab9b5d5872dd81febae4b964b4d310",
+              "status": "ACTIVE"
+            }
+          }
+        },
+        {
+          "step": "command settlement.attempt.authorize",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.attempt.authorize",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.http.attempt.authorize",
+            "subject_ids": [
+              "pid.v1.32609e79b385b9276778e89bae56f178aed1c74dd394e67319aa34ada7dff410"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.4271eba372cc37cdb80954c179f8c43c242870016b4fe8f4274be96f353d5248",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 9,
+                "wallMs": 1789321157944
+              }
+            },
+            "jobId": "5ef65e5b-551e-4a0e-a33d-f105a73e92ac"
+          },
+          "executed": {
+            "kind": "settlement.attempt.authorize",
+            "authority": "Settlement and Finality Authority",
+            "idempotencyKey": "sys002.dogfood.http.attempt.authorize",
+            "status": "applied",
+            "summary": {
+              "attemptId": "pid.v1.bc61c8cad284f498e17ef0179e2780cdde1a58c05a41a24a85678af48fb69372",
+              "state": "CREATED"
+            }
+          }
+        },
+        {
+          "step": "command settlement.attempt.submit",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.attempt.submit",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.http.attempt.submit",
+            "subject_ids": [
+              "pid.v1.32609e79b385b9276778e89bae56f178aed1c74dd394e67319aa34ada7dff410"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.cd2e9b95295680b18c572e74d6a4e6623a958245d0cdb61983b979a3d3e36386",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 10,
+                "wallMs": 1789321158453
+              }
+            },
+            "jobId": "c0d17501-d982-4ea4-b5be-542ff07d8077"
+          },
+          "executed": {
+            "kind": "settlement.attempt.submit",
+            "authority": "Settlement and Finality Authority",
+            "idempotencyKey": "sys002.dogfood.http.attempt.submit",
+            "status": "applied",
+            "summary": {
+              "attemptState": "PENDING",
+              "operationState": "PENDING"
+            }
+          }
+        },
+        {
+          "step": "the unresolved external outcome (recovery arm)",
+          "elapsed_ms": null,
+          "kind": "sqlite-read",
+          "authority_state": [
+            "SettlementAttempt PENDING (A12 — the rail accepted; the external outcome is not yet known)"
+          ],
+          "durable_evidence": {
+            "store": "settlement.sqlite",
+            "attempt": "PENDING"
+          },
+          "recovery_arm": "PENDING (typed; the attempt stays unresolved — never translated to success or failure)"
+        },
+        {
+          "step": "command settlement.finality.declare",
+          "elapsed_ms": 507,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.finality.declare",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.http.finality",
+            "subject_ids": [
+              "pid.v1.32609e79b385b9276778e89bae56f178aed1c74dd394e67319aa34ada7dff410"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.ff2202022e7b26ce71e11c226ec53f9aa35e0fa0649c011d34788d0a45c803c8",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 11,
+                "wallMs": 1789321158963
+              }
+            },
+            "jobId": "55ae8d02-e06a-4ee9-b14e-6856b79cabec"
+          },
+          "executed": {
+            "kind": "settlement.finality.declare",
+            "authority": "Settlement and Finality Authority",
+            "idempotencyKey": "sys002.dogfood.http.finality",
+            "status": "rejected",
+            "code": "NOT_PROVISIONAL"
+          }
+        },
+        {
+          "step": "finality refused (over the unresolved attempt)",
+          "elapsed_ms": null,
+          "kind": "gateway-command",
+          "authority_state": [
+            "finality declaration REFUSED NOT_PROVISIONAL — the executed typed refusal (GC-2; FINAL requires a CONFIRMED attempt)"
+          ],
+          "durable_evidence": {
+            "finality_records_for_instruction": 0
+          }
+        },
+        {
+          "step": "command reconciliation.source.register",
+          "elapsed_ms": 511,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.source.register",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.http.source",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.d6a110b7ad38a48d68d4be2e499242aecca255ca29cfeb47a437332bc4e54f31",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 12,
+                "wallMs": 1789321159473
+              }
+            },
+            "jobId": "71a8e001-1afe-4689-a7f2-9912fec107c0"
+          },
+          "executed": {
+            "kind": "reconciliation.source.register",
+            "authority": "Reconciliation Authority",
+            "idempotencyKey": "sys002.dogfood.http.source",
+            "status": "applied",
+            "summary": {
+              "sourceId": "pid.v1.1319bef4b38d989d3818439c44e81cf1168accf628447281e1211d5c57824848"
+            }
+          }
+        },
+        {
+          "step": "command reconciliation.cycle.open",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.cycle.open",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.http.cycle",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.479da5c58554c372d5169c8fcf4760e238a99f895ec1cda514d618072d177214",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 13,
+                "wallMs": 1789321159983
+              }
+            },
+            "jobId": "23f6d3f1-62de-45ed-9417-6e4d896574e9"
+          },
+          "executed": {
+            "kind": "reconciliation.cycle.open",
+            "authority": "Reconciliation Authority",
+            "idempotencyKey": "sys002.dogfood.http.cycle",
+            "status": "applied",
+            "summary": {
+              "cycleId": "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a",
+              "status": "OPEN"
+            }
+          }
+        },
+        {
+          "step": "command reconciliation.cycle.statements.collect",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.cycle.statements.collect",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.http.collect",
+            "subject_ids": [
+              "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.a87d1a441f45b118beee96f9cff9f47d3f8fad37eb71787bba37106b362cc967",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 14,
+                "wallMs": 1789321160493
+              }
+            },
+            "jobId": "4dc6010c-80ad-4626-a202-1fa3b6824ae2"
+          },
+          "executed": {
+            "kind": "reconciliation.cycle.statements.collect",
+            "authority": "Reconciliation Authority",
+            "idempotencyKey": "sys002.dogfood.http.collect",
+            "status": "applied",
+            "summary": {
+              "cycleId": "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a",
+              "status": "COLLECTED"
+            }
+          }
+        },
+        {
+          "step": "command reconciliation.cycle.matching.run",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.cycle.matching.run",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.http.matching",
+            "subject_ids": [
+              "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.e5bebda34df9fc2baf2d6ab076f680b96737cd538fc12528e37d615a07b72844",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 15,
+                "wallMs": 1789321161001
+              }
+            },
+            "jobId": "ecf4f19a-8078-468e-b8a2-582bcec4b719"
+          },
+          "executed": {
+            "kind": "reconciliation.cycle.matching.run",
+            "authority": "Reconciliation Authority",
+            "idempotencyKey": "sys002.dogfood.http.matching",
+            "status": "applied",
+            "summary": {
+              "cycleId": "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a",
+              "matched": 0
+            }
+          }
+        },
+        {
+          "step": "command reconciliation.cycle.close",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.cycle.close",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.http.cycle.close",
+            "subject_ids": [
+              "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.d4544ae46168dca5eb9e722021c47ac68795eded17eb40cfb1262d9105779de7",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 16,
+                "wallMs": 1789321161509
+              }
+            },
+            "jobId": "5a3c8767-3ff4-44e7-a4f2-36e4a22bf7c3"
+          },
+          "executed": {
+            "kind": "reconciliation.cycle.close",
+            "authority": "Reconciliation Authority",
+            "idempotencyKey": "sys002.dogfood.http.cycle.close",
+            "status": "applied",
+            "summary": {
+              "cycleId": "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a",
+              "status": "CLOSED"
+            }
+          }
+        },
+        {
+          "step": "A14 cycle + discrepancy case",
+          "elapsed_ms": null,
+          "kind": "gateway-command",
+          "authority_state": [
+            "ReconciliationCycle CLOSED (A14 — the statement reconciliation machinery)",
+            "ReconciliationCase OPEN (CYCLE_DISCREPANCY — the UNKNOWN statement’s case, awaiting investigation)"
+          ],
+          "durable_evidence": {
+            "store": "rails.sqlite",
+            "cycle": {
+              "status": "CLOSED",
+              "discrepancy_count": 1
+            },
+            "case": {
+              "case_id": "pid.v1.9a5d4c97abbf4ed5d5b388066c8bb2cc12bb70b798dfb6812fb00f39d9b849a5",
+              "status": "OPEN",
+              "origin_kind": "CYCLE_DISCREPANCY"
+            }
+          }
+        },
+        {
+          "step": "oversight UNKNOWN presentation (recovery arm)",
+          "elapsed_ms": 25,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/oversight",
+            "status": 200
+          },
+          "ux_observation": "thority’s own read; cross-provider aggregates are authority-UNKNOWN by the recorded read-surface gap — never UI-side sums. Provenance wording names the owning authority on every cell.<!-- --> Provenance labels still name the au"
+        }
+      ],
+      "findings": [
+        {
+          "finding": "The UNKNOWN-attempt arm (rail SILENCE → attempt UNKNOWN → INV-14-1 auto-case → UNKNOWN_HELD finality refusal) has a registry/binding vocabulary gap on the app composition: the gateway registers ‘settlement.attempt.railoutcome.apply’ while the hosted binding kind is ‘settlement.report.apply’ (and ‘settlement.resolution.apply’ carries no hosted binding at all) — the admitted-but-queued class recorded by the DEP-007 runbook. The dogfood therefore drives finality-refused-over-PENDING (NOT_PROVISIONAL) plus the A14 statement/case machinery; the full UNKNOWN→resolution→finality advance is evidenced by the RTN-012 composed-journey harness on its own composition (kept green in the gate battery)."
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "boundary": {
+        "leg": "composed-runtime",
+        "surfaces": [
+          "ReconciliationAuthority exported APIs (investigateCase/resolveCase)"
+        ]
+      },
+      "steps": [
+        {
+          "step": "intent.submit (the seed)",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "intent.submit",
+            "authority": "Intent Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.001",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.71a0f1af4e9cafab1771a6eb41d347afcf482c520b3d70fdb7dd66b05b49a8c5",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 13,
+                "wallMs": 1789321163394
+              }
+            },
+            "jobId": "bbb5c549-6e10-4e04-bcb0-77c26eb8e758"
+          }
+        },
+        {
+          "step": "obligations.clearing.commit (the seed obligation)",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "obligations.clearing.commit",
+            "authority": "Obligation Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.obligation",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.0449dab46f9e04b596bca49f0ecde2609962c362701ed82ee95f1811041cb3dc",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 14,
+                "wallMs": 1789321163396
+              }
+            },
+            "jobId": "7b908946-938d-4d11-8e06-fcc136624117"
+          }
+        },
+        {
+          "step": "rails.adapter.register",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "rails.adapter.register",
+            "authority": "Rail Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.rails.register",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.b30655bcd3ca108962373a0a476289395bea985322b7ebe14ff7e9ca7bc2cb74",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 15,
+                "wallMs": 1789321163398
+              }
+            },
+            "jobId": "d5929fe2-aae5-4939-8997-4de27dea4697"
+          }
+        },
+        {
+          "step": "rails.adapter.activate",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "rails.adapter.activate",
+            "authority": "Rail Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.rails.activate",
+            "subject_ids": [
+              "pid.v1.6b79c88a6f45721f6e8710f3e5016a8dddab9b5d5872dd81febae4b964b4d310"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.70deee0caaf40f8e4c3ac989c37d896d0ed87dabb2860c976fc1fe5c99a0d734",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 16,
+                "wallMs": 1789321163400
+              }
+            },
+            "jobId": "c69fe4b1-7bad-4376-b8b5-775a9bc745cd"
+          }
+        },
+        {
+          "step": "settlement.instruction.create",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.instruction.create",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.instruction",
+            "subject_ids": [
+              "pid.v1.71be08a324b6321993b4c4c31cbefd2099251f138cb953afe137aa5c08fc1d5f"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.c8220c8943edbb04ef9fd7760fc734c317d651723631ceb301a405ad0321c08f",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 17,
+                "wallMs": 1789321163402
+              }
+            },
+            "jobId": "713a28f4-da41-44ef-a05d-9f2ad24c4921"
+          }
+        },
+        {
+          "step": "settlement.attempt.authorize",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.attempt.authorize",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.authorize",
+            "subject_ids": [
+              "pid.v1.c467e677b06b049d8ad4eca2b227702702a859ff0ca77e035c0cd9db70483be6"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.8aac8ed50e5e2b610fd0d5b253e684d077eda455540807ed1bdbe17a7e1271f7",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 18,
+                "wallMs": 1789321163406
+              }
+            },
+            "jobId": "f388d6bf-5cb0-4c42-b0af-c32a53cfa1a0"
+          }
+        },
+        {
+          "step": "settlement.attempt.submit",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.attempt.submit",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.submit",
+            "subject_ids": [
+              "pid.v1.c467e677b06b049d8ad4eca2b227702702a859ff0ca77e035c0cd9db70483be6"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.c39da1be2481594558a35bd87fdb1f69a92f6aef804f0ce2cdfa52db3538ad60",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 19,
+                "wallMs": 1789321163409
+              }
+            },
+            "jobId": "4dd8e01d-6b26-441a-8d9b-bcc39b779d49"
+          }
+        },
+        {
+          "step": "reconciliation.source.register",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.source.register",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.source",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.ad1aae5ee9e194c68df78c468802827eff6f5178c193e6f280101325f7690a13",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 20,
+                "wallMs": 1789321163412
+              }
+            },
+            "jobId": "95766060-a15f-4353-b1e5-5a5b4c901141"
+          }
+        },
+        {
+          "step": "reconciliation.cycle.open",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.cycle.open",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.cycle",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.07ba42643696c65014dfe5bac40b86dd33735a2af21d89635ec781d869279d14",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 21,
+                "wallMs": 1789321163414
+              }
+            },
+            "jobId": "892763bf-5c09-44c3-ab83-931bacac49f9"
+          }
+        },
+        {
+          "step": "reconciliation.cycle.statements.collect (the UNKNOWN statement)",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.cycle.statements.collect",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.collect",
+            "subject_ids": [
+              "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.f76625fa3b9ef7e0b3e5516f4601b41f921cfd89b01c352ba5d08cf3f37156aa",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 22,
+                "wallMs": 1789321163416
+              }
+            },
+            "jobId": "cda824d0-d59d-46a6-a1f6-efde6de33b88"
+          }
+        },
+        {
+          "step": "reconciliation.cycle.matching.run",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "reconciliation.cycle.matching.run",
+            "authority": "Reconciliation Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.matching",
+            "subject_ids": [
+              "pid.v1.4f080392d75d393808f4e0154af5a28abd1f67b1c931f3076d578507c4e32e3a"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.0f78ebdd12949bc740904a9b07160cc82b323a8d3a6f9ab080052ad575e77efa",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 23,
+                "wallMs": 1789321163418
+              }
+            },
+            "jobId": "33148510-08a0-40bb-a431-0d465939e73c"
+          }
+        },
+        {
+          "step": "A14 case resolved",
+          "elapsed_ms": 2,
+          "kind": "authority-command",
+          "authority_state": [
+            "ReconciliationCase MATCHED (A14 — pid.v1.dc57a0e9144bb194d7f334b1303951b975341028706c267f39c1128ff5bc835d)"
+          ],
+          "durable_evidence": {
+            "store": "rails.sqlite",
+            "row": {
+              "status": "MATCHED"
+            }
+          }
+        },
+        {
+          "step": "settlement.finality.declare (post-resolution)",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "settlement.finality.declare",
+            "authority": "Settlement and Finality Authority",
+            "idempotency_key": "sys002.dogfood.composed.unknown.finality",
+            "subject_ids": [
+              "pid.v1.c467e677b06b049d8ad4eca2b227702702a859ff0ca77e035c0cd9db70483be6"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.097224f1b19eab62d41e7b6770c2249e0cc42fac86c74cfc8b5a9e41300b593b",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 24,
+                "wallMs": 1789321163423
+              }
+            },
+            "jobId": "e935001d-dde9-431a-a60a-c232354b3941"
+          }
+        }
+      ],
+      "findings": [
+        {
+          "finding": "The finality-advance arm has no drive surface on the app composition: the A12 recovery-directive application (SettlementAuthority.applyResolution) and the rail-outcome application (applyRailOutcome) are reachable neither through gateway-admitted kinds with hosted bindings nor through the runtime handle — after the A14 case resolves, the attempt stays PENDING and finality stays (correctly) refused NOT_PROVISIONAL. The full advance path is proven by the RTN-012 composed-journey harness on its own composition (kept green in the gate battery)."
+        }
+      ],
+      "result": "PASS"
+    }
+  ]
+}

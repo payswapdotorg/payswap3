@@ -1,0 +1,394 @@
+{
+  "scenario_id": "s02-queued-delayed-fulfillment",
+  "scenario_name": "queued/delayed fulfillment",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "http-built-app",
+        "surfaces": [
+          "/api/protocol/commands",
+          "/track/[referenceId]/waiting"
+        ],
+        "port": 3397
+      },
+      "steps": [
+        {
+          "step": "command queues.queue.create",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "queues.queue.create",
+            "authority": "Queue Authority",
+            "idempotency_key": "sys002.dogfood.http.queue",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.dc9a9b3a21c497d09f071acb4c1f8ca0e4a7476325a8943cdf9334e4c4b42b33",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 1,
+                "wallMs": 1789321154075
+              }
+            },
+            "jobId": "effea3fc-de98-45b2-99c1-e25ef84b8025"
+          },
+          "executed": {
+            "kind": "queues.queue.create",
+            "authority": "Queue Authority",
+            "idempotencyKey": "sys002.dogfood.http.queue",
+            "status": "applied",
+            "summary": {
+              "queueId": "sys002-dogfood-http-queue",
+              "state": "OPEN"
+            }
+          }
+        },
+        {
+          "step": "command queues.item.enqueue",
+          "elapsed_ms": 511,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "queues.item.enqueue",
+            "authority": "Queue Authority",
+            "idempotency_key": "sys002.dogfood.http.item",
+            "subject_ids": [
+              "sys002-dogfood-http-queue",
+              "pid.v1.a9b9679763b6c19ab664f1954be45343d1c57dd0d1a47c1e8968e70fd230f076"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.0e3a8ecda94f58c46ded8ffaf923303012ae796d138381ac36c11ff221033254",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 2,
+                "wallMs": 1789321154586
+              }
+            },
+            "jobId": "4e4fcac0-cdac-4eef-bbdd-caf6c426c2f5"
+          },
+          "executed": {
+            "kind": "queues.item.enqueue",
+            "authority": "Queue Authority",
+            "idempotencyKey": "sys002.dogfood.http.item",
+            "status": "applied",
+            "summary": {
+              "itemId": "pid.v1.fa12060c3b380ea2f2d499c9e629659abfa244527603d5b72e6768e4e44b2f6a",
+              "state": "QUEUED"
+            }
+          }
+        },
+        {
+          "step": "item enqueued (durable write-through)",
+          "elapsed_ms": null,
+          "kind": "sqlite-read",
+          "authority_state": [
+            "QueuedItemRecord QUEUED (A08 — item pid.v1.fa12060c3b380ea2f2d499c9e629659abfa244527603d5b72e6768e4e44b2f6a)"
+          ],
+          "durable_evidence": {
+            "store": "queues.sqlite",
+            "row": {
+              "item_id": "pid.v1.fa12060c3b380ea2f2d499c9e629659abfa244527603d5b72e6768e4e44b2f6a",
+              "state": "QUEUED",
+              "enqueued_wall_ms": 1789321154860
+            }
+          }
+        },
+        {
+          "step": "waiting surface (user-visible outcome)",
+          "elapsed_ms": 34,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/track/pid.v1.a9b9679763b6c19ab664f1954be45343d1c57dd0d1a47c1e8968e70fd230f076/waiting",
+            "status": 200
+          },
+          "ux_observation": "Waiting detail — <!-- -->pid.v1.a9b9679763b6c19ab664f1954be45343d1c57dd0d1a47c1e8968e70fd230f076</h1><span data-slot=\"badge\" data-variant=\"secondary\" class=\"group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden roun",
+          "authority_state": [
+            "QueuedItemRecord QUEUED (A08 Queue Authority)"
+          ]
+        },
+        {
+          "step": "command queues.eligibility.evaluate",
+          "elapsed_ms": 258,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "queues.eligibility.evaluate",
+            "authority": "Queue Authority",
+            "idempotency_key": "sys002.dogfood.http.eligibility",
+            "subject_ids": [
+              "sys002-dogfood-http-queue"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.9d5d0c16e53b6de9b1e84ce37e1627eddaa1168dfdd053e15f360f2111b7a589",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 3,
+                "wallMs": 1789321155130
+              }
+            },
+            "jobId": "bc893132-815d-464f-8e5e-cb0583f6f48d"
+          },
+          "executed": {
+            "kind": "queues.eligibility.evaluate",
+            "authority": "Queue Authority",
+            "idempotencyKey": "sys002.dogfood.http.eligibility",
+            "status": "applied",
+            "summary": {
+              "released": 1
+            }
+          }
+        },
+        {
+          "step": "command queues.item.cancel",
+          "elapsed_ms": 509,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "queues.item.cancel",
+            "authority": "Queue Authority",
+            "idempotency_key": "sys002.dogfood.http.cancel",
+            "subject_ids": [
+              "pid.v1.fa12060c3b380ea2f2d499c9e629659abfa244527603d5b72e6768e4e44b2f6a"
+            ]
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.60d65ea6c8a702b80cddee7d673837f590ee634412634a83b5839a867dabb7b0",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 4,
+                "wallMs": 1789321155390
+              }
+            },
+            "jobId": "426ac159-3883-482b-8f30-d9f1f74631b9"
+          },
+          "executed": {
+            "kind": "queues.item.cancel",
+            "authority": "Queue Authority",
+            "idempotencyKey": "sys002.dogfood.http.cancel",
+            "status": "applied",
+            "summary": {
+              "itemId": "pid.v1.fa12060c3b380ea2f2d499c9e629659abfa244527603d5b72e6768e4e44b2f6a",
+              "state": "CANCELLED"
+            }
+          }
+        },
+        {
+          "step": "terminal state (executed + evidence; the write-through gap recorded)",
+          "elapsed_ms": null,
+          "kind": "gateway-command",
+          "authority_state": [
+            "QueuedItemRecord CANCELLED (A08 — executed; the A15 evidence records the transition)"
+          ],
+          "durable_evidence": {
+            "store_row_state": "ELIGIBLE",
+            "evidence_reason_codes": [
+              "INTENT_CANCELLED"
+            ]
+          }
+        }
+      ],
+      "findings": [
+        {
+          "finding": "The queues.item.cancel gateway alias (src/lib/protocol/server-runtime.ts) executes the A08 cancel command and records its A15 evidence but omits the durable write-through the sibling bindings perform (persist.queues): the queued_items SQLite row retains the pre-cancel state after an executed cancel. This is the ONLY terminal arm reachable through the HTTP boundary (queues.items.expire is a hosted binding but not a gateway-registered kind; the dispatch/graduation kinds carry no hosted bindings at all — the registry/binding vocabulary-gap class). The full graduation path is driven in the composed leg."
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "boundary": {
+        "leg": "composed-runtime",
+        "surfaces": [
+          "gateway queues.* commands",
+          "QueueAuthority exported APIs (startDraining/dispatchNext/resolveDispatchedItem)"
+        ]
+      },
+      "steps": [
+        {
+          "step": "intent.submit through the gateway",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "intent.submit",
+            "authority": "Intent Authority",
+            "idempotency_key": "sys002.dogfood.composed.pay.001",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.e15feb4c3574f0982adb3aed95bc5a2b3b940846dc14e40f1efb42d611a22347",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 1,
+                "wallMs": 1789321163340
+              }
+            },
+            "jobId": "44994e17-af3d-417d-a133-f8eccb2db8a8"
+          }
+        },
+        {
+          "step": "queues.queue.create through the gateway",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "queues.queue.create",
+            "authority": "Queue Authority",
+            "idempotency_key": "sys002.dogfood.composed.queue",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.d5d6f0896c521335feccdd4c9dd9a3f9b770d97886ccff39e999f6aa3160ee35",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 2,
+                "wallMs": 1789321163346
+              }
+            },
+            "jobId": "b4cffcae-0606-4126-bec7-3ae382f8fdb6"
+          }
+        },
+        {
+          "step": "queues.item.enqueue through the gateway",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "queues.item.enqueue",
+            "authority": "Queue Authority",
+            "idempotency_key": "sys002.dogfood.composed.item",
+            "subject_ids": [
+              "sys002-dogfood-composed-queue",
+              "pid.v1.69e5ddb185d3885a1a7612615e1cdf60bc91e225a2028eae82f8ae65ae1110cf"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.8b5c8a8e45fc53591422a440388c01b76863843ec772a72c883fd9776e783e08",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 3,
+                "wallMs": 1789321163348
+              }
+            },
+            "jobId": "e5b74fae-173b-4773-b3f7-27a95353f14a"
+          }
+        },
+        {
+          "step": "waiting lookup (condition snapshot)",
+          "elapsed_ms": null,
+          "kind": "port-read",
+          "ux_observation": "The fulfillment of intent pid.v1.69e5ddb185d3885a1a7612615e1cdf60bc91e225a2028eae82f8ae65ae1110cf, held by the Fulfillment/Queue Authority in queue sys002-dogfood-composed-queue (QUEUED).",
+          "authority_state": [
+            "QueuedItemRecord QUEUED (A08)"
+          ]
+        },
+        {
+          "step": "queues.eligibility.evaluate (the protocol-owned snapshot input)",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "queues.eligibility.evaluate",
+            "authority": "Queue Authority",
+            "idempotency_key": "sys002.dogfood.composed.eligibility",
+            "subject_ids": [
+              "sys002-dogfood-composed-queue"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.e752de750f50f9f8fde071ec74b562f338554e603df277e4965312706fcc2b00",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 4,
+                "wallMs": 1789321163358
+              }
+            },
+            "jobId": "87715904-b66c-417a-87c1-b5339483ee20"
+          }
+        },
+        {
+          "step": "graduation (terminal state; the write-through gap recorded)",
+          "elapsed_ms": 4,
+          "kind": "authority-command",
+          "authority_state": [
+            "QueuedItemRecord GRADUATED (RECONCILIATION_CONFIRMED — the authority’s typed result + the A15 evidence)"
+          ],
+          "durable_evidence": {
+            "store_row_state": "ELIGIBLE",
+            "evidence_reason_codes": [
+              "RECONCILIATION_CONFIRMED"
+            ]
+          }
+        }
+      ],
+      "findings": [
+        {
+          "finding": "The A08 graduation path (startDraining → dispatchNext → resolveDispatchedItem) is drivable only through the authority’s exported APIs (the dispatch kinds are gateway-registered but carry no hosted bindings — the registry/binding vocabulary-gap class), and authority-API transitions perform no binding-level durable write-through: the queued_items SQLite row retains its last persisted state while the authority’s in-memory state and the A15 evidence record the DISPATCHED → GRADUATED transitions. The product surfaces read the authority (in-memory), so the presentations remain correct; the gap affects the store snapshot only."
+        }
+      ],
+      "result": "PASS"
+    }
+  ]
+}

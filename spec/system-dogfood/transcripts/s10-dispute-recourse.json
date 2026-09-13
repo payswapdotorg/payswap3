@@ -1,0 +1,77 @@
+{
+  "scenario_id": "s10-dispute-recourse",
+  "scenario_name": "dispute/recourse",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "http-built-app",
+        "surfaces": [
+          "/api/protocol/commands",
+          "/mediation/dispute/new",
+          "/api/mediation/dispute",
+          "/mediation/dispute/[disputeId]",
+          "/mediation"
+        ],
+        "port": 3397
+      },
+      "steps": [
+        {
+          "step": "dispute initiation surface",
+          "elapsed_ms": 31,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/mediation/dispute/new?intentReference=…",
+            "status": 200
+          },
+          "ux_observation": "a-label=\"Dispute initiation\"><h1 class=\"sr-only\">Initiate a dispute</h1><article class=\"space-y-6\" aria-labelledby=\"dispute-initiation-heading\"><div id=\"dispute-initiation-announcements\" role=\"status\" aria-live=\"polite\" aria-at"
+        },
+        {
+          "step": "dispute initiated (user-visible outcome)",
+          "elapsed_ms": 10,
+          "kind": "http",
+          "exchange": {
+            "method": "POST",
+            "path": "/api/mediation/dispute",
+            "status": 200
+          },
+          "ux_observation": "initiated — authorityState open (the EXECUTED DISPUTED state); dispute pid.v1.3eb51def6114f394d2aac934f856f3ac3ef3b38bc97254e02603457c6dacb78c",
+          "authority_state": [
+            "ObligationRecord DISPUTED (A10 — the dispute primitive terminalized the OUTSTANDING obligation)"
+          ]
+        },
+        {
+          "step": "dispute detail + docket + record API",
+          "elapsed_ms": 20,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/mediation/dispute/pid.v1.3eb51def6114f394d2aac934f856f3ac3ef3b38bc97254e02603457c6dacb78c",
+            "status": 200
+          },
+          "ux_observation": ";svg]:size-3! bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80\">pid.v1.3eb51def6114f394d2aac934f856f3ac3ef3b38bc97254e02603457c6dacb78c</span></div><div data-slot=\"card-title\" class=\"font-heading font-medium group-data-[size=sm]/card:text-sm pt-1 text-bas"
+        },
+        {
+          "step": "state consistency read",
+          "elapsed_ms": null,
+          "kind": "sqlite-read",
+          "durable_evidence": {
+            "store": "obligations.sqlite",
+            "row": {
+              "to_state": "DISPUTED"
+            }
+          }
+        }
+      ],
+      "findings": [],
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "scenario_id": "s08-capability-emergence",
+  "scenario_name": "capability emergence/provider contribution",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "http-built-app",
+        "surfaces": [
+          "/api/protocol/commands",
+          "/capabilities",
+          "/capabilities/[capabilityId]"
+        ],
+        "port": 3397
+      },
+      "steps": [
+        {
+          "step": "command capability.register",
+          "elapsed_ms": 506,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "capability.register",
+            "authority": "Capability Authority",
+            "idempotency_key": "sys002.dogfood.http.capability",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.cf1a32b1de28aa274ed5383b2f522094520e9c7f32ac44b9546d32e5358f88f0",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 17,
+                "wallMs": 1789321162108
+              }
+            },
+            "jobId": "9fc279c4-f521-492f-bf18-a3eda96f0dc2"
+          },
+          "executed": {
+            "kind": "capability.register",
+            "authority": "Capability Authority",
+            "idempotencyKey": "sys002.dogfood.http.capability",
+            "status": "applied",
+            "summary": {
+              "capabilityId": "sys002-dogfood-cap",
+              "state": "REGISTERED"
+            }
+          }
+        },
+        {
+          "step": "capability listing (user-visible outcome)",
+          "elapsed_ms": 28,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/capabilities",
+            "status": 200
+          },
+          "ux_observation": "x min-h-11 items-center underline-offset-4 hover:underline\" href=\"/capabilities/sys002-dogfood-cap\">Capability sys002-dogfood-cap</a></h3><p class=\"text-xs text-muted-foreground\">sys002-dogfood-cap</p></div><div class=",
+          "authority_state": [
+            "CapabilityRecord REGISTERED/PENDING (A03 — activation is compliance-gated by A16)"
+          ]
+        },
+        {
+          "step": "capability detail surface",
+          "elapsed_ms": 35,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/capabilities/sys002-dogfood-cap",
+            "status": 200
+          },
+          "ux_observation": "js\" async=\"\"></script><title>Capability sys002-dogfood-cap — PaySwap provider surface · PaySwap</title><meta name=\"description\" content=\"PaySwap product foundation (UI-001): application shell, one navigation grammar, s"
+        }
+      ],
+      "findings": [],
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "scenario_id": "s01-customer-pay-track",
+  "scenario_name": "customer pay and track",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "http-built-app",
+        "surfaces": [
+          "/pay",
+          "/pay/review",
+          "/api/protocol/commands",
+          "/track/[referenceId]"
+        ],
+        "port": 3397
+      },
+      "steps": [
+        {
+          "step": "compose surface render",
+          "elapsed_ms": 133,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/pay",
+            "status": 200
+          },
+          "ux_observation": "Send a payment intent · PaySwap</title><meta name=\"description\" content=\"Outcome-first payment intent composition: state the outcome, then the details the intent needs. Nothing is submitted on this page.\"/><script src=\"/_"
+        },
+        {
+          "step": "review surface render",
+          "elapsed_ms": 36,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/pay/review",
+            "status": 200
+          },
+          "ux_observation": "Review the full consequences · PaySwap</title><meta name=\"description\" content=\"The complete intent and its plain-language consequences, visible in"
+        },
+        {
+          "step": "command intent.submit",
+          "elapsed_ms": 523,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "intent.submit",
+            "authority": "Intent Authority",
+            "idempotency_key": "sys002.dogfood.http.pay.001",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.1f467210040def949a4e035f17b88e38a89498bd53b7356fc33822bd061a1b9e",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 0,
+                "wallMs": 1789321153444
+              }
+            },
+            "jobId": "6a5ed79f-f168-4afa-ae3b-bc742a5c8fa8"
+          },
+          "executed": {
+            "kind": "intent.submit",
+            "authority": "Intent Authority",
+            "idempotencyKey": "sys002.dogfood.http.pay.001",
+            "status": "applied",
+            "summary": {
+              "intentId": "pid.v1.a9b9679763b6c19ab664f1954be45343d1c57dd0d1a47c1e8968e70fd230f076",
+              "state": "DRAFT"
+            }
+          }
+        },
+        {
+          "step": "tracked view (user-visible outcome)",
+          "elapsed_ms": 17,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/track/pid.v1.a9b9679763b6c19ab664f1954be45343d1c57dd0d1a47c1e8968e70fd230f076",
+            "status": 200
+          },
+          "ux_observation": "DRAFT state presented with the owning authority + evidence trail — !-- -->spec/architecture/v0.1 core.md + evidence-risk-compliance.md<!-- -->). No value on this page is authoritative.</div></div><a class=\"group/button inline-flex shrink-0 items-c",
+          "authority_state": [
+            "PaymentIntent DRAFT (A01 Intent Authority)"
+          ]
+        },
+        {
+          "step": "command intent.submit",
+          "elapsed_ms": 8,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "intent.submit",
+            "authority": "Intent Authority",
+            "idempotency_key": "sys002.dogfood.http.pay.001",
+            "subject_ids": []
+          },
+          "exchange": {
+            "method": "POST",
+            "path": "/api/protocol/commands",
+            "status": 200
+          },
+          "admission": {
+            "ok": true,
+            "replayed": true,
+            "created": false,
+            "receipt": {
+              "commandId": "pid.v1.1f467210040def949a4e035f17b88e38a89498bd53b7356fc33822bd061a1b9e",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 0,
+                "wallMs": 1789321153444
+              }
+            },
+            "jobId": "6a5ed79f-f168-4afa-ae3b-bc742a5c8fa8"
+          },
+          "executed": {
+            "kind": "intent.submit",
+            "authority": "Intent Authority",
+            "idempotencyKey": "sys002.dogfood.http.pay.001",
+            "status": "applied",
+            "summary": {
+              "intentId": "pid.v1.a9b9679763b6c19ab664f1954be45343d1c57dd0d1a47c1e8968e70fd230f076",
+              "state": "DRAFT"
+            }
+          }
+        },
+        {
+          "step": "receipt lookup + INV-1-3 replay",
+          "elapsed_ms": null,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/api/protocol/commands?kind&key",
+            "status": 200
+          },
+          "durable_evidence": {
+            "receipt_outcome": "ADMITTED",
+            "replayed": true,
+            "second_effect": false
+          }
+        },
+        {
+          "step": "unknown-reference track (recovery arm)",
+          "elapsed_ms": 16,
+          "kind": "http",
+          "exchange": {
+            "method": "GET",
+            "path": "/track/sys002-dogfood-unknown-reference",
+            "status": 200
+          },
+          "ux_observation": "his reference in the composed runtime: the Intent Authority holds no intent record for sys002-dogfood-unknown-reference and the A15 chain names no such protocol object. This is the runtime’s real answer for this reference — presented as the e",
+          "recovery_arm": "not-found (typed; never translated to success or failure)"
+        },
+        {
+          "step": "state consistency read",
+          "elapsed_ms": null,
+          "kind": "sqlite-read",
+          "durable_evidence": {
+            "store": "intent.sqlite",
+            "row": {
+              "state": "DRAFT"
+            }
+          }
+        }
+      ],
+      "findings": [],
+      "result": "PASS"
+    },
+    {
+      "boundary": {
+        "leg": "composed-runtime",
+        "surfaces": [
+          "getIntentPort().requestConsequenceReport",
+          "POST gateway capability.register"
+        ]
+      },
+      "steps": [
+        {
+          "step": "quote gate no-answer (recovery arm)",
+          "elapsed_ms": null,
+          "kind": "port-read",
+          "ux_observation": "The composed runtime’s Capability Authority reports no active capability for this corridor, so no consequence terms can be quoted: the runtime exposes no pre-submit fee surface, and no fee is invented. Without a consequence report there is no review, and without review there is no submit — the flow stops here honestly. Re-check after a capability is registered for the corridor (a real protocol command through the gateway).",
+          "recovery_arm": "no-answer (typed; the flow stops honestly — without review there is no submit)"
+        },
+        {
+          "step": "fabricated-review submit refused",
+          "elapsed_ms": null,
+          "kind": "port-read",
+          "ux_observation": "refused — missing-consequence-review",
+          "durable_evidence": {
+            "committed": 0
+          }
+        }
+      ],
+      "findings": [
+        {
+          "finding": "The quote-gate’s quoted arm is NOT drivable on the app composition: capability ACTIVATION has no gateway command binding and the A16 risk authority (whose APPROVED check gates activation) is not exposed on the runtime handle — the capability stays PENDING and the quote gate honestly stays no-answer. The full activation→quote path is proven by the RTN-012 composed-journey harness on its own composition."
+        }
+      ],
+      "result": "PASS"
+    }
+  ]
+}
