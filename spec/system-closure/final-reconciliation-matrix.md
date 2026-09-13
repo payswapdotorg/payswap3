@@ -16,8 +16,8 @@ honesty, not an open defect; a missing disposition is a stop condition.
 
 ## Generation provenance
 
-- base commit (HEAD at generation): `19df3bf72d498e397b5ed0a78134f5dbec051f6a`
-- base tree: `11e220f9596833723197155f74ae9d071c4a8aa3`
+- base commit (HEAD at generation): `90ef9091c14be9e2cb27012770defb6a0a0ebbee`
+- base tree: `3f0543c3c8f8b4bfc151a441e101757fd91dc6ef`
 - provenance only — read at generation; the closure gate re-derives every row at run time (ancestor + subject proofs against the live HEAD) and fails closed on divergence. The exact release revision is likewise read at run time by the closure gate — never hand-written.
 
 ## Layer 1 — protocol (frozen v0.1 authoring surface: WORK-001..WORK-033)

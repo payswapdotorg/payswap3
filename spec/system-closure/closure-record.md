@@ -1,8 +1,8 @@
 # SYS-003 — the Architect closure record (DRAFT)
 
-**Status:** the SYS-003 closure record DRAFT — submitted for Architect
-approval through the governed process. The Architect signs in the Lead
-finalize; the sign-off block below is clearly marked PENDING.
+**Status:** the SYS-003 closure record — SIGNED. The Architect approved,
+merged and finalized the closure state in the Lead finalize (2026-09-13);
+the sign-off block below is RECORDED.
 
 **Closure gate:** `scripts/test_system_closure.mjs` — the mechanical proof
 of every acceptance bullet (its `closure-verdict` line is the machine
@@ -129,7 +129,40 @@ the gate groups and the cited artifacts):
 
 ---
 
-## Architect sign-off: PENDING (Lead finalize)
+## Architect sign-off: RECORDED (Lead finalize, 2026-09-13)
+
+> **The sign-off block.** The Architect (Tech Lead) approves, merges and
+> finalizes the closure state:
+>
+> - **Approval** — the seven acceptance bullets are mechanically green at the
+>   merged revision: `closure-verdict` `passed: true`, 7/7 bullets, 28
+>   scenarios / 396 assertions, re-run by the Lead at the SYS-003 merge
+>   revision `90ef9091c14be9e2cb27012770defb6a0a0ebbee` (PR #42, squash of
+>   the worker commit `2108d7d87b4ae7dc346b133a91f98530c7689557` on the
+>   dispatch base `19df3bf72d498e397b5ed0a78134f5dbec051f6a`); the Lead
+>   independently re-ran the full battery at the grafted worker tree before
+>   merge (closure gate 7/7, matrix generator deterministic, governance
+>   17/17, deployment 1194, typecheck 0, build green, readiness signature
+>   identical to base, recon regression 30/290 PASS).
+> - **Merge** — PR #42 squash `90ef909` into `main` (this commit's parent).
+> - **Finalization** — THIS commit: the state files now record SYS-003
+>   MERGED and SYSTEM COMPLETE; the machine matrix is regenerated at the
+>   merge revision (its `generation` provenance records `90ef909`); the
+>   roadmap is closed — **the PaySwap three-layer system completion program
+>   is COMPLETE** (Protocol v0.1 frozen + WORK-001..033; RTN A01-A16 with
+>   wave-2 the recorded named deferral; Product UI-001..011 with the program
+>   CLOSED at UI-010; Deployment DEP-001..008 COMPLETE; SYS-001/002/003
+>   PASS/MERGED).
+> - **Residual truth, unchanged and honest** — the release-record orphan,
+>   the route-surface hygiene item, the D-4..D-9 deferrals, the RTN wave-2
+>   deferral and the 9 SYS-002 findings all carry their recorded owners and
+>   dispositions (the honest-handoff ledger, 24 rows, zero missing
+>   dispositions — the gate asserts it); production claims stay gated on the
+>   DEP-002+ production deployment binding; the exact release revision is
+>   and remains a RUN-TIME read (`node scripts/test_system_closure.mjs`
+>   re-derives the whole verdict at any future HEAD).
+
+**Worker attestation (SYS-003 dispatch):**
 
 > **This block is the sign-off block.** The Architect's approval, the merge,
 > and the post-merge finalization (including the state-file updates
