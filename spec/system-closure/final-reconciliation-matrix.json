@@ -1,0 +1,1725 @@
+{
+  "matrix": "payswap-final-reconciliation-matrix",
+  "version": 1,
+  "generated_by": "SYS-003",
+  "work_order": "spec/system-work-orders/SYS-003.md",
+  "generator": "scripts/generate_final_reconciliation_matrix.mjs",
+  "harness": "scripts/test_system_closure.mjs",
+  "human_readable_companion": "spec/system-closure/final-reconciliation-matrix.md",
+  "closure_record": "spec/system-closure/closure-record.md",
+  "columns": [
+    "work_item",
+    "governing_evidence",
+    "recorded_merge",
+    "ancestor_of_head",
+    "subject_containment",
+    "status"
+  ],
+  "generation": {
+    "base_commit": "19df3bf72d498e397b5ed0a78134f5dbec051f6a",
+    "base_tree": "11e220f9596833723197155f74ae9d071c4a8aa3",
+    "note": "provenance only — read at generation; the closure gate re-derives every row at run time (ancestor + subject proofs against the live HEAD) and fails closed on divergence. The exact release revision is likewise read at run time by the closure gate — never hand-written."
+  },
+  "layers": {
+    "protocol-frozen": [
+      {
+        "item": "WORK-001",
+        "title": "Define intent and demand semantics and state machine",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-001",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-002",
+        "title": "Define fulfillment policy model and deterministic evaluation",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-002",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-003",
+        "title": "Define capability discovery and commitment contracts",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-003",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-004",
+        "title": "Define routing compiler and route plan semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-004",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-005",
+        "title": "Define reservations and concurrency control",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-005",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-006",
+        "title": "Define liquidity pool and position semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-006",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-007",
+        "title": "Define credit lines, exposure, and deterministic decisions",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-007",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-008",
+        "title": "Define queued and delayed fulfillment semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-008",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-009",
+        "title": "Define clearing batch and record semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-009",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-010",
+        "title": "Define obligation ledger as single financial authority",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-010",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-011",
+        "title": "Define bilateral and multilateral netting semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-011",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-012",
+        "title": "Define settlement instructions, attempts, and finality",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-012",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-013",
+        "title": "Define external rail adapter boundary and operation lifecycle",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-013",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-014",
+        "title": "Define reconciliation cycle and case resolution semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-014",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-015",
+        "title": "Define evidence record schema and append-only log",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-015",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-016",
+        "title": "Define risk and compliance check semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-016",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-017",
+        "title": "Define simulation and replay isolation semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-017",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-018",
+        "title": "Define extension manifest and marketplace review semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-018",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-019",
+        "title": "Define agent advisory and mediation session semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-019",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-020",
+        "title": "Define merchant checkout and settlement primitives",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-020",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-021",
+        "title": "Define dispute and recourse semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-021",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-022",
+        "title": "Define federation peer and federated obligation semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-022",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-023",
+        "title": "Define blockchain rail adapter and confirmation finality",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-023",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-024",
+        "title": "Define capability emergence from unsupported demand",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-024",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-025",
+        "title": "Enforce exact integer money arithmetic across all areas",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-025",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-026",
+        "title": "Enforce UNKNOWN-to-reconciliation recovery for all external effects",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-026",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-027",
+        "title": "Introduce evidence records for all consequential operations",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-027",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-028",
+        "title": "Author machine-readable protocol registry",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-028",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-029",
+        "title": "Freeze v0.1 and define Architecture Change Request process",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-029",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-030",
+        "title": "Author development-state projections (program, dependency, frontier)",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-030",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-031",
+        "title": "Integrate netting with settlement finality semantics",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-031",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-032",
+        "title": "Integrate federation settlement with rails and reconciliation",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-032",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "WORK-033",
+        "title": "Close protocol v0.1 materialization and verify 24-area coverage",
+        "layer": "protocol-frozen",
+        "governing_evidence": [
+          "spec/work-orders/WORK-ORDERS-LEDGER.md#WORK-033",
+          "spec/development-state/program-state.json#workOrderStatus",
+          "spec/development-state/frontier-state.json#frontier",
+          "spec/architecture/v0.1/"
+        ],
+        "status": "COMPLETE",
+        "recorded_merge": {
+          "sha": null,
+          "merged_as": "protocol-v0.1-materialization",
+          "source": "spec/work-orders/WORK-ORDERS-LEDGER.md (merged-as)"
+        },
+        "materialization_merge": {
+          "sha": "b9737e9",
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged (ARCH-001)"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      }
+    ],
+    "bootstrap": [
+      {
+        "item": "ARCH-001",
+        "title": "protocol architecture v0.1 materialized",
+        "layer": "bootstrap",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#bootstrap.merged"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "b9737e9",
+          "pr": null,
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged"
+        },
+        "commit_subject": "ARCH-001: materialize frozen protocol architecture v0.1, registry, protocol state, WORK-001..033 ledger (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "PROD-001",
+        "title": "product/UX program materialized, 11-edge fan-convergence graph",
+        "layer": "bootstrap",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#bootstrap.merged"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "4bde502",
+          "pr": null,
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged"
+        },
+        "commit_subject": "PROD-001: materialize product/UX program — UX contract v0.2 (product-layer), roadmap, work-item ledger (11-edge pinned graph, fan-convergence review fix), UI-001..010 work orders, product machine state (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "GOV-001",
+        "title": "governance/dispatch scaffolding, validator PASS 17/17",
+        "layer": "bootstrap",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#bootstrap.merged"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "40b20ae",
+          "pr": null,
+          "source": "spec/development-state/system-program-state.json#bootstrap.merged"
+        },
+        "commit_subject": "GOV-001: materialize governance and dispatch scaffolding — source-of-truth, governance model (roles + anti-drift classifications), agent-dispatch, implementation-protocol, parallel-execution, drift-control, dogfooding-protocol, execution-context schema, validate_governance.py (review gate: 17/17 authority paths PASS) (worker dispatch, Tech Lead reviewed + merged per governance)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      }
+    ],
+    "protocol-runtime": [
+      {
+        "item": "RTN-001",
+        "title": "RTN materialization work order (RTN-001)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-001 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "184dbbb",
+          "pr": 20,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #20 from payswapdotorg/rtn-001/kernel",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-002",
+        "title": "RTN materialization work order (RTN-002)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-002 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "54b12ff",
+          "pr": 24,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #24 from payswapdotorg/rtn-002/evidence-transplant",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-003",
+        "title": "RTN materialization work order (RTN-003)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-003 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "adf78f3",
+          "pr": 23,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #23 from payswapdotorg/rtn-003/risk-transplant",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-004",
+        "title": "RTN materialization work order (RTN-004)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-004 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "945df37",
+          "pr": 22,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #22 from payswapdotorg/rtn-004/rails-recon",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-005",
+        "title": "RTN materialization work order (RTN-005)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-005 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "92adb6a",
+          "pr": 25,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #25 from payswapdotorg/rtn-005/intent-policy-capability",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-006",
+        "title": "RTN materialization work order (RTN-006)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-006 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "fe0fed0",
+          "pr": 26,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #26 from payswapdotorg/rtn-006/routing-reservations",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-007",
+        "title": "RTN materialization work order (RTN-007)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-007 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "28c6746",
+          "pr": 27,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #27 from payswapdotorg/rtn-007/liquidity-credit-queues",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-008",
+        "title": "RTN materialization work order (RTN-008)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-008 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "e67c48c",
+          "pr": 28,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #28 from payswapdotorg/rtn-008/clearing-obligations",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-009",
+        "title": "RTN materialization work order (RTN-009)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-009 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "4ac6792",
+          "pr": 29,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #29 from payswapdotorg/rtn-009/netting-settlement",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-010",
+        "title": "RTN materialization work order (RTN-010)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-010 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "ed4a05c",
+          "pr": 30,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #30 from payswapdotorg/rtn-010/gateway",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-011",
+        "title": "RTN materialization work order (RTN-011)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-011 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "14b6ca5",
+          "pr": 31,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #31 from payswapdotorg/rtn-011/transition-hosting",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "RTN-012",
+        "title": "RTN materialization work order (RTN-012)",
+        "layer": "protocol-runtime",
+        "governing_evidence": [
+          "spec/development-state/system-program-state.json#rtnWave.mergeRecord",
+          "spec/protocol-runtime-work-orders/",
+          "spec/development-state/rtn-plan-rulings.md (RTN-012 schedule)"
+        ],
+        "status": "MERGED",
+        "recorded_merge": {
+          "sha": "f22a624",
+          "pr": 32,
+          "source": "spec/development-state/system-program-state.json#rtnWave.mergeRecord"
+        },
+        "commit_subject": "Merge pull request #32 from payswapdotorg/rtn-012/wave-integration",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      }
+    ],
+    "product": [
+      {
+        "item": "UI-001",
+        "title": "Product foundation: application shell, navigation grammar, and state display primitives",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-001.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "f934a76",
+          "pr": 6,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-001: product foundation — application shell (Next.js App Router + TS + Tailwind), single navigation grammar, state display primitives (SUCCEEDED/FAILED/UNKNOWN/WAITING/IN_PROGRESS/ACTION_REQUIRED), server-derived environment signal (anti-spoof), role-scoped navigation, verification surface, shell mapping records (worker dispatch; Tech Lead review: build + runtime + state matrix + spoof probe PASS)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-002",
+        "title": "Customer payment intent surface",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-002.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "5bff0d6",
+          "pr": 10,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-002: customer payment intent surface — outcome-first compose, full-consequences review with explicit single-intent submit, state presentation via the shared primitives with UNKNOWN-first semantics, typed adapter port + NON-AUTHORITATIVE mock authority, nine-question mapping records IMR-1..8, verification harness (six-state matrix + role matrix + adapter boundary), simulated audience signal; UI stack pinned (shadcn base-nova + lucide + zustand + base-ui/cva/clsx/cn, exact versions) with the DEP-003 validator's governed dependency-set update (worker dispatch; Tech Lead reconciliation: real-API adaptation, navigation splice, guard adaptation; review gates: typecheck 0 errors, build green, full-flow E2E — 307 guard / 200 customer / compose→review→consent→submit→SUCCEEDED state page with evidence)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-003",
+        "title": "Merchant checkout surface",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-003.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "ccf43dd",
+          "pr": 13,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-003: merchant checkout surface — consequence-first offers, explicit single-intent accept/decline with inline commitment confirmation, UNKNOWN with reconciliation path (worker dispatch; Tech Lead review: typecheck 0, build green, browser E2E accept-flow + role-gate + UNKNOWN + mobile, VLM QA; harvest via workspaces files API; integration: guard adaptation + navigation grammar splice incl. UI-004/UI-005 nav activations)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-004",
+        "title": "Provider and capability surface",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-004.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "35ef9fe",
+          "pr": 12,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-004: provider and capability surface — read-only presentation of protocol capability/routing truth, UNKNOWN-first availability, role-gated deep links (worker dispatch; Tech Lead review: typecheck 0, build green, browser E2E role-gate + UNKNOWN semantics + mobile; recovered via workspaces files API; integration splice: navigation flatten + formatMoney adaptation)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-005",
+        "title": "Track, status, and evidence surface",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-005.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "4ce0e74",
+          "pr": 11,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-005: track, status, and evidence surface — universal lookup, role-checked deep links, UNKNOWN-first evidence records, proof trail (worker dispatch; Tech Lead review: typecheck 0 errors, build green, governance 17/17, browser E2E role-matrix + deep-link + mobile, VLM QA; recovered via workspaces files API after transcript destruction)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-006",
+        "title": "Waiting, queued, and delayed fulfillment UX with recovery",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-006.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "87b9672",
+          "pr": 15,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-006: waiting, queued, and delayed fulfillment UX with recovery — authority-reported reason/expectation, individually-authorized recovery actions, UNKNOWN reconciliation visibility, live-region announcements (worker dispatch; Tech Lead review: typecheck 0 first-try, build green, browser E2E waiting+UNKNOWN+mobile; harvest via workspaces files API)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-007",
+        "title": "Liquidity, credit, and queue visibility surfaces",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-007.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "dd1399d",
+          "pr": 16,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-007: liquidity, credit, and queue visibility surfaces — provider /liquidity and operator /oversight read-only visibility with authority provenance on every value group, UNKNOWN with reconciliation path (LQ-002/003/005/006/008/010), progressive disclosure of composition, queue positions with UI-006 waiting semantics, twelve nine-question mapping records (LQ-001..012), typed liquidity port + NON-AUTHORITATIVE mock authority, verification harness (worker dispatch; Tech Lead review: typecheck 0 errors, build green, browser E2E role-matrix + UNKNOWN flow + 390px no-hscroll + desktop tables; harvest via workspaces files API; integration splice: navigation grammar entries provider-liquidity + operator-oversight) (#16)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-008",
+        "title": "Agent proposal, mediation, and dispute/recourse surfaces",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-008.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "daeced3",
+          "pr": 17,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "UI-008: agent proposal, mediation, and dispute/recourse surfaces — consequence-first proposal review with explicit single-intent decisions (accept/reject/counter/escalate) each with inline consequence-restating confirmation, mediation thread participation with explicit states incl. UNKNOWN with reconciliation, dispute initiation with authority consequence wording before submit, recourse tracking with proof trails, dual-party /mediation surface (customer+merchant role-gated; Next.js forbids the work order's two route-group pages at one URL — integrated as one dual-party page per the worker's splice note), per-item detail routes role-checked, decision API with server-side actor resolution + authority re-validation, twenty-five nine-question mapping records (MD-001..400) + explicit non-states, typed mediation port + NON-AUTHORITATIVE mock authority (Agents/Mediation and Disputes/Recourse Authorities, runtime ARRIVING), verification harness with decision-authorization matrix (worker dispatch; sandbox recovered via workspaces files API after transcript corruption — lesson 27; Tech Lead review: typecheck 0 errors after one select-event signature fix, build green with all six new routes, browser E2E role matrix + accept-flow with live-region announcement + UNKNOWN + 390px no-hscroll; integration splice: navigation grammar entries mediation + dispute-initiation + verification.mediation-flow) (#17)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-009",
+        "title": "Responsive, accessibility, and role-correctness hardening across all surfaces",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-009.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "fd996c3",
+          "pr": 21,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "Merge pull request #21 from payswapdotorg/ui-009/hardening-pass",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-010",
+        "title": "End-to-end UX closure evidence and Architect closure",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-orders/UI-010.md",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "note": "the product closure target — program CLOSED by Tech Lead approval of the UI-010 closure submission (PR #35)",
+        "recorded_merge": {
+          "sha": "b378f6d",
+          "pr": 35,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "Merge pull request #35 from payswapdotorg/ui-010/ux-closure-evidence",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "UI-011",
+        "title": "Protocol port re-anchoring to the composed runtime",
+        "layer": "product",
+        "governing_evidence": [
+          "spec/product/work-items.md (UI-011 ledger item)",
+          "spec/development-state/product-program-state.json#workItems"
+        ],
+        "status": "FINAL",
+        "note": "additive hardening item beyond the required UI-001..UI-010 closure target (RTN wave delta 6) — recorded as such, does not gate DEP-004",
+        "recorded_merge": {
+          "sha": "0022405",
+          "pr": 34,
+          "source": "spec/development-state/product-program-state.json#workItems"
+        },
+        "commit_subject": "Merge pull request #34 from payswapdotorg/ui-011/transplant",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      }
+    ],
+    "deployment": [
+      {
+        "item": "DEP-001",
+        "title": "topology + environment contract",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-001.md",
+          "spec/development-state/system-program-state.json#deploymentProgress"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "50275dc",
+          "pr": 7,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "DEP-001: materialize deployment topology + environment contract — runtime topology from real entrypoints (web-api-boundary present; 9 future-work components with dependency-graph provenance), environments contract with fail-closed F1–F8, configuration/secret boundary S1–S5, components.json registry, validate_deployment.py (worker dispatch; Tech Lead review: 448 checks PASS + independent negative test invented-present-component FAIL = machine-lock verified)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "DEP-002",
+        "title": "runtime packaging + configuration",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-002.md",
+          "spec/development-state/system-program-state.json#deploymentProgress"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "1a6926c",
+          "pr": 8,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "DEP-002: runtime packaging and configuration — standalone output, deterministic 3-stage Dockerfile (node:22-alpine, npm ci, non-root, PAYSWAP_ENV runtime-only), fail-closed startup validation + /api/health liveness + /api/ready readiness (503 named ids), packaging contract, components.json + validator governed updates (534 checks) (worker dispatch; Tech Lead review: validator PASS + 3 negative tests FAIL-verified + build green + runtime probes sandbox-200/production-503-fail-closed/fail-safe + secrets scan clean; delta-reconciled per the worker's sandbox-mismatch instruction)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "DEP-003",
+        "title": "durable persistence + work execution (node",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-003.md",
+          "spec/development-state/system-program-state.json#deploymentProgress"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "b3bc430",
+          "pr": 9,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "DEP-003: durable persistence and work execution — node:sqlite substrate (WAL + checksum-verified migrations, deduplicated queue with lease-based reservation, bounded-concurrency workers, deterministic scheduler, owner-mandatory events), zero new dependencies (worker dispatch; Tech Lead review: validator 69/69 + evidence suite 7/7 + independent negative gate UNIQUE-removal FAIL + tsc/build green)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "DEP-004",
+        "title": "reconciliation/clearing/netting/settlement-support operational jobs (src/lib/operations/ + harness; contract trio updated; deployment validator PASS 695 checks)",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-004.md",
+          "spec/development-state/system-program-state.json#deploymentProgress"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "3126426",
+          "pr": 33,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "Merge pull request #33 from payswapdotorg/dep-004/operations-jobs",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "DEP-005",
+        "title": "external rail connectivity boundary (src/lib/rail-connectivity/ + harness + deployment contract trio; validator PASS 778 checks)",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-005.md",
+          "spec/development-state/system-program-state.json#deploymentProgress"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "bd85a83",
+          "pr": 36,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "DEP-005: external rail connectivity boundary (rail-connectivity family) (#36)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "DEP-006",
+        "title": "CI/CD and promotion",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-006.md",
+          "spec/development-state/system-program-state.json#deploymentProgress"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "9c7c3c2",
+          "pr": 37,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "DEP-006: CI/CD and promotion (gate runner, promotion tool, workflows, contract update) (#37)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "DEP-007",
+        "title": "observability, resilience and disaster recovery",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-007.md",
+          "spec/development-state/system-program-state.json#deploymentProgress"
+        ],
+        "status": "FINAL",
+        "recorded_merge": {
+          "sha": "25b1789",
+          "pr": 38,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "DEP-007: observability, resilience and disaster recovery (taxonomy, health model, backup/restore/replay, drills) (#38)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "DEP-008",
+        "title": "production readiness proof",
+        "layer": "deployment",
+        "governing_evidence": [
+          "spec/system-work-orders/DEP-008.md",
+          "spec/development-state/system-program-state.json#deploymentProgress",
+          "deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md",
+          "spec/deployment/production-readiness.md",
+          "deploy/promotions/promotion-records.jsonl (release record pr-1789278934747-9b83ecdc27)"
+        ],
+        "status": "FINAL-WITH-OPERATIONAL-EVIDENCE",
+        "note": "the deployment closure target — DEPLOYMENT PROGRAM COMPLETE (DEP-001..008); production claims stay gated on the DEP-002+ production deployment binding",
+        "recorded_merge": {
+          "sha": "8d713f1",
+          "pr": 39,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "DEP-008: production readiness proof (release freeze, ten proof groups, verification transcript, contract update) (#39)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      }
+    ],
+    "system": [
+      {
+        "item": "SYS-001",
+        "title": "three-architecture reconciliation",
+        "layer": "system",
+        "governing_evidence": [
+          "spec/system-reconciliation-matrix.json",
+          "spec/system-reconciliation-matrix.md",
+          "scripts/test_system_reconciliation.mjs",
+          "scripts/test_transport_binding.mjs"
+        ],
+        "status": "PASS",
+        "recorded_merge": {
+          "sha": "6ec6b38",
+          "pr": 40,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "SYS-001: three-architecture reconciliation (transport binding D-1/D-2/D-3 remediation, reconciliation matrix, automated checks) (#40)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "SYS-002",
+        "title": "full-system dogfood",
+        "layer": "system",
+        "governing_evidence": [
+          "spec/system-dogfood/corpus-index.json",
+          "spec/system-dogfood/run-manifest.json",
+          "scripts/test_full_system_dogfood.mjs",
+          "scripts/dogfood_determinism_probe.mjs"
+        ],
+        "status": "PASS",
+        "recorded_merge": {
+          "sha": "967519a",
+          "pr": 41,
+          "source": "spec/development-state/system-program-state.json#deploymentProgress"
+        },
+        "commit_subject": "SYS-002: full-system dogfood (twelve-journey harness, versioned transcripts, invariant + telemetry evidence) (#41)",
+        "ancestor_of_head": true,
+        "subject_containment": true
+      },
+      {
+        "item": "SYS-003",
+        "title": "system closure (this work item)",
+        "layer": "system",
+        "governing_evidence": [
+          "spec/system-work-orders/SYS-003.md",
+          "spec/system-closure/final-reconciliation-matrix.json",
+          "spec/system-closure/final-reconciliation-matrix.md",
+          "spec/system-closure/state-synchronization-proof.md",
+          "spec/system-closure/closure-record.md",
+          "scripts/test_system_closure.mjs"
+        ],
+        "recorded_merge": null,
+        "commit_subject": null,
+        "ancestor_of_head": null,
+        "subject_containment": null,
+        "status": "CLOSURE-DRAFT",
+        "note": "the closure work item itself — the merge is the Lead finalize (Architect approval + merge + finalization); the closure gate is the live mechanical proof of every other acceptance bullet"
+      }
+    ]
+  },
+  "honest_handoff": {
+    "sys002_findings": [
+      {
+        "id": "SYS002-F1",
+        "source": "spec/system-dogfood/corpus-index.json#findings[0]",
+        "summary": "The queues.item.cancel gateway alias (src/lib/protocol/server-runtime.ts) executes the A08 cancel command and records its A15 evidence but omits the durable write-through the sibling bindings perform (persist.queues): the queued_items SQLite row retains the pre-cancel state after an executed cancel. This is the ONLY terminal arm reachable through the HTTP boundary (queues.items.expire is a hosted binding but not a gateway-registered kind; the dispatch/graduation kinds carry no hosted bindings at all — the registry/binding vocabulary-gap class). The full graduation path is driven in the composed leg.",
+        "owner": "SYS-002 evidence corpus (recorded in-corpus; non-blocking)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F2",
+        "source": "spec/system-dogfood/corpus-index.json#findings[1]",
+        "summary": "The UNKNOWN-attempt arm (rail SILENCE → attempt UNKNOWN → INV-14-1 auto-case → UNKNOWN_HELD finality refusal) has a registry/binding vocabulary gap on the app composition: the gateway registers ‘settlement.attempt.railoutcome.apply’ while the hosted binding kind is ‘settlement.report.apply’ (and ‘settlement.resolution.apply’ carries no hosted binding at all) — the admitted-but-queued class recorded by the DEP-007 runbook. The dogfood therefore drives finality-refused-over-PENDING (NOT_PROVISIONAL) plus the A14 statement/case machinery; the full UNKNOWN→resolution→finality advance is evidenced by the RTN-012 composed-journey harness on its own composition (kept green in the gate battery).",
+        "owner": "SYS-002 evidence corpus (recorded in-corpus; non-blocking)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F3",
+        "source": "spec/system-dogfood/corpus-index.json#findings[2]",
+        "summary": "The authorized-action arm of the agent-proposal journey is NOT-IMPLEMENTED-AT-THIS-LAYER: the Agents/Mediation Authority (area 19) is RTN wave 2 — every decision/action surface fails closed with the recorded gap (D-8). The dispute primitive (area 10) IS merged and is driven end-to-end in S10.",
+        "owner": "D-8 (RTN wave-2 runtime work orders)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F4",
+        "source": "spec/system-dogfood/corpus-index.json#findings[3]",
+        "summary": "The quote-gate’s quoted arm is NOT drivable on the app composition: capability ACTIVATION has no gateway command binding and the A16 risk authority (whose APPROVED check gates activation) is not exposed on the runtime handle — the capability stays PENDING and the quote gate honestly stays no-answer. The full activation→quote path is proven by the RTN-012 composed-journey harness on its own composition.",
+        "owner": "SYS-002 evidence corpus (recorded in-corpus; non-blocking)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F5",
+        "source": "spec/system-dogfood/corpus-index.json#findings[4]",
+        "summary": "The A08 graduation path (startDraining → dispatchNext → resolveDispatchedItem) is drivable only through the authority’s exported APIs (the dispatch kinds are gateway-registered but carry no hosted bindings — the registry/binding vocabulary-gap class), and authority-API transitions perform no binding-level durable write-through: the queued_items SQLite row retains its last persisted state while the authority’s in-memory state and the A15 evidence record the DISPATCHED → GRADUATED transitions. The product surfaces read the authority (in-memory), so the presentations remain correct; the gap affects the store snapshot only.",
+        "owner": "SYS-002 evidence corpus (recorded in-corpus; non-blocking)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F6",
+        "source": "spec/system-dogfood/corpus-index.json#findings[5]",
+        "summary": "The A09 clearing RECORD STAGING has no gateway/HTTP command surface (the recorded sibling-vocabulary gap): the batch lifecycle commands exist (clearing.batch.open/stage/commit/finalize) but per-record staging is driven through the obligations.clearing.commit alias over the same A09→A10 clearing-commit path — recorded here as the boundary this dogfood actually drove.",
+        "owner": "SYS-002 evidence corpus (recorded in-corpus; non-blocking)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F7",
+        "source": "spec/system-dogfood/corpus-index.json#findings[6]",
+        "summary": "The finality-advance arm has no drive surface on the app composition: the A12 recovery-directive application (SettlementAuthority.applyResolution) and the rail-outcome application (applyRailOutcome) are reachable neither through gateway-admitted kinds with hosted bindings nor through the runtime handle — after the A14 case resolves, the attempt stays PENDING and finality stays (correctly) refused NOT_PROVISIONAL. The full advance path is proven by the RTN-012 composed-journey harness on its own composition (kept green in the gate battery).",
+        "owner": "SYS-002 evidence corpus (recorded in-corpus; non-blocking)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F8",
+        "source": "spec/system-dogfood/corpus-index.json#findings[7]",
+        "summary": "Blockchain-connected rail paths are NOT-IMPLEMENTED-AT-THIS-LAYER: the repository implements exactly one rail family (sim-bank — the protocol-owned simulated rail) plus the DEP-005 rail-connectivity boundary (the typed transport port + configuration + retry safeguards + activity observability over deterministic in-process doubles). No blockchain rail adapter, address, or network egress exists; real external connectivity is the recorded FUTURE-WORK (components.json future_work). Nothing is fabricated here.",
+        "owner": "DEP-005 FUTURE-WORK (the externalized production binding)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      },
+      {
+        "id": "SYS002-F9",
+        "source": "spec/system-dogfood/corpus-index.json#findings[8]",
+        "summary": "The evidence/finality scenario’s FINAL arm is bound to the A12 applyResolution surface gap (see the S03 finding): on the app composition finality is proven as NEVER-ASSERTED-OVER-UNRESOLVED (the correct protocol behavior), and the evidence chain fully verifies; the FINAL advance itself is evidenced by the RTN-012 composed-journey harness (its test:golden-path / test:unknown-confirmed scenarios, kept green in the gate battery).",
+        "owner": "SYS-002 evidence corpus (recorded in-corpus; non-blocking)",
+        "disposition": "recorded honestly in the SYS-002 corpus; the compensating evidence and the owning surface are named in the finding text itself",
+        "status": "RECORDED"
+      }
+    ],
+    "deferral_ledger": [
+      {
+        "id": "D-1",
+        "source": "spec/product/closure/deferral-ledger.md#D-1",
+        "summary": "the browser/surface transport binding for the composed runtime",
+        "owner": "SYS-001 (resolved by the transport-binding remediation)",
+        "disposition": "RESOLVED at SYS-001 base 4650732 — resolving evidence: the bind:d1/d2/d3 groups of scripts/test_transport_binding.mjs + the recon:journeys group of scripts/test_system_reconciliation.mjs",
+        "status": "RESOLVED"
+      },
+      {
+        "id": "D-2",
+        "source": "spec/product/closure/deferral-ledger.md#D-2",
+        "summary": "FINDING 2: the UI-011 splice does not reach the routes",
+        "owner": "SYS-001 (resolved by the transport-binding remediation)",
+        "disposition": "RESOLVED at SYS-001 base 4650732 — resolving evidence: the bind:d1/d2/d3 groups of scripts/test_transport_binding.mjs + the recon:journeys group of scripts/test_system_reconciliation.mjs",
+        "status": "RESOLVED"
+      },
+      {
+        "id": "D-3",
+        "source": "spec/product/closure/deferral-ledger.md#D-3",
+        "summary": "FINDING 1: the composition root's drain() halts the worker without executing queued commands",
+        "owner": "SYS-001 (resolved by the transport-binding remediation)",
+        "disposition": "RESOLVED at SYS-001 base 4650732 — resolving evidence: the bind:d1/d2/d3 groups of scripts/test_transport_binding.mjs + the recon:journeys group of scripts/test_system_reconciliation.mjs",
+        "status": "RESOLVED"
+      },
+      {
+        "id": "D-4",
+        "source": "spec/product/closure/deferral-ledger.md#D-4",
+        "summary": "FINDING 3: /verification/liquidity-flow responds HTTP 500",
+        "owner": "UI-007-owned surface",
+        "disposition": "Tech Lead disposition recorded in the product program closure note: UI-007-owned surface",
+        "status": "OPEN-OWNED"
+      },
+      {
+        "id": "D-5",
+        "source": "spec/product/closure/deferral-ledger.md#D-5",
+        "summary": "FINDING 4: statically prerendered surfaces bake the build-time environment banner",
+        "owner": "shell owner",
+        "disposition": "Tech Lead disposition recorded in the product program closure note: shell owner",
+        "status": "OPEN-OWNED"
+      },
+      {
+        "id": "D-6",
+        "source": "spec/product/closure/deferral-ledger.md#D-6",
+        "summary": "FINDING 5: the mediation surfaces' honest-unavailable branches lack level-one headings",
+        "owner": "UI-008 semantics (after D-2 remediation)",
+        "disposition": "Tech Lead disposition recorded in the product program closure note: UI-008 semantics (after D-2 remediation)",
+        "status": "OPEN-OWNED"
+      },
+      {
+        "id": "D-7",
+        "source": "spec/product/closure/deferral-ledger.md#D-7",
+        "summary": "UI-009 WAIVER-1 (carried forward unchanged): the /verification/mediation-flow declared-gate disagreement",
+        "owner": "as the documented ungated verification-tooling pattern (fixtures-only content",
+        "disposition": "Tech Lead disposition recorded in the product program closure note: as the documented ungated verification-tooling pattern (fixtures-only content",
+        "status": "ACCEPTED (WAIVER-1)"
+      },
+      {
+        "id": "D-8",
+        "source": "spec/product/closure/deferral-ledger.md#D-8",
+        "summary": "the wave-2 authority gaps (area 19 / 20 / 21) — recorded, not waived",
+        "owner": "RTN wave-2 program",
+        "disposition": "Tech Lead disposition recorded in the product program closure note: RTN wave-2 program",
+        "status": "OPEN-OWNED"
+      },
+      {
+        "id": "D-9",
+        "source": "spec/product/closure/deferral-ledger.md#D-9",
+        "summary": "the retained mock-era vocabulary members and records",
+        "owner": "recorded, no action",
+        "disposition": "Tech Lead disposition recorded in the product program closure note: recorded, no action",
+        "status": "OPEN-OWNED"
+      }
+    ],
+    "dep008_conditions": [
+      {
+        "id": "DEP008-C1",
+        "source": "spec/development-state/system-program-state.json#deploymentProgress.DEP-008",
+        "summary": "DEP-007 determinism fix is load-bearing for verify",
+        "owner": "Tech Lead (accepted; the named owning surface carries each condition)",
+        "disposition": "recorded condition of the Tech Lead acceptance of the DEP-008 approve-with-conditions recommendation: DEP-007 determinism fix is load-bearing for verify",
+        "status": "ACCEPTED-CONDITION"
+      },
+      {
+        "id": "DEP008-C2",
+        "source": "spec/development-state/system-program-state.json#deploymentProgress.DEP-008",
+        "summary": "annotate rebase-orphaned DEP-006 rehearsal records as historical at next governance touch",
+        "owner": "Tech Lead (accepted; the named owning surface carries each condition)",
+        "disposition": "recorded condition of the Tech Lead acceptance of the DEP-008 approve-with-conditions recommendation: annotate rebase-orphaned DEP-006 rehearsal records as historical at next governance touch",
+        "status": "ACCEPTED-CONDITION"
+      },
+      {
+        "id": "DEP008-C3",
+        "source": "spec/development-state/system-program-state.json#deploymentProgress.DEP-008",
+        "summary": "production claims stay gated on the DEP-002+ production deployment binding",
+        "owner": "Tech Lead (accepted; the named owning surface carries each condition)",
+        "disposition": "recorded condition of the Tech Lead acceptance of the DEP-008 approve-with-conditions recommendation: production claims stay gated on the DEP-002+ production deployment binding",
+        "status": "ACCEPTED-CONDITION"
+      }
+    ],
+    "lead_disposition_ledger": [
+      {
+        "id": "LD-1",
+        "source": "spec/development-state/system-program-state.json#frontier",
+        "summary": "proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness tree; disposition at next governance touch",
+        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking)",
+        "disposition": "Lead-dispositioned: proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness tree; disposition at next governance touch",
+        "status": "DISPOSITIONED-NON-BLOCKING"
+      },
+      {
+        "id": "LD-2",
+        "source": "spec/development-state/system-program-state.json#frontier",
+        "summary": "web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item",
+        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking)",
+        "disposition": "Lead-dispositioned: web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item",
+        "status": "DISPOSITIONED-NON-BLOCKING"
+      },
+      {
+        "id": "LD-3",
+        "source": "spec/development-state/system-program-state.json#frontier",
+        "summary": "D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners)",
+        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking)",
+        "disposition": "Lead-dispositioned: D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners)",
+        "status": "DISPOSITIONED-NON-BLOCKING"
+      }
+    ]
+  },
+  "totals": {
+    "acceptance_surface_rows": 70,
+    "honest_handoff_rows": 24,
+    "rows_with_recorded_merge": 69,
+    "rows_ancestor_of_head": 69,
+    "rows_subject_containment": 69,
+    "handoff_rows_missing_disposition": 0
+  }
+}
