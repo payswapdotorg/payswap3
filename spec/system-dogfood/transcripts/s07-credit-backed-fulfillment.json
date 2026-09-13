@@ -1,0 +1,62 @@
+{
+  "scenario_id": "s07-credit-backed-fulfillment",
+  "scenario_name": "credit-backed fulfillment",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "composed-runtime",
+        "surfaces": [
+          "CreditAuthority exported APIs",
+          "getLiquidityPort().getProviderPositions"
+        ]
+      },
+      "steps": [
+        {
+          "step": "the A07 line offered + activated",
+          "elapsed_ms": 1,
+          "kind": "authority-command",
+          "authority_state": [
+            "CreditLine ACTIVE (A07) — limit 200.00 USD"
+          ],
+          "durable_evidence": {
+            "line_id": "sys002-dogfood-credit-line"
+          }
+        },
+        {
+          "step": "A07 exposure/backing path",
+          "elapsed_ms": 4,
+          "kind": "authority-command",
+          "authority_state": [
+            "CreditLine ACTIVE (A07) — limit 200.00 USD",
+            "CreditDecision APPROVED + APPLIED → reservation consumed; exposure 60000"
+          ],
+          "durable_evidence": {
+            "exposure": {
+              "reserved": 0,
+              "consumed": 60000,
+              "remaining": 140000
+            }
+          }
+        },
+        {
+          "step": "credit visibility surface",
+          "elapsed_ms": null,
+          "kind": "port-read",
+          "ux_observation": "permitted — the credit line sys002-dogfood-credit-line presented with its exposure figures",
+          "authority_state": [
+            "ProviderPositions permitted (the A07 read surface)"
+          ]
+        }
+      ],
+      "findings": [],
+      "result": "PASS"
+    }
+  ]
+}

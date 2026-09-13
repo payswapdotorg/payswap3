@@ -1,0 +1,97 @@
+{
+  "type": "sys-002-dogfood-run-manifest",
+  "generated_at": "2026-09-13T17:39:24.856Z",
+  "harness": "scripts/test_full_system_dogfood.mjs",
+  "base_revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23",
+    "note": "read from the repo at run time (git rev-parse HEAD / HEAD^{tree}); the transcripts are provably correlated to this exact revision",
+    "working_tree_entries_at_generation": [
+      "?? scripts/dogfood_determinism_probe.mjs",
+      "?? scripts/test_full_system_dogfood.mjs",
+      "?? spec/system-dogfood/"
+    ]
+  },
+  "drive_legs": {
+    "http-built-app": {
+      "pattern": "bun run build + node .next/standalone/server.js (the documented runtime package)",
+      "port": 3397,
+      "runtime_dir": ".next/standalone/var/web-runtime (fresh per run)"
+    },
+    "composed-runtime": {
+      "pattern": "src/lib/protocol/server-runtime.ts imported in-process (the app’s own composition root)",
+      "runtime_dir": "var/web-runtime (fresh per run)"
+    },
+    "determinism": {
+      "pattern": "scripts/dogfood_determinism_probe.mjs run twice (fresh composition per run)",
+      "result": "identical receipts",
+      "receipt_count": 7
+    }
+  },
+  "telemetry": {
+    "captured_at": "2026-09-13T17:39:22.868Z",
+    "method": "GET /api/ready during the dogfood run (mid-journey, after the HTTP scenarios)",
+    "status": "ok",
+    "component": "web-api-boundary",
+    "env": "sandbox",
+    "checks": [
+      {
+        "id": "environment",
+        "ok": true,
+        "detail": "environment resolved as \"sandbox\" via PAYSWAP_ENV (allowlist sandbox|production, fail-safe sandbox)"
+      }
+    ],
+    "componentHealth": {
+      "overall": "unknown-data",
+      "readiness": "health-unknown",
+      "generatedAt": 1789321162864,
+      "domains": {
+        "command": {
+          "state": "ok"
+        },
+        "queue": {
+          "state": "ok"
+        },
+        "execution": {
+          "state": "ok"
+        },
+        "unknown": {
+          "state": "ok"
+        },
+        "reconciliation": {
+          "state": "unknown-data",
+          "action": {
+            "whatToInspect": "the operations.reconciliation-sweep registration and scheduler wiring (a store with no sweep history cannot be assessed for reconciliation health)",
+            "drill": "drill:replay-recovery",
+            "runbookSection": "spec/deployment/observability.md §Reconciliation freshness"
+          }
+        },
+        "clearing-netting": {
+          "state": "unknown-data",
+          "action": {
+            "whatToInspect": "the operations.clearing-progression registration and scheduler wiring",
+            "drill": "drill:replay-recovery",
+            "runbookSection": "spec/deployment/observability.md §Progression freshness"
+          }
+        },
+        "settlement-finality": {
+          "state": "ok"
+        },
+        "incident-recovery": {
+          "state": "degraded",
+          "action": {
+            "whatToInspect": "the backup manifest (no recovery.backup.completed event and no manifest rows) — take the first backup before any incident, not after",
+            "drill": "drill:backup-restore",
+            "runbookSection": "spec/deployment/observability.md §Backup and restore contract"
+          }
+        },
+        "deployment": {
+          "state": "ok"
+        }
+      }
+    }
+  },
+  "harness_stdout_sha256_at_emission": "186f10dc04ff965234f6b0a52a5127e9c4ee72207deb4d24530a06f7aadd08bf",
+  "stdout_digest_scope": "the deterministic stdout emitted before the corpus emission (the group/scenario JSONL and the report table; the final verdict line follows the identical deterministic content)",
+  "findings_count": 9
+}

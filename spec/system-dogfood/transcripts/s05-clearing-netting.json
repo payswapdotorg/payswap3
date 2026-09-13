@@ -1,0 +1,265 @@
+{
+  "scenario_id": "s05-clearing-netting",
+  "scenario_name": "cross-corridor reciprocal demand and clearing/netting",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "composed-runtime",
+        "surfaces": [
+          "gateway clearing.batch.* / netting.set.* commands",
+          "ClearingAuthority.addRecord (no HTTP surface — recorded)"
+        ]
+      },
+      "steps": [
+        {
+          "step": "clearing.batch.open through the gateway",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "clearing.batch.open",
+            "authority": "Clearing Authority",
+            "idempotency_key": "sys002.dogfood.composed.clearing.open",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.0e6f32f2f113eddc264ef31e282553af76eee5bd17c6442fd43dc61b6becc011",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 5,
+                "wallMs": 1789321163362
+              }
+            },
+            "jobId": "25d83e36-172e-44c0-9907-ac00b3eb73fb"
+          }
+        },
+        {
+          "step": "reciprocal gross pair 1/4 (alpha → beta) through the clearing-commit command",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "obligations.clearing.commit",
+            "authority": "Obligation Authority",
+            "idempotency_key": "sys002.dogfood.composed.clearing.record.c1",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.1e025f805b8ea6582b84196ce0f3d573e3bab5e52eba40ca9281a7be9e4d1a5d",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 6,
+                "wallMs": 1789321163365
+              }
+            },
+            "jobId": "066bff53-efe7-4c09-b9b0-6e6556701181"
+          }
+        },
+        {
+          "step": "reciprocal gross pair 2/4 (beta → alpha) through the clearing-commit command",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "obligations.clearing.commit",
+            "authority": "Obligation Authority",
+            "idempotency_key": "sys002.dogfood.composed.clearing.record.c2",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.d9ce148dff8622267a859ab47d484c0e611b0f916e6d961771c664b2dca707ee",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 7,
+                "wallMs": 1789321163368
+              }
+            },
+            "jobId": "f538f4c4-e2de-4f9b-8352-0d33e0e1828b"
+          }
+        },
+        {
+          "step": "reciprocal gross pair 3/4 (beta → gamma) through the clearing-commit command",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "obligations.clearing.commit",
+            "authority": "Obligation Authority",
+            "idempotency_key": "sys002.dogfood.composed.clearing.record.c3",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.f9a8da4cf8478d1f3f830016af7064cd4c9a592610815ca42b1da5528298ef4e",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 8,
+                "wallMs": 1789321163370
+              }
+            },
+            "jobId": "031f2bd3-02f6-489a-99e4-d572473a8bfc"
+          }
+        },
+        {
+          "step": "reciprocal gross pair 4/4 (gamma → alpha) through the clearing-commit command",
+          "elapsed_ms": 1,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "obligations.clearing.commit",
+            "authority": "Obligation Authority",
+            "idempotency_key": "sys002.dogfood.composed.clearing.record.c4",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.9366ac7c4bb6e5e0686aeeb90116c88c5753b9d5ba8f19cf637537df6c743573",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 9,
+                "wallMs": 1789321163372
+              }
+            },
+            "jobId": "8c2fb514-8080-4f06-866d-e2accab39fca"
+          }
+        },
+        {
+          "step": "netting.set.open through the gateway",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "netting.set.open",
+            "authority": "Netting Authority",
+            "idempotency_key": "sys002.dogfood.composed.netting.open",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.84a7eb603155e5facedc5681ef63733452ee07940f2f487152b8337a240c0417",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 10,
+                "wallMs": 1789321163374
+              }
+            },
+            "jobId": "45639581-dcc6-48ca-8983-381ea69bfab8"
+          }
+        },
+        {
+          "step": "netting.set.compute through the gateway",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "netting.set.compute",
+            "authority": "Netting Authority",
+            "idempotency_key": "sys002.dogfood.composed.netting.compute",
+            "subject_ids": [
+              "pid.v1.0b10ac21ca71015599963dbc85fea91af9690728c5721c26a25a803027659279"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.ffa61bfc8831c91feb1015fb90566451503f065d551653c47083e4c886bc78c2",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 11,
+                "wallMs": 1789321163377
+              }
+            },
+            "jobId": "7a4e3b48-0f59-4b20-9f41-f73aa24ecbd9"
+          }
+        },
+        {
+          "step": "netting.set.commit through the gateway",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "netting.set.commit",
+            "authority": "Netting Authority",
+            "idempotency_key": "sys002.dogfood.composed.netting.commit",
+            "subject_ids": [
+              "pid.v1.0b10ac21ca71015599963dbc85fea91af9690728c5721c26a25a803027659279"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.5071769afc9098d8532e7887692309e40e7ef399b6abf0641820640edfe3bf9c",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 12,
+                "wallMs": 1789321163380
+              }
+            },
+            "jobId": "06d09f56-82ff-4796-b9df-e364482bcaad"
+          }
+        },
+        {
+          "step": "netting complete (conservation recorded)",
+          "elapsed_ms": null,
+          "kind": "sqlite-read",
+          "authority_state": [
+            "NettingSet COMMITTED (A11) — 2 net obligations, sum 5000"
+          ],
+          "durable_evidence": {
+            "store": "netting.sqlite",
+            "net_obligations": [
+              {
+                "debtor": "alpha",
+                "creditor": "gamma",
+                "amount_minor": 4000
+              },
+              {
+                "debtor": "beta",
+                "creditor": "gamma",
+                "amount_minor": 1000
+              }
+            ]
+          }
+        }
+      ],
+      "findings": [
+        {
+          "finding": "The A09 clearing RECORD STAGING has no gateway/HTTP command surface (the recorded sibling-vocabulary gap): the batch lifecycle commands exist (clearing.batch.open/stage/commit/finalize) but per-record staging is driven through the obligations.clearing.commit alias over the same A09→A10 clearing-commit path — recorded here as the boundary this dogfood actually drove."
+        }
+      ],
+      "result": "PASS"
+    }
+  ]
+}

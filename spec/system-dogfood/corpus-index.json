@@ -1,0 +1,266 @@
+{
+  "type": "sys-002-dogfood-corpus-index",
+  "generated_at": "2026-09-13T17:39:24.856Z",
+  "harness": "scripts/test_full_system_dogfood.mjs",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "s01-customer-pay-track",
+      "scenario_name": "customer pay and track",
+      "boundaries": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s01-customer-pay-track.json",
+        "transcripts/s01-customer-pay-track.md"
+      ],
+      "harness_groups": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "steps_total": 10,
+      "findings": 1,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s02-queued-delayed-fulfillment",
+      "scenario_name": "queued/delayed fulfillment",
+      "boundaries": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s02-queued-delayed-fulfillment.json",
+        "transcripts/s02-queued-delayed-fulfillment.md"
+      ],
+      "harness_groups": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "steps_total": 13,
+      "findings": 2,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s03-unknown-safe-reconciliation",
+      "scenario_name": "UNKNOWN external outcome and safe reconciliation",
+      "boundaries": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s03-unknown-safe-reconciliation.json",
+        "transcripts/s03-unknown-safe-reconciliation.md"
+      ],
+      "harness_groups": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "steps_total": 29,
+      "findings": 2,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s04-merchant-checkout-settlement-promise",
+      "scenario_name": "merchant checkout and settlement promise",
+      "boundaries": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s04-merchant-checkout-settlement-promise.json",
+        "transcripts/s04-merchant-checkout-settlement-promise.md"
+      ],
+      "harness_groups": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "steps_total": 4,
+      "findings": 0,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s05-clearing-netting",
+      "scenario_name": "cross-corridor reciprocal demand and clearing/netting",
+      "boundaries": [
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s05-clearing-netting.json",
+        "transcripts/s05-clearing-netting.md"
+      ],
+      "harness_groups": [
+        "composed-runtime"
+      ],
+      "steps_total": 9,
+      "findings": 1,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s06-liquidity-native-external",
+      "scenario_name": "native and external liquidity",
+      "boundaries": [
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s06-liquidity-native-external.json",
+        "transcripts/s06-liquidity-native-external.md"
+      ],
+      "harness_groups": [
+        "composed-runtime"
+      ],
+      "steps_total": 4,
+      "findings": 0,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s07-credit-backed-fulfillment",
+      "scenario_name": "credit-backed fulfillment",
+      "boundaries": [
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s07-credit-backed-fulfillment.json",
+        "transcripts/s07-credit-backed-fulfillment.md"
+      ],
+      "harness_groups": [
+        "composed-runtime"
+      ],
+      "steps_total": 3,
+      "findings": 0,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s08-capability-emergence",
+      "scenario_name": "capability emergence/provider contribution",
+      "boundaries": [
+        "http-built-app"
+      ],
+      "transcript_files": [
+        "transcripts/s08-capability-emergence.json",
+        "transcripts/s08-capability-emergence.md"
+      ],
+      "harness_groups": [
+        "http-built-app"
+      ],
+      "steps_total": 3,
+      "findings": 0,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s09-agent-proposal-mediation-action",
+      "scenario_name": "agent proposal → simulation → mediation → authorized action",
+      "boundaries": [
+        "http-built-app"
+      ],
+      "transcript_files": [
+        "transcripts/s09-agent-proposal-mediation-action.json",
+        "transcripts/s09-agent-proposal-mediation-action.md"
+      ],
+      "harness_groups": [
+        "http-built-app"
+      ],
+      "steps_total": 3,
+      "findings": 1,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s10-dispute-recourse",
+      "scenario_name": "dispute/recourse",
+      "boundaries": [
+        "http-built-app"
+      ],
+      "transcript_files": [
+        "transcripts/s10-dispute-recourse.json",
+        "transcripts/s10-dispute-recourse.md"
+      ],
+      "harness_groups": [
+        "http-built-app"
+      ],
+      "steps_total": 4,
+      "findings": 0,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s11-blockchain-rail-paths",
+      "scenario_name": "blockchain-connected paths where implemented",
+      "boundaries": [
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s11-blockchain-rail-paths.json",
+        "transcripts/s11-blockchain-rail-paths.md"
+      ],
+      "harness_groups": [
+        "composed-runtime"
+      ],
+      "steps_total": 4,
+      "findings": 1,
+      "result": "PASS"
+    },
+    {
+      "scenario_id": "s12-evidence-finality",
+      "scenario_name": "evidence/finality where the protocol path is complete",
+      "boundaries": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "transcript_files": [
+        "transcripts/s12-evidence-finality.json",
+        "transcripts/s12-evidence-finality.md"
+      ],
+      "harness_groups": [
+        "http-built-app",
+        "composed-runtime"
+      ],
+      "steps_total": 3,
+      "findings": 1,
+      "result": "PASS"
+    }
+  ],
+  "findings": [
+    {
+      "finding": "The queues.item.cancel gateway alias (src/lib/protocol/server-runtime.ts) executes the A08 cancel command and records its A15 evidence but omits the durable write-through the sibling bindings perform (persist.queues): the queued_items SQLite row retains the pre-cancel state after an executed cancel. This is the ONLY terminal arm reachable through the HTTP boundary (queues.items.expire is a hosted binding but not a gateway-registered kind; the dispatch/graduation kinds carry no hosted bindings at all — the registry/binding vocabulary-gap class). The full graduation path is driven in the composed leg."
+    },
+    {
+      "finding": "The UNKNOWN-attempt arm (rail SILENCE → attempt UNKNOWN → INV-14-1 auto-case → UNKNOWN_HELD finality refusal) has a registry/binding vocabulary gap on the app composition: the gateway registers ‘settlement.attempt.railoutcome.apply’ while the hosted binding kind is ‘settlement.report.apply’ (and ‘settlement.resolution.apply’ carries no hosted binding at all) — the admitted-but-queued class recorded by the DEP-007 runbook. The dogfood therefore drives finality-refused-over-PENDING (NOT_PROVISIONAL) plus the A14 statement/case machinery; the full UNKNOWN→resolution→finality advance is evidenced by the RTN-012 composed-journey harness on its own composition (kept green in the gate battery)."
+    },
+    {
+      "finding": "The authorized-action arm of the agent-proposal journey is NOT-IMPLEMENTED-AT-THIS-LAYER: the Agents/Mediation Authority (area 19) is RTN wave 2 — every decision/action surface fails closed with the recorded gap (D-8). The dispute primitive (area 10) IS merged and is driven end-to-end in S10.",
+      "owning_work_item": "D-8 (RTN wave-2 runtime work orders)"
+    },
+    {
+      "finding": "The quote-gate’s quoted arm is NOT drivable on the app composition: capability ACTIVATION has no gateway command binding and the A16 risk authority (whose APPROVED check gates activation) is not exposed on the runtime handle — the capability stays PENDING and the quote gate honestly stays no-answer. The full activation→quote path is proven by the RTN-012 composed-journey harness on its own composition."
+    },
+    {
+      "finding": "The A08 graduation path (startDraining → dispatchNext → resolveDispatchedItem) is drivable only through the authority’s exported APIs (the dispatch kinds are gateway-registered but carry no hosted bindings — the registry/binding vocabulary-gap class), and authority-API transitions perform no binding-level durable write-through: the queued_items SQLite row retains its last persisted state while the authority’s in-memory state and the A15 evidence record the DISPATCHED → GRADUATED transitions. The product surfaces read the authority (in-memory), so the presentations remain correct; the gap affects the store snapshot only."
+    },
+    {
+      "finding": "The A09 clearing RECORD STAGING has no gateway/HTTP command surface (the recorded sibling-vocabulary gap): the batch lifecycle commands exist (clearing.batch.open/stage/commit/finalize) but per-record staging is driven through the obligations.clearing.commit alias over the same A09→A10 clearing-commit path — recorded here as the boundary this dogfood actually drove."
+    },
+    {
+      "finding": "The finality-advance arm has no drive surface on the app composition: the A12 recovery-directive application (SettlementAuthority.applyResolution) and the rail-outcome application (applyRailOutcome) are reachable neither through gateway-admitted kinds with hosted bindings nor through the runtime handle — after the A14 case resolves, the attempt stays PENDING and finality stays (correctly) refused NOT_PROVISIONAL. The full advance path is proven by the RTN-012 composed-journey harness on its own composition (kept green in the gate battery)."
+    },
+    {
+      "finding": "Blockchain-connected rail paths are NOT-IMPLEMENTED-AT-THIS-LAYER: the repository implements exactly one rail family (sim-bank — the protocol-owned simulated rail) plus the DEP-005 rail-connectivity boundary (the typed transport port + configuration + retry safeguards + activity observability over deterministic in-process doubles). No blockchain rail adapter, address, or network egress exists; real external connectivity is the recorded FUTURE-WORK (components.json future_work). Nothing is fabricated here.",
+      "owning_work_item": "DEP-005 FUTURE-WORK (the externalized production binding)"
+    },
+    {
+      "finding": "The evidence/finality scenario’s FINAL arm is bound to the A12 applyResolution surface gap (see the S03 finding): on the app composition finality is proven as NEVER-ASSERTED-OVER-UNRESOLVED (the correct protocol behavior), and the evidence chain fully verifies; the FINAL advance itself is evidenced by the RTN-012 composed-journey harness (its test:golden-path / test:unknown-confirmed scenarios, kept green in the gate battery)."
+    }
+  ],
+  "consistency": {
+    "dimensions": {
+      "outcome": "consistent (presentations match the authoritative stores on every driven scenario)",
+      "authority": "single-owner (one composition root; zero UI-side authority; every decision names its owning registry authority)",
+      "state": "agreeing (durable_jobs terminal on both runtimes; domain stores match the presentations)",
+      "recovery": "typed-preserved (every UNKNOWN/no-answer/not-found/unavailable arm stayed typed end-to-end; finality never asserted over unresolved outcomes)",
+      "evidence": "chain-verified (A15 verifyAndRecord VERIFIED over 48 composed-leg records; the HTTP-leg evidence rows present)",
+      "determinism": "identical-receipts (7 receipts across the seeded double-run)"
+    }
+  }
+}

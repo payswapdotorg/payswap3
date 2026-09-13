@@ -1,0 +1,110 @@
+{
+  "scenario_id": "s11-blockchain-rail-paths",
+  "scenario_name": "blockchain-connected paths where implemented",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "composed-runtime",
+        "surfaces": [
+          "gateway rails.adapter.register / rails.adapter.activate",
+          "the DEP-005 rail-connectivity family (deterministic doubles)"
+        ]
+      },
+      "steps": [
+        {
+          "step": "rails.adapter.register through the gateway",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "rails.adapter.register",
+            "authority": "Rail Authority",
+            "idempotency_key": "sys002.dogfood.composed.rails.register",
+            "subject_ids": []
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.9c0806751646747ed9f330f2735cafdc4c8d0a9e693567e6988ee54c4069cd3d",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 25,
+                "wallMs": 1789321163425
+              }
+            },
+            "jobId": "6db88321-0ee5-452b-986a-1cf21e479bde"
+          }
+        },
+        {
+          "step": "rails.adapter.activate through the gateway",
+          "elapsed_ms": 0,
+          "kind": "gateway-command",
+          "command": {
+            "kind": "rails.adapter.activate",
+            "authority": "Rail Authority",
+            "idempotency_key": "sys002.dogfood.composed.rails.activate",
+            "subject_ids": [
+              "pid.v1.c3efe2c33610ff0de06252da479762a80a0f79f9dd8968ef40fc52ec53fafddb"
+            ]
+          },
+          "admission": {
+            "ok": true,
+            "replayed": false,
+            "created": true,
+            "receipt": {
+              "commandId": "pid.v1.36b172359b4ea284eb5d3b70121d934b5b044ac0bf3451c7e11568353539b89e",
+              "state": "ADMITTED",
+              "outcome": "ADMITTED",
+              "recordedAt": {
+                "sequence": 26,
+                "wallMs": 1789321163427
+              }
+            },
+            "jobId": "e206c315-6651-4b29-8d6d-626916a4e95a"
+          }
+        },
+        {
+          "step": "A13 adapter registered + activated",
+          "elapsed_ms": null,
+          "kind": "gateway-command",
+          "authority_state": [
+            "RailAdapterRecord ACTIVE (A13 — pid.v1.c3efe2c33610ff0de06252da479762a80a0f79f9dd8968ef40fc52ec53fafddb)"
+          ],
+          "durable_evidence": {
+            "store": "rails.sqlite",
+            "row": {
+              "rail_family": "sim-bank",
+              "status": "ACTIVE"
+            }
+          }
+        },
+        {
+          "step": "blockchain rail boundary survey",
+          "elapsed_ms": null,
+          "kind": "sqlite-read",
+          "durable_evidence": {
+            "registered_rail_families": [
+              "sim-bank"
+            ]
+          }
+        }
+      ],
+      "findings": [
+        {
+          "finding": "Blockchain-connected rail paths are NOT-IMPLEMENTED-AT-THIS-LAYER: the repository implements exactly one rail family (sim-bank — the protocol-owned simulated rail) plus the DEP-005 rail-connectivity boundary (the typed transport port + configuration + retry safeguards + activity observability over deterministic in-process doubles). No blockchain rail adapter, address, or network egress exists; real external connectivity is the recorded FUTURE-WORK (components.json future_work). Nothing is fabricated here.",
+          "owning_work_item": "DEP-005 FUTURE-WORK (the externalized production binding)"
+        }
+      ],
+      "result": "PASS"
+    }
+  ]
+}

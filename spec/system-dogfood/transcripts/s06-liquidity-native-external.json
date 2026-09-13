@@ -1,0 +1,89 @@
+{
+  "scenario_id": "s06-liquidity-native-external",
+  "scenario_name": "native and external liquidity",
+  "required": true,
+  "result": "PASS",
+  "revision": {
+    "commit_sha": "e9da03abfa649fbfb88cd344cb95117ad18ddc79",
+    "tree_sha": "bcb654f091c385f4107e29d089e9e20de9742b23"
+  },
+  "environment_class": "sandbox",
+  "drives": [
+    {
+      "boundary": {
+        "leg": "composed-runtime",
+        "surfaces": [
+          "LiquidityAuthority exported APIs",
+          "gateway capability.register",
+          "/liquidity + /oversight (the HTTP leg)"
+        ]
+      },
+      "steps": [
+        {
+          "step": "the A06 pool: native funding recorded",
+          "elapsed_ms": 2,
+          "kind": "authority-command",
+          "authority_state": [
+            "LiquidityPool OPEN (A06) — native INTERNAL_TRANSFER position, available 100.00 USD"
+          ],
+          "durable_evidence": {
+            "pool_id": "sys002-dogfood-pool",
+            "native_position_available": 100000
+          }
+        },
+        {
+          "step": "the A06 external + UNKNOWN pending funding paths",
+          "elapsed_ms": 3,
+          "kind": "authority-command",
+          "authority_state": [
+            "FundingEntry EXTERNAL_RAIL recorded (external liquidity — post-reconciliation confirmation)",
+            "PendingFundingLink RESOLVED_CONFIRMED (the UNKNOWN funding path — pool unchanged until confirmation, GC-2)"
+          ],
+          "durable_evidence": {
+            "external_position_available": 50000,
+            "resolved_pending_available": 25000
+          }
+        },
+        {
+          "step": "A06 native + external + resolved-pending positions",
+          "elapsed_ms": null,
+          "kind": "authority-command",
+          "authority_state": [
+            "LiquidityPool OPEN (A06) — 3 positions, available sum 175000",
+            "PendingFundingLink RESOLVED_CONFIRMED (the UNKNOWN funding path — GC-2)"
+          ],
+          "durable_evidence": {
+            "positions": [
+              {
+                "positionId": "pid.v1.4f93e84c6f3451834146f9e8ca9d08d6b90655b87118b4900e132830e1691b79",
+                "source": "INTERNAL_TRANSFER",
+                "available": 100000
+              },
+              {
+                "positionId": "pid.v1.44da82bebff9b54e2956a7a74baa840c58594a4d44a0418bb7fba498a1f27408",
+                "source": "EXTERNAL_RAIL",
+                "available": 50000
+              },
+              {
+                "positionId": "pid.v1.f2a3837e6e63faa0a86946848ad81350cd80d7f4062d272b37fcce56e1f48b98",
+                "source": "EXTERNAL_RAIL",
+                "available": 25000
+              }
+            ]
+          }
+        },
+        {
+          "step": "provider positions surface",
+          "elapsed_ms": null,
+          "kind": "port-read",
+          "ux_observation": "permitted — 3 liquidity positions presented from the A06 records",
+          "authority_state": [
+            "ProviderPositions permitted (A06 + A07 read surface)"
+          ]
+        }
+      ],
+      "findings": [],
+      "result": "PASS"
+    }
+  ]
+}
