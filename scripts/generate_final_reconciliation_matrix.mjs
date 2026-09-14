@@ -40,7 +40,12 @@
  *   dep008_conditions        the 3 recorded conditions of the Tech Lead's
  *                            DEP-008 approval (system-program-state.json)
  *   lead_disposition_ledger  the 3 Lead-dispositioned non-blocking conditions
- *                            (system-program-state.json frontier — includes
+ *                            (post-closure hygiene: sourced from
+ *                            system-program-state.json postClosure.residualLedger
+ *                            — the frontier is EMPTY at the closed state;
+ *                            legacy pre-hygiene trees sourced it from the
+ *                            frontier array, which the generator still
+ *                            accepts for historical bases; includes
  *                            the DEP-008 release-record orphan)
  *
  * DETERMINISM: the derivation is a pure function of the repository content
@@ -544,9 +549,22 @@ function dep008Conditions(root) {
 
 function leadDispositionLedger(root) {
   const systemState = readJson(root, 'spec/development-state/system-program-state.json');
-  const frontier = systemState.frontier;
-  const entry = frontier.find((s) => s.startsWith('Lead-disposition ledger'));
-  if (!entry) fail('system-program-state frontier does not record the Lead-disposition ledger');
+  // Closure-hygiene contract delta (Lead-applied, post-6114e4e lineage): the
+  // residual surface lives in the explicit POST-CLOSURE section — the machine
+  // frontier is EMPTY at the closed state, so a frontier source would be a
+  // contradiction. Legacy pre-hygiene trees recorded the same entry in the
+  // frontier array; both shapes parse identically (same 3-condition text),
+  // and the row's `source` field records which one was used.
+  const postClosureLedger = Array.isArray(systemState.postClosure?.residualLedger)
+    ? systemState.postClosure.residualLedger
+    : [];
+  const legacyFrontier = Array.isArray(systemState.frontier) ? systemState.frontier : [];
+  const fromPostClosure = postClosureLedger.find((s) => s.startsWith('Lead-disposition ledger')) ?? null;
+  const entry = fromPostClosure ?? legacyFrontier.find((s) => s.startsWith('Lead-disposition ledger')) ?? null;
+  if (!entry) fail('system-program-state records neither a postClosure.residualLedger nor a legacy frontier Lead-disposition ledger');
+  const sourceRef = fromPostClosure !== null
+    ? 'spec/development-state/system-program-state.json#postClosure.residualLedger'
+    : 'spec/development-state/system-program-state.json#frontier';
   const parts = entry.split(/\((\d)\) /).filter(Boolean);
   // parts: [ "Lead-disposition ledger (recorded, non-blocking): ", "1", text1, "2", text2, "3", text3 ]
   if (parts.length !== 7) fail(`Lead-disposition ledger parsed ${parts.length} segments (expected 7)`);
@@ -556,9 +574,9 @@ function leadDispositionLedger(root) {
     const text = parts[i + 1].trim().replace(/;$/, '');
     rows.push({
       id: `LD-${number}`,
-      source: 'spec/development-state/system-program-state.json#frontier',
+      source: sourceRef,
       summary: text,
-      owner: 'Tech Lead (Lead-disposition ledger — recorded, non-blocking)',
+      owner: 'Tech Lead (Lead-disposition ledger — recorded, non-blocking, POST-CLOSURE residual)',
       disposition: `Lead-dispositioned: ${text}`,
       status: 'DISPOSITIONED-NON-BLOCKING',
     });

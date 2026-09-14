@@ -53,9 +53,16 @@
  *                               subject containment); cross-file agreements
  *                               hold; no state file claims an open/blocked
  *                               frontier item that is actually merged (or
- *                               vice versa).
- *   [closure:closure-corpus]   The closure record DRAFT exists with the
- *                               clearly-marked PENDING sign-off block, the
+ *                               vice versa); at the CLOSED state the machine
+ *                               frontier is EMPTY and the residual surface
+ *                               lives in the explicit postClosure section
+ *                               (closure-hygiene hardening — the historical
+ *                               SYS-002 DISPATCHABLE line this gate once
+ *                               tolerated is now a mechanical failure).
+ *   [closure:closure-corpus]   The closure record exists with the
+ *                               clearly-marked sign-off block (PENDING in
+ *                               the worker phase; RECORDED after the Lead
+ *                               finalize), the
  *                               state synchronization proof names the five
  *                               state files, the committed matrix matches the
  *                               live re-derivation, and the corpus index
@@ -565,6 +572,28 @@ await runGroup('closure:state-sync', (group) => {
       !frontierLines.some((line) => line.includes('SYS-003 DISPATCHABLE')),
       'SYS-003 recorded merged — no frontier line still carries the SYS-003 DISPATCHABLE vocabulary (stale)',
     );
+    // Closure-hygiene hardening (Lead-applied contract delta, post-6114e4e
+    // lineage): at the CLOSED state the machine frontier is EMPTY and the
+    // residual surface lives in the explicit postClosure section. The
+    // historical gate tolerated a stale "SYS-002 DISPATCHABLE" frontier line
+    // (only the SYS-003 vocabulary was checked) — exactly the governance
+    // smell the Architect's post-closure review flagged. Mechanical now:
+    // ANY dispatchable-looking machine frontier line at the closed state is
+    // stale state and fails the gate; the residuals must carry POST-CLOSURE
+    // vocabulary in their own section, never frontier vocabulary.
+    group.deepEqual(
+      systemState.frontier,
+      [],
+      'SYS-003 recorded merged — the machine frontier is EMPTY at the closed state (residuals live in postClosure, never as frontier claims)',
+    );
+    group.check(
+      Array.isArray(systemState.postClosure?.residualLedger),
+      'the residual surface lives in the explicit postClosure section (POST-CLOSURE vocabulary, not frontier vocabulary)',
+    );
+    group.check(
+      (systemState.postClosure?.residualLedger ?? []).some((line) => line.startsWith('Lead-disposition ledger')),
+      'the Lead-disposition ledger is recorded as an explicit POST-CLOSURE residual (the honest-handoff source)',
+    );
   } else {
     group.notEqual(
       systemState.status,
@@ -606,7 +635,7 @@ await runGroup('closure:state-sync', (group) => {
 });
 
 // ---------------------------------------------------------------------------
-// Bullet 7 — the closure record DRAFT (the Architect signs it in the Lead
+// Bullet 7 — the closure record (the Architect signs it in the Lead
 // finalize; this gate proves the record, never the approval).
 // ---------------------------------------------------------------------------
 await runGroup('closure:closure-corpus', (group) => {
@@ -818,5 +847,13 @@ if (failure !== null) {
   process.stderr.write(`${HARNESS_NAME}: FAILED — ${failure.message}\n`);
   process.exit(1);
 }
-process.stderr.write(`${HARNESS_NAME}: all closure groups green (every SYS-003 acceptance bullet mechanically proven; the record DRAFT awaits the Lead finalize).\n`);
+// Phase-aware closing message (closure-hygiene contract delta): the record's
+// phase is already machine-read for the verdict's architect_closure field —
+// the closing message must not contradict it with stale DRAFT vocabulary at
+// the closed state.
+process.stderr.write(
+  readText('spec/system-closure/closure-record.md').includes('Architect sign-off: RECORDED (Lead finalize')
+    ? `${HARNESS_NAME}: all closure groups green (every SYS-003 acceptance bullet mechanically proven; the closure record is SIGNED and RECORDED — the closed state is the steady state, and the machine frontier is empty by assertion).\n`
+    : `${HARNESS_NAME}: all closure groups green (every SYS-003 acceptance bullet mechanically proven; the record DRAFT awaits the Lead finalize).\n`,
+);
 process.exit(0);

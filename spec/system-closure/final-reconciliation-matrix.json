@@ -16,8 +16,8 @@
     "status"
   ],
   "generation": {
-    "base_commit": "d29c52968e56e78ed9c90d14ca02a2c81ac52f4e",
-    "base_tree": "0fddd21aa8c75e531d98822065157ce7cea81e3d",
+    "base_commit": "6114e4e491b93dabed57277c56052c9b31ae1314",
+    "base_tree": "f6330aa762fcfd1a905850d67138bdfd531ff636",
     "note": "provenance only — read at generation; the closure gate re-derives every row at run time (ancestor + subject proofs against the live HEAD) and fails closed on divergence. The exact release revision is likewise read at run time by the closure gate — never hand-written."
   },
   "layers": {
@@ -1694,25 +1694,25 @@
     "lead_disposition_ledger": [
       {
         "id": "LD-1",
-        "source": "spec/development-state/system-program-state.json#frontier",
+        "source": "spec/development-state/system-program-state.json#postClosure.residualLedger",
         "summary": "proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness tree; disposition at next governance touch",
-        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking)",
+        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking, POST-CLOSURE residual)",
         "disposition": "Lead-dispositioned: proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness tree; disposition at next governance touch",
         "status": "DISPOSITIONED-NON-BLOCKING"
       },
       {
         "id": "LD-2",
-        "source": "spec/development-state/system-program-state.json#frontier",
+        "source": "spec/development-state/system-program-state.json#postClosure.residualLedger",
         "summary": "web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item",
-        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking)",
+        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking, POST-CLOSURE residual)",
         "disposition": "Lead-dispositioned: web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item",
         "status": "DISPOSITIONED-NON-BLOCKING"
       },
       {
         "id": "LD-3",
-        "source": "spec/development-state/system-program-state.json#frontier",
+        "source": "spec/development-state/system-program-state.json#postClosure.residualLedger",
         "summary": "D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners)",
-        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking)",
+        "owner": "Tech Lead (Lead-disposition ledger — recorded, non-blocking, POST-CLOSURE residual)",
         "disposition": "Lead-dispositioned: D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners)",
         "status": "DISPOSITIONED-NON-BLOCKING"
       }

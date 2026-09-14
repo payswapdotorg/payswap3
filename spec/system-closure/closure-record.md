@@ -1,8 +1,9 @@
-# SYS-003 — the Architect closure record (DRAFT)
+# SYS-003 — the Architect closure record (FINAL)
 
-**Status:** the SYS-003 closure record — SIGNED. The Architect approved,
-merged and finalized the closure state in the Lead finalize (2026-09-13);
-the sign-off block below is RECORDED.
+**Status:** FINAL — SIGNED. The Architect approved, merged and finalized the
+closure state in the Lead finalize (2026-09-13); the sign-off block below is
+RECORDED. (The residual DRAFT-phase vocabulary was removed at the
+closure-hygiene pass; this is the FINAL record.)
 
 **Closure gate:** `scripts/test_system_closure.mjs` — the mechanical proof
 of every acceptance bullet (its `closure-verdict` line is the machine
@@ -52,7 +53,7 @@ the result recorded by the closure gate's `closure-verdict` line (run
 | 4 | SYS-001 and SYS-002 are PASS | `SYS-001`, `SYS-002` (layer `system`) | `closure:sys-programs`: squash merges `6ec6b38`/`967519a` are ancestors of HEAD; the SYS-001 matrix json parses with 8 journeys × 7 hops; the SYS-002 corpus-index parses with 12/12 scenarios PASS and 9 findings | PASS |
 | 5 | Exact release revision is verified | the whole matrix (generation provenance + the gate verdict) | `closure:release-revision`: `git rev-parse HEAD` / `HEAD^{tree}` read from the repo at run time — never hand-written — and recorded in the `closure-verdict` line; the dispatch base verified as an ancestor | PASS |
 | 6 | Protocol, product and system machine state agree with Git history | all 70 rows (69 with recorded merge facts) | `closure:state-sync`: every recorded merge fact in every development-state file proven against Git (ancestor + subject containment); cross-file agreements hold; no stale machine-state claim; the stale spec status lines acknowledged and superseded | PASS |
-| 7 | Architect approves, merges and finalizes the closure state | `SYS-003` (the self row, `CLOSURE-DRAFT`) | `closure:closure-corpus`: this record DRAFT exists with the PENDING sign-off block; the committed matrix matches the live re-derivation; the state synchronization proof and the corpus index exist. **The approval, merge and finalization themselves are the Lead finalize — never claimed by the worker or the gate** | PASS (record DRAFT complete; sign-off PENDING) |
+| 7 | Architect approves, merges and finalizes the closure state | `SYS-003` (the self row, MERGED at the finalize) | `closure:closure-corpus`: this record exists with the clearly-marked sign-off block (PENDING in the worker phase; RECORDED after the Lead finalize); the committed matrix matches the live re-derivation; the state synchronization proof and the corpus index exist. **The approval, merge and finalization themselves are the Lead finalize — never claimed by the worker or the gate** | PASS (record FINAL; sign-off RECORDED) |
 
 ## The exact release revision
 
@@ -121,11 +122,46 @@ the gate groups and the cited artifacts):
 | Stop condition | Checked | Result |
 |---|---|---|
 | any unresolved cross-layer authority discrepancy | the SYS-001 reconciliation matrix (8 journeys × 7 hops, one composition root, the sole admission point) + the SYS-002 consistency dimensions (authority: single-owner; zero UI-side authority) + the `closure:sys-programs` group | **NOT TRIGGERED** — no unresolved discrepancy; the recorded registry/binding vocabulary gaps are SYS-002 findings with named owners and compensating evidence |
-| stale state | the `closure:state-sync` group — every recorded merge fact in every development-state file proven against Git; SYS-003 not recorded merged while live; the stale spec status lines (the `**Status:** BLOCKED` lines in SYS-001/SYS-002/SYS-003/DEP-008 work orders) acknowledged and superseded by this record; the one recorded machine datum (the release-record orphan) carries its Lead disposition | **NOT TRIGGERED** — no unacknowledged stale machine state; the stale `**Status:** BLOCKED` spec lines are superseded by this record (see the state synchronization proof's stale-line supersession section) |
+| stale state | the `closure:state-sync` group — every recorded merge fact in every development-state file proven against Git; SYS-003 not recorded merged while live; the stale spec status lines (the `**Status:** BLOCKED` lines in SYS-001/SYS-002/SYS-003/DEP-008 work orders) acknowledged and superseded by this record; the one recorded machine datum (the release-record orphan) carries its Lead disposition | **NOT TRIGGERED** — no unacknowledged stale machine state; the stale `**Status:** BLOCKED` spec lines were superseded by this record and finalized to their true MERGED status at the closure-hygiene pass (see the state synchronization proof's stale-line supersession section) |
 | unsupported production claim | the sandbox-environment disclaimer (above) + the DEP-008 contract's hard boundary (production-readiness.md §1, F8) + the SYS-002 corpus's own disclaimer + the closure gate's `sandbox_class` verdict field | **NOT TRIGGERED** — every production claim is gated on the DEP-002+ production deployment binding; nothing in this corpus claims production financial behavior |
-| missing evidence | the required-evidence set: final reconciliation matrix ✓ (machine-generated, live-verified); end-to-end dogfood transcript ✓ (`spec/system-dogfood/` — 12 scenario transcripts + run manifest); production-readiness transcript ✓ (`deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md`); state synchronization proof ✓ (this corpus); Architect closure record ✓ (this DRAFT — the sign-off is PENDING by design, the Lead finalize) | **NOT TRIGGERED** — every required artifact exists and is mechanically bound to the closure gate |
+| missing evidence | the required-evidence set: final reconciliation matrix ✓ (machine-generated, live-verified); end-to-end dogfood transcript ✓ (`spec/system-dogfood/` — 12 scenario transcripts + run manifest); production-readiness transcript ✓ (`deploy/promotions/DEP-008-READINESS-TRANSCRIPT.md`); state synchronization proof ✓ (this corpus); Architect closure record ✓ (this record, FINAL — the sign-off is RECORDED by the Lead finalize) | **NOT TRIGGERED** — every required artifact exists and is mechanically bound to the closure gate |
 | unsafe recovery behavior | the DEP-008 proof groups (failure-injection, backup-restore-queue-recovery, unknown-reconciliation, external-effect-safety — all recorded in the readiness transcript) + the SYS-002 recovery dimension (typed-preserved; UNKNOWN never translated; finality never asserted over unresolved outcomes) | **NOT TRIGGERED** — unsafe-retry and environment-crossing stop conditions were checked NOT TRIGGERED by the DEP-008 harness; UNKNOWN handling preserved end-to-end in the dogfood |
 | protocol-v0.1 contradiction | the `closure:protocol-frozen` group (empty frontier, frozen directory, governance 17/17) + the freeze rules (README, system-architecture.md: "no layer may… infer production readiness"; SYS-001/SYS-002/SYS-003 introduce no protocol semantics) | **NOT TRIGGERED** — the protocol is frozen and unamended; no layer created a competing authority; no product version label created a protocol v0.2 |
+
+## Post-closure governance (recorded at the closure-hygiene pass)
+
+The Architect's post-closure review of the merged repository state confirmed
+the closure and directed one final governance pass. Recorded here as the
+standing contract for anything that touches this corpus after closure:
+
+1. **Authority chain (future closures).** The governed flow is
+   **worker PREPARES the closure → Tech Lead VERIFIES it → Architect
+   EXPLICITLY APPROVES → Tech Lead finalizes after that approval.** For this
+closure the approval, merge and finalization were performed in the Lead
+finalize, and the Architect's post-closure review (which directed this
+hygiene pass) confirmed it after the fact; future closures must record the
+Architect's explicit approval BEFORE the finalize, never as part of it.
+2. **Unambiguous end-state (machine state).** The final machine state is
+   normalized: `system-program-state.json` records `status: closed` with an
+   EMPTY `frontier`; the residual surface (the Lead-disposition ledger, the
+   named deferrals, the Composio infrastructure truth) lives in the explicit
+   `postClosure` section — POST-CLOSURE vocabulary, never frontier
+   vocabulary. The closure gate now asserts these invariants mechanically
+   (the historical tolerance for a stale "SYS-002 DISPATCHABLE" frontier
+   line was a gate defect; it is fixed and recorded).
+3. **Residual truth is POST-CLOSURE, not hidden.** RTN wave-2 (A17–A24),
+   the blockchain-rails deferral, the registry/binding vocabulary gaps, the
+   DEP-008 release-record orphan, the route-surface hygiene item and the
+   product D-4..D-9 deferrals all carry recorded owners and dispositions
+   (the honest-handoff ledger) and constitute the architectural backlog
+   AFTER closure — entered only through the Architecture Change Request
+   process or their named owners.
+4. **Repository completion ≠ production deployment.** This closure proves
+   the REPOSITORY system only. The production deployment binding (DEP-002+)
+   is NOT CONNECTED (recorded Composio truth: only GitHub connected); no
+   production financial claim may be derived from this corpus or from
+   repository-level completion. That distinction is permanent vocabulary for
+   every future handoff.
 
 ---
 
@@ -163,18 +199,18 @@ the gate groups and the cited artifacts):
 >   and remains a RUN-TIME read (`node scripts/test_system_closure.mjs`
 >   re-derives the whole verdict at any future HEAD).
 
-**Worker attestation (SYS-003 dispatch):**
+**Worker attestation (SYS-003 dispatch — the sign-off boundary):**
 
 > **This block is the sign-off block.** The Architect's approval, the merge,
 > and the post-merge finalization (including the state-file updates
 > recording SYS-003 merged and SYSTEM COMPLETE, and the matrix regeneration
 > at the finalize revision) are the Lead finalize — they are NOT claimed by
-> this draft, by the worker, or by the closure gate. The gate's
+> this record, by the worker, or by the closure gate. The gate's
 > `closure-verdict` line at the finalize revision is the mechanical record
 > the sign-off composes over.
 
 **Worker attestation (SYS-003 dispatch):** the seven acceptance bullets are
-mechanically green at this draft (`node scripts/test_system_closure.mjs` —
+mechanically green at this record (`node scripts/test_system_closure.mjs` —
 `closure-verdict` `passed: true`); the evidence battery (governance 17/17,
 deployment-contract PASS, typecheck 0 errors, build green, the harness
 battery including the closure gate) was run and captured at the dispatch

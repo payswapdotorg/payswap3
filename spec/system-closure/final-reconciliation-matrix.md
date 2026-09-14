@@ -16,8 +16,8 @@ honesty, not an open defect; a missing disposition is a stop condition.
 
 ## Generation provenance
 
-- base commit (HEAD at generation): `d29c52968e56e78ed9c90d14ca02a2c81ac52f4e`
-- base tree: `0fddd21aa8c75e531d98822065157ce7cea81e3d`
+- base commit (HEAD at generation): `6114e4e491b93dabed57277c56052c9b31ae1314`
+- base tree: `f6330aa762fcfd1a905850d67138bdfd531ff636`
 - provenance only — read at generation; the closure gate re-derives every row at run time (ancestor + subject proofs against the live HEAD) and fails closed on divergence. The exact release revision is likewise read at run time by the closure gate — never hand-written.
 
 ## Layer 1 — protocol (frozen v0.1 authoring surface: WORK-001..WORK-033)
@@ -172,9 +172,9 @@ honesty, not an open defect; a missing disposition is a stop condition.
 
 | id | summary | owner | disposition | status |
 | --- | --- | --- | --- | --- |
-| LD-1 | proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a ful… | Tech Lead (Lead-disposition ledger — recorded, non-blocking) | Lead-dispositioned: proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness t… | DISPOSITIONED-NON-BLOCKING |
-| LD-2 | web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item | Tech Lead (Lead-disposition ledger — recorded, non-blocking) | Lead-dispositioned: web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item | DISPOSITIONED-NON-BLOCKING |
-| LD-3 | D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners) | Tech Lead (Lead-disposition ledger — recorded, non-blocking) | Lead-dispositioned: D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners) | DISPOSITIONED-NON-BLOCKING |
+| LD-1 | proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a ful… | Tech Lead (Lead-disposition ledger — recorded, non-blocking, POST-CLOSURE residual) | Lead-dispositioned: proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness t… | DISPOSITIONED-NON-BLOCKING |
+| LD-2 | web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item | Tech Lead (Lead-disposition ledger — recorded, non-blocking, POST-CLOSURE residual) | Lead-dispositioned: web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item | DISPOSITIONED-NON-BLOCKING |
+| LD-3 | D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners) | Tech Lead (Lead-disposition ledger — recorded, non-blocking, POST-CLOSURE residual) | Lead-dispositioned: D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners) | DISPOSITIONED-NON-BLOCKING |
 
 ## Totals
 

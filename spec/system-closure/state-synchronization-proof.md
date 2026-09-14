@@ -96,17 +96,20 @@ dispositions.
 
 ## 4. `spec/development-state/system-program-state.json`
 
-**What it claims.** `status: ready` (the completion program's frontier is
-the final closure); `deploymentProgress` records DEP-001..DEP-008, SYS-001
-and SYS-002 each `merged <sha> (PR #N)`; `rtnWave.mergeRecord` records
-RTN-001..RTN-012 (status complete, DEP-004 gate SATISFIED);
-`bootstrap.merged` records ARCH-001/PROD-001/GOV-001;
+**What it claims.** `status: closed` (normalized at the closure-hygiene
+pass); the machine `frontier` is EMPTY (nothing dispatchable — the program
+graph is closed); the explicit `postClosure` section records the residual
+surface with POST-CLOSURE vocabulary — the Lead-disposition ledger
+(release-record orphan; route-surface hygiene; D-4..D-9 ownership), the
+named deferrals (RTN wave-2 A17–A24; blockchain rails; the product
+D-4..D-9 ownership pointer), the Composio infrastructure truth (only GitHub
+connected; the production deployment binding remains FUTURE-WORK) and the
+future-closure authority boundary; `deploymentProgress` records
+DEP-001..DEP-008, SYS-001, SYS-002 and SYS-003 each `merged <sha> (PR #N)`;
+`rtnWave.mergeRecord` records RTN-001..RTN-012 (status complete, DEP-004
+gate SATISFIED); `bootstrap.merged` records ARCH-001/PROD-001/GOV-001;
 `mergedGovernanceRevision` records the GOV-001 merge; the `activeWork`
-ledger records the DEP-008 acceptance with its three conditions; the
-`frontier` records SYS-003 as the only remaining dispatchable item, the
-Lead-disposition ledger (release-record orphan; route-surface hygiene;
-D-4..D-9 ownership), and the Composio infrastructure truth (only GitHub
-connected; the production deployment binding remains FUTURE-WORK).
+ledger records the DEP-008 acceptance with its three conditions.
 
 **What Git history shows.** Every recorded merge fact — 8 DEP items, 2 SYS
 items, 12 RTN items, 3 bootstrap items, the merged governance revision —
@@ -114,14 +117,17 @@ resolves and is an ancestor of HEAD with subject containment (the
 `closure:state-sync` and `closure:deployment-final` groups prove each one
 live; the matrix's 69 rows with recorded merge facts are the full
 enumeration). `mergedGovernanceRevision` (40b20ae…) agrees with the GOV-001
-bootstrap entry. SYS-003 is not recorded merged anywhere — accurate, because
-this closure IS SYS-003 (the `sys003RecordedMerged === false` assertion
-holds; a premature "merged" claim would be stale state and would FAIL the
-gate).
+bootstrap entry. SYS-003 is recorded merged (`90ef909`, PR #42) and proven
+an ancestor of HEAD — the finalize flow; the closure gate's phase-aware
+state-sync assertions (the 6114e4e contract delta, hardened at the
+closure-hygiene pass) hold in BOTH directions: no premature "merged" claim
+pre-finalize, and no stale frontier/dispatchable vocabulary post-finalize
+(the machine frontier is EMPTY by mechanical assertion).
 
-**Reconciliation result.** **AGREES.** All recorded merge facts proven; the
-frontier's dispatchability claim for SYS-003 is consistent with the live
-branch state; cross-file references resolve.
+**Reconciliation result.** **AGREES.** All recorded merge facts proven
+(70/70 rows with recorded merges in the final matrix); the machine state at
+the closed state is unambiguous — empty frontier, explicit POST-CLOSURE
+residuals; cross-file references resolve.
 
 **Residual deltas (recorded, dispositioned — not blockers).**
 
@@ -137,13 +143,16 @@ branch state; cross-file references resolve.
    recorded, that the content-carrying merge is an ancestor, and that the
    honest-handoff ledger carries the orphan row with its owner and
    disposition (closed-out honesty).
-2. **The stale spec status lines.** The work-order status lines
-   (`spec/system-work-orders/SYS-001.md` / `SYS-002.md` / `SYS-003.md` /
-   `DEP-008.md` all read `**Status:** BLOCKED`) are dispatch-time lines that
-   went stale when their dependencies merged. The SYS-003 dispatch supersedes
-   its own line explicitly; the closure record supersedes the rest and says
-   so. These are spec-prose staleness, not machine-state staleness — the
-   machine state files contain no such contradiction.
+2. **The stale spec status lines (RESOLVED at the closure-hygiene pass).**
+   The work-order status lines (`spec/system-work-orders/SYS-001.md` /
+   `SYS-002.md` / `SYS-003.md` / `DEP-006.md` / `DEP-007.md` / `DEP-008.md`
+   read `**Status:** BLOCKED`; `DEP-004.md` / `DEP-005.md` read
+   `**Status:** PLANNED (dispatchable…)`) were dispatch-time lines that went
+   stale when their dependencies merged. The closure record superseded them;
+   the closure-hygiene pass then finalized every line to its true
+   `**Status:** MERGED — <sha> (PR #N)` state, matching the DEP-001..003
+   pattern. This residual is CLOSED: no work order in the repository
+   carries BLOCKED/PLANNED-dispatchable vocabulary at the closed state.
 3. **The route-surface hygiene item.** `web-api-boundary.route_surface`
    records only the boundary's own routes (pre-existing product routes never
    recorded) — a recorded contract-hygiene item in the Lead-disposition
@@ -178,15 +187,26 @@ anchored by ARCH-001, 3 bootstrap, 12 RTN, 11 UI, 8 DEP, 2 SYS) is in
 `spec/system-closure/final-reconciliation-matrix.json`, every row carrying
 its ancestor-of-HEAD and subject-containment proofs. The residual deltas are
 the three recorded, dispositioned conditions above (the release-record orphan
-with its Lead disposition; the stale spec status lines superseded by the
-closure record; the route-surface hygiene item) — none is an unresolved
+with its Lead disposition; the stale spec status lines superseded and
+finalized at the closure-hygiene pass; the route-surface hygiene item) — none is an unresolved
 cross-layer authority discrepancy, and none is unacknowledged machine-state
 staleness.
 
 **Stale-line supersession, stated explicitly:** the `**Status:** BLOCKED`
-lines in `spec/system-work-orders/SYS-001.md`, `SYS-002.md`, `SYS-003.md`
-and `DEP-008.md` are stale (all four items are merged/dispatched); the
-SYS-003 dispatch supersedes the SYS-003 line, and this closure record
-(`spec/system-closure/closure-record.md`) supersedes the set. The machine
-state files themselves contain no stale merge facts — proven above and
-asserted by `closure:state-sync`.
+lines in `spec/system-work-orders/SYS-001.md`, `SYS-002.md`, `SYS-003.md`,
+`DEP-006.md`, `DEP-007.md` and `DEP-008.md` (and the `PLANNED
+(dispatchable…)` lines in `DEP-004.md` / `DEP-005.md`) were stale (all items
+merged); this closure record (`spec/system-closure/closure-record.md`)
+superseded the set, and the closure-hygiene pass finalized every line to its
+true MERGED state — the supersession is now executed, not merely declared.
+The machine state files themselves contain no stale merge facts — proven
+above and asserted by `closure:state-sync`.
+
+**Closure-hygiene pass (Lead finalize lineage, post-6114e4e):** this
+proof's §4 narrative was refreshed to the CLOSED state at the same pass
+that normalized the machine state (frontier emptied → explicit postClosure
+section; work-order status lines finalized; closure-record vocabulary
+FINAL/SIGNED). The final reconciliation matrix was regenerated at the
+normalized state and the closure gate re-derives every claim in this
+document mechanically — including the new closed-state invariants (empty
+machine frontier; POST-CLOSURE residual section present).

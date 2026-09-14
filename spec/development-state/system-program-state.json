@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "program": "payswap3-system-completion",
-  "status": "ready",
+  "status": "closed",
   "sourceOfTruth": "repository",
   "protocol": {
     "architecture": "v0.1",
@@ -32,7 +32,7 @@
     "SYS-003 MERGED (90ef909, PR #42) — SYSTEM COMPLETE: the Architect signed the closure record in the Lead finalize (matrix regenerated at the merge revision; state synchronized; honest-handoff ledger 24 rows with zero missing dispositions). The PaySwap three-layer system completion program is CLOSED."
   ],
   "mergedGovernanceRevision": "40b20aedd4e7409b7ac2ecda0973426722c38538",
-  "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001). Product program CLOSED (UI-010, PR #35): the deferral ledger (spec/product/closure/deferral-ledger.md) is the product layer's honest handoff — D-2 (UI-011 splice unreachable by routes) and D-3 (drain() halts worker) ELEVATE SYS-001's transport-binding urgency; fold both into the SYS-001 HTTP binding remediation. SYSTEM COMPLETE (SYS-003 merged 90ef909, PR #42; Architect closure signed). The roadmap is closed; any post-closure work enters through the Architecture Change Request process or the recorded deferral owners.",
+  "note": "Wave-1 bootstrap COMPLETE; wave-2 product shell merged (UI-001). Product program CLOSED (UI-010, PR #35): the deferral ledger (spec/product/closure/deferral-ledger.md) is the product layer's honest handoff — D-2 (UI-011 splice unreachable by routes) and D-3 (drain() halts worker) ELEVATE SYS-001's transport-binding urgency; fold both into the SYS-001 HTTP binding remediation. SYSTEM COMPLETE (SYS-003 merged 90ef909, PR #42; Architect closure signed). The roadmap is closed; any post-closure work enters through the Architecture Change Request process or the recorded deferral owners. The machine state was normalized at the closure-hygiene pass (Lead finalize lineage, post-6114e4e): the frontier is EMPTY at the closed state and the residual surface lives in the explicit postClosure section — never as frontier claims.",
   "bootstrap": {
     "wave": 1,
     "status": "COMPLETE",
@@ -86,10 +86,20 @@
     },
     "note": "All 12 work orders merged and independently verified by the Tech Lead (verification batteries in each PR). Composed golden path proven end-to-end in scripts/test_protocol_composed_journey.mjs (49-record chain VERIFIED). Wave-2 (A17-A24) remains a named deferral."
   },
-  "frontier": [
-    "SYS-002 DISPATCHABLE (full-system dogfood; SYS-001 merged — the product app now composes the real runtime in-process, so the dogfood runs on the reconciled three-architecture stack)",
-    "SYS-003 closure after SYS-002 (final closure wave: README/state reconciliation, end-state audit)",
-    "Lead-disposition ledger (recorded, non-blocking): (1) proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness tree; disposition at next governance touch; (2) web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item; (3) D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners)",
-    "Composio infrastructure truth unchanged: ONLY GitHub connected — production deployment binding remains FUTURE-WORK (DEP-002+) until operator connects providers"
-  ]
+  "frontier": [],
+  "postClosure": {
+    "status": "POST-CLOSURE — the program graph is closed; NOTHING in this section is open frontier work. Each entry is a recorded residual/handoff with its owner and disposition (closed-out honesty, not an open defect; a missing disposition would be a stop condition — the closure gate asserts zero).",
+    "residualLedger": [
+      "Lead-disposition ledger (recorded, non-blocking): (1) proof:release-identity orphan — the DEP-008 release record freezes revision ed673d7 orphaned by PR #39's squash-merge; a fresh promote.mjs record requires a fully-green readiness tree; disposition at next governance touch; (2) web-api-boundary.route_surface records only the boundary's own routes — pre-existing product routes never recorded; contract-hygiene item; (3) D-4..D-9 deferral-ledger items owned by their named work items (UI-007/UI-008/shell/RTN wave 2/Tech Lead one-liners)",
+      "Composio infrastructure truth unchanged: ONLY GitHub connected — production deployment binding remains FUTURE-WORK (DEP-002+) until operator connects providers"
+    ],
+    "namedDeferrals": [
+      "RTN wave-2 (A17–A24) — the recorded named deferral (rtn-plan-rulings delta 2); owner: a future governed RTN wave-2 program, entered via the Architecture Change Request process",
+      "Blockchain rails — NOT-IMPLEMENTED-AT-THIS-LAYER, recorded honestly in the SYS-002 dogfood corpus; owner: the DEP-005 FUTURE-WORK external-rail surface",
+      "Product deferral ledger D-4..D-9 — owned by their named work items (spec/product/closure/deferral-ledger.md is the authoritative ledger)",
+      "Registry/binding vocabulary gaps — the SYS-002 dogfood findings with named owners and compensating evidence (spec/system-dogfood/corpus-index.json)"
+    ],
+    "authorityBoundary": "Post-closure changes enter ONLY through the Architecture Change Request process or the recorded deferral owners. Future closures follow the explicit authority chain — the worker PREPARES the closure, the Tech Lead VERIFIES it, the Architect EXPLICITLY APPROVES, and only then does the Tech Lead finalize after that approval. Repository/program completion never implies production deployment: production claims stay gated on the DEP-002+ production deployment binding, which is NOT CONNECTED (recorded Composio truth: only GitHub connected).",
+    "hygienePass": "Machine state normalized at the closure-hygiene pass (Lead finalize lineage, post-6114e4e): the contradictory historical frontier entries (SYS-002 DISPATCHABLE / SYS-003 closure after SYS-002) were removed — the frontier is EMPTY at the closed state and the residual surface lives in this section, explicitly POST-CLOSURE; the work-order status lines were finalized to their true MERGED state; the closure-record DRAFT vocabulary was removed (FINAL/SIGNED). The closure gate was hardened to assert the closed-state invariants mechanically."
+  }
 }
