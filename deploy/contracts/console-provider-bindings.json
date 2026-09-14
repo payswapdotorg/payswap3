@@ -83,11 +83,11 @@
     {
       "provider": "vercel",
       "role": "runtime host (the production runtime platform the deployment contract anticipates for the web-api-boundary package)",
-      "binding_status": "UNBOUND",
-      "evidence_reference": null,
-      "verification_timestamp": null,
-      "provenance": null,
-      "requirement": "Live provider evidence from the actual connected integration must precede any production hosting claim (design §15; environments.md production_gate; ci-cd.md §1.3 production deployment binding is FUTURE-WORK). No account, project, deployment or domain exists in any repository record."
+      "binding_status": "CONNECTED",
+      "evidence_reference": "spec/deployment/live-deployment-record.md",
+      "verification_timestamp": "2026-09-14",
+      "provenance": "LIVE provider evidence, attached by the post-closure deployment program (the governed no_fake_bindings flip): the operator's live Vercel token authenticated user ekonplacide-5312 (team ekonplacidegmailcoms-projects, 18 pre-existing projects — none named payswap3); the dedicated project payswap3 (prj_KKNoN9qidIiPm6EKCf2PE9uhgvrk) was created for this repository; deployment dpl_ExywTQ2y3XeFjajLD9QpJKmGpp9G was built from Git (gitSource sha c8d8ab12ffe07f62ac3c8f0faf19386583d38ace, ref deploy/serverless-runtime-dir of the payswap3 fork, PR #50 open to payswapdotorg/payswap3) and reached READY 2026-09-14; the production domain payswap3.vercel.app serves the application with /api/health 200 and the full browser verification recorded in the evidence reference (operator console navigation, role isolation, honest UNKNOWN, mobile 390px, zero 5xx).",
+      "requirement": "The Vercel connection evidence is live-hosting truth for the SANDBOX dogfood deployment — it is NOT a console runtime binding and NOT a production deployment binding: the console ships inside the single web-api-boundary package (no console-specific runtime exists), the live instance runs environment sandbox with zero production provider configuration, and production promotion remains gated by the D-DEPLOY-01 repository-binding row and the production gates (database/queue/cloudflare/observability remain UNBOUND)."
     },
     {
       "provider": "database",

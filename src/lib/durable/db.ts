@@ -3,8 +3,10 @@
  *
  * Opens the durable database through Node's built-in `node:sqlite`
  * (DatabaseSync — zero npm dependencies) at the path configured by
- * PAYSWAP_DURABLE_DB (default: `var/durable.sqlite`, created on demand,
- * never committed). Applies the crash-safety pragmas
+ * PAYSWAP_DURABLE_DB (default: `<PAYSWAP_RUNTIME_DIR>/durable.sqlite` —
+ * var/durable.sqlite when the runtime-state root override is unset or
+ * invalid; created on demand, never committed). Applies the
+ * crash-safety pragmas
  * (journal_mode=WAL, synchronous=FULL, busy_timeout) and then applies any
  * pending migrations from `deploy/migrations`:
  *   - applied in ascending filename order (numeric prefix must be strictly
@@ -20,7 +22,7 @@
  */
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import type { StatementSync } from 'node:sqlite';
 
@@ -33,10 +35,47 @@ export const DURABLE_DB_ENV_VAR = 'PAYSWAP_DURABLE_DB';
 /** Environment variable that overrides the migrations directory location. */
 export const DURABLE_MIGRATIONS_ENV_VAR = 'PAYSWAP_MIGRATIONS_DIR';
 
+/**
+ * Environment variable overriding the runtime-state root (the `var/`
+ * equivalent) the DEFAULT database location derives from — see
+ * resolveRuntimeRoot(). An explicit PAYSWAP_DURABLE_DB still wins over
+ * this default.
+ */
+export const RUNTIME_ROOT_ENV_VAR = 'PAYSWAP_RUNTIME_DIR';
+
+/**
+ * The runtime-state root (the `var/` equivalent) the default durable
+ * database location derives from. Deployed read-only-filesystem hosts
+ * (serverless functions: cwd is not writable) point this at a writable
+ * directory through PAYSWAP_RUNTIME_DIR — e.g. /tmp/payswap-runtime.
+ *
+ * Contract (the environment.ts fail-safe pattern — an invalid value never
+ * crashes, it degrades to the documented default): the override is honored
+ * only when it is a NON-EMPTY ABSOLUTE path; unset, empty, or relative
+ * values are invalid and fail-safe to `join(process.cwd(), 'var')` — the
+ * exact pre-existing default, so default behavior is unchanged. This is
+ * the same resolution src/lib/protocol/server-runtime.ts applies to its
+ * runtime-artifact directory (duplicated deliberately: no shared module).
+ *
+ * This is a runtime-STATE root only: state written there is per-instance
+ * ephemeral when the override targets an instance-local directory (the
+ * recorded non-durable serverless residual — no durability is claimed).
+ */
+function resolveRuntimeRoot(): string {
+  const fromEnv = process.env[RUNTIME_ROOT_ENV_VAR];
+  if (typeof fromEnv === 'string' && fromEnv.trim().length > 0 && isAbsolute(fromEnv.trim())) {
+    return fromEnv.trim();
+  }
+  return join(process.cwd(), 'var');
+}
+
 export interface DurableDatabaseOptions {
   /**
    * Filesystem path of the SQLite database file.
-   * Default: PAYSWAP_DURABLE_DB environment variable, else `var/durable.sqlite`.
+   * Default: PAYSWAP_DURABLE_DB environment variable, else
+   * `<PAYSWAP_RUNTIME_DIR>/durable.sqlite` (see resolveRuntimeRoot; the
+   * documented default var/durable.sqlite when the override is unset or
+   * invalid).
    * `:memory:` is accepted for experiments only (not durable, WAL unavailable).
    */
   dbPath?: string;
@@ -94,7 +133,7 @@ export function getDurableDbPath(): string {
   const raw =
     typeof fromEnv === 'string' && fromEnv.trim().length > 0
       ? fromEnv.trim()
-      : DEFAULT_DURABLE_DB_PATH;
+      : join(resolveRuntimeRoot(), 'durable.sqlite');
   return raw === ':memory:' ? raw : resolve(raw);
 }
 

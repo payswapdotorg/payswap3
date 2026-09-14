@@ -656,8 +656,8 @@ async function groupProviderBindingHonesty(group) {
   const connected = rows.filter((row) => row.binding_status === 'CONNECTED');
   group.setEqual(
     connected.map((row) => row.provider),
-    ['github'],
-    'exactly the recorded truth: github is the only CONNECTED provider',
+    ['github', 'vercel'],
+    'exactly the recorded truth: github (recorded CI-hosting) and vercel (live sandbox-hosting evidence, the post-closure 2026-09-14 governed flip)',
   );
   for (const row of connected) {
     group.check(
@@ -667,9 +667,15 @@ async function groupProviderBindingHonesty(group) {
     const evidencePath = join(ROOT, row.evidence_reference);
     group.check(existsSync(evidencePath), `${row.provider} evidence file exists (${row.evidence_reference})`);
     const evidenceText = readText(evidencePath);
+    // Each CONNECTED provider's evidence file must record THAT provider's
+    // connection truth (the post-closure vercel flip attaches live hosting
+    // evidence; github's evidence keeps its recorded-truth statement).
+    const connectionTruth = row.provider === 'vercel'
+      ? /payswap3\.vercel\.app/i
+      : /only github is connected/i;
     group.check(
-      /only github is connected/i.test(evidenceText),
-      `${row.provider} evidence file records the connection truth ("only GitHub is connected")`,
+      connectionTruth.test(evidenceText),
+      `${row.provider} evidence file records the connection truth ("${row.provider === 'vercel' ? 'the live payswap3.vercel.app deployment' : 'only GitHub is connected'}")`,
     );
     group.check(
       typeof row.verification_timestamp === 'string' &&
@@ -701,8 +707,8 @@ async function groupProviderBindingHonesty(group) {
   const unbound = rows.filter((row) => row.binding_status === 'UNBOUND');
   group.setEqual(
     unbound.map((row) => row.provider),
-    ['vercel', 'database', 'queue', 'cloudflare', 'observability'],
-    'vercel/database/queue/cloudflare/observability are all recorded UNBOUND',
+    ['database', 'queue', 'cloudflare', 'observability'],
+    'database/queue/cloudflare/observability are all recorded UNBOUND (vercel flipped to CONNECTED with live evidence 2026-09-14)',
   );
   for (const row of unbound) {
     group.equal(row.evidence_reference, null, `${row.provider} UNBOUND records a null evidence reference`);

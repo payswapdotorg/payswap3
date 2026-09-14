@@ -48,13 +48,15 @@
  *
  * Durable state: the per-domain SQLite stores live under
  * var/web-runtime/ (the repo's runtime-artifact directory, gitignored),
- * mirroring the composed journey harness's per-domain stores. The worker
- * auto-polls the durable command path (gateway → queue → worker →
+ * mirroring the composed journey harness's per-domain stores — or under
+ * <PAYSWAP_RUNTIME_DIR>/web-runtime/ on hosts whose cwd is read-only
+ * (serverless: the runtime-state root override, resolveRuntimeRoot). The
+ * worker auto-polls the durable command path (gateway → queue → worker →
  * transition runtime → owning authority — the single-writer discipline).
  */
 
 import { mkdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { isAbsolute, join } from 'node:path';
 
 import { ProtocolGateway, commandQueuePortFromDurableQueue } from '../protocol-runtime/gateway/admission.ts';
 import { createEvidenceLog } from '../protocol-runtime/evidence/log.ts';
@@ -117,8 +119,43 @@ import { createRuntimeWaitingAdapter } from './runtime-waiting-adapter';
 import { createRuntimeLiquidityPortFactory } from './runtime-liquidity-adapter';
 import { createRuntimeMediationAdapter } from './runtime-mediation-adapter';
 
-/** The runtime-artifact directory for the web app's composed runtime. */
-const RUNTIME_DIR = join(process.cwd(), 'var', 'web-runtime');
+/**
+ * Environment variable overriding the runtime-state root (the `var/`
+ * equivalent) — see resolveRuntimeRoot().
+ */
+export const RUNTIME_ROOT_ENV_VAR = 'PAYSWAP_RUNTIME_DIR';
+
+/**
+ * The runtime-state root (the `var/` equivalent) that the composed runtime
+ * writes its SQLite state under. Deployed read-only-filesystem hosts
+ * (serverless functions: cwd is not writable) point this at a writable
+ * directory through PAYSWAP_RUNTIME_DIR — e.g. /tmp/payswap-runtime.
+ *
+ * Contract (the environment.ts fail-safe pattern — an invalid value never
+ * crashes, it degrades to the documented default): the override is honored
+ * only when it is a NON-EMPTY ABSOLUTE path; unset, empty, or relative
+ * values are invalid and fail-safe to `join(process.cwd(), 'var')` — the
+ * exact pre-existing default, so default behavior is unchanged.
+ *
+ * This is a runtime-STATE root only: state written there is per-instance
+ * ephemeral when the override targets an instance-local directory (the
+ * recorded non-durable serverless residual — no durability is claimed).
+ */
+export function resolveRuntimeRoot(): string {
+  const fromEnv = process.env[RUNTIME_ROOT_ENV_VAR];
+  if (typeof fromEnv === 'string' && fromEnv.trim().length > 0 && isAbsolute(fromEnv.trim())) {
+    return fromEnv.trim();
+  }
+  return join(process.cwd(), 'var');
+}
+
+/**
+ * The runtime-artifact directory for the web app's composed runtime,
+ * resolved at composition time (not import time) from the runtime root.
+ */
+export function resolveRuntimeDir(): string {
+  return join(resolveRuntimeRoot(), 'web-runtime');
+}
 
 /**
  * The process-global composition slot (SYS-001 D-2). Turbopack compiles
@@ -206,10 +243,12 @@ export async function wireProductPortsToProtocolRuntime(): Promise<void> {
 /**
  * The composition itself (SYS-001: extracted from the old registration
  * path so the globalThis slot can hold exactly one boot per process).
- * Runs the barrel's documented order over var/web-runtime/ and returns the
- * handle. Called exactly once per process (compositionSlot).
+ * Runs the barrel's documented order over the resolved runtime-artifact
+ * directory (var/web-runtime/ by default — see resolveRuntimeDir) and
+ * returns the handle. Called exactly once per process (compositionSlot).
  */
 async function composeProtocolRuntime(): Promise<ProtocolRuntimeHandle> {
+  const RUNTIME_DIR = resolveRuntimeDir();
   mkdirSync(RUNTIME_DIR, { recursive: true });
   const wallClock = () => Date.now();
 
