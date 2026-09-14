@@ -2,7 +2,7 @@
 
 **Program:** `payswap-developer-console`
 
-**Status:** IN IMPLEMENTATION — PC-006 merged (+ fourth-surface provenance flip); PC-007 released
+**Status:** AWAITING ARCHITECT APPROVAL — implementation complete (PC-001..PC-007 merged); closure decision with the Architect
 
 **Architecture baseline:** `4f973c92d7534a13854dfa4468bfa3a72dd14756`
 
@@ -30,10 +30,10 @@ PC-002  MERGED — de52ceed4b9e35db3f69de4af751b3e6d10148c9 (PR #44)   PC-003  M
         PC-006  MERGED — 8a326af35ccec984adab6343696c33b8236d3b32 (PR #48) + Lead fourth-surface flip c408757
            │
            ▼
-        PC-007  DISPATCHABLE (final work item — verification and closure)
+        PC-007  MERGED — b9b0ae2246bef40cae1656006febddd2f5f30b4b (PR #49) + Lead verification addendum 84912af
            │
            ▼
-   Architect approval
+   Architect approval  ← CURRENT GATE (explicit approval required to record completion)
 ```
 
 Maximum three workers; safe concurrent set is PC-002 and PC-003 only.
@@ -53,10 +53,14 @@ Maximum three workers; safe concurrent set is PC-002 and PC-003 only.
 | Lead registry status flip (post-PC-005) | `8000597305cc312f8f73451d38ac0b487b971b7a` | Lead direct (governed flip) | developers x5 + documentation x4 planned->available — registry fully available 26/26; policy test + contracts assertion + matrix note updated in step; full suite 2342 pass / 0 fail; build green |
 | PC-006 deployment and provider-binding contract | `8a326af35ccec984adab6343696c33b8236d3b32` | PR #48 squash-merge (worker branch bcc199e, parent 09681dd, 3 incremental commits) | typecheck 0; validate_deployment PASS 1229 (+35); console deployment harness PASS (5 groups / 22 scenarios / 127 assertions, repository-facts-only, 7 negative probes exit 1); bun test 2342/0; build 0; production-readiness retains the recorded known base-failure signature; provider truth honest (github CONNECTED with evidence chain; vercel/database/queue/cloudflare/observability UNBOUND) |
 | Lead fourth-surface provenance flip (post-PC-006) | `c4087572e68fee5fec9aa5fbbde5769123745d83` | Lead direct (the worker-forbidden locked validator + provenance fields — DEP/SYS precedent) | components.json updated_by SYS-001 -> PC-006, base_sha -> dispatch base 09681dd; validator constants updated in step; validator PASS 1229; governance validator PASS (17 paths); console harness PASS; full suite 2342/0; build green |
+| PC-007 release verification, evidence, closure preparation | `b9b0ae2246bef40cae1656006febddd2f5f30b4b` | PR #49 squash-merge (worker branch 014014a, parent 901d0f9, 4 incremental commits) — THE RELEASE REVISION | worker battery 7/7 (typecheck 0; build 0; release harness 8/8 journeys / 574 assertions; bun test 2342/0; deployment 1229; console-deploy harness; governance 17/17); Lead reproduced all; full role-matrix sweep 26 routes x 5 roles (53 allow / 77 deny all correct) |
+| Lead verification addendum (the release proof) | `84912af26969719be270621e83ab100b6e77f7aa` | Lead direct (closure record PENDING-LEAD items resolved) | release harness RE-RUN at merged main b9b0ae2: exit 0, 8/8 journeys, 574 assertions, package payswap3@0.1.0, environment sandbox, revision read at run time; Lead browser verification: role-filtered nav exact, honest UNKNOWN presentation verbatim, deep-link isolation, zero page errors, no 390px overflow (screenshots spec/console/evidence/pc-007/); post-merge battery all green |
+
+**Program gate:** implementation COMPLETE — PC-001..PC-007 all merged and verified. Per the PC-007 closure rule, completion is NOT recorded: the closure decision (`spec/console/console-closure-record.md`, status `AWAITING ARCHITECT APPROVAL`) awaits the Architect's explicit approval. Honest residuals carried into that decision: in-memory developer stores non-durable; production/provider binding NOT CONNECTED (github only, machine-enforced UNBOUND for the rest); the DEP-008 release-record orphan retained as post-closure backlog; no per-role port-level payments filter (honest scopeNote); several operations sub-views without listing reads (honest gap panels); administrator access default-deny.
 
 Battery progression: post-wave 2154 → post-PC-004 2240 → post-PC-005/006 **2342 pass / 0 fail**; typecheck 0 errors and build exit 0 throughout. Deployment-domain gates at PC-006 merge: validate_deployment.py PASS (1229 checks); test_console_deployment.mjs PASS (repository-facts-only); test_production_readiness.mjs retains the recorded known base-failure signature (release-identity #32, the DEP-008 release-record orphan residual — post-closure backlog with an owner, not console-caused).
 
-Next dispatch frontier: **PC-007** (final; parent = `c4087572e68fee5fec9aa5fbbde5769123745d83`).
+Dispatch frontier: **NONE — implementation complete**. The only remaining action is the Architect's explicit approval decision on `spec/console/console-closure-record.md`; upon approval the Lead records completion here (and nowhere in the closed WORK/UI/DEP/SYS records).
 
 ### Recorded observations (non-blocking)
 
