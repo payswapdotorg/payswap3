@@ -171,6 +171,19 @@ export function getDeveloperRequestLogStore(): DeveloperRequestLogStore {
   return defaultStore;
 }
 
+/**
+ * Ingest one boundary request into the module-scoped ring (the ONE call the
+ * PC-005 boundary routes make; redaction-before-storage applies inside).
+ */
+export function ingestDeveloperRequestLog(input: DeveloperRequestLogInput): DeveloperRequestLogEntry {
+  return getDeveloperRequestLogStore().ingest(input);
+}
+
+/** Query the module-scoped ring (the logs/inspector reads' backing). */
+export function queryDeveloperRequestLogs(filter?: DeveloperRequestLogQuery): readonly DeveloperRequestLogEntry[] {
+  return getDeveloperRequestLogStore().query(filter);
+}
+
 /** Test-only: drop the module-scoped ring (a fresh one is built lazily). */
 export function __resetDeveloperRequestLogStoreForTesting(): void {
   defaultStore = undefined;
