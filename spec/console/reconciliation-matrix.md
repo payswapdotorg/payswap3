@@ -1,0 +1,42 @@
+# Console authority/reconciliation matrix (PC-001 scaffold, design §17)
+
+Every consequential console view mapped before release, per the design §17
+matrix and the product nine-question reconciliation discipline
+(`spec/product/intent-mapping-records.md` format; the machine-readable shape
+is `ConsoleAuthorityMetadata` in `src/lib/console/types.ts`). Owner and
+boundary columns are populated from the ACTUAL PC-001 authority inventory
+(exact symbols/modules — `spec/console/PC-001-evidence.md`); cells a later
+phase fills carry an explicit `PENDING-PC-00x` marker — nothing is invented.
+
+Views: payment list, payment detail, checkout session, capability,
+operations health, developer request log (the six design §17 views).
+
+## Matrix
+
+| View | Protocol object/state | Owning authority | Runtime boundary | Durable source | UNKNOWN/recovery | Evidence |
+|---|---|---|---|---|---|---|
+| Payment list | intent state as currently defined: A01 `INTENT_STATES` (DRAFT, AUTHORIZED, ROUTED, FULFILLING, FULFILLED, FAILED, CANCELLED — `src/lib/protocol-runtime/intent/types.ts`), surfaced through `IntentPort.listSessionIntents()` / `getIntentState()` (`src/lib/protocol/intent-port.ts`) | Intent Authority (A01), read through `getIntentPort()` with the runtime adapter `createRuntimeIntentAdapter` (`src/lib/protocol/runtime-intent-adapter.ts`); display resolution `INTENT_STATE_DISPLAY_MAP` + `BOUNDARY_DISPLAY_RESOLUTION` (`src/lib/protocol/intent-state-mapping.ts`) | existing product/protocol boundary (server-side port adapters; per-process registration via `ensureProductPortsWired()` — `src/lib/protocol/server-composition.ts`); console read model `PENDING-PC-003` (`src/lib/console/read-models/`); composed view `PENDING-PC-004` | durable substrate (`src/lib/durable/db.ts`, node:sqlite) + intent persistence (`src/lib/protocol-runtime/intent/persistence.ts`) + A15 evidence chain (`src/lib/protocol-runtime/evidence/`) | `queryNoAnswer` → UNKNOWN (`BOUNDARY_DISPLAY_RESOLUTION`, `src/lib/protocol/intent-state-mapping.ts`); no-answer is never an empty list standing in for an authoritative zero (`src/lib/protocol/unavailable-backing.ts`) | A15 evidence chain records (`src/lib/protocol-runtime/evidence/`); mapping records IMR-1..IMR-15 (`spec/product/intent-mapping-records.md`) |
+| Payment detail | intent/command/execution/evidence state: A01 intent state + gateway admission receipts (incl. DUPLICATE) + queued/execution state via the waiting port (`src/lib/protocol/waiting-port.ts`) | Intent Authority (A01) + ProtocolGateway admission (`src/lib/protocol-runtime/gateway/`, command surface — never imported by console code) + Fulfillment/Queue authority reads via `getWaitingPort()` (`src/lib/protocol/waiting-port.ts`) | same port-adapter boundary as the list; evidence timeline assembly `PENDING-PC-003`; flagship view `PENDING-PC-004` (`src/components/console/views/`) | durable substrate + A15 evidence chain + gateway receipt persistence (`src/lib/protocol-runtime/gateway/persistence.ts`) | no-answer/submitNotTransported → UNKNOWN with reconciliation path (`BOUNDARY_DISPLAY_RESOLUTION`); waiting/recovery semantics per `spec/product/waiting-mapping-records.md` | A15 chain (INTENT_CREATED / INTENT_AUTHORIZED / INTENT_STATE_CHANGED …); IMR-7/IMR-8 boundary records; `spec/product/waiting-mapping-records.md` |
+| Checkout session | existing checkout/merchant protocol state through `CheckoutPort` (`src/lib/protocol/checkout-port.ts`: getOffer/getStatus/listOpenCheckouts/submitDecision); authority vocabulary per `CHECKOUT_BOUNDARY` (`src/lib/protocol/adapter-boundary.ts`) | owning merchant/payment authority read through `getCheckoutPort()` with the runtime adapter (`src/lib/protocol/runtime-checkout-adapter.ts`); display resolution `src/lib/protocol/checkout-state-mapping.ts` | existing product checkout boundary (`src/app/(merchant)/checkout/**`); console read model `PENDING-PC-003`; view `PENDING-PC-004` | durable state via the composed runtime; `authority-unreachable` results are honest no-answers (`src/lib/protocol/unavailable-backing.ts`) | waiting/UNKNOWN per authority: `error: 'authority-unreachable'` renders UNKNOWN — never a fabricated offer/state; decisions not transported are never silently retried | `spec/product/checkout-mapping-records.md` (nine-question records); checkout evidence via the A15 chain |
+| Capability | capability/provider state through `CapabilityPort` (`src/lib/protocol/capability-port.ts`: listCapabilities/getCapability) | Capability Authority (A03) read through `getCapabilityPort()` with the runtime adapter (`src/lib/protocol/runtime-capability-adapter.ts`) — console code reads the port, never the authority module | existing product capability boundary (`src/app/(provider)/capabilities/**`); console read model `PENDING-PC-003`; view `PENDING-PC-004` | capability registry/persistence (`src/lib/protocol-runtime/capability/persistence.ts`) over the durable substrate | unavailable ⇒ UNKNOWN: no runtime adapter answer is the absence of an answer, never an authoritative empty registry (`src/lib/protocol/unavailable-backing.ts`, `CAPABILITY_BOUNDARY_INFO`); availability is never inferred from configuration (design §13) | `spec/product/capability-mapping-records.md` (CAP-MAP records, incl. the CAP-MAP-006 no-record family) |
+| Operations health | execution/recovery/telemetry state: nine closed observability domains (`OBSERVABILITY_DOMAINS`, `src/lib/observability/taxonomy.ts`); `HealthState` ok/degraded/unknown-data/down (`src/lib/observability/health.ts`) | deployment/observability authorities: `deriveComponentHealth` (`src/lib/observability/health.ts`), `probeComponentHealth` (`src/lib/observability/readiness.ts`), `collectTelemetrySnapshot` (`src/lib/observability/telemetry.ts`) — observation-only, never financial evidence (`OBSERVATION_ONLY` brand) | existing operational APIs/readiness probes (`src/app/api/ready/route.ts`); console read model `PENDING-PC-003`; operations views `PENDING-PC-004` | durable_events/durable_jobs substrate signals + operations progress reader (`src/lib/operations/progress-reader.ts`) + rail activity surface (`src/lib/rail-connectivity/activity.ts`) | health UNKNOWN where appropriate (`HealthState: 'unknown-data'`); telemetry is observation-only — it is never translated into a business verdict | operational transcript/trace: `TraceDocument`/`trace()` (`src/lib/observability/tracing.ts`); `spec/system-reconciliation.md` + DEP-007 evidence |
+| Developer request log | request/trace metadata (diagnostic records, never evidence substitutes — design §11) | console/API logging boundary `PENDING-PC-005` (`src/lib/console/developers/`); existing primitives to compose: `LogRecord`/`LogSink`/`scrubCredentialReferences` (`src/lib/observability/logging.ts`) | request boundary `PENDING-PC-005` (`src/app/api/console/**` developer endpoints; `src/app/console/developers/**`) | operational logs `PENDING-PC-005` (no request-log persistence exists at the PC-001 baseline — recorded, not invented) | unavailable ⇒ diagnostic UNKNOWN — a log gap is a diagnostic unknown, never a business verdict; credentials/authorization headers/secret-bearing fields are redacted (`scrubCredentialReferences`) | trace/request IDs (`src/lib/observability/tracing.ts` `TraceAnchor`); redaction contract per design §11 |
+
+## Reading rules (frozen)
+
+1. **Console reads authority, never becomes one.** Every `allow` in the
+   route-role matrix still funnels reads through the owning authorities
+   above; the console composes presentations with
+   `ConsoleAuthorityMetadata` attached (`src/lib/console/types.ts`).
+2. **A transport failure is not a business failure.** Any fetch/transport
+   failure resolves to the `unavailable` branch of `ConsoleReadResult` with
+   `presentationStatus: 'UNKNOWN'` — structurally never FAILED/SUCCEEDED
+   (`src/lib/console/dto.ts`, proven in `src/lib/console/dto.test.ts`).
+3. **Console code never imports financial persistence or authority
+   writers** — mechanically enforced by
+   `src/lib/console/governance.test.ts` (protocol-runtime persistence, the
+   durable substrate, gateway command surfaces, authority command modules,
+   direct DB clients: all forbidden).
+4. **PENDING-PC-00x markers are binding.** A cell marked PENDING is filled
+   only by the named phase's governed work; PC-007 reconciles every row
+   against the actual implementation before the program closes.
