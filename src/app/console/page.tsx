@@ -1,59 +1,59 @@
 /**
- * PC-001 — Console foundation root (placeholder, NO feature views).
+ * PC-002 — Console Overview (the frozen registry root module, `available`).
  *
- * Renders exactly the foundation surface: the frozen route/module registry
- * summary (from src/lib/console/registry.ts — design §5 information
- * architecture) and the server-derived environment label (from
- * src/lib/console/environment-context.ts). Composed feature views belong to
- * PC-004/PC-005 and are marked `planned` in the registry until then.
+ * The honest foundation surface (PC-001 content carried forward): the frozen
+ * route/module registry summary and the server-derived environment context,
+ * plus the role-scoped module map — the modules the signed-in role may
+ * actually reach, with their registry status. No composed feature views ship
+ * in PC-002: every non-root module below is `planned` and renders the honest
+ * planned-state placeholder (registry-derived label + status, no invented
+ * data) until PC-004/PC-005 flip it.
  *
  * Deep-link role check on direct entry (P8): the page re-checks its own
  * module even though the layout already guarded the group.
  */
 
-import type { Metadata } from 'next';
 import {
-  CONSOLE_ROOT_MODULE_ID,
   consoleRegistryByGroup,
   consoleRegistrySummary,
 } from '@/lib/console/registry';
-import { requireConsoleModule } from '@/lib/console/policy';
 import { getConsoleEnvironmentContext } from '@/lib/console/environment-context';
 import { ConsoleAuthorityLine } from '@/components/console';
+import { consoleRouteMetadata, requireConsoleRoute } from '@/components/console/shell/console-route';
+import { consoleNavigationForRole } from '@/components/console/shell/console-navigation';
+import { ConsoleNavList } from '@/components/console/shell/console-nav';
 
-export const metadata: Metadata = {
-  title: 'Console — PaySwap',
-  description:
-    'PaySwap developer console foundation: the frozen route/module registry and the server-derived environment context. Feature views arrive in later work items.',
-};
+export const metadata = consoleRouteMetadata('/console');
 
-export default async function ConsoleFoundationPage() {
+export default async function ConsoleOverviewPage() {
   // Fail closed on direct entry (unauthenticated/unauthorized → redirect '/').
-  const principal = await requireConsoleModule(CONSOLE_ROOT_MODULE_ID);
+  const principal = await requireConsoleRoute('/console');
 
   const environment = getConsoleEnvironmentContext();
+  const navigation = consoleNavigationForRole(principal.role);
   const grouped = consoleRegistryByGroup();
   const summary = consoleRegistrySummary();
+  const reachableCount = navigation.reduce((count, group) => count + group.items.length, 0);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+    <div className="flex flex-col gap-8">
       <header>
         <p className="text-xs font-semibold uppercase tracking-widest text-teal-700">
-          PC-001 · Console foundation
+          Console module · Overview
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
           PaySwap developer console
         </h1>
         <p className="mt-4 max-w-3xl text-base text-stone-600">
-          This is the frozen foundation surface: the route/module registry for the
-          approved console information architecture and the server-derived environment
-          context. No feature views ship in this work item — every composed feature
-          route below is <span className="font-semibold">planned</span> until its owning
-          work item (PC-004/PC-005) merges.
+          One console shell over the frozen information architecture: the navigation and
+          every module route derive from the single route/module registry, and the
+          navigation renders only the modules your signed-in role may access
+          (server-side, default-deny). Modules whose feature view has not shipped yet
+          render an honest planned-state placeholder — never a simulated view.
         </p>
       </header>
 
-      <section aria-labelledby="console-principal" className="mt-8">
+      <section aria-labelledby="console-principal" className="mt-0">
         <h2 id="console-principal" className="text-xl font-semibold">
           Principal &amp; environment
         </h2>
@@ -81,13 +81,30 @@ export default async function ConsoleFoundationPage() {
         </div>
       </section>
 
-      <section aria-labelledby="console-registry" className="mt-10">
+      <section aria-labelledby="console-your-modules">
+        <h2 id="console-your-modules" className="text-xl font-semibold">
+          Your console modules
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm text-stone-600">
+          {reachableCount} of {summary.totalRoutes} registry routes are reachable for the{' '}
+          <span className="font-medium">{principal.role}</span> role ({' '}
+          {summary.availableRoutes} available · {summary.plannedRoutes} planned across the
+          whole registry). Planned entries link to their honest placeholder pages; the
+          payment-detail route is deep-linkable but has no navigation entry because its
+          segment is per-payment.
+        </p>
+        <div className="mt-4 max-w-3xl rounded-xl border border-stone-300 bg-white p-3">
+          <ConsoleNavList groups={navigation} label="Console modules available to your role" />
+        </div>
+      </section>
+
+      <section aria-labelledby="console-registry">
         <h2 id="console-registry" className="text-xl font-semibold">
           Frozen route/module registry
         </h2>
         <p className="mt-2 max-w-3xl text-sm text-stone-600">
           {summary.totalRoutes} routes across {summary.groups.length} top-level groups —{' '}
-          {summary.availableRoutes} available (this foundation root) and{' '}
+          {summary.availableRoutes} available (this Overview root) and{' '}
           {summary.plannedRoutes} planned. Roles shown per entry are the design §6
           role model enforced server-side (default-deny).
         </p>
@@ -100,7 +117,7 @@ export default async function ConsoleFoundationPage() {
               <ul className="mt-2 divide-y divide-stone-200 rounded-xl border border-stone-300 bg-white">
                 {entries.map((entry) => (
                   <li key={entry.id} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-4 py-3">
-                    <code className="rounded bg-stone-100 px-1 py-0.5 text-xs">{entry.href}</code>
+                    <code className="break-words rounded bg-stone-100 px-1 py-0.5 text-xs">{entry.href}</code>
                     <span className="text-sm font-medium">{entry.label}</span>
                     <span className="text-xs text-stone-500">
                       roles: {entry.allowedRoles.join(', ')}
@@ -122,10 +139,10 @@ export default async function ConsoleFoundationPage() {
         </div>
       </section>
 
-      <footer className="mt-10 border-t border-stone-200 pt-4">
+      <footer className="mt-2 border-t border-stone-200 pt-4">
         <ConsoleAuthorityLine
-          owningAuthority="Frozen console registry (src/lib/console/registry.ts) · server-derived environment (src/lib/environment.ts)"
-          runtimeBoundary="server components under src/app/console/** (PC-001 scaffolding)"
+          owningAuthority="Frozen console registry (src/lib/console/registry.ts) · server role policy (src/lib/console/policy.ts) · server-derived environment (src/lib/environment.ts)"
+          runtimeBoundary="server components under src/app/console/** (PC-002 shell + route entrypoints)"
           durableSource="none — foundation surface composes no financial reads"
           evidenceReference="spec/console/PC-001-evidence.md · spec/console/route-role-matrix.md · spec/console/reconciliation-matrix.md"
         />
