@@ -2,7 +2,7 @@
 
 **Program:** `payswap-developer-console`
 
-**Status:** IN IMPLEMENTATION — PC-001 merged; PC-002 || PC-003 released
+**Status:** IN IMPLEMENTATION — PC-002 and PC-003 merged; PC-004 released
 
 **Architecture baseline:** `4f973c92d7534a13854dfa4468bfa3a72dd14756`
 
@@ -17,11 +17,11 @@ PC-001  MERGED — 465e2f7ec489eefbd7638452e94860be367f5643 (PR #43)
    │
    ├───────────────┐
    ▼               ▼
-PC-002  DISPATCHABLE   PC-003  DISPATCHABLE   (the only safe concurrent pair)
+PC-002  MERGED — de52ceed4b9e35db3f69de4af751b3e6d10148c9 (PR #44)   PC-003  MERGED — 324a1320e4c4b338296d9e42a382baa154bff70d (PR #45, head of main)
    │               │
    └───────┬───────┘
            ▼
-        PC-004  BLOCKED
+        PC-004  DISPATCHABLE (serial from here)
            │
            ▼
         PC-005  BLOCKED
@@ -45,8 +45,12 @@ Maximum three workers; safe concurrent set is PC-002 and PC-003 only.
 | Program baseline integration | `9abc805c17ed81e8562a88c03170e44b2f8b8874` | Lead governed merge (additive docs only) | diff --name-status: 13 × A, 0 modifications |
 | Lead baseline repair (RTN-010 DEP-007 recovery whitelist) | `0d528832b31767ce92f45fd411d60c09d338f20a` | Lead direct (6114e4e gate-repair precedent) | full bun suite 1965 pass / 0 fail (pre-existing failure proven identical at clean parent 9abc805 by worker AND independent Lead reproduction) |
 | PC-001 console foundation, contracts, governance | `465e2f7ec489eefbd7638452e94860be367f5643` | PR #43 squash-merge (worker branch 38744fd, parent 9abc805) | `spec/console/PC-001-evidence.md`; typecheck 0 errors; build exit 0; focused 52/52; full suite 2017 pass / 0 fail at merged HEAD; owned boundary 22 × A / 0 M |
+| PC-002 console shell and navigation | `de52ceed4b9e35db3f69de4af751b3e6d10148c9` | PR #44 squash-merge (worker branch cd75176, parent 8feb63c) | typecheck 0 errors; build exit 0; focused 43/43; full suite 2060 pass / 0 fail at branch HEAD (Lead reproduced); owned boundary 35 × A + 2 × M inside owned root; worker interrupted before final report — Lead verification record substitutes |
+| PC-003 console API boundary and read models | `324a1320e4c4b338296d9e42a382baa154bff70d` | PR #45 squash-merge (worker branch 3a862af, parent 8feb63c; concurrent-wave sibling of #44, disjoint owned paths) | typecheck 0 errors; build exit 0 (8 API routes); focused 98/98; full suite 2111 pass / 0 fail at branch HEAD (Lead reproduced); owned boundary 30 × A / 0 M; developer-requests gap recorded (no owning source at baseline — explicit UNKNOWN, PENDING-PC-005) |
 
-Next dispatch frontier: **PC-002 and PC-003 concurrently** (both parented at `465e2f7ec489eefbd7638452e94860be367f5643`).
+Combined post-wave main battery: typecheck 0 errors; build exit 0; full suite **2154 pass / 0 fail** (baseline 2017 + 43 + 94).
+
+Next dispatch frontier: **PC-004** (serial; parent = `324a1320e4c4b338296d9e42a382baa154bff70d`).
 
 ### Recorded observations (non-blocking)
 
