@@ -171,7 +171,6 @@ describe('PC-002 route tree — guard wiring (every page fails closed on direct 
   // PC-005 view components). As with PC-004, the registry status flip to
   // `available` is a Lead-governed merge-time action, so this list — not
   // the registry status — records which pages have shipped composed views.
-  // The four documentation pages join this list with their own family.
   const PC_005_COMPOSED_HREFS: readonly string[] = [
     '/console/developers/api-keys',
     '/console/developers/webhooks',
@@ -180,12 +179,35 @@ describe('PC-002 route tree — guard wiring (every page fails closed on direct 
     '/console/developers/environments',
   ];
 
+  // PC-005 family 4: the documentation pages render composed content views
+  // (self-contained composed pages over their colocated content modules —
+  // the route inventory, spec links, and example set — plus the shared
+  // composed view chrome). Same Lead-governed status-flip convention.
+  const PC_005_DOCUMENTATION_COMPOSED_HREFS: readonly string[] = [
+    '/console/documentation/api',
+    '/console/documentation/concepts',
+    '/console/documentation/examples',
+    '/console/documentation/guides',
+  ];
+
   test('PC-005-composed developer pages render composed views — never the placeholder', () => {
     for (const href of PC_005_COMPOSED_HREFS) {
       const path = join(REPO_ROOT, pagePathForHref(href));
       const source = readFileSync(path, 'utf8');
       // The composed page must render through PC-005 view components...
       expect(source.includes('@/components/console/developers')).toBe(true);
+      // ...and must NOT render the planned-state placeholder anymore.
+      expect(source.includes('ConsolePlannedModule')).toBe(false);
+    }
+  });
+
+  test('PC-005-composed documentation pages render composed content — never the placeholder', () => {
+    for (const href of PC_005_DOCUMENTATION_COMPOSED_HREFS) {
+      const path = join(REPO_ROOT, pagePathForHref(href));
+      const source = readFileSync(path, 'utf8');
+      // The composed documentation page renders through the shared composed
+      // view chrome (the same header the PC-004 families use)...
+      expect(source.includes('@/components/console/views/console-view-chrome')).toBe(true);
       // ...and must NOT render the planned-state placeholder anymore.
       expect(source.includes('ConsolePlannedModule')).toBe(false);
     }
@@ -200,6 +222,9 @@ describe('PC-002 route tree — guard wiring (every page fails closed on direct 
         continue;
       }
       if (PC_005_COMPOSED_HREFS.includes(entry.href)) {
+        continue;
+      }
+      if (PC_005_DOCUMENTATION_COMPOSED_HREFS.includes(entry.href)) {
         continue;
       }
       const path = join(REPO_ROOT, pagePathForHref(entry.href));
