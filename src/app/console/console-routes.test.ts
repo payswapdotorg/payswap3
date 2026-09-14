@@ -166,7 +166,32 @@ describe('PC-002 route tree — guard wiring (every page fails closed on direct 
     }
   });
 
-  test('every remaining planned module page (PC-005-owned) renders the honest planned-state placeholder for its own href', () => {
+  // PC-005 progression: the developer-controls pages now render COMPOSED
+  // feature views (PC-005 read models over the in-memory stores through
+  // PC-005 view components). As with PC-004, the registry status flip to
+  // `available` is a Lead-governed merge-time action, so this list — not
+  // the registry status — records which pages have shipped composed views.
+  // The four documentation pages join this list with their own family.
+  const PC_005_COMPOSED_HREFS: readonly string[] = [
+    '/console/developers/api-keys',
+    '/console/developers/webhooks',
+    '/console/developers/logs',
+    '/console/developers/request-inspector',
+    '/console/developers/environments',
+  ];
+
+  test('PC-005-composed developer pages render composed views — never the placeholder', () => {
+    for (const href of PC_005_COMPOSED_HREFS) {
+      const path = join(REPO_ROOT, pagePathForHref(href));
+      const source = readFileSync(path, 'utf8');
+      // The composed page must render through PC-005 view components...
+      expect(source.includes('@/components/console/developers')).toBe(true);
+      // ...and must NOT render the planned-state placeholder anymore.
+      expect(source.includes('ConsolePlannedModule')).toBe(false);
+    }
+  });
+
+  test('every remaining planned module page renders the honest planned-state placeholder for its own href', () => {
     for (const entry of CONSOLE_REGISTRY) {
       if (entry.status !== 'planned') {
         continue;
@@ -174,11 +199,14 @@ describe('PC-002 route tree — guard wiring (every page fails closed on direct 
       if (PC_004_COMPOSED_HREFS.includes(entry.href)) {
         continue;
       }
+      if (PC_005_COMPOSED_HREFS.includes(entry.href)) {
+        continue;
+      }
       const path = join(REPO_ROOT, pagePathForHref(entry.href));
       const source = readFileSync(path, 'utf8');
       expect(source.includes(`ConsolePlannedModule href="${entry.href}"`)).toBe(true);
       // No feature-view imports: a planned route must not render composed
-      // data surfaces (PC-005 owns those).
+      // data surfaces (the owning phase ships those).
       expect(source.includes('@/lib/console/read-models')).toBe(false);
       expect(source.includes('@/components/console/views')).toBe(false);
     }
