@@ -1,13 +1,23 @@
 /**
- * PC-002 — Console Overview (the frozen registry root module, `available`).
+ * PC-004 — Console Overview (the frozen registry root module, composed).
  *
- * The honest foundation surface (PC-001 content carried forward): the frozen
- * route/module registry summary and the server-derived environment context,
- * plus the role-scoped module map — the modules the signed-in role may
- * actually reach, with their registry status. No composed feature views ship
- * in PC-002: every non-root module below is `planned` and renders the honest
- * planned-state placeholder (registry-derived label + status, no invented
- * data) until PC-004/PC-005 flip it.
+ * The PC-002 foundation content carried forward and extended with the PC-004
+ * composed operations-health summary:
+ *
+ *   - the registry-driven module map (only the signed-in role's modules,
+ *     filtered server-side before any markup exists);
+ *   - the server-derived environment context (PC-001 — no input path);
+ *   - the authoritative operations-health summary composed from the PC-003
+ *     operations-health read model — ONLY for the operator role (the six
+ *     operations modules are operator-only in the frozen route-role matrix,
+ *     so composing health data for any other role would expose another
+ *     role's data; every other role gets the honest scoping note instead).
+ *
+ * NO invented metrics: anything not derivable from an authoritative read is
+ * either an honest UNKNOWN or omitted with a note (payment/activity counts,
+ * volumes, and success rates have no authoritative aggregate read at this
+ * baseline — the payments read model's own status convention forbids
+ * aggregating item statuses into a verdict the authority never gave).
  *
  * Deep-link role check on direct entry (P8): the page re-checks its own
  * module even though the layout already guarded the group.
@@ -18,10 +28,13 @@ import {
   consoleRegistrySummary,
 } from '@/lib/console/registry';
 import { getConsoleEnvironmentContext } from '@/lib/console/environment-context';
+import { readConsoleOperationsHealth } from '@/lib/console/read-models/operations-health';
 import { ConsoleAuthorityLine } from '@/components/console';
 import { consoleRouteMetadata, requireConsoleRoute } from '@/components/console/shell/console-route';
 import { consoleNavigationForRole } from '@/components/console/shell/console-navigation';
 import { ConsoleNavList } from '@/components/console/shell/console-nav';
+import { ConsoleOperationsHealthSummaryView } from '@/components/console/views/operations-health-view';
+import { ConsoleReadUnavailablePanel } from '@/components/console/views/console-read-result';
 
 export const metadata = consoleRouteMetadata('/console');
 
@@ -35,8 +48,14 @@ export default async function ConsoleOverviewPage() {
   const summary = consoleRegistrySummary();
   const reachableCount = navigation.reduce((count, group) => count + group.items.length, 0);
 
+  // Role-aware health composition: the operations modules are operator-only
+  // in the frozen route-role matrix — the health summary composes for the
+  // operator and stays an honest scoping note for every other role.
+  const operatorHealth =
+    principal.role === 'operator' ? await readConsoleOperationsHealth() : undefined;
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex min-w-0 flex-col gap-8">
       <header>
         <p className="text-xs font-semibold uppercase tracking-widest text-teal-700">
           Console module · Overview
@@ -45,11 +64,11 @@ export default async function ConsoleOverviewPage() {
           PaySwap developer console
         </h1>
         <p className="mt-4 max-w-3xl text-base text-stone-600">
-          One console shell over the frozen information architecture: the navigation and
-          every module route derive from the single route/module registry, and the
-          navigation renders only the modules your signed-in role may access
-          (server-side, default-deny). Modules whose feature view has not shipped yet
-          render an honest planned-state placeholder — never a simulated view.
+          One console shell over the frozen information architecture: navigation and every
+          module route derive from the single route/module registry, the navigation renders
+          only the modules your signed-in role may access (server-side, default-deny), and
+          composed views read only authoritative sources — anything an authority has not
+          answered renders UNKNOWN, never a guessed verdict.
         </p>
       </header>
 
@@ -80,6 +99,44 @@ export default async function ConsoleOverviewPage() {
           </p>
         </div>
       </section>
+
+      {operatorHealth !== undefined ? (
+        <section aria-labelledby="console-operations-health-summary">
+          <h2 id="console-operations-health-summary" className="text-xl font-semibold">
+            Operations health (operator-scoped)
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm text-stone-600">
+            Composed from the PC-003 operations-health read model — the same fail-closed
+            nine-domain probe the readiness boundary composes through. Shown here only for
+            the operator role: the six operations modules are operator-only in the frozen
+            route-role matrix, and this summary would expose another role's data for
+            anyone else.
+          </p>
+          <div className="mt-3">
+            {operatorHealth.outcome === 'unavailable' ? (
+              <ConsoleReadUnavailablePanel
+                subject="operations health"
+                note={operatorHealth.note}
+                authority={operatorHealth.authority}
+              />
+            ) : (
+              <ConsoleOperationsHealthSummaryView result={operatorHealth} />
+            )}
+          </div>
+        </section>
+      ) : (
+        <section aria-labelledby="console-operations-health-scoped">
+          <h2 id="console-operations-health-scoped" className="text-xl font-semibold">
+            Operations health (operator-scoped)
+          </h2>
+          <p className="mt-2 max-w-3xl rounded-xl border border-stone-200 bg-stone-50 p-4 text-sm text-stone-600" data-testid="console-operations-health-role-scoped">
+            The operations-health summary is composed only for the operator role — the
+            six operations modules are operator-only in the frozen route-role matrix, so
+            nothing operational is shown here for the {principal.role} role. This is a
+            role-scoping statement, not a health verdict: nothing is claimed either way.
+          </p>
+        </section>
+      )}
 
       <section aria-labelledby="console-your-modules">
         <h2 id="console-your-modules" className="text-xl font-semibold">
@@ -139,12 +196,26 @@ export default async function ConsoleOverviewPage() {
         </div>
       </section>
 
+      <section aria-labelledby="console-overview-honesty">
+        <h2 id="console-overview-honesty" className="text-xl font-semibold">
+          What this overview deliberately does not show
+        </h2>
+        <p className="mt-2 max-w-3xl rounded-xl border border-stone-200 bg-stone-50 p-4 text-sm text-stone-600" data-testid="console-overview-no-invented-metrics">
+          No payment counts, volumes, success rates, or account totals appear here: no
+          authoritative aggregate read exists at this baseline, and the payments read
+          model's own status convention forbids aggregating per-item states into a
+          verdict the authority never gave. Degrading to invented metrics is exactly
+          what this console refuses to do — figures appear only where an authority
+          quoted them.
+        </p>
+      </section>
+
       <footer className="mt-2 border-t border-stone-200 pt-4">
         <ConsoleAuthorityLine
-          owningAuthority="Frozen console registry (src/lib/console/registry.ts) · server role policy (src/lib/console/policy.ts) · server-derived environment (src/lib/environment.ts)"
-          runtimeBoundary="server components under src/app/console/** (PC-002 shell + route entrypoints)"
-          durableSource="none — foundation surface composes no financial reads"
-          evidenceReference="spec/console/PC-001-evidence.md · spec/console/route-role-matrix.md · spec/console/reconciliation-matrix.md"
+          owningAuthority="Frozen console registry (src/lib/console/registry.ts) · server role policy (src/lib/console/policy.ts) · server-derived environment (src/lib/environment.ts) · operations health via the PC-003 read model (probeComponentHealth composition point)"
+          runtimeBoundary="server components under src/app/console/** (PC-002 shell + PC-004 composed views)"
+          durableSource="none beyond the operations-health telemetry substrate — this overview composes no financial reads"
+          evidenceReference="spec/console/PC-001-evidence.md · spec/console/route-role-matrix.md · spec/console/reconciliation-matrix.md · spec/console/PC-004-evidence.md"
         />
       </footer>
     </div>
