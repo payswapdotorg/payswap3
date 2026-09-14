@@ -1,0 +1,146 @@
+{
+  "contract": "payswap-console-deployment-and-provider-bindings",
+  "version": 1,
+  "generated_by": "PC-006",
+  "base_branch": "main",
+  "base_sha": "09681dda20dfa53d31c81cf96828944763e30b01",
+  "spec_documents": {
+    "console_deployment_contract": "spec/deployment/console-deployment.md",
+    "design": "docs/superpowers/specs/2026-09-14-payswap-developer-console-design.md (§15 deployment contract, §16 testing and evidence)",
+    "topology": "spec/deployment/topology.md (contract evolution — the PC-006 governed route-surface change record)",
+    "environments": "spec/deployment/environments.md (fail-closed rules F1-F8)",
+    "configuration": "spec/deployment/configuration.md (unchanged by PC-006 — the console adds NO configurable value)",
+    "packaging": "spec/deployment/packaging.md (the single runtime package the console ships within)",
+    "ci_cd": "spec/deployment/ci-cd.md (the harnesses gate that enumerates the console deployment harness)",
+    "provider_truth_state": "spec/development-state/console-program-state.md (provider truth at the console design baseline)"
+  },
+  "verification_harness": "scripts/test_console_deployment.mjs",
+  "evidence": "spec/console/PC-006-evidence.md",
+  "definitions": {
+    "package_identity": "The exact npm package (name + version in package.json) that carries the console. The console ships as part of the CURRENT single Next.js package — no new component, no new topology, no separate console package (design §15). The harness compares package.json on disk against this registry and fails closed on any drift.",
+    "ships_within": "The deployment component whose route surface and runtime package carry the console routes. PC-006 adds no component: the console routes extend web-api-boundary's route_surface (the D-1 governed-change precedent — a route_surface extension recorded in deploy/contracts/components.json together with the topology.md contract-evolution entry).",
+    "console_route_surface": "The complete inventory of console routes: the 26 console pages under src/app/console/**/page.tsx plus the 10 console API boundary routes under src/app/api/console/**/route.ts. STATIC routes are mirrored into deploy/contracts/components.json web-api-boundary route_surface (its flat-route convention cannot express dynamic path segments); DYNAMIC routes (the three [param] routes) are recorded ONLY here, where the harness validates them against the filesystem, the CONSOLE_REGISTRY source hrefs and — when a build output is present — the build's app-path-routes manifest.",
+    "provider_bindings": "The provider-binding truth for the console deployment contract (design §15): each provider of the closed six-provider set records either CONNECTED (with a repository evidence reference, a verification timestamp and a provenance statement) or UNBOUND (explicit, with null evidence fields and the requirement that live provider evidence must precede any production claim). No other status value exists.",
+    "invariants": "The honesty rules the verification harness enforces mechanically over this registry. They are the machine contract for the two-gate separation (design §15): repository verification is never deployment verification."
+  },
+  "package_identity": {
+    "name": "payswap3",
+    "version": "0.1.0",
+    "ships_within": "web-api-boundary (the single Next.js application package; the console adds NO component to deploy/contracts/components.json — the present-set stays the DEP-004 governed set of eleven)",
+    "build_output": ".next/standalone (next.config.ts output:standalone — unchanged by the console program)"
+  },
+  "console_route_surface": {
+    "pages": [
+      "/console",
+      "/console/accounts/customers",
+      "/console/accounts/merchants",
+      "/console/accounts/operators",
+      "/console/accounts/providers",
+      "/console/capabilities",
+      "/console/checkout/configuration",
+      "/console/checkout/sessions",
+      "/console/checkout/test",
+      "/console/developers/api-keys",
+      "/console/developers/environments",
+      "/console/developers/logs",
+      "/console/developers/request-inspector",
+      "/console/developers/webhooks",
+      "/console/documentation/api",
+      "/console/documentation/concepts",
+      "/console/documentation/examples",
+      "/console/documentation/guides",
+      "/console/operations/clearing-netting",
+      "/console/operations/execution",
+      "/console/operations/incidents",
+      "/console/operations/queues",
+      "/console/operations/reconciliation",
+      "/console/operations/unknown",
+      "/console/payments",
+      "/console/payments/[paymentId]"
+    ],
+    "api": [
+      "/api/console/capabilities",
+      "/api/console/checkout/sessions",
+      "/api/console/checkout/sessions/[checkoutId]",
+      "/api/console/contracts",
+      "/api/console/developers/api-keys",
+      "/api/console/developers/requests",
+      "/api/console/developers/webhooks",
+      "/api/console/operations/health",
+      "/api/console/payments",
+      "/api/console/payments/[paymentId]"
+    ],
+    "dynamic_route_representation": "Dynamic path segments ([paymentId], [checkoutId]) are recorded in this registry only. deploy/contracts/components.json route_surface uses the validator's flat static-route convention (entries match the route regex of scripts/validate_deployment.py, which cannot express brackets); the static console routes are mirrored there and the dynamic routes are proven here, against the same filesystem and registry sources.",
+    "route_availability_note": "Route availability at PC-006 is REPOSITORY availability: every route maps to an existing page/route source file, equals the frozen CONSOLE_REGISTRY hrefs (src/lib/console/registry.ts), and — when a build output is present — appears in the build's app-path-routes manifest. This is not a claim that any route is deployed or serving traffic anywhere."
+  },
+  "environment_requirements": {
+    "environment_chain": "PAYSWAP_ENV (server process environment only; exact allowlist sandbox | production; unset/empty/invalid fail-safes to sandbox — never to production) resolved through the frozen src/lib/environment.ts",
+    "startup_validation": "src/lib/startup-config.ts validateStartupConfig() — sandbox requires nothing beyond the environment itself; production requires the four named configuration names (PAYSWAP_DATABASE_URL, PAYSWAP_QUEUE_URL, PAYSWAP_EVIDENCE_STORE_URL, PAYSWAP_RAIL_ADAPTERS_URL) and fails closed (ids only, never values)",
+    "console_adds_no_configuration": "The console program added NO externally configurable value (spec/deployment/configuration.md unchanged by PC-001..PC-006). The console's environment scope is server-derived only (the PC-001 no-input authority chain); there is no client-side environment switching anywhere in the console.",
+    "fail_safe_sandbox": "The console can therefore only ever render in sandbox semantics unless a deployment injects the production configuration through the documented chain — the same F1-F8 rules that govern the whole package."
+  },
+  "provider_bindings": [
+    {
+      "provider": "vercel",
+      "role": "runtime host (the production runtime platform the deployment contract anticipates for the web-api-boundary package)",
+      "binding_status": "UNBOUND",
+      "evidence_reference": null,
+      "verification_timestamp": null,
+      "provenance": null,
+      "requirement": "Live provider evidence from the actual connected integration must precede any production hosting claim (design §15; environments.md production_gate; ci-cd.md §1.3 production deployment binding is FUTURE-WORK). No account, project, deployment or domain exists in any repository record."
+    },
+    {
+      "provider": "database",
+      "role": "authoritative state store hosting (PAYSWAP_DATABASE_URL — the authoritative-state-store component's production binding)",
+      "binding_status": "UNBOUND",
+      "evidence_reference": null,
+      "verification_timestamp": null,
+      "provenance": null,
+      "requirement": "Live provider evidence from the actual connected integration must precede any production database claim (design §15; configuration.md future categories — the authoritative-state connection is FUTURE-WORK; the in-process SQLite substrate is the composed realization, never an externalized binding)."
+    },
+    {
+      "provider": "queue",
+      "role": "durable command queue hosting (PAYSWAP_QUEUE_URL — the durable-command-queue component's production binding)",
+      "binding_status": "UNBOUND",
+      "evidence_reference": null,
+      "verification_timestamp": null,
+      "provenance": null,
+      "requirement": "Live provider evidence from the actual connected integration must precede any production queue claim (design §15; the in-process durable substrate is the composed realization; the externalized queue binding is DEP-002+ FUTURE-WORK)."
+    },
+    {
+      "provider": "cloudflare",
+      "role": "edge/network services (DNS, CDN, WAF — anticipated platform services for the production web boundary)",
+      "binding_status": "UNBOUND",
+      "evidence_reference": null,
+      "verification_timestamp": null,
+      "provenance": null,
+      "requirement": "Live provider evidence from the actual connected integration must precede any production edge/network claim (design §15 — recorded unbound at the design baseline; no zone, account or record exists in any repository record)."
+    },
+    {
+      "provider": "observability",
+      "role": "external observability backends (metrics endpoints, alerting, external log/tracing backends over the in-process src/lib/observability/ surfaces)",
+      "binding_status": "UNBOUND",
+      "evidence_reference": null,
+      "verification_timestamp": null,
+      "provenance": null,
+      "requirement": "Live provider evidence from the actual connected integration must precede any production observability claim (design §15; observability.md and every component's future_work note record the externalized telemetry binding as DEP-002+ FUTURE-WORK; the in-process telemetry/readiness surfaces are the composed realization)."
+    },
+    {
+      "provider": "github",
+      "role": "code hosting and CI (GitHub Actions — the repository's only connected infrastructure provider: .github/workflows/ci.yml and promotion.yml invoke exactly the repo-local gate scripts)",
+      "binding_status": "CONNECTED",
+      "evidence_reference": "spec/system-closure/closure-record.md",
+      "verification_timestamp": "2026-09-13",
+      "provenance": "RECORDED repository truth, not a live probe: the Composio infrastructure discovery (ONLY GitHub connected; Vercel/database/queue/Cloudflare/observability unconnected) was first recorded by the Tech Lead at the UI-003 reconcile f012451 (2026-09-11, 'infrastructure truth (GitHub-only) recorded'), restated at the DEP-005 finalize 663b1d4 (2026-09-12, PR #36 bd85a83), and carried unchanged through system closure in spec/development-state/system-program-state.json (rtnWave note + deploymentProgress + postClosure.residualLedger) and spec/system-closure/closure-record.md (the Lead finalize 2026-09-13: 'only GitHub is connected; no production deployment binding exists'; 'Repository completion ≠ production deployment') into the design baseline (docs/superpowers/specs/2026-09-14-payswap-developer-console-design.md §15). The verification_timestamp records the finalize date of the cited evidence_reference (the closure record, 2026-09-13 — the repository truth that still stands at PC-006). PC-006 re-reads that RECORDED truth from the repository records; it does not and cannot re-verify the live connection from this harness (the console-deployment.md §7 confinement).",
+      "requirement": "The GitHub connection evidence is CI-hosting truth only — it is NOT a console runtime binding and NOT a production deployment binding. Any production claim still requires the separately authorized production configuration and the DEP-002+ production deployment binding (every production_gate in deploy/contracts/components.json stays authoritative)."
+    }
+  ],
+  "invariants": {
+    "closed_provider_set": "The provider set is exactly the design §15 set — vercel (runtime host), database, queue, cloudflare, observability, github — each present exactly once. Extending the set is a governed change to this registry together with spec/deployment/console-deployment.md and the design baseline.",
+    "connected_requires_full_evidence": "binding_status CONNECTED requires a non-null evidence_reference that resolves to an EXISTING repository file, a non-empty verification_timestamp, and a non-empty provenance statement. A CONNECTED entry without all three fails closed in the harness.",
+    "unbound_is_explicit": "binding_status UNBOUND requires null evidence_reference, null verification_timestamp, null provenance, and a non-empty requirement statement recording that live provider evidence must precede any production claim.",
+    "closed_status_vocabulary": "binding_status is exactly one of CONNECTED | UNBOUND. No other value (no 'assumed', no 'partial', no 'probably') may appear.",
+    "no_fake_bindings": "No provider may be marked CONNECTED without a repository evidence reference that records the connection. The harness never verifies liveness of any provider — it verifies the HONESTY of the recorded state. Flipping an UNBOUND provider to CONNECTED is a governed change that attaches live provider evidence from the operator (evidence reference + timestamp + provenance), updates this registry, spec/deployment/console-deployment.md and the evidence document, and re-runs scripts/test_console_deployment.mjs.",
+    "repository_verification_is_not_deployment_proof": "A passing verification harness proves REPOSITORY facts only — package identity, contract agreement, route availability in source and build output, and the honesty of the recorded binding state. It is NOT production proof: no route is claimed deployed, no provider is claimed serving, and no production readiness is inferred (environments.md F8; production-readiness.md §1 hard boundary; design §15 two-gate separation). This registry and its harness sit BELOW the provider-binding gate in the design §15 chain — they can never substitute for it."
+  }
+}
