@@ -84,3 +84,30 @@ Per the registry invariant `no_fake_bindings` (the machine contract for the flip
 ## 7. Success condition (the handoff §22)
 
 A human can open **`https://payswap3.vercel.app`**, set their audience through the public `POST /api/shell/audience` endpoint (or the verification surfaces), and actually navigate the Developer Console: the application loads, `/console` loads, navigation works, authorized/unauthorized flows behave fail-closed, and the runtime is healthy. **Proven live on 2026-09-14.**
+
+## 8. Post-merge update — the repository-binding row closed in its strongest form (2026-09-14T18:08Z)
+
+The operator executed §2's remediation in the successor session: the GitHub PAT was re-landed (one-time delivery to `/home/z/.secrets/payswap.env` outside any repository; org account `payswapdotorg`, admin/push on `payswapdotorg/payswap3` verified live) and the operator sanctioned the merge of PR #50 ("you go ahead and merge it").
+
+**Merge (operator-sanctioned, performed by the Lead through the operator's PAT):**
+
+- PR #50 merged 2026-09-14T18:08:04Z by `payswapdotorg` — merge commit `ae87ea31d0108cb716b46c86ac5012e70012767a` (parents `1d36f09` + `12101cb`), method **merge commit, NOT squash** — the recorded chain `eb3cdb8 → e902f4e → 98e3078 → c8d8ab1 → 12101cb` landed on `payswapdotorg/payswap3@main` **bit-identically** (merge delta: 0 files changed; every SHA verified present on the post-merge clone; `compare 12101cb…ae87ea31` → ahead_by 1, 0 files).
+- Repository battery re-run by the Lead at merged HEAD `ae87ea31` — every element an exact match to §3 row 2: typecheck 0 errors; `bun test` 2357/0 across 153 files (54,791 expects); `bun run build` exit 0; `validate_deployment.py` PASS 1229; `validate_governance.py` PASS 17/17; release harness 8/8 journeys / 574 assertions at the run-time-read revision `ae87ea31`; console-deployment harness PASS 5/22/129.
+
+**Re-deployment from the org repository (row 4's strongest form) — automatic via the Vercel Git integration:**
+
+- The merge push to `payswapdotorg/payswap3@main` was picked up by the Vercel GitHub App ~3s after the merge: production deployment `dpl_8HVzhV5c42Wq4GcPNkdDzDFvnr75` created 2026-09-14T18:08:07Z, **built from `payswapdotorg/payswap3@main@ae87ea31`** (`githubDeployment: 1`, commit signature `verified`, `githubRepoId 1354246400`, ref `main`), **READY + PROMOTED** 2026-09-14T18:08:54Z with the `payswap3.vercel.app` alias reassigned (plus the automatic git-main branch alias `payswap3-git-main-ekonplacidegmailcoms-projects.vercel.app`).
+- GitHub commit status on `ae87ea31`: **`Vercel => success — "Deployment has completed"`** (combined state `success`) — push-triggered auto-deploy with status feedback posted back to the org repository is live, machine-recorded evidence of the **project-level persistent Git link** (row 4's project-level half).
+- The earlier `Authorization required to deploy` status (posted on PR #50's fork head `12101cb` at 17:11Z) applied only to the cross-account fork PR head; the org repository's own `main` push deployed without it. The fork-based deployment `dpl_ExywTQ2y3XeFjajLD9QpJKmGpp9G` is superseded (deployment history now: exactly the two governed production deployments).
+- Row 4's deployment-level half: the production deployment is Git-built **from the org repository itself** — no fork ref, no manual gitSource.
+
+**Row 4 of §3 is closed in its strongest form: PASS (deployment-level AND project-level).** Production promotion in the ENVIRONMENT sense remains out of scope exactly as before: the deployment runs environment `sandbox` (server-derived, spoof-proof), the production provider bindings (database/queue/cloudflare/observability) stay UNBOUND, and no production claim is made by this update. §6 residual 2 is resolved by this section; residuals 1, 3, 4, 5 stand unchanged. Noted consequence (honest): with the Git integration live, subsequent pushes to `main` auto-deploy the sandbox-tier application — including this record-update commit itself (docs/registry-only, app tree unchanged).
+
+**Live re-verification at the merged revision (2026-09-14 ≈18:14–18:25Z, real browser + HTTP):**
+
+- `GET /` → 200, server-derived environment signal renders; `GET /api/health` → 200 `{"status":"ok","component":"web-api-boundary","env":"sandbox"}`; `GET /api/ready` → 200 nine-domain component health with the fresh-instance honest-UNKNOWN states — the runtime composition boots under `PAYSWAP_RUNTIME_DIR=/tmp/payswap-runtime` (project env, production+preview targets, re-verified through the operator's live Vercel token).
+- Unauthenticated `/console` → 307 → `/` (fail-closed, content never rendered); unauthenticated `/api/console/payments` → 404 `{"ok":false}`.
+- Operator audience via the public `POST /api/shell/audience` setter → `/console` renders "Overview · Console · PaySwap"; navigation matrix-exact for operator (PAYMENTS + OPERATIONS×6 + DOCUMENTATION×4; zero checkout/capabilities links; developer surfaces correctly merchant-only per the frozen role matrix).
+- Route sweep: operator console routes all 200; `/api/console/payments`, `/api/ready`, `/api/health` 200; zero 5xx.
+- Customer → operator-only deep-link `/console/operations/execution` → redirect `/`, guarded content never rendered; **zero page errors, zero browser console messages**.
+- Screenshot: `spec/console/evidence/live-deployment/live-org-main-console-ae87ea31.png`.
