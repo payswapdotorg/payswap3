@@ -3,7 +3,7 @@
 **Program:** `payswap-developer-console` (post-closure change set; design `docs/superpowers/specs/2026-09-14-payswap-developer-console-design.md`, APPROVED)
 **This record:** the PC-007 closure package — the five verification-class results, the role-matrix verification, the residual list, and the approval state. Prepared by the PC-007 implementation worker; the closure DECISION belongs to the Tech Lead's reconciliation and the Architect's explicit approval (design §21, PC-007 work order closure rule).
 
-**Status: `AWAITING ARCHITECT APPROVAL`** — NOT complete. Tests passing alone is not completion. PC-007 records the evidence; the Tech Lead verifies, merges, performs the post-merge browser verification, and requests approval; completion is recorded only in `spec/development-state/console-program-state.md` after the Architect approval is explicit.
+**Status: `COMPLETE`** — Architect approval recorded 2026-09-14 14:10 UTC (the operator's explicit "I approve" in the resumed operator session); the Tech Lead recorded completion in `spec/development-state/console-program-state.md` per the state-update rule. The approval was granted against the post-sandbox-reset recovery presentation — the Lead re-located the origin at the terminal main `1d36f09`, re-cloned, and re-verified the full battery byte-exact before the decision was requested (worklog `lead-console-8`).
 
 ## 1. Release identity
 
@@ -102,22 +102,23 @@ Full detail with live evidence: `spec/console/reconciliation-report.md` §3.
 | protocol authority preserved | ✅ port-only reads; forbidden imports machine-enforced; no new authority/ledger/state machine | reconciliation report §4 |
 | credentials/logging safe | ✅ secret-once, digest-only, payload-free ring, redaction before storage — live-proven | journey 6 |
 | integration journeys proven | ✅ the 8 journeys at the candidate revision (Lead re-run at merged main = release proof) | Class 3 |
-| responsive/accessibility evidence proven | ✅ code-level guarantees machine-checked + live-rendered; ⏳ browser pass PENDING-LEAD | Class 4 |
+| responsive/accessibility evidence proven | ✅ code-level guarantees machine-checked + live-rendered; browser pass resolved by the Lead verification addendum (role journeys + 390px + zero console errors) | Class 4 + addendum |
 | deployment contract proven | ✅ PC-006 harness + validator 1229 + provider-binding honesty | Class 5 |
 | actual provider bindings verified where claimed | ✅ as RECORDED truth only (github CI-hosting; others UNBOUND with the live-evidence requirement) | Class 5 |
 | production-like smoke run on exact revision | ✅ loopback smoke of the built app at the run-time-read revision (candidate proof; release proof = Lead re-run) | Class 3 |
-| Tech Lead verification complete | ⏳ PENDING-LEAD — the Lead verifies this candidate against Git/tests/repository, merges through the governed process, re-runs the release harness at merged main, performs the browser verification | this record |
-| Architect approval recorded | ⏳ PENDING-ARCHITECT — the closure decision | this record's status |
-| post-change state reconciled | ⏳ PENDING-LEAD — the program-state update (including any completion recording) is Lead-owned AFTER approval | state-update rule |
+| Tech Lead verification complete | ✅ resolved — see the Lead verification addendum (governed merge PR #49, release-harness re-run at merged main, browser verification, state update) | addendum below |
+| Architect approval recorded | ✅ 2026-09-14 14:10 UTC — explicit "I approve" in the operator session (decided on the byte-exact recovered state) | §7 approval addendum |
+| post-change state reconciled | ✅ completion recorded in `spec/development-state/console-program-state.md` by the Lead (the sole completion surface) | §7 approval addendum |
 
 ## 6. Approval block
 
 ```text
 Worker (PC-007):      evidence prepared, harness delivered, residual list honest — this record
-Tech Lead:            PENDING — verify candidate, governed merge, release-harness re-run at merged
-                      main, post-merge browser verification, state update
-Architect:            PENDING — explicit approval required before completion is recorded
-Program status:       AWAITING ARCHITECT APPROVAL
+Tech Lead:            COMPLETE — candidate verified, governed merge PR #49, release-harness re-run
+                      at merged main, post-merge browser verification, state updated (addendum above)
+Architect:            APPROVED — 2026-09-14 14:10 UTC, explicit "I approve" in the operator session
+                      (granted against the Lead's post-sandbox-reset recovery re-verification)
+Program status:       COMPLETE — completion recorded in console-program-state.md (sole surface)
 ```
 
 Nothing in this record reopens or mutates the closed WORK/UI/DEP/SYS completion records (design §1). The console program's completion can be recorded only in `spec/development-state/console-program-state.md`, only by the Tech Lead, and only after the Architect approval is explicit.
@@ -132,3 +133,13 @@ The four PENDING-LEAD items are now executed and recorded:
 4. **State update** — `spec/development-state/console-program-state.md` records PC-007 MERGED and moves the program status to `AWAITING ARCHITECT APPROVAL` (this record's status line above is the approval gate; completion is recorded only after the Architect's explicit approval).
 
 Full post-merge battery at `b9b0ae2`: typecheck 0 errors; `bun test` 2342 pass / 0 fail; `bun run build` exit 0; `validate_deployment.py` PASS 1229; `test_console_deployment.mjs` PASS (repository-facts-only); `validate_governance.py` PASS 17/17; `test_production_readiness.mjs` retains the recorded known base-failure signature (release-identity #32, the DEP-008 release-record orphan post-closure residual — pre-existing, not console-caused, owner recorded).
+
+## 7. Architect approval addendum (program close)
+
+**Approval event:** the operator's explicit **"I approve"**, 2026-09-14 14:10 UTC, in the resumed operator session — the same session that received the Lead's sandbox-reset recovery report.
+
+**Sequence:** a full sandbox re-image wiped the working clone after the Lead verification addendum was pushed. The Lead re-located the origin (`payswapdotorg/payswap3`, HEAD verified == the terminal main `1d36f09`), re-cloned, and re-verified the complete battery byte-exact — typecheck 0; `bun test` 2342/0 across 151 files; `validate_deployment.py` PASS 1229; `validate_governance.py` PASS 17/17; `test_console_deployment.mjs` PASS (5 groups / 22 scenarios / 127 assertions, repository-facts-only); `bun run build` exit 0; `test_console_release_verification.mjs` exit 0 — 8/8 journeys / 574 assertions at the run-time-read revision `1d36f09`, loopback server stopped cleanly; `test_production_readiness.mjs` retaining exactly the recorded known base-failure signature. The approval decision was therefore made against a state byte-identical to the pre-reset terminal state.
+
+**Effect:** the Lead records completion in `spec/development-state/console-program-state.md` — the sole completion surface; no closed WORK/UI/DEP/SYS record is touched. The honest residuals in §4 remain owned post-closure backlog; the approval accepted them explicitly as presented.
+
+**Push note (operational honesty):** the completion recording is local to this image — the GH PAT was not re-landed after the re-image. `origin/main` already carries every prior artifact through `1d36f09`; only this approval/completion recording awaits a credential re-land to push.

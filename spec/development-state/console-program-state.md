@@ -2,7 +2,7 @@
 
 **Program:** `payswap-developer-console`
 
-**Status:** AWAITING ARCHITECT APPROVAL — implementation complete (PC-001..PC-007 merged); closure decision with the Architect
+**Status:** COMPLETE — Architect approval recorded 2026-09-14 14:10 UTC (explicit "I approve", operator session); completion recorded per the state-update rule (this file is the sole completion surface)
 
 **Architecture baseline:** `4f973c92d7534a13854dfa4468bfa3a72dd14756`
 
@@ -33,7 +33,7 @@ PC-002  MERGED — de52ceed4b9e35db3f69de4af751b3e6d10148c9 (PR #44)   PC-003  M
         PC-007  MERGED — b9b0ae2246bef40cae1656006febddd2f5f30b4b (PR #49) + Lead verification addendum 84912af
            │
            ▼
-   Architect approval  ← CURRENT GATE (explicit approval required to record completion)
+   Architect approval  RECORDED 2026-09-14 → program COMPLETE (completion recorded in this file only)
 ```
 
 Maximum three workers; safe concurrent set is PC-002 and PC-003 only.
@@ -56,11 +56,11 @@ Maximum three workers; safe concurrent set is PC-002 and PC-003 only.
 | PC-007 release verification, evidence, closure preparation | `b9b0ae2246bef40cae1656006febddd2f5f30b4b` | PR #49 squash-merge (worker branch 014014a, parent 901d0f9, 4 incremental commits) — THE RELEASE REVISION | worker battery 7/7 (typecheck 0; build 0; release harness 8/8 journeys / 574 assertions; bun test 2342/0; deployment 1229; console-deploy harness; governance 17/17); Lead reproduced all; full role-matrix sweep 26 routes x 5 roles (53 allow / 77 deny all correct) |
 | Lead verification addendum (the release proof) | `84912af26969719be270621e83ab100b6e77f7aa` | Lead direct (closure record PENDING-LEAD items resolved) | release harness RE-RUN at merged main b9b0ae2: exit 0, 8/8 journeys, 574 assertions, package payswap3@0.1.0, environment sandbox, revision read at run time; Lead browser verification: role-filtered nav exact, honest UNKNOWN presentation verbatim, deep-link isolation, zero page errors, no 390px overflow (screenshots spec/console/evidence/pc-007/); post-merge battery all green |
 
-**Program gate:** implementation COMPLETE — PC-001..PC-007 all merged and verified. Per the PC-007 closure rule, completion is NOT recorded: the closure decision (`spec/console/console-closure-record.md`, status `AWAITING ARCHITECT APPROVAL`) awaits the Architect's explicit approval. Honest residuals carried into that decision: in-memory developer stores non-durable; production/provider binding NOT CONNECTED (github only, machine-enforced UNBOUND for the rest); the DEP-008 release-record orphan retained as post-closure backlog; no per-role port-level payments filter (honest scopeNote); several operations sub-views without listing reads (honest gap panels); administrator access default-deny.
+**Program gate (CLOSED 2026-09-14 14:10 UTC):** the Architect's explicit approval — "I approve" — was delivered in the resumed operator session, AFTER the Lead's sandbox-reset recovery presentation (worklog `lead-console-8`: the re-imaged sandbox lost the working clone; the Lead re-located the origin at the terminal main `1d36f09`, re-cloned, and re-verified the full battery byte-exact — typecheck 0; `bun test` 2342/0 across 151 files; `validate_deployment.py` PASS 1229; governance 17/17; console deployment harness PASS 5/22/127; build exit 0; release harness 8/8 journeys / 574 assertions at the run-time-read revision; production-readiness retaining exactly the recorded known base-failure signature). The approval therefore decided on the byte-identical recovered state. Completion is NOW RECORDED here — nowhere in the closed WORK/UI/DEP/SYS records. The honest residuals the approval explicitly carried into closure as post-closure backlog: in-memory developer stores non-durable; production/provider binding NOT CONNECTED (github only, machine-enforced UNBOUND for the rest); the DEP-008 release-record orphan retained as post-closure backlog; no per-role port-level payments filter (honest scopeNote); several operations sub-views without listing reads (honest gap panels); administrator access default-deny.
 
 Battery progression: post-wave 2154 → post-PC-004 2240 → post-PC-005/006 **2342 pass / 0 fail**; typecheck 0 errors and build exit 0 throughout. Deployment-domain gates at PC-006 merge: validate_deployment.py PASS (1229 checks); test_console_deployment.mjs PASS (repository-facts-only); test_production_readiness.mjs retains the recorded known base-failure signature (release-identity #32, the DEP-008 release-record orphan residual — post-closure backlog with an owner, not console-caused).
 
-Dispatch frontier: **NONE — implementation complete**. The only remaining action is the Architect's explicit approval decision on `spec/console/console-closure-record.md`; upon approval the Lead records completion here (and nowhere in the closed WORK/UI/DEP/SYS records).
+Dispatch frontier: **NONE — program complete** (approval recorded 2026-09-14; completion recorded in this file). Release revision: `b9b0ae2` (PR #49); terminal verified state: this commit's parent `1d36f09` (battery byte-exact there; re-confirmed at this HEAD — docs-only diff). Post-closure backlog (owned, not papered over): durable externalization of the developer stores; the DEP-008 release-record orphan; production provider binding (live-evidence-before-claim, machine-enforced UNBOUND). Operational note: the completion commit is local to this image — the GH PAT was not re-landed after the sandbox re-image; origin/main already carries every prior artifact, and only this completion recording awaits a credential re-land to push.
 
 ### Recorded observations (non-blocking)
 
