@@ -2,7 +2,7 @@
 
 **Program:** `payswap-developer-console`
 
-**Status:** IN IMPLEMENTATION — PC-004 merged (+ Lead registry flip); PC-005 released
+**Status:** IN IMPLEMENTATION — PC-005 merged (+ full registry flip); PC-006 released
 
 **Architecture baseline:** `4f973c92d7534a13854dfa4468bfa3a72dd14756`
 
@@ -24,10 +24,10 @@ PC-002  MERGED — de52ceed4b9e35db3f69de4af751b3e6d10148c9 (PR #44)   PC-003  M
         PC-004  MERGED — c47dc0e26d237819a48f69953bc0fbc23f52853a (PR #46) + Lead registry flip f310163
            │
            ▼
-        PC-005  DISPATCHABLE
+        PC-005  MERGED — ac04ddb098f88f172eb3d37bea6fc1b025fd8bda (PR #47) + Lead registry flip 8000597
            │
            ▼
-        PC-006  BLOCKED
+        PC-006  DISPATCHABLE
            │
            ▼
         PC-007  BLOCKED
@@ -49,10 +49,12 @@ Maximum three workers; safe concurrent set is PC-002 and PC-003 only.
 | PC-003 console API boundary and read models | `324a1320e4c4b338296d9e42a382baa154bff70d` | PR #45 squash-merge (worker branch 3a862af, parent 8feb63c; concurrent-wave sibling of #44, disjoint owned paths) | typecheck 0 errors; build exit 0 (8 API routes); focused 98/98; full suite 2111 pass / 0 fail at branch HEAD (Lead reproduced); owned boundary 30 × A / 0 M; developer-requests gap recorded (no owning source at baseline — explicit UNKNOWN, PENDING-PC-005) |
 | PC-004 composed console views | `c47dc0e26d237819a48f69953bc0fbc23f52853a` | PR #46 squash-merge (worker branch cd6d656, parent 369c035) | typecheck 0 errors; build exit 0; focused 101/101; full suite 2240 pass / 0 fail (baseline 2154 + 86); owned boundary 47 files within owned roots; three-worker lineage (2 timeouts + finisher); finisher fixed 12 fixture-type errors, 1 genuine view bug (gap panel dropped in unavailable branch), 2 test-seam poisonings |
 | Lead registry status flip (post-PC-004) | `f31016368138cc78799ead47b743b872ba465b36` | Lead direct (governed flip, 0d52883 precedent) | 16 PC-004-composed modules planned->available (developers/documentation stay planned pending PC-005); registry policy test + contracts summary assertion + matrix policy note updated in step; full suite 2240 pass / 0 fail; build green |
+| PC-005 developer controls, credentials, webhooks, logs, docs | `ac04ddb098f88f172eb3d37bea6fc1b025fd8bda` | PR #47 squash-merge (worker branch 79c1b96, parent 3ddcede, 5 incremental commits) | typecheck 0 errors; build exit 0; focused 103/103; full suite 2342 pass / 0 fail (baseline 2240 + 102); owned boundary within owned/sanctioned roots; credential security spot-review passed (server-side generation, SHA-256 digest only, plaintext once, env-scoped, audited revocation) |
+| Lead registry status flip (post-PC-005) | `8000597305cc312f8f73451d38ac0b487b971b7a` | Lead direct (governed flip) | developers x5 + documentation x4 planned->available — registry fully available 26/26; policy test + contracts assertion + matrix note updated in step; full suite 2342 pass / 0 fail; build green |
 
-Battery progression: post-wave 2154 pass / 0 fail (baseline 2017 + 43 + 94) → post-PC-004 **2240 pass / 0 fail** (2154 + 86); typecheck 0 errors and build exit 0 throughout.
+Battery progression: post-wave 2154 → post-PC-004 2240 → post-PC-005 **2342 pass / 0 fail**; typecheck 0 errors and build exit 0 throughout. Deployment-domain gates: validate_deployment.py PASS (1194 checks); production-readiness harness retains the recorded known base-failure signature (release-identity #32, the DEP-008 release-record orphan residual — post-closure backlog, not console-caused).
 
-Next dispatch frontier: **PC-005** (serial; parent = `f31016368138cc78799ead47b743b872ba465b36`).
+Next dispatch frontier: **PC-006** (serial; parent = `8000597305cc312f8f73451d38ac0b487b971b7a`).
 
 ### Recorded observations (non-blocking)
 
