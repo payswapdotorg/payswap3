@@ -190,7 +190,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Environment-scoped API-key controls through the dedicated credential boundary (creation-time-only secret display; explicit auditable revocation).',
     group: 'developers',
     allowedRoles: ['merchant'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.developers.webhooks'),
@@ -200,7 +200,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Webhook endpoint ownership and delivery/outcome views referencing authoritative event identifiers.',
     group: 'developers',
     allowedRoles: ['merchant'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.developers.logs'),
@@ -210,7 +210,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Integration logs with credential/authorization redaction — diagnostic records, never evidence substitutes.',
     group: 'developers',
     allowedRoles: ['merchant'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.developers.request-inspector'),
@@ -220,7 +220,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Request/trace inspection with credentials, authorization headers, and secret-bearing configuration redacted.',
     group: 'developers',
     allowedRoles: ['merchant'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.developers.environments'),
@@ -230,7 +230,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Environment scoping presentation for developer credentials (sandbox vs production, server-derived signal only).',
     group: 'developers',
     allowedRoles: ['merchant'],
-    status: 'planned',
+    status: 'available',
   },
   // ── Operations ──────────────────────────────────────────────────────────
   {
@@ -301,7 +301,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'API reference generated from the current implemented boundary/contracts where feasible.',
     group: 'documentation',
     allowedRoles: ALL_ROLES,
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.documentation.concepts'),
@@ -310,7 +310,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
     description: 'Protocol concepts explained without reinterpreting the frozen protocol.',
     group: 'documentation',
     allowedRoles: ALL_ROLES,
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.documentation.examples'),
@@ -320,7 +320,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Examples labeled executable / simulated / illustrative, with environment identified.',
     group: 'documentation',
     allowedRoles: ALL_ROLES,
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.documentation.guides'),
@@ -329,7 +329,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
     description: 'Integration guides resolving to maintained repository content only.',
     group: 'documentation',
     allowedRoles: ALL_ROLES,
-    status: 'planned',
+    status: 'available',
   },
 ];
 

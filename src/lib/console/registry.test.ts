@@ -102,42 +102,14 @@ describe('PC-001 registry — frozen information architecture (design §5)', () 
 });
 
 describe('PC-001 registry — first-release status policy', () => {
-  test('post-PC-004 status policy: composed feature views are available; developers and documentation stay planned until PC-005', () => {
-    // Lead-applied governed flip (PC-004 merge): the modules PC-004 composed
-    // are functionally available; developers/documentation remain planned
-    // pending PC-005. Root was available from PC-001.
+  test('post-PC-005 status policy: every registry module is available (full first-release surface shipped)', () => {
+    // Lead-applied governed flips (PC-004 merge: 16 composed modules;
+    // PC-005 merge: developers x5 + documentation x4). The registry is now
+    // fully available — 26/26 modules.
     const available = CONSOLE_REGISTRY.filter((entry) => entry.status === 'available');
-    expect(available.map((entry) => entry.id as string).sort()).toEqual([
-      'console.accounts.customers',
-      'console.accounts.merchants',
-      'console.accounts.operators',
-      'console.accounts.providers',
-      'console.capabilities',
-      'console.checkout.configuration',
-      'console.checkout.sessions',
-      'console.checkout.test',
-      'console.operations.clearing-netting',
-      'console.operations.execution',
-      'console.operations.incidents',
-      'console.operations.queues',
-      'console.operations.reconciliation',
-      'console.operations.unknown',
-      'console.overview',
-      'console.payments.all',
-      'console.payments.detail',
-    ]);
+    expect(available.length).toBe(CONSOLE_REGISTRY.length);
     const planned = CONSOLE_REGISTRY.filter((entry) => entry.status === 'planned');
-    expect(planned.map((entry) => entry.id as string).sort()).toEqual([
-      'console.developers.api-keys',
-      'console.developers.environments',
-      'console.developers.logs',
-      'console.developers.request-inspector',
-      'console.developers.webhooks',
-      'console.documentation.api',
-      'console.documentation.concepts',
-      'console.documentation.examples',
-      'console.documentation.guides',
-    ]);
+    expect(planned).toEqual([]);
   });
 
   test('the root module id and href are the canonical constants', () => {

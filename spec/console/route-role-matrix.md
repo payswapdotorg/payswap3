@@ -19,10 +19,10 @@ visibility, P8) and fail closed through the existing guard convention
 explicitly grants the module; every other cell is `deny`. Later work items
 may widen cells only through their own governed change.
 
-Status policy (post-PC-004 Lead flip): the foundation root plus every
-PC-004-composed module family (payments, checkout, accounts, capabilities,
-operations) is `available`; developers and documentation stay `planned`
-until PC-005 merges.
+Status policy (post-PC-005 Lead flip): every registry module (26/26) is
+`available` — the composed feature families from PC-004 plus developers
+(credential/webhook/log/inspector/environment controls) and documentation
+from PC-005. No module remains `planned`.
 
 | module id | route | customer | merchant | provider | operator | administrator | rationale (design §6) |
 |---|---|---|---|---|---|---|---|
