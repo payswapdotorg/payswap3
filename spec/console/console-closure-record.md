@@ -121,3 +121,14 @@ Program status:       AWAITING ARCHITECT APPROVAL
 ```
 
 Nothing in this record reopens or mutates the closed WORK/UI/DEP/SYS completion records (design §1). The console program's completion can be recorded only in `spec/development-state/console-program-state.md`, only by the Tech Lead, and only after the Architect approval is explicit.
+
+## Lead verification addendum (post-merge, the PENDING-LEAD items resolved)
+
+The four PENDING-LEAD items are now executed and recorded:
+
+1. **Governed merge** — PC-007 squash-merged as PR #49 → release revision `b9b0ae2246bef40cae1656006febddd2f5f30b4b` (tree `9cebd482a00e95e04d74ffa108045ae0c23acfb0`).
+2. **Release harness re-run at merged main (the release proof)** — `node scripts/test_console_release_verification.mjs` at `b9b0ae2`: exit 0, **8/8 journeys, 10 groups / 38 scenarios / 574 assertions / 0 failures**, package `payswap3@0.1.0`, environment `sandbox`, revision read at run time (never hand-written), dispatch base `901d0f9` verified ancestor.
+3. **Post-merge browser verification (Lead, agent-browser against `next start` on an ephemeral loopback port)** — unauthenticated `/console` redirects to `/` (fail-closed); operator cookie renders the role-filtered module navigation EXACTLY per the route-role matrix (payments/operations/documentation present; merchant-only checkout and provider-only capabilities correctly absent); `/console/payments` renders the honest UNKNOWN presentation with the reconciliation path verbatim ("never success, never failure … never an empty list standing in for an authoritative zero"); customer cookie → operator-only deep link `/console/operations/queues` redirects to `/` with content never rendered; documentation API reference renders the real route inventory; mobile 390px viewport shows NO horizontal overflow; **zero page errors and zero console messages** throughout (no hydration issues). Screenshots: `spec/console/evidence/pc-007/lead-browser-verification-{operator,unknown}.png`.
+4. **State update** — `spec/development-state/console-program-state.md` records PC-007 MERGED and moves the program status to `AWAITING ARCHITECT APPROVAL` (this record's status line above is the approval gate; completion is recorded only after the Architect's explicit approval).
+
+Full post-merge battery at `b9b0ae2`: typecheck 0 errors; `bun test` 2342 pass / 0 fail; `bun run build` exit 0; `validate_deployment.py` PASS 1229; `test_console_deployment.mjs` PASS (repository-facts-only); `validate_governance.py` PASS 17/17; `test_production_readiness.mjs` retains the recorded known base-failure signature (release-identity #32, the DEP-008 release-record orphan post-closure residual — pre-existing, not console-caused, owner recorded).
