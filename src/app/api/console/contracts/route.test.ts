@@ -78,8 +78,10 @@ describe('PC-001 /api/console/contracts — authorized contract serving', () => 
       // The registry served is EXACTLY the frozen registry.
       expect(body.registry.routes.length).toBe(CONSOLE_REGISTRY.length);
       expect(body.registry.summary.totalRoutes).toBe(CONSOLE_REGISTRY.length);
-      expect(body.registry.summary.availableRoutes).toBe(1);
-      expect(body.registry.summary.plannedRoutes).toBe(CONSOLE_REGISTRY.length - 1);
+      // Post-PC-004 Lead flip: 17 available (root + 16 PC-004-composed), 9
+      // planned (developers + documentation, pending PC-005).
+      expect(body.registry.summary.availableRoutes).toBe(17);
+      expect(body.registry.summary.plannedRoutes).toBe(CONSOLE_REGISTRY.length - 17);
       const root = body.registry.routes.find(
         (route) => route.id === (CONSOLE_ROOT_MODULE_ID as string),
       );

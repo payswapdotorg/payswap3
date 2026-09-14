@@ -74,7 +74,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
     href: CONSOLE_ROOT_HREF,
     label: 'Overview',
     description:
-      'Console foundation root: role-aware entry summary over the frozen registry and the server-derived environment. Composed overview views ship in PC-004.',
+      'Console root: role-aware overview composed in PC-004 — module map, server-derived environment, and the authoritative operations-health summary.',
     group: 'overview',
     allowedRoles: ALL_ROLES,
     status: 'available',
@@ -88,7 +88,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Payment/activity list scoped to the viewer role (personal payments for customers, merchant payments for merchants, permitted visibility for operators).',
     group: 'payments',
     allowedRoles: ['customer', 'merchant', 'operator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.payments.detail'),
@@ -98,7 +98,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Flagship payment detail: authority-quoted amount/parties/timestamps/rail/reference, evidence timeline, explicit UNKNOWN presentation.',
     group: 'payments',
     allowedRoles: ['customer', 'merchant', 'operator'],
-    status: 'planned',
+    status: 'available',
   },
   // ── Checkout ────────────────────────────────────────────────────────────
   {
@@ -109,7 +109,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Open checkout sessions and their authority-reported state, scoped to the merchant.',
     group: 'checkout',
     allowedRoles: ['merchant'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.checkout.configuration'),
@@ -119,7 +119,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Merchant checkout account/configuration presentation from its owning authority.',
     group: 'checkout',
     allowedRoles: ['merchant'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.checkout.test'),
@@ -129,7 +129,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Test/sandbox checkout exercising the existing command/runtime path — never a console-local payment simulator. Environment signal is server-derived.',
     group: 'checkout',
     allowedRoles: ['customer', 'merchant'],
-    status: 'planned',
+    status: 'available',
   },
   // ── Accounts ────────────────────────────────────────────────────────────
   {
@@ -139,7 +139,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
     description: 'Projection over the existing identity/account authorities (customers).',
     group: 'accounts',
     allowedRoles: ['administrator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.accounts.merchants'),
@@ -149,7 +149,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Merchant account/configuration projection: own account for merchants, cross-role visibility for administrators.',
     group: 'accounts',
     allowedRoles: ['merchant', 'administrator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.accounts.providers'),
@@ -159,7 +159,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Provider account projection: own profile for providers, cross-role visibility for administrators.',
     group: 'accounts',
     allowedRoles: ['provider', 'administrator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.accounts.operators'),
@@ -168,7 +168,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
     description: 'Operator account projection (cross-role administration).',
     group: 'accounts',
     allowedRoles: ['administrator'],
-    status: 'planned',
+    status: 'available',
   },
   // ── Capabilities ────────────────────────────────────────────────────────
   {
@@ -179,7 +179,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Read-only presentation of protocol capability and routing truth, exactly as the capability authority reports it (availability never inferred from configuration).',
     group: 'capabilities',
     allowedRoles: ['provider'],
-    status: 'planned',
+    status: 'available',
   },
   // ── Developers ──────────────────────────────────────────────────────────
   {
@@ -241,7 +241,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Queue/worker operational visibility from the existing operational telemetry authorities.',
     group: 'operations',
     allowedRoles: ['operator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.operations.execution'),
@@ -250,7 +250,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
     description: 'Durable execution visibility from the existing operational authorities.',
     group: 'operations',
     allowedRoles: ['operator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.operations.reconciliation'),
@@ -260,7 +260,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Reconciliation state visibility preserving the existing observability taxonomy.',
     group: 'operations',
     allowedRoles: ['operator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.operations.unknown'),
@@ -270,7 +270,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'UNKNOWN-case visibility and recovery context from the existing recovery authorities (read-mostly).',
     group: 'operations',
     allowedRoles: ['operator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.operations.clearing-netting'),
@@ -280,7 +280,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Clearing/netting progression visibility from the existing operational authorities.',
     group: 'operations',
     allowedRoles: ['operator'],
-    status: 'planned',
+    status: 'available',
   },
   {
     id: moduleId('console.operations.incidents'),
@@ -290,7 +290,7 @@ export const CONSOLE_REGISTRY: readonly ConsoleRouteEntry[] = [
       'Incident/recovery health visibility preserving the existing observability taxonomy.',
     group: 'operations',
     allowedRoles: ['operator'],
-    status: 'planned',
+    status: 'available',
   },
   // ── Documentation ───────────────────────────────────────────────────────
   {

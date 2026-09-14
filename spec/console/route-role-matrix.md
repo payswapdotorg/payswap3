@@ -19,8 +19,10 @@ visibility, P8) and fail closed through the existing guard convention
 explicitly grants the module; every other cell is `deny`. Later work items
 may widen cells only through their own governed change.
 
-Status policy (first release): composed feature views are `planned` until
-PC-004/PC-005 merge; only the foundation root is `available`.
+Status policy (post-PC-004 Lead flip): the foundation root plus every
+PC-004-composed module family (payments, checkout, accounts, capabilities,
+operations) is `available`; developers and documentation stay `planned`
+until PC-005 merges.
 
 | module id | route | customer | merchant | provider | operator | administrator | rationale (design §6) |
 |---|---|---|---|---|---|---|---|
