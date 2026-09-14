@@ -204,3 +204,7 @@ Requirements: an **absolute** path to a **writable** directory
 reproduces the original blocker, by design: fail-safe never means
 silently pretending to write). The state there is per-instance
 ephemeral (§4).
+
+## Live-verification addendum (2026-09-14, post-deployment)
+
+The adaptation is now verified LIVE on the target platform: Vercel deployment `dpl_ExywTQ2y3XeFjajLD9QpJKmGpp9G` (project `payswap3`, `prj_KKNoN9qidIiPm6EKCf2PE9uhgvrk`) built from Git at `c8d8ab12ffe07f62ac3c8f0faf19386583d38ace` (this change's tip) with the single env var `PAYSWAP_RUNTIME_DIR=/tmp/payswap-runtime`, reached READY, and serves `https://payswap3.vercel.app`: `/api/health` 200 `env:"sandbox"`; `/api/ready` 200 with the nine-domain component health (the composition booted on the read-only serverless filesystem — the exact EROFS crash path this change eliminated); full browser verification (operator console navigation, role isolation, honest UNKNOWN presentations, mobile 390px, zero 5xx, zero browser errors) recorded in `spec/deployment/live-deployment-record.md`. The pre-adaptation control was observed live as predicted: the unadapted `main` build deploys and builds green but its runtime cannot boot (read-only cwd) — recorded in the deployment program worklog; the fail-safe default (env unset) remains byte-identical to pre-adaptation behavior, regression-guarded by the colocated suites.
