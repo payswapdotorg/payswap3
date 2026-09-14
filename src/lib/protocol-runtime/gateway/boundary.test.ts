@@ -98,7 +98,7 @@ function stripCommentsAndStrings(content: string): string {
 }
 
 describe('RTN-010 boundary review — no second admission path exists', () => {
-  test('no non-gateway, non-substrate, non-transition-runtime source calls the durable enqueue API or references DurableQueue', () => {
+  test('no non-gateway, non-substrate, non-transition-runtime, non-recovery source calls the durable enqueue API or references DurableQueue', () => {
     // Tech-Lead integration amendment (RTN-011 parallel-sibling merge): the
     // transition runtime (src/lib/protocol-runtime/transition/ + hosting/) is
     // the DOCUMENTED dequeue-side execution path over the durable substrate
@@ -106,6 +106,20 @@ describe('RTN-010 boundary review — no second admission path exists', () => {
     // consumer, not a second ADMISSION path. Admission (external command entry
     // via enqueue) remains gateway-only; this whitelist addition changes
     // nothing about that invariant.
+    //
+    // Tech-Lead baseline repair (post-closure console program, pre-PC-001
+    // dispatch): the DEP-007 recovery lane (src/lib/recovery/, PR #38) composes
+    // the substrate's EXPORTED DurableQueue + DurableWorker over a restored
+    // database handle via bindDurableRuntime() — the documented
+    // wrap-don't-patch recovery-side composition (DEP-007 work order:
+    // "Event/journal replay preserves idempotency"). It is the substrate's
+    // consumer for restore/replay, not a second ADMISSION path; admission
+    // (external command entry via enqueue) remains gateway-only exactly as
+    // before. This amendment records the DEP-007 integration the same way the
+    // RTN-011 amendment above recorded the transition runtime; the missed
+    // whitelist update surfaced when the post-closure console program
+    // re-baselined the full bun test suite (it is not covered by the
+    // run_ci_gates harness gate, which runs the scripts/test_*.mjs batteries).
     const offenders: string[] = [];
     for (const file of sourceFilesUnder('src')) {
       const relative = file.slice(REPO_ROOT.length + 1).replaceAll('\\', '/');
@@ -113,7 +127,8 @@ describe('RTN-010 boundary review — no second admission path exists', () => {
       const isSubstrate = relative.startsWith('src/lib/durable/');
       const isTransitionRuntime = relative.startsWith('src/lib/protocol-runtime/transition/')
         || relative.startsWith('src/lib/protocol-runtime/hosting/');
-      if (isGateway || isSubstrate || isTransitionRuntime) {
+      const isRecoveryLane = relative.startsWith('src/lib/recovery/');
+      if (isGateway || isSubstrate || isTransitionRuntime || isRecoveryLane) {
         continue;
       }
       const content = read(file);
