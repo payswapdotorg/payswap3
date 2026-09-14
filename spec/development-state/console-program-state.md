@@ -2,7 +2,7 @@
 
 **Program:** `payswap-developer-console`
 
-**Status:** IN IMPLEMENTATION — PC-005 merged (+ full registry flip); PC-006 released
+**Status:** IN IMPLEMENTATION — PC-006 merged (+ fourth-surface provenance flip); PC-007 released
 
 **Architecture baseline:** `4f973c92d7534a13854dfa4468bfa3a72dd14756`
 
@@ -27,10 +27,10 @@ PC-002  MERGED — de52ceed4b9e35db3f69de4af751b3e6d10148c9 (PR #44)   PC-003  M
         PC-005  MERGED — ac04ddb098f88f172eb3d37bea6fc1b025fd8bda (PR #47) + Lead registry flip 8000597
            │
            ▼
-        PC-006  DISPATCHABLE
+        PC-006  MERGED — 8a326af35ccec984adab6343696c33b8236d3b32 (PR #48) + Lead fourth-surface flip c408757
            │
            ▼
-        PC-007  BLOCKED
+        PC-007  DISPATCHABLE (final work item — verification and closure)
            │
            ▼
    Architect approval
@@ -51,10 +51,12 @@ Maximum three workers; safe concurrent set is PC-002 and PC-003 only.
 | Lead registry status flip (post-PC-004) | `f31016368138cc78799ead47b743b872ba465b36` | Lead direct (governed flip, 0d52883 precedent) | 16 PC-004-composed modules planned->available (developers/documentation stay planned pending PC-005); registry policy test + contracts summary assertion + matrix policy note updated in step; full suite 2240 pass / 0 fail; build green |
 | PC-005 developer controls, credentials, webhooks, logs, docs | `ac04ddb098f88f172eb3d37bea6fc1b025fd8bda` | PR #47 squash-merge (worker branch 79c1b96, parent 3ddcede, 5 incremental commits) | typecheck 0 errors; build exit 0; focused 103/103; full suite 2342 pass / 0 fail (baseline 2240 + 102); owned boundary within owned/sanctioned roots; credential security spot-review passed (server-side generation, SHA-256 digest only, plaintext once, env-scoped, audited revocation) |
 | Lead registry status flip (post-PC-005) | `8000597305cc312f8f73451d38ac0b487b971b7a` | Lead direct (governed flip) | developers x5 + documentation x4 planned->available — registry fully available 26/26; policy test + contracts assertion + matrix note updated in step; full suite 2342 pass / 0 fail; build green |
+| PC-006 deployment and provider-binding contract | `8a326af35ccec984adab6343696c33b8236d3b32` | PR #48 squash-merge (worker branch bcc199e, parent 09681dd, 3 incremental commits) | typecheck 0; validate_deployment PASS 1229 (+35); console deployment harness PASS (5 groups / 22 scenarios / 127 assertions, repository-facts-only, 7 negative probes exit 1); bun test 2342/0; build 0; production-readiness retains the recorded known base-failure signature; provider truth honest (github CONNECTED with evidence chain; vercel/database/queue/cloudflare/observability UNBOUND) |
+| Lead fourth-surface provenance flip (post-PC-006) | `c4087572e68fee5fec9aa5fbbde5769123745d83` | Lead direct (the worker-forbidden locked validator + provenance fields — DEP/SYS precedent) | components.json updated_by SYS-001 -> PC-006, base_sha -> dispatch base 09681dd; validator constants updated in step; validator PASS 1229; governance validator PASS (17 paths); console harness PASS; full suite 2342/0; build green |
 
-Battery progression: post-wave 2154 → post-PC-004 2240 → post-PC-005 **2342 pass / 0 fail**; typecheck 0 errors and build exit 0 throughout. Deployment-domain gates: validate_deployment.py PASS (1194 checks); production-readiness harness retains the recorded known base-failure signature (release-identity #32, the DEP-008 release-record orphan residual — post-closure backlog, not console-caused).
+Battery progression: post-wave 2154 → post-PC-004 2240 → post-PC-005/006 **2342 pass / 0 fail**; typecheck 0 errors and build exit 0 throughout. Deployment-domain gates at PC-006 merge: validate_deployment.py PASS (1229 checks); test_console_deployment.mjs PASS (repository-facts-only); test_production_readiness.mjs retains the recorded known base-failure signature (release-identity #32, the DEP-008 release-record orphan residual — post-closure backlog with an owner, not console-caused).
 
-Next dispatch frontier: **PC-006** (serial; parent = `8000597305cc312f8f73451d38ac0b487b971b7a`).
+Next dispatch frontier: **PC-007** (final; parent = `c4087572e68fee5fec9aa5fbbde5769123745d83`).
 
 ### Recorded observations (non-blocking)
 
