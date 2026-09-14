@@ -2,10 +2,10 @@
   "contract": "payswap-deployment-components",
   "version": 1,
   "generated_by": "DEP-001",
-  "updated_by": "SYS-001",
-  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"): SYS-001 delivered the three-architecture reconciliation. No component added, removed or re-scoped (the present-set stays the DEP-004 governed set of eleven); no environment or allowlist change. The web-api-boundary component’s route_surface gains the SYS-001 HTTP binding route /api/protocol/commands (the protocol gateway’s command-admission transport: POST submits one command envelope VERBATIM through ProtocolGateway.submitCommand — the A01 admission contract of authority attribution, per-authority body validation and idempotent receipts; responses carry the gateway’s typed result vocabulary; GET is the read-only receipt lookup) and its repository_entrypoint paths gain the binding’s route file and the server-only shared composition module src/lib/protocol/server-composition.ts (the D-2 remediation: the module the routes import, performing the runtime-adapter registration idempotently over the ONE process-global composition in src/lib/protocol/server-runtime.ts, whose drain() is the D-3 bounded tick pass). The route is transport only — no financial authority, no new externally-configurable name (the in-process composition adds none; configuration.md unchanged in values), reachable in every environment class the component serves per its environment_reachability (development, test-ci, sandbox, staging, production — the environment allowlist and fail-closed rules F1–F8 hold). New SYS-001 surfaces: spec/system-reconciliation-matrix.md + spec/system-reconciliation-matrix.json (the deterministic reconciliation matrix: eight consequential product journeys × the seven reconciliation hops, every cell naming the exact file+export or record type), scripts/test_system_reconciliation.mjs (the mechanical authority-ownership / no-UI-truth / no-bypass / environment-isolation / UNKNOWN-preservation checks over the composed runtime + the ports), scripts/test_transport_binding.mjs (the built-app D-1/D-2/D-3 proof harness), scripts/ts_resolver.mjs (the harnesses’ plain-Node module resolver for the product layer). Deferral-ledger dispositions recorded: D-1/D-2/D-3 RESOLVED by SYS-001 (spec/product/closure/deferral-ledger.md). The gateway-kind alias bindings in the composition root were extended to the documented registry kinds the binding and the journeys drive (obligations.clearing.commit, queues.item.enqueue, capability.register, settlement.finality.declare, reconciliation.cycle.open / statements.collect / matching.run) — each alias drives the SAME owning authority command through the SAME single-writer path (the RTN-012 integration-adapter pattern already applied for obligations.dispute.open and queues.item.cancel); no frozen protocol semantics were touched (src/lib/protocol-runtime/**, src/lib/durable/**, src/lib/operations/**, src/lib/rail-connectivity/**, src/lib/observability/**, src/lib/recovery/** unchanged), no new npm dependencies. — PC-006 governed contract change (append, spec/deployment/topology.md \"Contract evolution\"): the console deployment contract extended this component's route_surface with the console surface — the 25 static console page routes (the frozen CONSOLE_REGISTRY hrefs of src/lib/console/registry.ts minus its one dynamic href /console/payments/[paymentId]; the /console root is itself a registry href) and the 8 static console API boundary routes (src/app/api/console/**) delivered by the console program PC-001..PC-005. The 3 dynamic routes (the [paymentId]/[checkoutId] segment routes) are recorded ONLY in deploy/contracts/console-provider-bindings.json (this registry's route_surface convention is the validator's flat static-route form, which cannot express path segments); the harness scripts/test_console_deployment.mjs proves set-equality between the two contract files, the registry source and the filesystem. No component added, removed or re-scoped (the present-set stays the DEP-004 governed set of eleven); no environment, allowlist or configuration change (configuration.md unchanged — the console adds no configurable value); the console ships INSIDE the current web-api-boundary package (package identity payswap3@0.1.0, recorded in the console binding registry). The component's repository_entrypoint gains the console route registry source src/lib/console/registry.ts (the single source of truth the harness cross-checks). The provider-binding truth for the console (ONLY github CONNECTED per the recorded Composio truth; vercel/database/queue/cloudflare/observability UNBOUND) is recorded in deploy/contracts/console-provider-bindings.json — nothing in this change claims any production binding; every production_gate stays authoritative. Validator-lock disclosure: scripts/validate_deployment.py machine-checks updated_by == 'SYS-001' and base_sha == 46507326265aa5be869d0389f0414d5c7c28f762 (locked at the SYS-001 four-surface change); PC-006 workers are forbidden from editing the validator, so these provenance fields are intentionally left at their locked values and the PC-006 provenance lives in this note + the topology.md change record + the console binding registry + spec/console/PC-006-evidence.md; the Lead applies the validator-side provenance flip (updated_by -> PC-006 and, if the DEP precedent is followed, the declared base -> the PC-006 dispatch base 09681dda20dfa53d31c81cf96828944763e30b01) at merge time as the fourth surface of this governed change.",
+  "updated_by": "PC-006",
+  "update_note": "Governed contract change (spec/deployment/topology.md \"Contract evolution\"): SYS-001 delivered the three-architecture reconciliation. No component added, removed or re-scoped (the present-set stays the DEP-004 governed set of eleven); no environment or allowlist change. The web-api-boundary component\u2019s route_surface gains the SYS-001 HTTP binding route /api/protocol/commands (the protocol gateway\u2019s command-admission transport: POST submits one command envelope VERBATIM through ProtocolGateway.submitCommand \u2014 the A01 admission contract of authority attribution, per-authority body validation and idempotent receipts; responses carry the gateway\u2019s typed result vocabulary; GET is the read-only receipt lookup) and its repository_entrypoint paths gain the binding\u2019s route file and the server-only shared composition module src/lib/protocol/server-composition.ts (the D-2 remediation: the module the routes import, performing the runtime-adapter registration idempotently over the ONE process-global composition in src/lib/protocol/server-runtime.ts, whose drain() is the D-3 bounded tick pass). The route is transport only \u2014 no financial authority, no new externally-configurable name (the in-process composition adds none; configuration.md unchanged in values), reachable in every environment class the component serves per its environment_reachability (development, test-ci, sandbox, staging, production \u2014 the environment allowlist and fail-closed rules F1\u2013F8 hold). New SYS-001 surfaces: spec/system-reconciliation-matrix.md + spec/system-reconciliation-matrix.json (the deterministic reconciliation matrix: eight consequential product journeys \u00d7 the seven reconciliation hops, every cell naming the exact file+export or record type), scripts/test_system_reconciliation.mjs (the mechanical authority-ownership / no-UI-truth / no-bypass / environment-isolation / UNKNOWN-preservation checks over the composed runtime + the ports), scripts/test_transport_binding.mjs (the built-app D-1/D-2/D-3 proof harness), scripts/ts_resolver.mjs (the harnesses\u2019 plain-Node module resolver for the product layer). Deferral-ledger dispositions recorded: D-1/D-2/D-3 RESOLVED by SYS-001 (spec/product/closure/deferral-ledger.md). The gateway-kind alias bindings in the composition root were extended to the documented registry kinds the binding and the journeys drive (obligations.clearing.commit, queues.item.enqueue, capability.register, settlement.finality.declare, reconciliation.cycle.open / statements.collect / matching.run) \u2014 each alias drives the SAME owning authority command through the SAME single-writer path (the RTN-012 integration-adapter pattern already applied for obligations.dispute.open and queues.item.cancel); no frozen protocol semantics were touched (src/lib/protocol-runtime/**, src/lib/durable/**, src/lib/operations/**, src/lib/rail-connectivity/**, src/lib/observability/**, src/lib/recovery/** unchanged), no new npm dependencies. \u2014 PC-006 governed contract change (append, spec/deployment/topology.md \"Contract evolution\"): the console deployment contract extended this component's route_surface with the console surface \u2014 the 25 static console page routes (the frozen CONSOLE_REGISTRY hrefs of src/lib/console/registry.ts minus its one dynamic href /console/payments/[paymentId]; the /console root is itself a registry href) and the 8 static console API boundary routes (src/app/api/console/**) delivered by the console program PC-001..PC-005. The 3 dynamic routes (the [paymentId]/[checkoutId] segment routes) are recorded ONLY in deploy/contracts/console-provider-bindings.json (this registry's route_surface convention is the validator's flat static-route form, which cannot express path segments); the harness scripts/test_console_deployment.mjs proves set-equality between the two contract files, the registry source and the filesystem. No component added, removed or re-scoped (the present-set stays the DEP-004 governed set of eleven); no environment, allowlist or configuration change (configuration.md unchanged \u2014 the console adds no configurable value); the console ships INSIDE the current web-api-boundary package (package identity payswap3@0.1.0, recorded in the console binding registry). The component's repository_entrypoint gains the console route registry source src/lib/console/registry.ts (the single source of truth the harness cross-checks). The provider-binding truth for the console (ONLY github CONNECTED per the recorded Composio truth; vercel/database/queue/cloudflare/observability UNBOUND) is recorded in deploy/contracts/console-provider-bindings.json \u2014 nothing in this change claims any production binding; every production_gate stays authoritative. Validator-lock disclosure: scripts/validate_deployment.py machine-checks updated_by == 'SYS-001' and base_sha == 46507326265aa5be869d0389f0414d5c7c28f762 (locked at the SYS-001 four-surface change); PC-006 workers are forbidden from editing the validator, so these provenance fields are intentionally left at their locked values and the PC-006 provenance lives in this note + the topology.md change record + the console binding registry + spec/console/PC-006-evidence.md; the Lead applies the validator-side provenance flip (updated_by -> PC-006 and, if the DEP precedent is followed, the declared base -> the PC-006 dispatch base 09681dda20dfa53d31c81cf96828944763e30b01) at merge time as the fourth surface of this governed change.",
   "base_branch": "main",
-  "base_sha": "46507326265aa5be869d0389f0414d5c7c28f762",
+  "base_sha": "09681dda20dfa53d31c81cf96828944763e30b01",
   "spec_documents": {
     "topology": "spec/deployment/topology.md",
     "environments": "spec/deployment/environments.md",
@@ -64,7 +64,7 @@
   "field_semantics": {
     "owner": "Runtime/process owner. Always 'deployment': the deployment layer owns process topology, persistence infrastructure, queues, schedulers, workers, secrets, runtime configuration, CI/CD, observability, scaling, backups, recovery and environment isolation for every deployed component.",
     "layer": "Architecture layer whose authority the component hosts: 'protocol' (hosts protocol-owned authority), 'product' (hosts product-owned presentation semantics), 'deployment' (pure deployment infrastructure; hosts no protocol or product authority).",
-    "authority_hosted": "The authority the component hosts. Components with layer 'protocol' list the protocol authorities they host; every other component's value must start with 'none' — financial authority exists only in protocol-layer components.",
+    "authority_hosted": "The authority the component hosts. Components with layer 'protocol' list the protocol authorities they host; every other component's value must start with 'none' \u2014 financial authority exists only in protocol-layer components.",
     "exists_in_repository_today": "True only if the component's entrypoint paths exist in the repository at the declared base SHA. False means FUTURE-WORK: the component is deployment-owned capacity whose repository entrypoint arrives with the referenced future work.",
     "repository_entrypoint": "Object with 'status' ('present' or 'future-work'), 'paths' (repository-relative paths; non-empty and on disk when present; empty when future-work) and 'marker' (dependency-graph provenance; required when future-work).",
     "route_surface": "Optional: HTTP routes served by the component (documentation; not an existence-checked entrypoint).",
@@ -72,18 +72,18 @@
     "production_gate": "Required whenever 'production' is reachable: the separately authorized production configuration that gates real financial effects. Sandbox/demo can never reach production financial effects without it (environments.md fail-closed rules F1-F8).",
     "health_signal": "Contract-level health signal the component must expose; bound to observability from DEP-002 onward.",
     "rollback": "Contract-level rollback mechanism; principles R1-R5 in spec/deployment/topology.md.",
-    "future_work": "The future work that remains for a component whose in-process repository entrypoints exist today (rtn-plan-rulings.md Q3/delta 3): externalized process binding (DEP-002+), and for rail-touching components real-rail credential binding under DEP-005. Required and non-empty for every component; carries the FUTURE-WORK tag. The in-process form is the RTN wave's composed realization inside the web-api-boundary application — never a claim of externalized deployment, and no protocol semantic change.",
+    "future_work": "The future work that remains for a component whose in-process repository entrypoints exist today (rtn-plan-rulings.md Q3/delta 3): externalized process binding (DEP-002+), and for rail-touching components real-rail credential binding under DEP-005. Required and non-empty for every component; carries the FUTURE-WORK tag. The in-process form is the RTN wave's composed realization inside the web-api-boundary application \u2014 never a claim of externalized deployment, and no protocol semantic change.",
     "updated_by": "The work item that last performed a governed contract change on this registry (topology.md 'Contract evolution'). DEP-001 generated the contract; DEP-002 added the packaging delta checks; RTN-012 updated the present-set with the RTN wave's in-process entrypoints; DEP-004 added the operational-jobs family entrypoints; DEP-005 landed the rail-connectivity boundary as the external-rail-adapters owned surface; DEP-006 landed the CI/CD and promotion contract (the top-level ci_cd object).",
-    "ci_cd": "The DEP-006 CI/CD and promotion contract (spec/deployment/ci-cd.md): repository-local gate runner, promotion tool, package-snapshot evidence tool, the GitHub Actions workflows that invoke exactly these repo-local scripts, and the append-only promotion-record store. CI/CD is deployment-owned capacity (the owner field's 'CI/CD' term) — it hosts no component, adds no protocol authority, and binds nothing to production: the production deployment binding is FUTURE-WORK and every production_gate in this registry stays authoritative."
+    "ci_cd": "The DEP-006 CI/CD and promotion contract (spec/deployment/ci-cd.md): repository-local gate runner, promotion tool, package-snapshot evidence tool, the GitHub Actions workflows that invoke exactly these repo-local scripts, and the append-only promotion-record store. CI/CD is deployment-owned capacity (the owner field's 'CI/CD' term) \u2014 it hosts no component, adds no protocol authority, and binds nothing to production: the production deployment binding is FUTURE-WORK and every production_gate in this registry stays authoritative."
   },
   "components": [
     {
       "id": "web-api-boundary",
-      "name": "Web/API boundary — PaySwap Next.js application",
+      "name": "Web/API boundary \u2014 PaySwap Next.js application",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "product",
-      "authority_hosted": "none — hosts product-owned navigation, presentation and progressive disclosure (shell home '/', verification surface '/state-primitives') plus the server-side environment signal; hosts no financial authority, never writes authoritative state, never reaches external rails",
+      "authority_hosted": "none \u2014 hosts product-owned navigation, presentation and progressive disclosure (shell home '/', verification surface '/state-primitives') plus the server-side environment signal; hosts no financial authority, never writes authoritative state, never reaches external rails",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -102,7 +102,7 @@
           "src/lib/startup-config.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: the externalized telemetry binding — metrics endpoints, alerting, and external log/tracing backends over the in-process observability surfaces (src/lib/observability/), plus scheduled backup automation and externalized restore rehearsal over src/lib/recovery/ (drill evidence: scripts/test_observability_resilience.mjs — 30 scenarios / 483 assertions), and the externalized process binding for the protocol gateway the SYS-001 HTTP binding fronts (the in-process composition is the composed realization; a separately deployed gateway process with its own readiness endpoint is DEP-002+). The UI-011 product-port re-anchoring LANDED via SYS-001 (the D-2 remediation: src/lib/protocol/server-composition.ts is the module the routes import; the D-1 HTTP binding transports the gateway’s admission).",
+      "future_work": "FUTURE-WORK: the externalized telemetry binding \u2014 metrics endpoints, alerting, and external log/tracing backends over the in-process observability surfaces (src/lib/observability/), plus scheduled backup automation and externalized restore rehearsal over src/lib/recovery/ (drill evidence: scripts/test_observability_resilience.mjs \u2014 30 scenarios / 483 assertions), and the externalized process binding for the protocol gateway the SYS-001 HTTP binding fronts (the in-process composition is the composed realization; a separately deployed gateway process with its own readiness endpoint is DEP-002+). The UI-011 product-port re-anchoring LANDED via SYS-001 (the D-2 remediation: src/lib/protocol/server-composition.ts is the module the routes import; the D-1 HTTP binding transports the gateway\u2019s admission).",
       "route_surface": [
         "/",
         "/_not-found",
@@ -152,7 +152,7 @@
         "production"
       ],
       "production_gate": "Production traffic is served only from the production environment with its separately authorized production configuration; PAYSWAP_ENV=production is set only there (environments.md fail-closed rules F2/F3).",
-      "health_signal": "Process boot plus HTTP readiness — GET / returns 200 and the shell renders; /api/health (liveness, F6) and /api/ready (the F6 startup configuration checks, with the additive DEP-007 componentHealth field) unchanged. SYS-001 adds the protocol gateway’s HTTP binding /api/protocol/commands (the A01 admission transport: POST submitCommand admission + typed refusals, GET receipt lookup) — its health signal is the gateway’s own programmatic health() contract (command acceptance rate, admission latency, durable-queue submit success), reachable over the binding; external metrics/alerting binding remains DEP-002+ future work.",
+      "health_signal": "Process boot plus HTTP readiness \u2014 GET / returns 200 and the shell renders; /api/health (liveness, F6) and /api/ready (the F6 startup configuration checks, with the additive DEP-007 componentHealth field) unchanged. SYS-001 adds the protocol gateway\u2019s HTTP binding /api/protocol/commands (the A01 admission transport: POST submitCommand admission + typed refusals, GET receipt lookup) \u2014 its health signal is the gateway\u2019s own programmatic health() contract (command acceptance rate, admission latency, durable-queue submit success), reachable over the binding; external metrics/alerting binding remains DEP-002+ future work.",
       "rollback": "Stateless redeploy of the previous commit/build artifact; the shell holds no authoritative state, so rollback requires no data recovery.",
       "runtime_packaging": {
         "type": "docker-image/standalone-server",
@@ -177,11 +177,11 @@
     },
     {
       "id": "protocol-gateway",
-      "name": "Protocol gateway — authoritative protocol API",
+      "name": "Protocol gateway \u2014 authoritative protocol API",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "the sole admission point for protocol commands — per-command validation against the owning authorities' registered schemas (the registry A01–A14 and A16 command authorities: Intent, Fulfillment Policy, Capability, Routing, Reservation, Liquidity, Credit, Queue, Clearing, Obligation, Netting, Settlement and Finality, Rail, Reconciliation, and Risk and Compliance Authorities), idempotent admission receipts, typed rejection evidence, and durable submission; hosts no authority of its own and implements no identity or market authority (rtn-plan-rulings.md Q4 — subject validation is per-command per owning authority)",
+      "authority_hosted": "the sole admission point for protocol commands \u2014 per-command validation against the owning authorities' registered schemas (the registry A01\u2013A14 and A16 command authorities: Intent, Fulfillment Policy, Capability, Routing, Reservation, Liquidity, Credit, Queue, Clearing, Obligation, Netting, Settlement and Finality, Rail, Reconciliation, and Risk and Compliance Authorities), idempotent admission receipts, typed rejection evidence, and durable submission; hosts no authority of its own and implements no identity or market authority (rtn-plan-rulings.md Q4 \u2014 subject validation is per-command per owning authority)",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -193,7 +193,7 @@
           "src/lib/protocol-runtime/gateway/COMMAND-SURFACE.md"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — the gateway as a separately deployed process with an HTTP readiness endpoint and observability binding (DEP-002+); the in-process module surface (RTN-010, inside the web-api-boundary application) is the composed realization, not an externalized deployment",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 the gateway as a separately deployed process with an HTTP readiness endpoint and observability binding (DEP-002+); the in-process module surface (RTN-010, inside the web-api-boundary application) is the composed realization, not an externalized deployment",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -207,11 +207,11 @@
     },
     {
       "id": "transition-runtime",
-      "name": "Transition runtime — single authoritative-state writer",
+      "name": "Transition runtime \u2014 single authoritative-state writer",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "the single authoritative-state writer — the merged authorities' command surfaces (registry A01–A14 and A16) executed as hosted bindings through the dequeue → resolve-owning-authority → apply-transition → A15-evidence → atomic-commit path on the DEP-003 substrate; no other layer mutates authoritative state (the hard boundary)",
+      "authority_hosted": "the single authoritative-state writer \u2014 the merged authorities' command surfaces (registry A01\u2013A14 and A16) executed as hosted bindings through the dequeue \u2192 resolve-owning-authority \u2192 apply-transition \u2192 A15-evidence \u2192 atomic-commit path on the DEP-003 substrate; no other layer mutates authoritative state (the hard boundary)",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -222,7 +222,7 @@
           "src/lib/durable/worker.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — the transition runtime as a separately deployed worker process fleet with observability binding (DEP-002+); the in-process module surface (RTN-011, hosted on the DEP-003 substrate inside the web-api-boundary application) is the composed realization",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 the transition runtime as a separately deployed worker process fleet with observability binding (DEP-002+); the in-process module surface (RTN-011, hosted on the DEP-003 substrate inside the web-api-boundary application) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -236,11 +236,11 @@
     },
     {
       "id": "scheduler",
-      "name": "Scheduler — timing-driven command emitter",
+      "name": "Scheduler \u2014 timing-driven command emitter",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
-      "authority_hosted": "none — emits timing-driven commands into the durable command queue; owns timing only, never mutates authoritative state and never reaches external rails",
+      "authority_hosted": "none \u2014 emits timing-driven commands into the durable command queue; owns timing only, never mutates authoritative state and never reaches external rails",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -248,7 +248,7 @@
           "src/lib/protocol-runtime/hosting/scheduler-wiring.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — the scheduler as a separately deployed timing process with heartbeat/missed-schedule alarms bound to observability (DEP-002+); the in-process module surface (the DEP-003 scheduler + RTN-011's recurring command emitters) is the composed realization",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 the scheduler as a separately deployed timing process with heartbeat/missed-schedule alarms bound to observability (DEP-002+); the in-process module surface (the DEP-003 scheduler + RTN-011's recurring command emitters) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -262,11 +262,11 @@
     },
     {
       "id": "reconciler-workers",
-      "name": "Reconciler workers — drift detection and corrective commands",
+      "name": "Reconciler workers \u2014 drift detection and corrective commands",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "Reconciliation Authority semantics (registry A14) — cases, cycles, sources, and adjustments: the only exit from UNKNOWN (GC-2), with exactly-once resolution and history-never-mutated adjustments; executed as the recurring reconciliation-cycle commands through the transition path and as corrective commands through the protocol gateway — never direct state mutation, never direct rail access",
+      "authority_hosted": "Reconciliation Authority semantics (registry A14) \u2014 cases, cycles, sources, and adjustments: the only exit from UNKNOWN (GC-2), with exactly-once resolution and history-never-mutated adjustments; executed as the recurring reconciliation-cycle commands through the transition path and as corrective commands through the protocol gateway \u2014 never direct state mutation, never direct rail access",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -275,7 +275,7 @@
           "src/lib/protocol-runtime/rails/persistence.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — reconciler workers as separately deployed background processes with reconciliation-lag and drift observability (DEP-002+); the in-process module surface (RTN-004's A14 authority, hosted on the transition path) is the composed realization",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 reconciler workers as separately deployed background processes with reconciliation-lag and drift observability (DEP-002+); the in-process module surface (RTN-004's A14 authority, hosted on the transition path) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -289,11 +289,11 @@
     },
     {
       "id": "netting-settlement-workers",
-      "name": "Netting and settlement workers — settlement and finality computation",
+      "name": "Netting and settlement workers \u2014 settlement and finality computation",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "Netting Authority and Settlement and Finality Authority semantics (registry A11/A12) — conservation-proofed netting sets and net positions, settlement instructions/attempts over the rail adapter authority, and finality records; corrections after finality flow only through protocol-governed recourse — deployment rollback never un-finalizes",
+      "authority_hosted": "Netting Authority and Settlement and Finality Authority semantics (registry A11/A12) \u2014 conservation-proofed netting sets and net positions, settlement instructions/attempts over the rail adapter authority, and finality records; corrections after finality flow only through protocol-governed recourse \u2014 deployment rollback never un-finalizes",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -303,7 +303,7 @@
           "src/lib/protocol-runtime/settlement/persistence.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — netting/settlement workers as separately deployed background processes with batch-progress and ledger-integrity observability (DEP-002+); real-rail settlement transmission additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only)",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 netting/settlement workers as separately deployed background processes with batch-progress and ledger-integrity observability (DEP-002+); real-rail settlement transmission additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only)",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -317,11 +317,11 @@
     },
     {
       "id": "operational-jobs",
-      "name": "Operational jobs — reconciliation, clearing, netting and settlement-support orchestration",
+      "name": "Operational jobs \u2014 reconciliation, clearing, netting and settlement-support orchestration",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
-      "authority_hosted": "none — background operational jobs and orchestration only (the DEP-004 owned surface): the durable job kinds for reconciliation sweeps (A14 cycle/case orchestration), clearing batch progression (A09 window-batch lifecycle), netting-settlement progression (A11 set progression + A12 settlement support: instruction/attempt progression only, finality NEVER — finality is the Settlement Authority's own command) and queue-draining support (A08 eligibility/expiry sweeps). The jobs derive work ONLY from the authorities' public read surfaces and emit protocol commands EXCLUSIVELY through the protocol gateway (the one admission point) with deterministic idempotency keys per (job, cycle, subject); zero authority semantics, zero direct state mutation, never serves internet traffic, never holds rail credentials, never blind-retries an UNKNOWN outcome (reconciliation is the A14 path's job)",
+      "authority_hosted": "none \u2014 background operational jobs and orchestration only (the DEP-004 owned surface): the durable job kinds for reconciliation sweeps (A14 cycle/case orchestration), clearing batch progression (A09 window-batch lifecycle), netting-settlement progression (A11 set progression + A12 settlement support: instruction/attempt progression only, finality NEVER \u2014 finality is the Settlement Authority's own command) and queue-draining support (A08 eligibility/expiry sweeps). The jobs derive work ONLY from the authorities' public read surfaces and emit protocol commands EXCLUSIVELY through the protocol gateway (the one admission point) with deterministic idempotency keys per (job, cycle, subject); zero authority semantics, zero direct state mutation, never serves internet traffic, never holds rail credentials, never blind-retries an UNKNOWN outcome (reconciliation is the A14 path's job)",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -337,7 +337,7 @@
           "scripts/test_operations.mjs"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — the operational jobs as separately deployed background worker processes with job-lag, reconciliation-lag and batch-progression observability (DEP-002+); the in-process form (the durable operations.* job kinds on the DEP-003 substrate inside the web-api-boundary application) is the composed realization. Real-rail settlement support additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only). The recorded D-2 vocabulary gap (INTEGRATION-EVIDENCE.md) leaves a subset of the jobs' gateway submissions queued pending the vocabulary-alignment follow-up — a composed-runtime property recorded in src/lib/operations/OPERATIONS-EVIDENCE.md, not a deployment-contract change.",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 the operational jobs as separately deployed background worker processes with job-lag, reconciliation-lag and batch-progression observability (DEP-002+); the in-process form (the durable operations.* job kinds on the DEP-003 substrate inside the web-api-boundary application) is the composed realization. Real-rail settlement support additionally requires production rail credentials under DEP-005 (the in-process form settles over the protocol-owned simulated rails only). The recorded D-2 vocabulary gap (INTEGRATION-EVIDENCE.md) leaves a subset of the jobs' gateway submissions queued pending the vocabulary-alignment follow-up \u2014 a composed-runtime property recorded in src/lib/operations/OPERATIONS-EVIDENCE.md, not a deployment-contract change.",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -346,23 +346,23 @@
         "production"
       ],
       "production_gate": "Runs in production only with separately authorized production configuration; the jobs hold no credentials and no financial authority (commands only, through the gateway), so they can never unlock production effects by themselves; real-rail settlement transmission additionally requires the DEP-005 production rail credentials held only by the adapters.",
-      "health_signal": "The job-progress audit reader (src/lib/operations/progress-reader.ts — the durable_events journal under the operational-jobs owner joined with the command execution observations); job lag, reconciliation lag and batch progression metrics bind to observability from DEP-002+ (the reader is the programmatic contract today).; the DEP-007 telemetry adds read-only derivations over the same journal (reconciliation-sweep freshness and per-duty progression freshness via the progress reader, command admission/refusal counts, UNKNOWN-held surfacing — src/lib/observability/).",
-      "rollback": "Redeploy the previous artifact; the durable jobs replay from the DEP-003 queue with deterministic idempotency keys — re-execution re-derives pending work from authoritative state and re-submits the SAME keys (recorded receipts, never a second effect). Rollback never asserts or reverses finality (R3)."
+      "health_signal": "The job-progress audit reader (src/lib/operations/progress-reader.ts \u2014 the durable_events journal under the operational-jobs owner joined with the command execution observations); job lag, reconciliation lag and batch progression metrics bind to observability from DEP-002+ (the reader is the programmatic contract today).; the DEP-007 telemetry adds read-only derivations over the same journal (reconciliation-sweep freshness and per-duty progression freshness via the progress reader, command admission/refusal counts, UNKNOWN-held surfacing \u2014 src/lib/observability/).",
+      "rollback": "Redeploy the previous artifact; the durable jobs replay from the DEP-003 queue with deterministic idempotency keys \u2014 re-execution re-derives pending work from authoritative state and re-submits the SAME keys (recorded receipts, never a second effect). Rollback never asserts or reverses finality (R3)."
     },
     {
       "id": "durable-command-queue",
-      "name": "Durable command queue — the durable command path",
+      "name": "Durable command queue \u2014 the durable command path",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
-      "authority_hosted": "none — durable, at-least-once transport for protocol commands (the execution topology's durable command path); ordering and durability only, no financial semantics",
+      "authority_hosted": "none \u2014 durable, at-least-once transport for protocol commands (the execution topology's durable command path); ordering and durability only, no financial semantics",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
           "src/lib/durable/queue.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — the durable command queue as separately provisioned queue infrastructure with depth/age and dead-letter observability (DEP-002+); the in-process module surface (the DEP-003 SQLite-backed queue inside the web-api-boundary application) is the composed realization",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 the durable command queue as separately provisioned queue infrastructure with depth/age and dead-letter observability (DEP-002+); the in-process module surface (the DEP-003 SQLite-backed queue inside the web-api-boundary application) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -371,16 +371,16 @@
         "production"
       ],
       "production_gate": "Provisioned for production only as part of the separately authorized production configuration; the queue itself transports commands and authorizes nothing.",
-      "health_signal": "Queue depth and age; dead-letter rate (contract for the future work item).; plus the DEP-007 telemetry derivations over durable_jobs (queue depth by status, oldest queued age, dead-letter count, lease-expired reserved jobs, attempt histogram — src/lib/observability/telemetry.ts, read-only) and the backup/restore/replay automation (src/lib/recovery/ — verified online VACUUM INTO backup with the append-only manifest, fail-closed restore-into-target, replay through the exported queue/worker classes).",
+      "health_signal": "Queue depth and age; dead-letter rate (contract for the future work item).; plus the DEP-007 telemetry derivations over durable_jobs (queue depth by status, oldest queued age, dead-letter count, lease-expired reserved jobs, attempt histogram \u2014 src/lib/observability/telemetry.ts, read-only) and the backup/restore/replay automation (src/lib/recovery/ \u2014 verified online VACUUM INTO backup with the append-only manifest, fail-closed restore-into-target, replay through the exported queue/worker classes).",
       "rollback": "Message retention and replay; payload semantics belong to producers and consumers, never to the queue."
     },
     {
       "id": "authoritative-state-store",
-      "name": "Authoritative state store — protocol-owned state on deployment-owned persistence",
+      "name": "Authoritative state store \u2014 protocol-owned state on deployment-owned persistence",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "protocol-owned authoritative state — intent, fulfillment-policy, capability, route-plan, reservation, liquidity, credit, queue, clearing, obligation, netting, settlement-and-finality, rail-operation, and risk/compliance records (registry A01–A14 and A16; rail-operation records included per rtn-plan-rulings.md Q1) — on the per-domain persistence convention over the DEP-003 database layer; mutated only by transition-runtime through protocol-owned transitions — no other layer may mutate it directly",
+      "authority_hosted": "protocol-owned authoritative state \u2014 intent, fulfillment-policy, capability, route-plan, reservation, liquidity, credit, queue, clearing, obligation, netting, settlement-and-finality, rail-operation, and risk/compliance records (registry A01\u2013A14 and A16; rail-operation records included per rtn-plan-rulings.md Q1) \u2014 on the per-domain persistence convention over the DEP-003 database layer; mutated only by transition-runtime through protocol-owned transitions \u2014 no other layer may mutate it directly",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -402,7 +402,7 @@
           "src/lib/protocol-runtime/risk/store.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — production persistence infrastructure with replication, point-in-time recovery, and backup verification (DEP-002+); the in-process module surface (the per-domain SQLite stores on the DEP-003 database layer inside the web-api-boundary application) is the composed realization",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 production persistence infrastructure with replication, point-in-time recovery, and backup verification (DEP-002+); the in-process module surface (the per-domain SQLite stores on the DEP-003 database layer inside the web-api-boundary application) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -416,11 +416,11 @@
     },
     {
       "id": "evidence-object-store",
-      "name": "Evidence object store — append-only evidence records",
+      "name": "Evidence object store \u2014 append-only evidence records",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "protocol",
-      "authority_hosted": "Evidence Authority records (registry A15) — append-only, hash-chained evidence over every consequential operation of every authority, plus external evidence ingested through the rail adapters; never edited or deleted within retention (GC-5)",
+      "authority_hosted": "Evidence Authority records (registry A15) \u2014 append-only, hash-chained evidence over every consequential operation of every authority, plus external evidence ingested through the rail adapters; never edited or deleted within retention (GC-5)",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -431,7 +431,7 @@
           "src/lib/protocol-runtime/evidence/persistence.ts"
         ]
       },
-      "future_work": "FUTURE-WORK: externalized process binding — evidence object storage as separately provisioned infrastructure with retention-integrity observability (DEP-002+); the in-process module surface (RTN-002's A15 log + per-domain evidence store) is the composed realization",
+      "future_work": "FUTURE-WORK: externalized process binding \u2014 evidence object storage as separately provisioned infrastructure with retention-integrity observability (DEP-002+); the in-process module surface (RTN-002's A15 log + per-domain evidence store) is the composed realization",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -445,11 +445,11 @@
     },
     {
       "id": "external-rail-adapters",
-      "name": "External rail adapters — banks, PSPs, mobile money, blockchains",
+      "name": "External rail adapters \u2014 banks, PSPs, mobile money, blockchains",
       "exists_in_repository_today": true,
       "owner": "deployment",
       "layer": "deployment",
-      "authority_hosted": "none — the only component that transmits to external rails; transmits exclusively protocol-authorized outputs and cannot originate or alter financial decisions; holds rail credentials and fails closed when they are absent; ingests external evidence into evidence-object-store. The DEP-005 connectivity boundary (src/lib/rail-connectivity/) is this component's deployment-owned safeguard surface: transport port, configuration resolution, retry/deadline safeguards and adapter-activity observability wrapped into the frozen A13 adapter interface — hosting no protocol authority, admitting no protocol commands, writing no authoritative state",
+      "authority_hosted": "none \u2014 the only component that transmits to external rails; transmits exclusively protocol-authorized outputs and cannot originate or alter financial decisions; holds rail credentials and fails closed when they are absent; ingests external evidence into evidence-object-store. The DEP-005 connectivity boundary (src/lib/rail-connectivity/) is this component's deployment-owned safeguard surface: transport port, configuration resolution, retry/deadline safeguards and adapter-activity observability wrapped into the frozen A13 adapter interface \u2014 hosting no protocol authority, admitting no protocol commands, writing no authoritative state",
       "repository_entrypoint": {
         "status": "present",
         "paths": [
@@ -475,7 +475,7 @@
           "PAYSWAP_RAIL_PRODUCTION_{RAIL}_TIMEOUT_MS"
         ]
       },
-      "future_work": "FUTURE-WORK: real transport primitive + real-rail credential binding — the real network transport client (HTTP/TLS, provider protocols, signing) and the real adapters that replace the protocol-owned simulated rails, bound in the externalized adapter-fleet process (DEP-002+); production rail credentials exist solely in the production secret scope and are dereferenced from the recorded reference names at the externalized binding — never in the repository. LANDED with DEP-005 (in-process): the connectivity/configuration/transport-safeguard family (src/lib/rail-connectivity/) — the typed transport port (explicit result quadruple), the environment-scoped per-rail configuration resolver (credential REFERENCES only, scope-tagged, fail-closed, sandbox/production cross-contamination refused), the same-key/bounded/backoff/deadline-aware retry engine (explicitly-retryable pre-effect failures only; UNKNOWN never retried, never translated), and the structured adapter-activity observability surface (queryable; durable_events under owner 'rail-connectivity'), composed into the frozen A13 RailAdapterConnection interface. The in-process repository form performs ZERO network egress: the transport primitive is an injected port, bound to deterministic doubles in the evidence harness (scripts/test_rail_connectivity.mjs)",
+      "future_work": "FUTURE-WORK: real transport primitive + real-rail credential binding \u2014 the real network transport client (HTTP/TLS, provider protocols, signing) and the real adapters that replace the protocol-owned simulated rails, bound in the externalized adapter-fleet process (DEP-002+); production rail credentials exist solely in the production secret scope and are dereferenced from the recorded reference names at the externalized binding \u2014 never in the repository. LANDED with DEP-005 (in-process): the connectivity/configuration/transport-safeguard family (src/lib/rail-connectivity/) \u2014 the typed transport port (explicit result quadruple), the environment-scoped per-rail configuration resolver (credential REFERENCES only, scope-tagged, fail-closed, sandbox/production cross-contamination refused), the same-key/bounded/backoff/deadline-aware retry engine (explicitly-retryable pre-effect failures only; UNKNOWN never retried, never translated), and the structured adapter-activity observability surface (queryable; durable_events under owner 'rail-connectivity'), composed into the frozen A13 RailAdapterConnection interface. The in-process repository form performs ZERO network egress: the transport primitive is an injected port, bound to deterministic doubles in the evidence harness (scripts/test_rail_connectivity.mjs)",
       "environment_reachability": [
         "development",
         "test-ci",
@@ -484,7 +484,7 @@
         "production"
       ],
       "production_gate": "Real rails are reachable only with production rail credentials that exist solely in the production secret scope; development, test-ci, sandbox and staging use protocol-owned simulated rails with no external transmission (environments.md F5/F6). The DEP-005 configuration resolver enforces this structurally: production rails fail closed without the credential REFERENCE name (F6); sandbox/production scope tags cannot cross-contaminate (opposite-scope and both-scope configurations are refused at resolution and again at binding).",
-      "health_signal": "The adapter-activity query surface (src/lib/rail-connectivity/activity.ts — one structured record per consequential connectivity event: rail, idempotency key, outcome, latency, correlation, typed failure reason, deadline, attempt ordinal; queryable by rail/key/outcome/window; dual-written to durable_events under owner 'rail-connectivity'). Adapter circuit state, rail reachability and submission acknowledgment rate derive from these records; the DEP-002+ observability binding (metrics endpoints) is future work.; the DEP-007 telemetry rollup over the activity surface (UNKNOWN-class event counts, the retransmission retry trail — src/lib/observability/telemetry.ts) feeds the unknown health domain and the failure-injection drill evidence.",
+      "health_signal": "The adapter-activity query surface (src/lib/rail-connectivity/activity.ts \u2014 one structured record per consequential connectivity event: rail, idempotency key, outcome, latency, correlation, typed failure reason, deadline, attempt ordinal; queryable by rail/key/outcome/window; dual-written to durable_events under owner 'rail-connectivity'). Adapter circuit state, rail reachability and submission acknowledgment rate derive from these records; the DEP-002+ observability binding (metrics endpoints) is future work.; the DEP-007 telemetry rollup over the activity surface (UNKNOWN-class event counts, the retransmission retry trail \u2014 src/lib/observability/telemetry.ts) feeds the unknown health domain and the failure-injection drill evidence.",
       "rollback": "Fail-closed disable or hold, then replay of pending authorized submissions after recovery; financial reversals flow only through protocol-governed recourse."
     }
   ]

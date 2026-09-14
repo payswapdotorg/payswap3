@@ -218,8 +218,8 @@ EXPECTED_BASE_BRANCH = "main"
 # dispatch bases are both 663b1d4 (dispatched in parallel); the DEP-008
 # dispatch base is a39cccf (DEP-006 + DEP-007 + the product closure
 # candidate UI-010 all merged — the work order's dependency gate).
-EXPECTED_BASE_SHA = "46507326265aa5be869d0389f0414d5c7c28f762"
-EXPECTED_UPDATED_BY = "SYS-001"
+EXPECTED_BASE_SHA = "09681dda20dfa53d31c81cf96828944763e30b01"
+EXPECTED_UPDATED_BY = "PC-006"
 EXPECTED_CONTRACT = "payswap-deployment-components"
 # The DEP-004 present-set: the RTN-012 ten-component set plus the
 # 'operational-jobs' component (the durable operational-jobs family —
@@ -405,7 +405,7 @@ def main():
     )
     check(
         registry.get("base_sha") == EXPECTED_BASE_SHA,
-        f"components.json: base_sha must be the DEP-004 governed base "
+        f"components.json: base_sha must be the governed base "
         f"{EXPECTED_BASE_SHA!r} (changing the declared base is a governed "
         "contract change that updates this validator)",
     )
