@@ -1,6 +1,6 @@
 # PaySwap Developer Console — Post-Closure Architecture Design
 
-**Status:** DESIGN SPEC — pending Architect review
+**Status:** APPROVED FOR IMPLEMENTATION
 
 **Repository baseline:** `4f973c92d7534a13854dfa4468bfa3a72dd14756`
 
